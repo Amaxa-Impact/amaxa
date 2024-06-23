@@ -1,5 +1,5 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@amaxa/nextjs",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,11 +14,11 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@acme/api": "workspace:*",
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/ui": "workspace:*",
-    "@acme/validators": "workspace:*",
+    "@amaxa/api": "workspace:*",
+    "@amaxa/auth": "workspace:*",
+    "@amaxa/db": "workspace:*",
+    "@amaxa/ui": "workspace:*",
+    "@amaxa/validators": "workspace:*",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tanstack/react-query": "^5.35.5",
     "@trpc/client": "11.0.0-rc.364",
@@ -32,10 +32,10 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tailwind-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@amaxa/eslint-config": "workspace:*",
+    "@amaxa/prettier-config": "workspace:*",
+    "@amaxa/tailwind-config": "workspace:*",
+    "@amaxa/tsconfig": "workspace:*",
     "@types/node": "^20.12.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -46,5 +46,5 @@
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@amaxa/prettier-config"
 }
