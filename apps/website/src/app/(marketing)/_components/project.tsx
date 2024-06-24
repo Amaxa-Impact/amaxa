@@ -7,18 +7,19 @@ import Link from "next/link";
 import { projects } from "@/lib/constants/projects";
 import { motion, useInView } from "framer-motion";
 
+const itemVariants = {
+  hidden: { y: -20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
+
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
-  const [lastSelected, setLastSelected] = useState<Project | null>(null);
+  const [_, setLastSelected] = useState<Project | null>(null);
 
   const handleClick = (project: Project) => {
     setLastSelected(selected);
     setSelected(project);
-  };
-
-  const handleOutsideClick = () => {
-    setLastSelected(selected);
-    setSelected(null);
   };
 
   const containerVariants = {
@@ -29,11 +30,6 @@ export default function Projects() {
         staggerChildren: 0.1,
       },
     },
-  };
-
-  const itemVariants = {
-    hidden: { y: -20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
   };
 
   return (
@@ -60,7 +56,7 @@ const InViewComponent = ({
   variants,
 }: {
   children: React.ReactNode;
-  variants: any;
+  variants: typeof itemVariants
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

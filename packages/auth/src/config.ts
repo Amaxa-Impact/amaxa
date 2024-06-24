@@ -1,3 +1,4 @@
+//TODO: add permissions stuff
 import type {
   DefaultSession,
   NextAuthConfig,
@@ -15,6 +16,8 @@ import { env } from "../env";
 declare module "next-auth" {
   interface Session {
     user: {
+      permissions: Set<string>;
+      project_permissions?: string;
       id: string;
     } & DefaultSession["user"];
   }
@@ -33,9 +36,9 @@ export const authConfig = {
   // In development, we need to skip checks to allow Expo to work
   ...(!isSecureContext
     ? {
-        skipCSRFCheck: skipCSRFCheck,
-        trustHost: true,
-      }
+      skipCSRFCheck: skipCSRFCheck,
+      trustHost: true,
+    }
     : {}),
   secret: env.AUTH_SECRET,
   providers: [Discord],
@@ -62,11 +65,12 @@ export const validateToken = async (
   const session = await adapter.getSessionAndUser?.(sessionToken);
   return session
     ? {
-        user: {
-          ...session.user,
-        },
-        expires: session.session.expires.toISOString(),
-      }
+      user: {
+        ...session.user,
+        permissions: new Set(""),
+      },
+      expires: session.session.expires.toISOString(),
+    }
     : null;
 };
 

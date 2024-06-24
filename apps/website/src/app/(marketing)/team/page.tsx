@@ -39,7 +39,7 @@ export default function Page() {
   )
 }
 
-type MemberCardProps = {
+interface MemberCardProps {
   name: string
   image: string
   role: string

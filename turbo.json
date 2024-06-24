@@ -57,7 +57,9 @@
     "AUTH_DISCORD_SECRET",
     "AUTH_REDIRECT_PROXY_URL",
     "AUTH_SECRET",
-    "PORT"
+    "PORT",
+    "TEST_USER_PASSWORD",
+    "TEST_ADMIN_PASSWORD"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",

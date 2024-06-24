@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { cn } from "@amaxa/ui";
 
-type Card = {
+interface Card {
   id: number;
   content: JSX.Element | React.ReactNode | string;
   className: string;

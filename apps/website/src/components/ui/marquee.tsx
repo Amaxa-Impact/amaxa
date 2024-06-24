@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { cn } from "@amaxa/ui";
 
 interface MarqueeProps {
