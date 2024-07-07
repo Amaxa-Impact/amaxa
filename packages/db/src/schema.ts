@@ -1,7 +1,9 @@
 import { createId } from "@paralleldrive/cuid2";
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   integer,
+  jsonb,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -9,21 +11,6 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
-
-export const Post = pgTable("post", {
-  id: uuid("id").notNull().primaryKey(),
-  title: varchar("name", { length: 256 }).notNull(),
-  content: text("content").notNull(),
-});
-
-export const CreatePostSchema = createInsertSchema(Post, {
-  title: z.string().max(256),
-  content: z.string().max(256),
-}).omit({
-  id: true,
-});
 
 export const User = pgTable("user", {
   id: text("id").notNull().primaryKey().$defaultFn(() => createId()),
@@ -84,3 +71,48 @@ export const Session = pgTable("session", {
 export const SessionRelations = relations(Session, ({ one }) => ({
   user: one(User, { fields: [Session.userId], references: [User.id] }),
 }));
+
+
+export const StatusEnum = pgEnum(`status`, [
+  "todo",
+  "in-progress",
+  "done",
+  "canceled",
+])
+
+export const LabelEnum = pgEnum(`label`, [
+  "bug",
+  "feature",
+  "enhancement",
+  "documentation",
+])
+
+export const PriorityEnum = pgEnum(`priority`, [
+  "low",
+  "medium",
+  "high",
+])
+
+export const tasks = pgTable("tasks", {
+  id: varchar("id", { length: 128 })
+    .$defaultFn(() => createId())
+    .primaryKey(),
+  code: varchar("code", { length: 255 }).unique(),
+  type: text("node_type").notNull().default("custom"),
+  projectId: integer("project_id").notNull(),
+  title: varchar("title", { length: 255 }),
+  status: StatusEnum("status").notNull().default("todo"),
+  label: LabelEnum("label").notNull().default("bug"),
+  assigneId: varchar("assigneId", { length: 255 }),
+  parentId: text("parent_id"),
+  priority: PriorityEnum("priority").notNull().default("low"),
+  actionGuideId: integer("action_guide_id"),
+  position: jsonb('position').$type<{
+    x: number,
+    y: number
+  }>(),
+
+})
+
+export type TaskType = typeof tasks.$inferSelect
+export type NewTask = typeof tasks.$inferInsert
