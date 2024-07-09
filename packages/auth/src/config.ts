@@ -6,12 +6,14 @@ import type {
 } from "next-auth";
 import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import Discord from "next-auth/providers/discord";
 
 import { db } from "@amaxa/db/client";
 import { Account, Session, User } from "@amaxa/db/schema";
 
 import { env } from "../env";
+import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import { TEST_ADMIN, TEST_USER } from "./permissions";
 
 declare module "next-auth" {
   interface Session {
@@ -41,7 +43,7 @@ export const authConfig = {
     }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [Discord],
+  providers: [Google],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))

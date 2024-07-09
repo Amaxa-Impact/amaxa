@@ -31,3 +31,5 @@ export const TEST_ADMIN: E2EUsers = {
   },
   password: env.TEST_ADMIN_PASSWORD,
 };
+
+export const test = "something"

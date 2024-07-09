@@ -8,6 +8,8 @@ const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
 
 export { handlers, auth, signIn, signOut };
 
+export { test } from "./permissions"
+
 export {
   invalidateSessionToken,
   validateToken,

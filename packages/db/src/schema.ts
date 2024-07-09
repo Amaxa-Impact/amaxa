@@ -1,14 +1,11 @@
 import { createId } from "@paralleldrive/cuid2";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   integer,
-  jsonb,
-  pgEnum,
   pgTable,
   primaryKey,
   text,
   timestamp,
-  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -30,7 +27,7 @@ export const UserRelations = relations(User, ({ many }) => ({
 export const Account = pgTable(
   "account",
   {
-    userId: uuid("userId")
+    userId: text("userId")
       .notNull()
       .references(() => User.id, { onDelete: "cascade" }),
     type: varchar("type", { length: 255 })
@@ -59,7 +56,7 @@ export const AccountRelations = relations(Account, ({ one }) => ({
 
 export const Session = pgTable("session", {
   sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
-  userId: uuid("userId")
+  userId: text("userId")
     .notNull()
     .references(() => User.id, { onDelete: "cascade" }),
   expires: timestamp("expires", {
@@ -73,46 +70,36 @@ export const SessionRelations = relations(Session, ({ one }) => ({
 }));
 
 
-export const StatusEnum = pgEnum(`status`, [
-  "todo",
-  "in-progress",
-  "done",
-  "canceled",
-])
-
-export const LabelEnum = pgEnum(`label`, [
-  "bug",
-  "feature",
-  "enhancement",
-  "documentation",
-])
-
-export const PriorityEnum = pgEnum(`priority`, [
-  "low",
-  "medium",
-  "high",
-])
-
 export const tasks = pgTable("tasks", {
-  id: varchar("id", { length: 128 })
+  id: text("id")
     .$defaultFn(() => createId())
     .primaryKey(),
-  code: varchar("code", { length: 255 }).unique(),
-  type: text("node_type").notNull().default("custom"),
-  projectId: integer("project_id").notNull(),
-  title: varchar("title", { length: 255 }),
-  status: StatusEnum("status").notNull().default("todo"),
-  label: LabelEnum("label").notNull().default("bug"),
-  assigneId: varchar("assigneId", { length: 255 }),
-  parentId: text("parent_id"),
-  priority: PriorityEnum("priority").notNull().default("low"),
-  actionGuideId: integer("action_guide_id"),
-  position: jsonb('position').$type<{
-    x: number,
-    y: number
-  }>(),
-
+  title: varchar("title", { length: 128 }),
+  status: varchar("status", {
+    length: 30,
+    enum: ["todo", "in-progress", "done", "canceled"],
+  })
+    .notNull()
+    .default("todo"),
+  label: varchar("label", {
+    length: 30,
+    enum: ["bug", "feature", "enhancement", "documentation"],
+  })
+    .notNull()
+    .default("bug"),
+  priority: varchar("priority", {
+    length: 30,
+    enum: ["low", "medium", "high"],
+  })
+    .notNull()
+    .default("low"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .default(sql`current_timestamp`)
+    .$onUpdate(() => new Date()),
 })
 
-export type TaskType = typeof tasks.$inferSelect
-export type NewTask = typeof tasks.$inferInsert
+export const Projects = pgTable("projects", {
+  name: varchar("name", { length: 128 }).notNull(),
+  description: text("description"),
+})
