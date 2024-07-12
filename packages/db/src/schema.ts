@@ -100,6 +100,7 @@ export const tasks = pgTable("tasks", {
 })
 
 export const Projects = pgTable("projects", {
+  id: text("id").$defaultFn(() => createId()).primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
   description: text("description"),
 })

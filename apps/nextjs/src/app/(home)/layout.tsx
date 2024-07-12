@@ -7,7 +7,10 @@ export default function Layout({
 }) {
   return (
     <div>
-      {children}
+
+      <main className='flex flex-col container'>
+        {children}
+      </main>
     </div>
   )
 }

@@ -14,7 +14,7 @@ export const projectsRouter = createTRPCRouter({
         input.name != undefined ? ilike(Projects.name, name!) : undefined
       )
       return await ctx.db.query.Projects.findMany({
-        where: condition
+        where: condition,
       })
     })
 }) 
