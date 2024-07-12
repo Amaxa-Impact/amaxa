@@ -1,10 +1,10 @@
 import { and, ilike } from "@amaxa/db";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
 import { Projects } from "@amaxa/db/schema";
 
 export const projectsRouter = createTRPCRouter({
-  findAll: protectedProcedure
+  findAll: publicProcedure
     .input(z.object({
       name: z.string().optional(),
     }))

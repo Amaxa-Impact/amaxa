@@ -6,6 +6,13 @@ export default async function Page() {
 
   return (
     <div>
+      {
+        data.length === 0 && (
+          <div className='flex flex-col justify-center items-center h-screen text-5xl text-gray-500 font-bold'>
+            None Avaliable
+          </div>
+        )
+      }
       {data.map((project) => (
         <div>
           {project.name}
