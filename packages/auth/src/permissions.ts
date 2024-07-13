@@ -1,16 +1,17 @@
 import type { Session } from "next-auth";
 import { env } from "../env";
 
-type E2EUsers = {
+interface E2EUsers {
   session: Session;
   password: string;
-};
+}
+
 
 export const TEST_USER: E2EUsers = {
   session: {
     user: {
       id: "test_user",
-      name: process.env.TEST_USER_USERNAME,
+      name: "Jane Doe",
       permissions: new Set(["basics"]),
       project_permissions: "",
     },

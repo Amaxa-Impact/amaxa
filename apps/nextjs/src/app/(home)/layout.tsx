@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <div>
 
-      <main className='flex flex-col container'>
+      <main className='flex flex-col p-10'>
         {children}
       </main>
     </div>

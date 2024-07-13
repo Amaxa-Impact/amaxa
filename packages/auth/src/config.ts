@@ -12,8 +12,6 @@ import { Account, Session, User } from "@amaxa/db/schema";
 
 import { env } from "../env";
 import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
-import { TEST_ADMIN, TEST_USER } from "./permissions";
 
 declare module "next-auth" {
   interface Session {

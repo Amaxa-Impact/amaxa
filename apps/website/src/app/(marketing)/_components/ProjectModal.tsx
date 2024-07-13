@@ -1,15 +1,7 @@
 import { CalendarIcon, UsersIcon } from "lucide-react";
 import React from "react";
 
-export default function Component({ id }: { id: string }) {
-
-  const data = {
-    id
-  };
-
-  if (!data) {
-    return <h1>no such data exists</h1>;
-  }
+export default function Component() {
 
   return (
     <div className="no-scrollbar h-[900px] w-[1000px] overflow-y-auto rounded-lg bg-white">

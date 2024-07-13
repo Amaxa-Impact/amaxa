@@ -8,6 +8,8 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const User = pgTable("user", {
   id: text("id").notNull().primaryKey().$defaultFn(() => createId()),
@@ -102,5 +104,11 @@ export const tasks = pgTable("tasks", {
 export const Projects = pgTable("projects", {
   id: text("id").$defaultFn(() => createId()).primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
-  description: text("description"),
+  description: text("description").notNull(),
 })
+
+export const createProjectSchema = createInsertSchema(Projects).omit({
+  id: true
+})
+
+export type CreateProjectSchema = z.infer<typeof createProjectSchema>

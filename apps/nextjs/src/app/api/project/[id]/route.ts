@@ -1,7 +1,1 @@
-export const GET = () => {
-
-}
-
-
-export const POST = () => {
-}
+//TODO: the ablility for our landing site to fetch project data

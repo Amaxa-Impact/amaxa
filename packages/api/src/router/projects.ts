@@ -1,20 +1,21 @@
-import { and, ilike } from "@amaxa/db";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+// import { and, ilike } from "@amaxa/db";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
-import { Projects } from "@amaxa/db/schema";
+import { type CreateProjectSchema, Projects, createProjectScreateProjectSchema } from "@amaxa/db/schema"
+// import { Projects } from "@amaxa/db/schema";
 
 export const projectsRouter = createTRPCRouter({
   findAll: publicProcedure
     .input(z.object({
       name: z.string().optional(),
     }))
-    .query(async ({ input, ctx }) => {
-      const { name } = input
-      const condition = and(
-        input.name != undefined ? ilike(Projects.name, name!) : undefined
-      )
+    .query(async ({ ctx }) => {
       return await ctx.db.query.Projects.findMany({
-        where: condition,
       })
+    }),
+  create: protectedProcedure
+    .input(createProjectSchema)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.insert(Projects).values(input)
     })
 }) 
