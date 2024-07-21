@@ -12,7 +12,7 @@ interface Card {
   className: string;
   thumbnail: string;
   name: string;
-};
+}
 
 export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   const [selected, setSelected] = useState<Card | null>(null);

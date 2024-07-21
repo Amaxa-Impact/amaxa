@@ -6,12 +6,12 @@ import type {
 } from "next-auth";
 import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import Google from "next-auth/providers/google";
 
 import { db } from "@amaxa/db/client";
 import { Account, Session, User } from "@amaxa/db/schema";
 
 import { env } from "../env";
-import Google from "next-auth/providers/google";
 
 declare module "next-auth" {
   interface Session {
@@ -36,9 +36,9 @@ export const authConfig = {
   // In development, we need to skip checks to allow Expo to work
   ...(!isSecureContext
     ? {
-      skipCSRFCheck: skipCSRFCheck,
-      trustHost: true,
-    }
+        skipCSRFCheck: skipCSRFCheck,
+        trustHost: true,
+      }
     : {}),
   secret: env.AUTH_SECRET,
   providers: [Google],
@@ -65,12 +65,12 @@ export const validateToken = async (
   const session = await adapter.getSessionAndUser?.(sessionToken);
   return session
     ? {
-      user: {
-        ...session.user,
-        permissions: new Set(""),
-      },
-      expires: session.session.expires.toISOString(),
-    }
+        user: {
+          ...session.user,
+          permissions: new Set(""),
+        },
+        expires: session.session.expires.toISOString(),
+      }
     : null;
 };
 

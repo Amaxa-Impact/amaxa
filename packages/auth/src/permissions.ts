@@ -1,11 +1,11 @@
 import type { Session } from "next-auth";
+
 import { env } from "../env";
 
 interface E2EUsers {
   session: Session;
   password: string;
 }
-
 
 export const TEST_USER: E2EUsers = {
   session: {
@@ -33,4 +33,4 @@ export const TEST_ADMIN: E2EUsers = {
   password: env.TEST_ADMIN_PASSWORD,
 };
 
-export const test = "something"
+export const test = "something";

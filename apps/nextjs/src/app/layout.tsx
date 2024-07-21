@@ -3,7 +3,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { cn } from "@amaxa/ui";
-import { ThemeProvider, ThemeToggle } from "@amaxa/ui/theme";
+import { ThemeProvider } from "@amaxa/ui/theme";
 import { Toaster } from "@amaxa/ui/toast";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -11,6 +11,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import "~/app/globals.css";
 
 import { env } from "~/env";
+import FlowProvider from "./_components/flow-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -46,7 +47,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <FlowProvider>{props.children}</FlowProvider>
+          </TRPCReactProvider>
           <Toaster />
         </ThemeProvider>
       </body>

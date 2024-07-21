@@ -12,7 +12,6 @@ const itemVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
-
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
   const [_, setLastSelected] = useState<Project | null>(null);
@@ -56,7 +55,7 @@ const InViewComponent = ({
   variants,
 }: {
   children: React.ReactNode;
-  variants: typeof itemVariants
+  variants: typeof itemVariants;
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

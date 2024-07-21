@@ -3,7 +3,7 @@ export interface Project {
   name: string;
   image: string;
   description: string;
-};
+}
 
 export const projects: Project[] = [
   {

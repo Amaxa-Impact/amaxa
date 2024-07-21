@@ -1,8 +1,7 @@
-import { CalendarIcon, UsersIcon } from "lucide-react";
 import React from "react";
+import { CalendarIcon, UsersIcon } from "lucide-react";
 
 export default function Component() {
-
   return (
     <div className="no-scrollbar h-[900px] w-[1000px] overflow-y-auto rounded-lg bg-white">
       <div className="relative bg-gray-50 py-6 lg:py-12">
@@ -117,4 +116,3 @@ export default function Component() {
     </div>
   );
 }
-
