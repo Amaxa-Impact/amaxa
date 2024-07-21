@@ -1,8 +1,10 @@
 import { createId } from "@paralleldrive/cuid2";
 import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
   integer,
   jsonb,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -19,6 +21,8 @@ export const User = pgTable("user", {
     .$defaultFn(() => createId()),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
+  isPublic: boolean("is_public").notNull().default(true),
+  role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] }).notNull().default("Student"),
   emailVerified: timestamp("emailVerified", {
     mode: "date",
     withTimezone: true,
@@ -170,6 +174,7 @@ export const selectTaskSchema = createSelectSchema(tasks);
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
 export type TaskSchema = z.infer<typeof selectTaskSchema>;
 
+
 export const Projects = pgTable("projects", {
   id: text("id")
     .$defaultFn(() => createId())
@@ -182,6 +187,8 @@ export const Projects = pgTable("projects", {
     .notNull(),
   updatedAt: timestamp("updatedAt"),
 });
+
+export type Project = typeof Projects.$inferSelect;
 
 export const createProjectSchema = createInsertSchema(Projects).omit({
   id: true,
