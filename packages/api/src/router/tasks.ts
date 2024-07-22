@@ -16,7 +16,7 @@ export const tasksRouter = createTRPCRouter({
       const { projectId } = input;
       const { tasks, edges } = await ctx.db.transaction(async (tx) => {
         const tasks = await tx.query.tasks.findMany({
-          where: (tasks, { eq }) => eq(tasks.id, projectId),
+          where: (tasks, { eq }) => eq(tasks.projectId, projectId),
           with: {
             assignee: {
               columns: {
@@ -46,7 +46,7 @@ export const tasksRouter = createTRPCRouter({
       const formattedNodes = tasks.map((node) => ({
         id: node.id,
         type: node.type!,
-        parentId: node.parent.id,
+        parentId: node.parent?.id ?? "system",
         position: {
           x: node.position?.x,
           y: node.position?.y,
@@ -56,7 +56,8 @@ export const tasksRouter = createTRPCRouter({
           status: node.status,
           title: node.title,
           assigne: node.assignee!,
-          assigneName: node.assignee.name,
+          assigneName: node.assignee?.name ?? "System",
+          description: node.description,
           parent: node.parent,
           projectId: node.projectId,
           doneBy: new Date(node.doneBy),
@@ -83,7 +84,8 @@ export const tasksRouter = createTRPCRouter({
             }),
             data: z.object({
               title: z.string(),
-              status: z.enum(statusValues),
+              status: z.string(),
+              description: z.string(),
               assigne: z.object({
                 id: z.string(),
                 name: z.string().nullable(),
@@ -114,7 +116,8 @@ export const tasksRouter = createTRPCRouter({
         id: task.id,
         type: task.type,
         title: task.data.title,
-        parentId: task.parentId,
+        parentId: task.parentId!,
+        description: task.data.description,
         position: task.position,
         projectId: task.data.projectId,
         assigneeId: task.data.assigne.id,
@@ -128,14 +131,18 @@ export const tasksRouter = createTRPCRouter({
         .onConflictDoUpdate({
           target: tasks.id,
           set: buildConflictUpdateColumns(tasks, [
-            "type",
-            "position",
-            "doneBy",
+            "description", "type", "title", "parentId", "projectId", "doneBy", "assigneeId", "status", "label", "priority"
           ]),
         });
 
       // Insert or update edges
-      await ctx.db.insert(edges).values(input.edges).onConflictDoNothing();
+      await ctx.db.insert(edges).values(input.edges).onConflictDoUpdate({
+        target: edges.id,
+        set: buildConflictUpdateColumns(edges, [
+          "source",
+          "target"
+        ])
+      });
     }),
   create: protectedProcedure
     .input(
@@ -143,6 +150,7 @@ export const tasksRouter = createTRPCRouter({
         title: z.string(),
         projectId: z.string(),
         parentId: z.string(),
+        description: z.string(),
         position: z.object({
           x: z.number(),
           y: z.number(),

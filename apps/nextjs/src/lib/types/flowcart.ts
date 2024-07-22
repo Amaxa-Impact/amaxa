@@ -1,4 +1,10 @@
-import type { Edge, Node } from "@xyflow/react";
+import {
+  Edge,
+  Node,
+  OnNodesChange,
+  OnEdgesChange,
+  OnConnect,
+} from '@xyflow/react';
 
 import { RouterOutputs } from "@amaxa/api";
 
@@ -7,6 +13,14 @@ export type NodeData =
 
 export type NodeType = Node<NodeData>;
 
-export type EdgeData = RouterOutputs["tasks"]["getProjectTasks"]["edges"][0];
-
-export type EdgeType = Edge<EdgeData>;
+export type AppState = {
+  nodes: NodeType[];
+  edges: Edge[];
+  onNodesChange: OnNodesChange<NodeType>;
+  onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
+  setNodes: (nodes: NodeType[]) => void;
+  setEdges: (edges: Edge[]) => void;
+  isDifferent: () => boolean;
+  changeNode: (nodeId: string, newData: Partial<NodeData>) => void;
+};

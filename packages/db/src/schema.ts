@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { relations, sql } from "drizzle-orm";
+import { desc, relations, sql } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -85,12 +85,13 @@ export const tasks = pgTable("tasks", {
     .primaryKey(),
   title: varchar("title", { length: 128 }).notNull(),
   parentId: text("parent_id").notNull(),
+  description: text("description").notNull(),
   projectId: text("project_id").notNull(),
   doneBy: timestamp("done_by").notNull(),
   assigneeId: text("assignee").notNull(),
   status: varchar("status", {
     length: 30,
-    enum: ["todo", "in-progress", "done", "canceled"],
+    enum: ["todo", "in-progress", "done", "unable-to-complete"],
   })
     .notNull()
     .default("todo"),

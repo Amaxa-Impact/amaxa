@@ -1,7 +1,5 @@
 "use client";
-
 import { useState } from "react";
-
 import { statusValues, TaskStatus } from "@amaxa/db/schema";
 import {
   Select,
@@ -11,9 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-
-import { showErrorToast } from "~/lib/handle-error";
-import { api } from "~/trpc/react";
+import useStore from '~/lib/store';
 
 interface ChangeStatusProps {
   defaultValue: TaskStatus;
@@ -22,28 +18,17 @@ interface ChangeStatusProps {
 
 export function ChangeStatus({ defaultValue, id }: ChangeStatusProps) {
   const [value, setValue] = useState<TaskStatus>(defaultValue);
-  const context = api.useUtils();
-  const { mutate: update } = api.tasks.update.useMutation({
-    onSuccess: () => {
-      context.tasks.getProjectTasks.invalidate();
-    },
-    onError: (error) => {
-      showErrorToast(error);
-    },
-  });
+  const changeNode = useStore(state => state.changeNode);
 
-  function onSubmit(value: TaskStatus) {
-    setValue(value);
-    update({
-      status: value,
-      id: id,
-    });
+  function onSubmit(newValue: TaskStatus) {
+    setValue(newValue);
+    changeNode(id, { status: newValue });
   }
 
   return (
     <Select onValueChange={onSubmit} value={value} defaultValue={value}>
       <SelectTrigger className="capitalize">
-        <SelectValue placeholder="Select a priority" />
+        <SelectValue placeholder="Select a status" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -54,6 +39,8 @@ export function ChangeStatus({ defaultValue, id }: ChangeStatusProps) {
           ))}
         </SelectGroup>
       </SelectContent>
+
+
     </Select>
   );
 }
