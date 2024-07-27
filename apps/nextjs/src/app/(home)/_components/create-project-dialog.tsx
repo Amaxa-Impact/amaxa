@@ -29,7 +29,9 @@ export default function CreateProjectDialog() {
     resolver: zodResolver(createProjectSchema),
   });
 
-  function onSubmit(data: CreateProjectSchema) {}
+  function onSubmit(data: CreateProjectSchema) {
+    create(data);
+  }
   return (
     <Dialog>
       <DialogContent>

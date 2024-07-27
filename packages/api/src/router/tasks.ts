@@ -45,18 +45,18 @@ export const tasksRouter = createTRPCRouter({
 
       const formattedNodes = tasks.map((node) => ({
         id: node.id,
-        type: node.type!,
-        parentId: node.parent?.id ?? "system",
+        type: node.type,
+        parentId: node.parent.id,
         position: {
-          x: node.position?.x,
-          y: node.position?.y,
+          x: node.position.x,
+          y: node.position.y,
         },
         data: {
           id: node.id,
           status: node.status,
           title: node.title,
-          assigne: node.assignee!,
-          assigneName: node.assignee?.name ?? "System",
+          assigne: node.assignee,
+          assigneName: node.assignee.name,
           description: node.description,
           parent: node.parent,
           projectId: node.projectId,
@@ -77,7 +77,7 @@ export const tasksRouter = createTRPCRouter({
           z.object({
             id: z.string(),
             type: z.string().optional(),
-            parentId: z.string().optional(),
+            parentId: z.string(),
             position: z.object({
               x: z.number(),
               y: z.number(),
@@ -116,7 +116,7 @@ export const tasksRouter = createTRPCRouter({
         id: task.id,
         type: task.type,
         title: task.data.title,
-        parentId: task.parentId!,
+        parentId: task.parentId,
         description: task.data.description,
         position: task.position,
         projectId: task.data.projectId,
@@ -131,18 +131,27 @@ export const tasksRouter = createTRPCRouter({
         .onConflictDoUpdate({
           target: tasks.id,
           set: buildConflictUpdateColumns(tasks, [
-            "description", "type", "title", "parentId", "projectId", "doneBy", "assigneeId", "status", "label", "priority"
+            "description",
+            "type",
+            "title",
+            "parentId",
+            "projectId",
+            "doneBy",
+            "assigneeId",
+            "status",
+            "label",
+            "priority",
           ]),
         });
 
       // Insert or update edges
-      await ctx.db.insert(edges).values(input.edges).onConflictDoUpdate({
-        target: edges.id,
-        set: buildConflictUpdateColumns(edges, [
-          "source",
-          "target"
-        ])
-      });
+      await ctx.db
+        .insert(edges)
+        .values(input.edges)
+        .onConflictDoUpdate({
+          target: edges.id,
+          set: buildConflictUpdateColumns(edges, ["source", "target"]),
+        });
     }),
   create: protectedProcedure
     .input(
@@ -188,8 +197,8 @@ export const tasksRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const sixMonthsAgo = new Date()
-      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
       const result = await ctx.db
         .select({
@@ -199,42 +208,48 @@ export const tasksRouter = createTRPCRouter({
         .from(tasks)
         .where(
           and(
-            eq(tasks.status, 'done'),
+            eq(tasks.status, "done"),
             sql`${tasks.createdAt} >= ${sixMonthsAgo}`,
-            eq(tasks.id, input.id)
-          )
+            eq(tasks.projectId, input.id),
+          ),
         )
         .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
-        .orderBy(sql`min(${tasks.createdAt})`)
+        .orderBy(sql`min(${tasks.createdAt})`);
 
-      return result
+      return result;
     }),
-  getPriorityData: protectedProcedure.
-    input(z.object({
-      id: z.string(),
-    })).
-    query(async ({ ctx, input }) => {
+  getPriorityData: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
           priority: tasks.priority,
           count: sql<number>`count(*)`,
         })
         .from(tasks)
-        .groupBy(tasks.priority)
-      return result
+        .where(eq(tasks.projectId, input.id))
+        .groupBy(tasks.priority);
+      return result;
     }),
-  getPositionData: protectedProcedure.input(
-    z.object({
-      id: z.string(),
-    })).query(async ({ ctx, input }) => {
+  getPositionData: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
           position: tasks.position,
           count: sql<number>`count(*)`,
         })
         .from(tasks)
-        .where(eq(tasks.id, input.id))
-        .groupBy(tasks.position)
-      return result
-    })
+        .where(eq(tasks.projectId, input.id))
+        .groupBy(tasks.position);
+      return result;
+    }),
 });

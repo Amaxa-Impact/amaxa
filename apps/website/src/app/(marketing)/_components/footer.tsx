@@ -6,7 +6,7 @@ export default function Footer() {
     <div className="gap-4 p-4 px-8 py-16 sm:pb-16 md:flex md:justify-between">
       <div className="mb-12 flex flex-col gap-4">
         <Link className="flex items-center gap-2" href="/">
-          <img src="" className="h-8 w-8 text-primary" />
+          <div />
           <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
             ámaxa
           </span>

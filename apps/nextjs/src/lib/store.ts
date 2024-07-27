@@ -1,8 +1,9 @@
-import { create } from 'zustand';
-import { addEdge, applyNodeChanges, applyEdgeChanges } from '@xyflow/react';
-import { initialEdges, initialNodes } from './init';
-import { AppState, NodeData } from './types/flowcart';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { addEdge, applyEdgeChanges, applyNodeChanges } from "@xyflow/react";
+import { create } from "zustand";
 
+import type { AppState, NodeData } from "./types/flowcart";
+import { initialEdges, initialNodes } from "./init";
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<AppState>((set, get) => ({
@@ -39,7 +40,7 @@ const useStore = create<AppState>((set, get) => ({
       nodes: state.nodes.map((node) =>
         node.id === nodeId
           ? { ...node, data: { ...node.data, ...newData } }
-          : node
+          : node,
       ),
     }));
   },

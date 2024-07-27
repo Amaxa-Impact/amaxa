@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@amaxa/ui/accordion";
 
 export default function FAQ() {
   return (

@@ -1,9 +1,15 @@
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@amaxa/ui/select'
-import React from 'react'
+import React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@amaxa/ui/select";
 
 export default function RoleSelect() {
   return (
-
     <Select defaultValue="viewer">
       <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Select role" />
@@ -14,6 +20,5 @@ export default function RoleSelect() {
         <SelectItem value="admin">Admin</SelectItem>
       </SelectContent>
     </Select>
-  )
+  );
 }
-

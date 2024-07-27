@@ -1,19 +1,14 @@
-import { Tooltip, TooltipContent, TooltipTrigger } from "@amaxa/ui/tooltip"
-
+import { Tooltip, TooltipContent, TooltipTrigger } from "@amaxa/ui/tooltip";
 
 export default function ComingSoon({
-  children
+  children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <Tooltip>
-      <TooltipContent>
-        Coming Soon!
-      </TooltipContent>
-      <TooltipTrigger asChild>
-        {children}
-      </TooltipTrigger>
+      <TooltipContent>Coming Soon!</TooltipContent>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
     </Tooltip>
-  )
+  );
 }

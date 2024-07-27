@@ -1,6 +1,7 @@
+import type { Edge } from "@xyflow/react";
 import { createId } from "@paralleldrive/cuid2";
-import { NodeType } from "./types/flowcart";
-import { Edge } from "@xyflow/react";
+
+import type { NodeType } from "./types/flowcart";
 
 const rootNodeId = createId();
 
@@ -27,16 +28,10 @@ const initialNodes: NodeType[] = [
     },
     parentId: "",
     position: { x: 0, y: 0 },
-    type: "task"
+    type: "task",
   },
 ];
 
-const initialEdges: Edge[] = [
+const initialEdges: Edge[] = [];
 
-];
-
-export {
-  initialNodes,
-  initialEdges,
-  rootNodeId,
-}
+export { initialNodes, initialEdges, rootNodeId };

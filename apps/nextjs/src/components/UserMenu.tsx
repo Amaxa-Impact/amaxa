@@ -1,3 +1,8 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import { auth } from "@amaxa/auth";
+import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@amaxa/ui/dropdown-menu";
-import Image from "next/image";
-import Link from "next/link";
+
 import { SignOut } from "./SignOut";
 import { ThemeSwitch } from "./theme-switch";
-import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
-import { auth } from "@amaxa/auth";
 
 export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
   const session = await auth();
@@ -24,7 +26,7 @@ export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
         <Avatar className="h-8 w-8 cursor-pointer rounded-full">
           {user?.image && (
             <Image
-              src={user?.image}
+              src={user.image}
               alt={user.name ?? ""}
               width={32}
               height={32}
@@ -32,7 +34,7 @@ export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
           )}
           <AvatarFallback>
             <span className="text-xs">
-              {user?.name?.charAt(0)?.toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase()}
             </span>
           </AvatarFallback>
         </Avatar>

@@ -14,9 +14,9 @@ import {
 
 type Theme = "dark" | "system" | "light";
 
-type Props = {
+interface Props {
   currentTheme?: Theme;
-};
+}
 
 const ThemeIcon = ({ currentTheme }: Props) => {
   switch (currentTheme) {
@@ -57,4 +57,4 @@ export const ThemeSwitch = () => {
       </div>
     </div>
   );
-}
+};

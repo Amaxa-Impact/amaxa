@@ -1,23 +1,20 @@
-'use client'
-import { usePathname } from "next/navigation";
+"use client";
+
 import { memo } from "react";
+import { usePathname } from "next/navigation";
+
 import { captilize } from "~/lib/utils";
 
-
-function GetLastBreadCrumb(props: {
-  id: string
-}) {
-  const { id } = props
-  const pathname = usePathname()
-  let ending = pathname[-1]
+function GetLastBreadCrumb(props: { id: string }) {
+  const { id } = props;
+  const pathname = usePathname();
+  let ending = pathname[-1];
 
   if (!ending || ending === id) {
-    ending = "Overview Page"
+    ending = "Overview Page";
   }
 
-  return (
-    <div>{captilize(ending)}</div>
-  )
+  return <div>{captilize(ending)}</div>;
 }
 
-export default memo(GetLastBreadCrumb)
+export default memo(GetLastBreadCrumb);

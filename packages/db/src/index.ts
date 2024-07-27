@@ -1,5 +1,6 @@
-import { getTableColumns, SQL, sql } from "drizzle-orm";
-import { PgTable } from "drizzle-orm/pg-core";
+import type { SQL } from "drizzle-orm";
+import type { PgTable } from "drizzle-orm/pg-core";
+import { getTableColumns, sql } from "drizzle-orm";
 
 export * from "drizzle-orm/sql";
 export { alias } from "drizzle-orm/pg-core";

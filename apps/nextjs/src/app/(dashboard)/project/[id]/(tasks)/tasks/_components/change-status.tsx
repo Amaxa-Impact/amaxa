@@ -1,6 +1,9 @@
 "use client";
+
 import { useState } from "react";
-import { statusValues, TaskStatus } from "@amaxa/db/schema";
+
+import type { TaskStatus } from "@amaxa/db/schema";
+import { statusValues } from "@amaxa/db/schema";
 import {
   Select,
   SelectContent,
@@ -9,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-import useStore from '~/lib/store';
+
+import useStore from "~/lib/store";
 
 interface ChangeStatusProps {
   defaultValue: TaskStatus;
@@ -18,7 +22,7 @@ interface ChangeStatusProps {
 
 export function ChangeStatus({ defaultValue, id }: ChangeStatusProps) {
   const [value, setValue] = useState<TaskStatus>(defaultValue);
-  const changeNode = useStore(state => state.changeNode);
+  const changeNode = useStore((state) => state.changeNode);
 
   function onSubmit(newValue: TaskStatus) {
     setValue(newValue);
@@ -39,8 +43,6 @@ export function ChangeStatus({ defaultValue, id }: ChangeStatusProps) {
           ))}
         </SelectGroup>
       </SelectContent>
-
-
     </Select>
   );
 }

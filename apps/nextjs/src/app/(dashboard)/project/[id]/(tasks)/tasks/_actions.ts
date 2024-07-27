@@ -1,16 +1,19 @@
-"use server"
-import { db } from "@amaxa/db/client";
-import { buildConflictUpdateColumns } from "@amaxa/db";
-import { edges, tasks, TaskStatus } from "@amaxa/db/schema";
+"use server";
+
 import { z } from "zod";
+
+import type { TaskStatus } from "@amaxa/db/schema";
 import { auth } from "@amaxa/auth";
+import { buildConflictUpdateColumns } from "@amaxa/db";
+import { db } from "@amaxa/db/client";
+import { edges, tasks } from "@amaxa/db/schema";
 
 const schema = z.object({
   tasks: z.array(
     z.object({
       id: z.string(),
       type: z.string().optional(),
-      parentId: z.string().optional(),
+      parentId: z.string().optional().default("noid"),
       position: z.object({
         x: z.number(),
         y: z.number(),
@@ -20,15 +23,17 @@ const schema = z.object({
         status: z.string(),
         description: z.string(),
         assigne: z.object({
-          id: z.string(),
+          id: z.string().default("unassigned"),
           name: z.string().nullable(),
           image: z.string().nullable(),
-        }),  // Allow null for the entire assigne object
+        }), // Allow null for the entire assigne object
         assigneName: z.string().nullable(),
         projectId: z.string(),
-        parent: z.object({
-          id: z.string(),
-        }).nullable(),  // Make parent nullable
+        parent: z
+          .object({
+            id: z.string(),
+          })
+          .nullable(), // Make parent nullable
         doneBy: z.date(),
       }),
     }),
@@ -41,33 +46,33 @@ const schema = z.object({
       target: z.string(),
     }),
   ),
-})
+});
 
 type InputProps = z.infer<typeof schema>;
 
 export async function saveTasks(data: InputProps) {
   try {
-    const session = await auth()
-    if (!session) {
+    const session = await auth();
+    if (!session?.user) {
       throw new Error("User is not authenticated");
     }
     // Validate input data
     const validatedData = schema.parse(data);
 
     const formattedTasks = validatedData.tasks.map((task) => {
-      console.log("Task status:", task.data.status)
+      console.log("Task status:", task.data.status);
       return {
         id: task.id,
-        type: task.type ?? 'task',  // Provide a default value if type is undefined
+        type: task.type, // Provide a default value if type is undefined
         title: task.data.title,
-        parentId: task.parentId ?? "noid",  // Use null if parentId is undefined
+        parentId: task.parentId, // Use null if parentId is undefined
         status: task.data.status as TaskStatus,
         description: task.data.description,
         position: task.position,
         projectId: task.data.projectId,
-        assigneeId: task.data.assigne?.id ?? 'unassigned',
+        assigneeId: task.data.assigne.id,
         doneBy: task.data.doneBy,
-      }
+      };
     });
     // Insert or update tasks
     await db
@@ -86,15 +91,23 @@ export async function saveTasks(data: InputProps) {
           "label",
           "priority",
           "type",
-          "position"
+          "position",
         ]),
       });
 
     // Insert or update edges
-    await db.insert(edges).values(validatedData.edges).onConflictDoUpdate({
-      target: edges.id,
-      set: buildConflictUpdateColumns(edges, ["source", "target", "projectId", "id"]),
-    });
+    await db
+      .insert(edges)
+      .values(validatedData.edges)
+      .onConflictDoUpdate({
+        target: edges.id,
+        set: buildConflictUpdateColumns(edges, [
+          "source",
+          "target",
+          "projectId",
+          "id",
+        ]),
+      });
 
     console.log("Tasks and edges saved successfully");
   } catch (error) {

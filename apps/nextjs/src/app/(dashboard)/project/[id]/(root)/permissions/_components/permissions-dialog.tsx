@@ -1,17 +1,22 @@
-import { Button } from '@amaxa/ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@amaxa/ui/dialog'
-import React from 'react'
+import React from "react";
+
+import { Button } from "@amaxa/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@amaxa/ui/dialog";
 
 export default function PermissionsModal({
   projectId,
   userId,
   defaultPermissions,
 }: {
-  projectId: string
-  userId: string
-  defaultPermissions: string[]
+  projectId: string;
+  userId: string;
+  defaultPermissions: string[];
 }) {
-
   return (
     <Dialog>
       <DialogTrigger>
@@ -25,11 +30,8 @@ export default function PermissionsModal({
         </DialogHeader>
       </DialogContent>
       <div>
-        {defaultPermissions.map((permission) => (
-          `Permission: ${permission}`
-        ))}
+        {defaultPermissions.map((permission) => `Permission: ${permission}`)}
       </div>
     </Dialog>
-  )
+  );
 }
-

@@ -1,7 +1,8 @@
 "use client";
 
+import type { JSONContent } from "@tiptap/react";
 import { useState } from "react";
-import { EditorContent, JSONContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 const Tiptap = ({ text }: { id: string; text: JSONContent }) => {

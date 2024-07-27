@@ -1,3 +1,4 @@
+import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { relations, sql } from "drizzle-orm";
 import {
@@ -11,7 +12,6 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 
 export const User = pgTable("user", {
   id: text("id")
@@ -21,7 +21,9 @@ export const User = pgTable("user", {
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
   isPublic: boolean("is_public").notNull().default(true),
-  role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] }).notNull().default("Student"),
+  role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] })
+    .notNull()
+    .default("Student"),
   emailVerified: timestamp("emailVerified", {
     mode: "date",
     withTimezone: true,
@@ -173,7 +175,6 @@ export const selectTaskSchema = createSelectSchema(tasks);
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
 export type TaskSchema = z.infer<typeof selectTaskSchema>;
-
 
 export const Projects = pgTable("projects", {
   id: text("id")
