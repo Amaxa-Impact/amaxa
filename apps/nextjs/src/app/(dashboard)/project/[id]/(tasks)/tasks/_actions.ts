@@ -13,7 +13,7 @@ const schema = z.object({
     z.object({
       id: z.string(),
       type: z.string().optional(),
-      parentId: z.string().optional().default("noid"),
+      parentId: z.string().optional(),
       position: z.object({
         x: z.number(),
         y: z.number(),
@@ -65,7 +65,7 @@ export async function saveTasks(data: InputProps) {
         id: task.id,
         type: task.type, // Provide a default value if type is undefined
         title: task.data.title,
-        parentId: task.parentId, // Use null if parentId is undefined
+        parentId: task.parentId ?? "noid", // Use null if parentId is undefined
         status: task.data.status as TaskStatus,
         description: task.data.description,
         position: task.position,
