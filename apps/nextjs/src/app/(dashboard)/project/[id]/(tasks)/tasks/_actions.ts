@@ -1,8 +1,9 @@
 "use server"
 import { db } from "@amaxa/db/client";
 import { buildConflictUpdateColumns } from "@amaxa/db";
-import { edges, tasks } from "@amaxa/db/schema";
+import { edges, tasks, TaskStatus } from "@amaxa/db/schema";
 import { z } from "zod";
+import { auth } from "@amaxa/auth";
 
 const schema = z.object({
   tasks: z.array(
@@ -46,16 +47,21 @@ type InputProps = z.infer<typeof schema>;
 
 export async function saveTasks(data: InputProps) {
   try {
+    const session = await auth()
+    if (!session) {
+      throw new Error("User is not authenticated");
+    }
     // Validate input data
     const validatedData = schema.parse(data);
 
     const formattedTasks = validatedData.tasks.map((task) => {
-      console.log("Task:", task)
+      console.log("Task status:", task.data.status)
       return {
         id: task.id,
         type: task.type ?? 'task',  // Provide a default value if type is undefined
         title: task.data.title,
         parentId: task.parentId ?? "noid",  // Use null if parentId is undefined
+        status: task.data.status as TaskStatus,
         description: task.data.description,
         position: task.position,
         projectId: task.data.projectId,
@@ -63,7 +69,6 @@ export async function saveTasks(data: InputProps) {
         doneBy: task.data.doneBy,
       }
     });
-
     // Insert or update tasks
     await db
       .insert(tasks)
@@ -71,9 +76,17 @@ export async function saveTasks(data: InputProps) {
       .onConflictDoUpdate({
         target: tasks.id,
         set: buildConflictUpdateColumns(tasks, [
-          "type",
-          "position",
+          "title",
+          "parentId",
+          "description",
+          "projectId",
           "doneBy",
+          "assigneeId",
+          "status",
+          "label",
+          "priority",
+          "type",
+          "position"
         ]),
       });
 

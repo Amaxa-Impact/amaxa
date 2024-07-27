@@ -1,5 +1,6 @@
 'use client'
-import React, { useCallback, useEffect, useRef } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useTransition } from 'react';
 import {
   MiniMap,
   Controls,
@@ -13,9 +14,10 @@ import TaskNode from './custom-node';
 import { NodeType } from '~/lib/types/flowcart';
 import { createId } from '@paralleldrive/cuid2';
 import useStore from '~/lib/store';
-import { Button } from '@amaxa/ui/button';
+import { Button, buttonVariants } from '@amaxa/ui/button';
 import { useParams } from 'next/navigation';
 import { saveTasks } from '../_actions';
+import Link from 'next/link';
 
 const nodeTypes: NodeTypes = {
   task: TaskNode,
@@ -28,8 +30,8 @@ interface FlowchartProps {
 
 export const Flowchart: React.FC<FlowchartProps> = ({ tasksInit, edgesInit }) => {
   console.log('tasksInit', tasksInit);
-  const [startTransition, isPending] = React.useTransition();
-  const id = useParams<{ id: string }>().id;
+  const [isPending, startTransition] = useTransition();
+  const projectId = useParams<{ id: string }>().id;
   const {
     nodes,
     edges,
@@ -65,7 +67,7 @@ export const Flowchart: React.FC<FlowchartProps> = ({ tasksInit, edgesInit }) =>
   }, []);
 
   function handleSubmit() {
-    if (!id) {
+    if (!projectId) {
       console.error("No project id available");
       alert("No project id");
       return;
@@ -97,23 +99,25 @@ export const Flowchart: React.FC<FlowchartProps> = ({ tasksInit, edgesInit }) =>
         }
         return {
           ...edge,
-          projectId: id
+          projectId: projectId
         };
       })
     };
 
-    try {
-      console.log(JSON.parse(JSON.stringify(data)));
+    startTransition(() => {
+      try {
+        console.log(JSON.parse(JSON.stringify(data)));
 
-      saveTasks(data).catch(error => {
-        console.error("Error saving tasks:", error);
-        alert("Failed to save tasks. Please try again.");
-      });
-    } catch (error) {
-      console.error("Invalid data structure:", error);
-      alert("There was an error preparing the data. Please try again.");
-      // Handle the error appropriately
-    }
+        saveTasks(data).catch(error => {
+          console.error("Error saving tasks:", error);
+          alert("Failed to save tasks. Please try again.");
+        });
+      } catch (error) {
+        console.error("Invalid data structure:", error);
+        alert("There was an error preparing the data. Please try again.");
+        // Handle the error appropriately
+      }
+    })
   }
 
   const onConnectEnd = useCallback(
@@ -137,7 +141,7 @@ export const Flowchart: React.FC<FlowchartProps> = ({ tasksInit, edgesInit }) =>
             description: '',
             assigne: { id: 'unassigned', name: 'Unassigned', image: "https://png.pngtree.com/png-vector/20230407/ourmid/pngtree-operational-system-line-icon-vector-png-image_6691165.png" },
             assigneName: 'Unassigned',
-            projectId: id,
+            projectId: projectId,
             parent: { id: connectingNodeId.current },
             doneBy: new Date(),
           },
@@ -153,10 +157,22 @@ export const Flowchart: React.FC<FlowchartProps> = ({ tasksInit, edgesInit }) =>
 
   return (
     <div style={{ width: '100%', height: '100vh' }} ref={reactFlowWrapper}>
-      <div className='flex flex-row justify-between'>
-        <Button onClick={handleSubmit}>
-          Save
-        </Button>
+      <div className='flex flex-row justify-between px-6 pt-2'>
+        <div className='flex gap-3'>
+          <Button onClick={handleSubmit} variant={"primary"} disabled={isPending}>
+            Save
+            {
+              isPending && <LoaderCircle className='animate-spin' />
+            }
+          </Button>
+          <Link
+            href={`/project/${projectId}/`}
+            className={buttonVariants({
+              variant: "outline"
+            })}>
+            Back
+          </Link>
+        </div>
       </div>
       <ReactFlow
         nodes={nodes}

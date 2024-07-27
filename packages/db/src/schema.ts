@@ -1,10 +1,9 @@
 import { createId } from "@paralleldrive/cuid2";
-import { desc, relations, sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
   integer,
   jsonb,
-  pgEnum,
   pgTable,
   primaryKey,
   text,

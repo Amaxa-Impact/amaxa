@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { buildConflictUpdateColumns, eq } from "@amaxa/db";
+import { and, buildConflictUpdateColumns, eq, sql } from "@amaxa/db";
 import { edges, statusValues, tasks } from "@amaxa/db/schema";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -181,4 +181,60 @@ export const tasksRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       await ctx.db.update(tasks).set(input).where(eq(tasks.id, input.id));
     }),
+  getTaskData: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const sixMonthsAgo = new Date()
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+
+      const result = await ctx.db
+        .select({
+          month: sql<string>`to_char(${tasks.createdAt}, 'Month')`,
+          tasksFinished: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .where(
+          and(
+            eq(tasks.status, 'done'),
+            sql`${tasks.createdAt} >= ${sixMonthsAgo}`,
+            eq(tasks.id, input.id)
+          )
+        )
+        .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
+        .orderBy(sql`min(${tasks.createdAt})`)
+
+      return result
+    }),
+  getPriorityData: protectedProcedure.
+    input(z.object({
+      id: z.string(),
+    })).
+    query(async ({ ctx, input }) => {
+      const result = await ctx.db
+        .select({
+          priority: tasks.priority,
+          count: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .groupBy(tasks.priority)
+      return result
+    }),
+  getPositionData: protectedProcedure.input(
+    z.object({
+      id: z.string(),
+    })).query(async ({ ctx, input }) => {
+      const result = await ctx.db
+        .select({
+          position: tasks.position,
+          count: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .where(eq(tasks.id, input.id))
+        .groupBy(tasks.position)
+      return result
+    })
 });

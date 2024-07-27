@@ -17,9 +17,9 @@ import { Textarea } from '@amaxa/ui/textarea';
 const getCardClassName = (status: string) => {
   switch (status) {
     case "done":
-      return "opacity-95 border-green-600 bg-green-200 text-gray-700";
+      return "border-green-600 bg-green-200 text-gray-700";
     case "unable-to-complete":
-      return "opacity-95 border-red-600 bg-red-100 text-gray-600";
+      return "border-red-600 bg-red-100 text-gray-600";
     default:
       return null;
   }
