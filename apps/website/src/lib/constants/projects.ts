@@ -16,7 +16,7 @@ export const projects: Project[] = [
   {
     id: 1,
     name: "Measure carbon in planted.",
-    image: "/trees.jpeg",
+    image: "/trees.jpg",
     description:
       "Built for engineers, developers, dreamers, thinkers and doers.",
   },
