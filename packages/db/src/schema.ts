@@ -21,6 +21,12 @@ export const User = pgTable("user", {
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
   isPublic: boolean("is_public").notNull().default(true),
+  status: varchar("status", {
+    length: 30,
+    enum: ["Verified", "Unverifed", "Pending"],
+  })
+    .notNull()
+    .default("Unverifed"),
   role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] })
     .notNull()
     .default("Student"),
@@ -30,6 +36,16 @@ export const User = pgTable("user", {
   }),
   image: varchar("image", { length: 255 }),
 });
+
+
+
+export const UserSchema = createSelectSchema(User);
+export const CreateUserSchema = createInsertSchema(User).omit({ id: true });
+
+export const UserStatusEnum = User.status.enumValues;
+export const UserRoleEnum = User.role.enumValues;
+
+
 
 export const UserRelations = relations(User, ({ many }) => ({
   accounts: many(Account),
