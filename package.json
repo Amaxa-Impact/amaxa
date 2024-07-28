@@ -29,5 +29,8 @@
     "turbo": "^2.0.6",
     "typescript": "^5.4.5"
   },
-  "prettier": "@amaxa/prettier-config"
+  "prettier": "@amaxa/prettier-config",
+  "dependencies": {
+    "lucide-react": "^0.416.0"
+  }
 }
