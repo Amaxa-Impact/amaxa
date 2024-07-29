@@ -9,16 +9,24 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
 
 import { db } from "@amaxa/db/client";
-import { Account, Session, User, UserRoleEnum, UserStatusEnum } from "@amaxa/db/schema";
+import {
+  Account,
+  ProjectPermission,
+  Session,
+  User,
+  UserRole,
+  UserStatus,
+} from "@amaxa/db/schema";
 
 import { env } from "../env";
+import { getUserInformation } from "./actions";
 
 declare module "next-auth" {
   interface Session {
     user: {
-      role: typeof UserRoleEnum;
-      project_permissions?: string;
-      status: typeof UserStatusEnum;
+      role: UserRole;
+      project_permissions?: Record<string, ProjectPermission>;
+      status: UserStatus;
       id: string;
     } & DefaultSession["user"];
   }
@@ -43,24 +51,20 @@ export const authConfig = {
     : {}),
   secret: env.AUTH_SECRET,
   providers: [Google],
+  pages: {
+    signIn: "/auth/sign-in",
+    signOut: "/auth/sign-out",
+  },
   callbacks: {
     session: async (opts) => {
       if (!("user" in opts))
         throw new Error("unreachable with session strategy");
 
-      const data = await db.query.User.findFirst({
-        columns: {
-          status: true,
-          role: true,
-        }
-      })
       return {
         ...opts.session,
         user: {
           ...opts.session.user,
           id: opts.user.id,
-          status: data?.status,
-          role: data?.role,
         },
       };
     },
@@ -73,23 +77,20 @@ export const validateToken = async (
   const sessionToken = token.slice("Bearer ".length);
   const session = await adapter.getSessionAndUser?.(sessionToken);
 
-  const data = await db.query.User.findFirst({
-    where: (User, { eq }) => eq(User.id, session?.user.id!),
-    columns: {
-      status: true,
-      role: true,
-    }
-  })
-  return session
-    ? {
+  if (session) {
+    const data = await getUserInformation(session.user.id);
+    return {
       user: {
         ...session.user,
-        role: data?.role! as unknown as typeof UserRoleEnum,
-        status: data?.status! as unknown as typeof UserStatusEnum,
+        role: data.role,
+        status: data.status,
+        project_permissions: data.project_permissions,
       },
       expires: session.session.expires.toISOString(),
-    }
-    : null;
+    };
+  } else {
+    return null;
+  }
 };
 
 export const invalidateSessionToken = async (token: string) => {

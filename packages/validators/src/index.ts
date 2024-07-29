@@ -6,3 +6,10 @@ export const unused = z.string().describe(
    with back and frontend, you can put them in here
   `,
 );
+
+
+export const addUserSchema = z.object({
+  userId: z.string(),
+  projectId: z.string(),
+  permissions: z.array(z.string()),
+})

@@ -1,7 +1,15 @@
 import React, { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { House, User, Search, Settings, Workflow, ChartArea } from "lucide-react";
+import {
+  ChartArea,
+  House,
+  Search,
+  Settings,
+  User,
+  Workflow,
+} from "lucide-react";
+
 import { db } from "@amaxa/db/client";
 import {
   Breadcrumb,

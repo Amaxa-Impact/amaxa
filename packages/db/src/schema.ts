@@ -12,6 +12,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { Permission } from "./perms";
 
 export const User = pgTable("user", {
   id: text("id")
@@ -23,10 +24,10 @@ export const User = pgTable("user", {
   isPublic: boolean("is_public").notNull().default(true),
   status: varchar("status", {
     length: 30,
-    enum: ["Verified", "Unverifed", "Pending"],
+    enum: ["Verified", "Unverified", "Pending"],
   })
     .notNull()
-    .default("Unverifed"),
+    .default("Unverified"),
   role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] })
     .notNull()
     .default("Student"),
@@ -37,15 +38,9 @@ export const User = pgTable("user", {
   image: varchar("image", { length: 255 }),
 });
 
-
-
-export const UserSchema = createSelectSchema(User);
-export const CreateUserSchema = createInsertSchema(User).omit({ id: true });
-
-export const UserStatusEnum = User.status.enumValues;
-export const UserRoleEnum = User.role.enumValues;
-
-
+export type User = typeof User.$inferSelect;
+export type UserStatus = User["status"];
+export type UserRole = User["role"];
 
 export const UserRelations = relations(User, ({ many }) => ({
   accounts: many(Account),
@@ -214,3 +209,25 @@ export const createProjectSchema = createInsertSchema(Projects).omit({
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
 
 export const statusValues = tasks.status.enumValues;
+
+export const project_tracker = pgTable("project_tracker", {
+  userId: text("user_id").notNull(),
+  projectId: text("project_id").notNull(),
+  permission: text("permissions").array().notNull().$type<Permission[]>(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+}, (table) => ({
+  pk: primaryKey({ columns: [table.userId, table.projectId] }),
+}));
+
+
+export const projectTrackerRelations = relations(project_tracker, ({ one }) => ({
+  project: one(Projects, {
+    fields: [project_tracker.projectId],
+    references: [Projects.id],
+  }),
+  user: one(User, { fields: [project_tracker.userId], references: [User.id] }),
+}));
+export type ProjectTracker = typeof project_tracker.$inferSelect;
+export type ProjectPermission = ProjectTracker["permission"];
