@@ -231,3 +231,39 @@ export const projectTrackerRelations = relations(project_tracker, ({ one }) => (
 }));
 export type ProjectTracker = typeof project_tracker.$inferSelect;
 export type ProjectPermission = ProjectTracker["permission"];
+
+const typeOfGuide = [
+  'fundraising',
+]
+
+export const guides = pgTable("guides", {
+  id: text("id").primaryKey().$defaultFn(() => createId()),
+  name: text("name"),
+  type: text("type").array().$type<typeof typeOfGuide[number][]>(),
+  embedId: text("embed_id"),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+})
+
+export const events = pgTable("events", {
+  id: text("id").primaryKey().$defaultFn(() => createId()),
+  name: varchar("name", { length: 256 }).notNull(),
+  time: timestamp("date").default(sql`now()`).notNull(),
+  isVirtual: boolean("boolean").default(false).notNull(),
+  desc: text("description").notNull().notNull(),
+  image: text("image").notNull().default("https://placehold.co/600x400"),
+  isPublic: boolean("is_public").notNull().default(false),
+  registrationLink: text("registration_link").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+})
+
+export const createEventSchema = createInsertSchema(events).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
