@@ -1,16 +1,17 @@
-import type { RouterOutputs } from "@amaxa/api"
-import { Button } from "@amaxa/ui/button"
-import { Card } from "@amaxa/ui/card"
-import { CalendarIcon, MapPinIcon } from "lucide-react"
-import Link from "next/link"
+import Link from "next/link";
+import { CalendarIcon, MapPinIcon } from "lucide-react";
+
+import type { RouterOutputs } from "@amaxa/api";
+import { Button } from "@amaxa/ui/button";
+import { Card } from "@amaxa/ui/card";
 
 export function EventCard({
-  event
+  event,
 }: {
-  event: RouterOutputs['events']['all'][0]
+  event: RouterOutputs["events"]["all"][0];
 }) {
   return (
-    <Card className="max-w-md mx-auto p-6 bg-background border border-muted rounded-lg shadow-sm min-w-[500px]">
+    <Card className="mx-auto min-w-[500px] max-w-md rounded-lg border border-muted bg-background p-6 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <h3 className="text-xl font-semibold">{event.name}</h3>
@@ -20,21 +21,25 @@ export function EventCard({
       </div>
       <div className="mt-4 space-y-2">
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-5 h-5 text-muted-foreground" />
+          <CalendarIcon className="h-5 w-5 text-muted-foreground" />
           <div className="text-muted-foreground">
             {event.time.toLocaleDateString()} {event.time.toLocaleTimeString()}
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <MapPinIcon className="w-5 h-5 text-muted-foreground" />
+          <MapPinIcon className="h-5 w-5 text-muted-foreground" />
           <div className="text-muted-foreground">
             <span>{event.isVirtual ? "Online" : "In-Person"}</span>
-            <Link href={event.registrationLink} className="underline ml-1" prefetch={false}>
+            <Link
+              href={event.registrationLink}
+              className="ml-1 underline"
+              prefetch={false}
+            >
               Join Event
             </Link>
           </div>
         </div>
       </div>
     </Card>
-  )
+  );
 }

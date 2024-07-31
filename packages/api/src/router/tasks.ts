@@ -46,7 +46,7 @@ export const tasksRouter = createTRPCRouter({
       const formattedNodes = tasks.map((node) => ({
         id: node.id,
         type: node.type,
-        parentId: node.parent.id ?? "tbd",
+        parentId: node.parent.id,
         position: {
           x: node.position.x,
           y: node.position.y,

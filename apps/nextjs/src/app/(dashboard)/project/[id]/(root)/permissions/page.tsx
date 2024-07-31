@@ -32,8 +32,8 @@ import {
   TableRow,
 } from "@amaxa/ui/table";
 
-import PermissionsModal from "./_components/permissions-dialog";
 import { AddUser } from "./_components/add-user";
+import PermissionsModal from "./_components/permissions-dialog";
 
 export default function Page({
   params,

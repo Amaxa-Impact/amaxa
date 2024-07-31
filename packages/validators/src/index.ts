@@ -7,9 +7,8 @@ export const unused = z.string().describe(
   `,
 );
 
-
 export const addUserSchema = z.object({
   userId: z.string(),
   projectId: z.string(),
   permissions: z.array(z.string()),
-})
+});

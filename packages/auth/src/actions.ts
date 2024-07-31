@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm";
 
+import type { ProjectPermission } from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
-import type { ProjectPermission} from "@amaxa/db/schema";
 import { project_tracker, User } from "@amaxa/db/schema";
 
 const preparedGetUserInfo = db
@@ -25,7 +25,7 @@ const preparedGetUserProjectTrackers = db
 
 async function getUserInformation(id: string) {
   const userData = await preparedGetUserInfo.execute({ id });
-  const user = userData[0] || {
+  const user = userData[0] ?? {
     status: "Unverified",
     role: "Student",
   };

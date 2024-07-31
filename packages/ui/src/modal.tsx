@@ -1,8 +1,8 @@
 "use client";
 
-import * as Dialog from "@radix-ui/react-dialog";
 import type { FC, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import * as Dialog from "@radix-ui/react-dialog";
 
 interface ModalProps {
   children: ReactNode;

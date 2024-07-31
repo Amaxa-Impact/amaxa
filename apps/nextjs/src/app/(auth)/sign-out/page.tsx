@@ -1,16 +1,23 @@
-import { signIn } from '@amaxa/auth'
-import { Button } from '@amaxa/ui/button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@amaxa/ui/card'
-import { Input } from '@amaxa/ui/input'
-import { Label } from '@amaxa/ui/label'
-import Link from 'next/link'
-import { env } from '~/env'
-import React from 'react'
+import React from "react";
+import Link from "next/link";
 
+import { signIn } from "@amaxa/auth";
+import { Button } from "@amaxa/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
+import { Label } from "@amaxa/ui/label";
+
+import { env } from "~/env";
 
 export default function LoginForm() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex h-screen flex-col items-center justify-center">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -20,35 +27,32 @@ export default function LoginForm() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
-            {
-              env.NODE_ENV === "development" ? (
-                <>
-
-                  <form
-                    action={async (data) => {
-                      "use server"
-                      await signIn("email", {
-                        password: data.get("password"),
-                        redirectTo: "/"
-                      })
-                    }}
-                  >
-                    <div className="gap-4 flex flex-col">
-                      <Label htmlFor='password'> Password</Label>
-                      <Input id="password" type="password" required />
-                    </div>
-                    <Button type="submit" className="w-full">
-                      Login
-                    </Button>
-                  </form>
-                </>
-              ) : null
-            }
+            {env.NODE_ENV === "development" ? (
+              <>
+                <form
+                  action={async (data) => {
+                    "use server";
+                    await signIn("email", {
+                      password: data.get("password"),
+                      redirectTo: "/",
+                    });
+                  }}
+                >
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="password"> Password</Label>
+                    <Input id="password" type="password" required />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
+                </form>
+              </>
+            ) : null}
 
             <form
-              action={async (data) => {
-                "use server"
-                await signIn("google", { redirectTo: "/" })
+              action={async () => {
+                "use server";
+                await signIn("google", { redirectTo: "/" });
               }}
             >
               <Button variant="outline" className="w-full" type="submit">
@@ -65,5 +69,5 @@ export default function LoginForm() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

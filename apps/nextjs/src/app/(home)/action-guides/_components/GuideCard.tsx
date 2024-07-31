@@ -1,15 +1,26 @@
-//@ts-nocheck
-"use client"
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+// @ts-nocheck
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@amaxa/ui/card"
-import Link from "next/link"
-import { Input } from "@amaxa/ui/input"
-import { Badge } from "@amaxa/ui/badge"
-import { useState, useMemo } from "react"
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+
+import { Badge } from "@amaxa/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
 
 export default function Guides() {
-  const [search, setSearch] = useState("")
-  const [selectedTags, setSelectedTags] = useState([])
+  const [search, setSearch] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const actionGuides = [
     {
       id: 1,
@@ -17,7 +28,7 @@ export default function Guides() {
       description:
         "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
       tags: ["Fundraising"],
-      embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c"
+      embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c",
     },
     {
       id: 2,
@@ -25,34 +36,36 @@ export default function Guides() {
       description:
         "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
       tags: ["Impact Outreach"],
-      embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c"
+      embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c",
     },
-  ]
+  ];
 
   const filteredGuides = useMemo(() => {
     return actionGuides.filter((guide) => {
-      const titleMatch = guide.title.toLowerCase().includes(search.toLowerCase())
-      const tagMatch = selectedTags.every((tag) => guide.tags.includes(tag))
-      return titleMatch && tagMatch
-    })
-  }, [search, selectedTags])
+      const titleMatch = guide.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const tagMatch = selectedTags.every((tag) => guide.tags.includes(tag));
+      return titleMatch && tagMatch;
+    });
+  }, [search, selectedTags]);
   const handleSearch = (e: any) => {
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
   const handleTagClick = (tag: never) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag))
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
-      setSelectedTags([...selectedTags, tag])
+      setSelectedTags([...selectedTags, tag]);
     }
-  }
+  };
   const allTags = useMemo(() => {
-    return [...new Set(actionGuides.flatMap((guide) => guide.tags))]
-  }, [actionGuides])
+    return [...new Set(actionGuides.flatMap((guide) => guide.tags))];
+  }, [actionGuides]);
 
   return (
-    <div className="container mx-auto py-8 px-4 md:px-6">
-      <h1 className="text-3xl font-bold mb-6">Action Guides</h1>
+    <div className="container mx-auto px-4 py-8 md:px-6">
+      <h1 className="mb-6 text-3xl font-bold">Action Guides</h1>
       <div className="mb-6">
         <Input
           placeholder="Search action guides..."
@@ -62,7 +75,7 @@ export default function Guides() {
         />
       </div>
       <div className="mb-6">
-        <h2 className="text-lg font-medium mb-2">Filter by Skill</h2>
+        <h2 className="mb-2 text-lg font-medium">Filter by Skill</h2>
         <div className="flex flex-wrap gap-2">
           {allTags.map((tag: string) => (
             <Badge
@@ -76,10 +89,10 @@ export default function Guides() {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredGuides.map((guide) => (
           <Link href={`/guide/${guide.embedId}`} key={guide.id}>
-            <Card >
+            <Card>
               <CardHeader>
                 <CardTitle>{guide.title}</CardTitle>
               </CardHeader>
@@ -100,5 +113,5 @@ export default function Guides() {
         ))}
       </div>
     </div>
-  )
+  );
 }

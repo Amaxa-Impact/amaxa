@@ -1,9 +1,19 @@
-"use client"
-import React from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@amaxa/ui/dialog'
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from 'zod'
+"use client";
+
+import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@amaxa/ui/button";
+import { Combobox } from "@amaxa/ui/combobox";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@amaxa/ui/dialog";
 import {
   Form,
   FormControl,
@@ -12,16 +22,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@amaxa/ui/form"
-import { Combobox } from '@amaxa/ui/combobox'
-import { Button } from '@amaxa/ui/button'
+} from "@amaxa/ui/form";
 
 const addUserSchema = z.object({
   userId: z.string(),
   permissions: z.array(z.string()),
-})
+});
 
-type AddUserForm = z.infer<typeof addUserSchema>
+type AddUserForm = z.infer<typeof addUserSchema>;
 
 export default function AddUserForm({
   userMap,
@@ -29,14 +37,14 @@ export default function AddUserForm({
   userMap: {
     value: string;
     label: string;
-  }[]
+  }[];
 }) {
   const form = useForm<AddUserForm>({
     resolver: zodResolver(addUserSchema),
-  })
+  });
 
   function onSubmit(data: AddUserForm) {
-    console.log(data)
+    console.log(data);
   }
 
   return (
@@ -57,12 +65,11 @@ export default function AddUserForm({
                 <FormItem>
                   <FormLabel>User</FormLabel>
                   <FormControl>
-                    <Combobox
-                      {...field}
-                      options={userMap}
-                    />
+                    <Combobox {...field} options={userMap} />
                   </FormControl>
-                  <FormDescription>Select a user to add to the project</FormDescription>
+                  <FormDescription>
+                    Select a user to add to the project
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -72,5 +79,5 @@ export default function AddUserForm({
         </Form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

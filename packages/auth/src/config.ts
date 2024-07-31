@@ -8,16 +8,9 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
 
+import type { ProjectPermission, UserRole, UserStatus } from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
-import type {
-  ProjectPermission,
-  UserRole,
-  UserStatus} from "@amaxa/db/schema";
-import {
-  Account,
-  Session,
-  User
-} from "@amaxa/db/schema";
+import { Account, Session, User } from "@amaxa/db/schema";
 
 import { env } from "../env";
 import { getUserInformation } from "./actions";
@@ -57,7 +50,7 @@ export const authConfig = {
     signOut: "/auth/sign-out",
   },
   callbacks: {
-    session: async (opts) => {
+    session: (opts) => {
       if (!("user" in opts))
         throw new Error("unreachable with session strategy");
 

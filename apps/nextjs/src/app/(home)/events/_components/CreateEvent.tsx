@@ -1,54 +1,73 @@
-"use client"
-import { Button } from '@amaxa/ui/button'
-import { format } from "date-fns";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@amaxa/ui/dialog'
-import { TimePickerDemo } from "@amaxa/ui/time-picker/time-picker-demo"
-import { Calendar } from "@amaxa/ui/calendar"
-import { useForm } from 'react-hook-form'
-import { Input } from '@amaxa/ui/input'
-import { Switch } from '@amaxa/ui/switch'
-import { toast } from '@amaxa/ui/toast'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { showErrorToast } from '~/lib/handle-error'
-import { api } from '~/trpc/react'
-import { createEventSchema } from '@amaxa/db/schema'
-import type { z } from 'zod'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@amaxa/ui/form'
-import { Textarea } from '@amaxa/ui/textarea'
-import { Popover, PopoverContent, PopoverTrigger } from '@amaxa/ui/popover'
-import { cn } from '@amaxa/ui'
-import { CalendarIcon } from 'lucide-react'
+"use client";
 
-type CreateEventProps = z.infer<typeof createEventSchema>
+import type { z } from "zod";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+
+import { createEventSchema } from "@amaxa/db/schema";
+import { cn } from "@amaxa/ui";
+import { Button } from "@amaxa/ui/button";
+import { Calendar } from "@amaxa/ui/calendar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@amaxa/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@amaxa/ui/form";
+import { Input } from "@amaxa/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
+import { Switch } from "@amaxa/ui/switch";
+import { Textarea } from "@amaxa/ui/textarea";
+import { TimePickerDemo } from "@amaxa/ui/time-picker/time-picker-demo";
+import { toast } from "@amaxa/ui/toast";
+
+import { showErrorToast } from "~/lib/handle-error";
+import { api } from "~/trpc/react";
+
+type CreateEventProps = z.infer<typeof createEventSchema>;
 
 export const CreateEvent = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const { mutate: create } = api.events.create.useMutation({
     onSuccess: () => {
-      toast.success('Event created')
-      router.refresh()
+      toast.success("Event created");
+      router.refresh();
     },
     onError: (error) => {
-      showErrorToast(error)
+      showErrorToast(error);
     },
-  })
+  });
 
   const form = useForm<CreateEventProps>({
-    resolver: zodResolver(createEventSchema)
-  })
+    resolver: zodResolver(createEventSchema),
+  });
 
   function handleSubmit(data: CreateEventProps) {
-    create(data)
+    create(data);
   }
 
   return (
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button >Create an Event</Button>
+          <Button>Create an Event</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -58,29 +77,25 @@ export const CreateEvent = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-8 py-4">
-            <Form {...form} >
+            <Form {...form}>
               <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <FormField
                   control={form.control}
-                  name='name'
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Event Name
-                      </FormLabel>
+                      <FormLabel>Event Name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
-                      <FormDescription>
-                        THe name of the event
-                      </FormDescription>
+                      <FormDescription>THe name of the event</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
                 <FormField
-                  name='registrationLink'
+                  name="registrationLink"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
@@ -88,7 +103,9 @@ export const CreateEvent = () => {
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
-                      <FormDescription>Link for event registration</FormDescription>
+                      <FormDescription>
+                        Link for event registration
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -106,7 +123,7 @@ export const CreateEvent = () => {
                               variant="outline"
                               className={cn(
                                 "justify-start text-left font-normal",
-                                !field.value && "text-muted-foreground"
+                                !field.value && "text-muted-foreground",
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -125,7 +142,7 @@ export const CreateEvent = () => {
                             onSelect={field.onChange}
                             initialFocus
                           />
-                          <div className="p-3 border-t border-border">
+                          <div className="border-t border-border p-3">
                             <TimePickerDemo
                               setDate={field.onChange}
                               date={field.value}
@@ -133,21 +150,17 @@ export const CreateEvent = () => {
                           </div>
                         </PopoverContent>
                       </Popover>
-                      <FormDescription>
-                        The time of the event
-                      </FormDescription>
+                      <FormDescription>The time of the event</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  name='desc'
+                  name="desc"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Description
-                      </FormLabel>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea {...field} />
                       </FormControl>
@@ -160,12 +173,14 @@ export const CreateEvent = () => {
                 />
 
                 <FormField
-                  name='isPublic'
+                  name="isPublic"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">Public Event</FormLabel>
+                        <FormLabel className="text-base">
+                          Public Event
+                        </FormLabel>
                         <FormDescription>
                           Make this event visible to the public
                         </FormDescription>
@@ -181,7 +196,7 @@ export const CreateEvent = () => {
                 />
 
                 <FormField
-                  name='image'
+                  name="image"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
@@ -196,12 +211,14 @@ export const CreateEvent = () => {
                 />
 
                 <FormField
-                  name='isVirtual'
+                  name="isVirtual"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">Virtual Event</FormLabel>
+                        <FormLabel className="text-base">
+                          Virtual Event
+                        </FormLabel>
                         <FormDescription>
                           Is this a virtual event?
                         </FormDescription>
@@ -216,7 +233,7 @@ export const CreateEvent = () => {
                   )}
                 />
 
-                <DialogFooter className='pt-10'>
+                <DialogFooter className="pt-10">
                   <Button type="submit">Save changes</Button>
                 </DialogFooter>
               </form>
@@ -225,6 +242,5 @@ export const CreateEvent = () => {
         </DialogContent>
       </Dialog>
     </div>
-  )
-}
-
+  );
+};

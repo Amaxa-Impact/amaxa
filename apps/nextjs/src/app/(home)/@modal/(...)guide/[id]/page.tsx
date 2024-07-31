@@ -1,19 +1,20 @@
-import React from 'react'
-import { Com } from './com'
-import Modal from "@amaxa/ui/modal"
+import React from "react";
 
-export default async function Page(props: {
+import Modal from "@amaxa/ui/modal";
+
+import { Com } from "./com";
+
+export default function Page(props: {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }) {
-  const { id } = props.params
-  console.log(id)
+  const { id } = props.params;
+  console.log(id);
 
   return (
     <Modal>
       <Com id={id} />
     </Modal>
-  )
+  );
 }
-

@@ -1,4 +1,5 @@
 import { BookIcon, Calendar, HomeIcon } from "lucide-react";
+
 import type { SidebarLink } from "~/app/(home)/_components/sidebar-items";
 
 interface AdditionalLinks {
@@ -12,14 +13,14 @@ export function getLink() {
     {
       href: "/events",
       title: "Events",
-      icon: Calendar
+      icon: Calendar,
     },
     {
       href: "/action-guides",
       title: "Action Guides",
-      icon: BookIcon
+      icon: BookIcon,
     },
   ];
-  return defaultLinks
+  return defaultLinks;
 }
 export const additionalLinks: AdditionalLinks[] = [];

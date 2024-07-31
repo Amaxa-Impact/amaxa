@@ -1,15 +1,14 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { z } from "zod";
 
-import { CreateEvent } from "./_components/CreateEvent";
 import { api } from "~/trpc/server";
+import { CreateEvent } from "./_components/CreateEvent";
 import { EventCard } from "./_components/EventCard";
 import { NoEvents } from "./_components/NoEvents";
 
 const searchParamsSchema = z.object({
   name: z.string().optional(),
 });
-
 
 export default async function Home(props: {
   searchParams: Record<string, string | string[] | undefined>;
@@ -19,24 +18,18 @@ export default async function Home(props: {
 
   const data = await api.events.all({
     name: name,
-  })
+  });
 
   return (
     <div className="p-5">
-      <div className="flex flex-row py-5 justify-between items-center">
+      <div className="flex flex-row items-center justify-between py-5">
         <div className="flex flex-col gap-3">
           <h1 className="text-5xl font-bold">Events</h1>
           <div>RSVP to upcoming events</div>
         </div>
         <div className="flex justify-between gap-5">
           <div />
-          <div>
-            {
-              data.length > 0 && (
-                <CreateEvent />
-              )
-            }
-          </div>
+          <div>{data.length > 0 && <CreateEvent />}</div>
         </div>
       </div>
       {data.length === 0 && (
@@ -54,6 +47,5 @@ export default async function Home(props: {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

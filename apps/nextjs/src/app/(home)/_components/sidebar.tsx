@@ -1,17 +1,18 @@
+import { memo } from "react";
+import { Poppins } from "next/font/google";
 import Link from "next/link";
 
-import SidebarItems from "./sidebar-items";
-import { Poppins } from 'next/font/google';
-import { memo } from "react";
 import type { Session } from "@amaxa/auth";
 import { auth } from "@amaxa/auth";
 import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 
+import SidebarItems from "./sidebar-items";
+
 const poppins = Poppins({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-poppins',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const Sidebar = async () => {
@@ -19,10 +20,12 @@ const Sidebar = async () => {
   if (session === null) return null;
 
   return (
-    <aside className="hidden h-screen text-primary min-w-52 border-r border-border bg-background p-4 pt-8 shadow-inner md:block">
+    <aside className="hidden h-screen min-w-52 border-r border-border bg-background p-4 pt-8 text-primary shadow-inner md:block">
       <div className="flex h-full flex-col justify-between">
         <div className="space-y-4">
-          <h3 className={`${poppins.variable} text-3xl font-extrabold`}>ámaxa</h3>
+          <h3 className={`${poppins.variable} text-3xl font-extrabold`}>
+            ámaxa
+          </h3>
 
           <SidebarItems />
         </div>
@@ -35,7 +38,6 @@ const Sidebar = async () => {
 export default memo(Sidebar);
 
 const UserDetails = ({ session }: { session: Session }) => {
-  if (session === null) return null;
   const user = session.user;
 
   if (!user.name || user.name.length == 0) return null;
@@ -54,7 +56,7 @@ const UserDetails = ({ session }: { session: Session }) => {
             {user.name
               ? user.name
                 .split(" ")
-                .map((word) => word[0]!.toUpperCase())
+                .map((word) => word[0]?.toUpperCase())
                 .join("")
               : "~"}
           </AvatarFallback>
@@ -62,4 +64,4 @@ const UserDetails = ({ session }: { session: Session }) => {
       </div>
     </Link>
   );
-}
+};
