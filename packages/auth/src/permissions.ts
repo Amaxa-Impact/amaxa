@@ -12,8 +12,8 @@ export const TEST_USER: E2EUsers = {
     user: {
       id: "test_user",
       name: "Jane Doe",
-      permissions: new Set(["basics"]),
-      project_permissions: "",
+      role: "Student",
+      status: "Unverified",
     },
     // expires in +1 day
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
@@ -26,7 +26,8 @@ export const TEST_ADMIN: E2EUsers = {
     user: {
       id: "test_user",
       name: "test user",
-      permissions: new Set(["activities"]),
+      role: "Admin",
+      status: "Verified",
     },
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
   },

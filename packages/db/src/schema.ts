@@ -13,6 +13,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
+import type { Permission } from "./perms";
+
 export const User = pgTable("user", {
   id: text("id")
     .notNull()
@@ -23,10 +25,10 @@ export const User = pgTable("user", {
   isPublic: boolean("is_public").notNull().default(true),
   status: varchar("status", {
     length: 30,
-    enum: ["Verified", "Unverifed", "Pending"],
+    enum: ["Verified", "Unverified", "Pending"],
   })
     .notNull()
-    .default("Unverifed"),
+    .default("Unverified"),
   role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] })
     .notNull()
     .default("Student"),
@@ -37,15 +39,9 @@ export const User = pgTable("user", {
   image: varchar("image", { length: 255 }),
 });
 
-
-
-export const UserSchema = createSelectSchema(User);
-export const CreateUserSchema = createInsertSchema(User).omit({ id: true });
-
-export const UserStatusEnum = User.status.enumValues;
-export const UserRoleEnum = User.role.enumValues;
-
-
+export type User = typeof User.$inferSelect;
+export type UserStatus = User["status"];
+export type UserRole = User["role"];
 
 export const UserRelations = relations(User, ({ many }) => ({
   accounts: many(Account),
@@ -214,3 +210,121 @@ export const createProjectSchema = createInsertSchema(Projects).omit({
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
 
 export const statusValues = tasks.status.enumValues;
+
+export const project_tracker = pgTable(
+  "project_tracker",
+  {
+    userId: text("user_id").notNull(),
+    projectId: text("project_id").notNull(),
+    permission: text("permissions").array().notNull().$type<Permission[]>(),
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.userId, table.projectId] }),
+  }),
+);
+
+export const projectTrackerRelations = relations(
+  project_tracker,
+  ({ one }) => ({
+    project: one(Projects, {
+      fields: [project_tracker.projectId],
+      references: [Projects.id],
+    }),
+    user: one(User, {
+      fields: [project_tracker.userId],
+      references: [User.id],
+    }),
+  }),
+);
+export type ProjectTracker = typeof project_tracker.$inferSelect;
+export type ProjectPermission = ProjectTracker["permission"];
+
+export const skills = pgTable("skills", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const skillsRelations = relations(skills, ({ many }) => ({
+  guides: many(skillsToGuide),
+}));
+
+export const skillsToGuide = pgTable(
+  "skills_to_guide",
+  {
+    skillId: text("skill_id")
+      .notNull()
+      .references(() => skills.id),
+    guideId: text("guide_id")
+      .notNull()
+      .references(() => guides.id),
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt"),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.skillId, table.guideId] }),
+  }),
+);
+
+export const skillsToGuideRelations = relations(skillsToGuide, ({ one }) => ({
+  skill: one(skills, {
+    fields: [skillsToGuide.skillId],
+    references: [skills.id],
+  }),
+  guide: one(guides, {
+    fields: [skillsToGuide.guideId],
+    references: [guides.id],
+  }),
+}));
+
+export const guides = pgTable("guides", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  title: text("title"),
+  desc: text("description").notNull(),
+  embedId: text("embed_id"),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const guidesRelations = relations(guides, ({ many }) => ({
+  skills: many(skillsToGuide),
+}));
+
+export const events = pgTable("events", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: varchar("name", { length: 256 }).notNull(),
+  time: timestamp("date")
+    .default(sql`now()`)
+    .notNull(),
+  isVirtual: boolean("boolean").default(false).notNull(),
+  desc: text("description").notNull().notNull(),
+  image: text("image").notNull().default("https://placehold.co/600x400"),
+  isPublic: boolean("is_public").notNull().default(false),
+  registrationLink: text("registration_link").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const createEventSchema = createInsertSchema(events).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});

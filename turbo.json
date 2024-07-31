@@ -59,7 +59,8 @@
     "AUTH_SECRET",
     "PORT",
     "TEST_USER_PASSWORD",
-    "TEST_ADMIN_PASSWORD"
+    "TEST_ADMIN_PASSWORD",
+    "TIPTAP_EDITOR"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",

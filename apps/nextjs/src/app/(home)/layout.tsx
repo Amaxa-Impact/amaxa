@@ -1,9 +1,23 @@
 import React from "react";
 
-export default function Layout({ children }: { children?: React.ReactNode }) {
+import Sidebar from "./_components/sidebar";
+
+export default function Layout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <div>
-      <main className="flex flex-col p-10">{children}</main>
+      <div className="flex h-screen">
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto bg-background p-8 pt-2 md:p-8">
+          {children}
+        </main>
+        {modal}
+      </div>
     </div>
   );
 }
