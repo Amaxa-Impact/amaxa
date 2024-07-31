@@ -236,16 +236,49 @@ const typeOfGuide = [
   'fundraising',
 ]
 
+export const skills = pgTable("skills", {
+  id: text("id").primaryKey().$defaultFn(() => createId()),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+})
+
+export const skillsRelations = relations(skills, ({ many }) => ({
+  guides: many(skillsToGuide),
+}))
+
+export const skillsToGuide = pgTable("skills_to_guide", {
+  skillId: text("skill_id").notNull().references(() => skills.id),
+  guideId: text("guide_id").notNull().references(() => guides.id),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+}, (table) => ({
+  pk: primaryKey({ columns: [table.skillId, table.guideId] }),
+}))
+
+export const skillsToGuideRelations = relations(skillsToGuide, ({ one }) => ({
+  skill: one(skills, { fields: [skillsToGuide.skillId], references: [skills.id] }),
+  guide: one(guides, { fields: [skillsToGuide.guideId], references: [guides.id] }),
+}))
+
 export const guides = pgTable("guides", {
   id: text("id").primaryKey().$defaultFn(() => createId()),
-  name: text("name"),
-  type: text("type").array().$type<typeof typeOfGuide[number][]>(),
+  title: text("title"),
+  desc: text("description").notNull(),
   embedId: text("embed_id"),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updatedAt"),
 })
+
+export const guidesRelations = relations(guides, ({ many }) => ({
+  skills: many(skillsToGuide),
+}))
 
 export const events = pgTable("events", {
   id: text("id").primaryKey().$defaultFn(() => createId()),

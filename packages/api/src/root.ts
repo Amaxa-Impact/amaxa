@@ -1,3 +1,4 @@
+import { actionGuideRouter } from "./router/action-guides";
 import { authRouter } from "./router/auth";
 import { eventsRouter } from "./router/events";
 import { projectsRouter } from "./router/projects";
@@ -10,7 +11,9 @@ export const appRouter = createTRPCRouter({
   projects: projectsRouter,
   users: userRouter,
   tasks: tasksRouter,
-  events: eventsRouter
+  events: eventsRouter,
+  actionGuides: actionGuideRouter
+
 });
 
 // export type definition of API

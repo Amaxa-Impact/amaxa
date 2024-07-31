@@ -7,6 +7,7 @@ import { TimePickerDemo } from "@amaxa/ui/time-picker/time-picker-demo"
 import { Calendar } from "@amaxa/ui/calendar"
 import { useForm } from 'react-hook-form'
 import { Input } from '@amaxa/ui/input'
+import { Switch } from '@amaxa/ui/switch'
 import { toast } from '@amaxa/ui/toast'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -79,6 +80,20 @@ export const CreateEvent = () => {
                 />
 
                 <FormField
+                  name='registrationLink'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Registration Link</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormDescription>Link for event registration</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
                   control={form.control}
                   name="time"
                   render={({ field }) => (
@@ -143,12 +158,70 @@ export const CreateEvent = () => {
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  name='isPublic'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                      <div className="space-y-0.5">
+                        <FormLabel className="text-base">Public Event</FormLabel>
+                        <FormDescription>
+                          Make this event visible to the public
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  name='image'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Event Image URL</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormDescription>URL for the event image</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  name='isVirtual'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                      <div className="space-y-0.5">
+                        <FormLabel className="text-base">Virtual Event</FormLabel>
+                        <FormDescription>
+                          Is this a virtual event?
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <DialogFooter className='pt-10'>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
               </form>
             </Form>
           </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

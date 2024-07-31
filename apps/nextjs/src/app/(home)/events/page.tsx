@@ -1,11 +1,8 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { z } from "zod";
 
-import Image from "next/image"
 import { CreateEvent } from "./_components/CreateEvent";
 import { api } from "~/trpc/server";
-import { Button } from "@amaxa/ui/button";
-import { Card, CardContent } from "@amaxa/ui/card";
 import { EventCard } from "./_components/EventCard";
 import { NoEvents } from "./_components/NoEvents";
 
@@ -26,9 +23,11 @@ export default async function Home(props: {
 
   return (
     <div className="p-5">
-      <div className="py-5">
-        <h1 className="text-5xl font-bold">Events</h1>
-        <div>RSVP to upcoming events</div>
+      <div className="flex flex-row py-5 justify-between items-center">
+        <div className="flex flex-col gap-3">
+          <h1 className="text-5xl font-bold">Events</h1>
+          <div>RSVP to upcoming events</div>
+        </div>
         <div className="flex justify-between gap-5">
           <div />
           <div>
@@ -48,7 +47,7 @@ export default async function Home(props: {
         </main>
       )}
       <div className="space-y-6">
-        <div className="grid gap-4 md:gap-6">
+        <div className="grid grid-cols-3 grid-rows-3 gap-4 md:gap-6">
           {data.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}

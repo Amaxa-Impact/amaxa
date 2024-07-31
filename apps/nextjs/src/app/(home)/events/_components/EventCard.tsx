@@ -10,11 +10,11 @@ export function EventCard({
   event: RouterOutputs['events']['all'][0]
 }) {
   return (
-    <Card className="max-w-md mx-auto p-6 bg-background border border-muted rounded-lg shadow-sm">
+    <Card className="max-w-md mx-auto p-6 bg-background border border-muted rounded-lg shadow-sm min-w-[500px]">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <h3 className="text-xl font-semibold">{event.name}</h3>
-          <p className="text-muted-foreground">Join us for a day of team building and strategic planning.</p>
+          <p className="text-muted-foreground">{event.desc}</p>
         </div>
         <Button size="sm">RSVP</Button>
       </div>
@@ -22,7 +22,7 @@ export function EventCard({
         <div className="flex items-center gap-2">
           <CalendarIcon className="w-5 h-5 text-muted-foreground" />
           <div className="text-muted-foreground">
-            {event.time.toLocaleTimeString()}
+            {event.time.toLocaleDateString()} {event.time.toLocaleTimeString()}
           </div>
         </div>
         <div className="flex items-center gap-2">
