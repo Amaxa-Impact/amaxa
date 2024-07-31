@@ -1,5 +1,6 @@
 import React from 'react'
 import { Com } from './com'
+import Modal from "@amaxa/ui/modal"
 
 export default async function Page(props: {
   params: {
@@ -7,11 +8,12 @@ export default async function Page(props: {
   }
 }) {
   const { id } = props.params
+  console.log(id)
 
   return (
-    <div>
+    <Modal>
       <Com id={id} />
-    </div>
+    </Modal>
   )
 }
 

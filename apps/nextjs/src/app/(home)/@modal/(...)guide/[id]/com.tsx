@@ -1,6 +1,7 @@
 import React from 'react'
 import "react-notion/src/styles.css";
 import { NotionRenderer } from 'react-notion'
+import { Card, CardContent, CardHeader, CardTitle } from '@amaxa/ui/card';
 
 export const Com = async (props: {
   id: string
@@ -10,10 +11,17 @@ export const Com = async (props: {
   ).then(res => res.json())
 
   return (
-    <div>
-      <NotionRenderer
-        blockMap={data}
-      />
-    </div>
+    <Card className="container mx-auto my-8 h-[750px] w-[1000px] items-start overflow-y-scroll px-4 md:px-6 lg:px-8">
+      <CardHeader>
+        <CardTitle className='text-3xl'>
+          Action Guide
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <NotionRenderer
+          blockMap={data}
+        />
+      </CardContent>
+    </Card>
   )
 }

@@ -78,7 +78,7 @@ export default function Guides() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredGuides.map((guide) => (
-          <Link href={`/guide/${guide.id}`} key={guide.id}>
+          <Link href={`/guide/${guide.embedId}`} key={guide.id}>
             <Card >
               <CardHeader>
                 <CardTitle>{guide.title}</CardTitle>
