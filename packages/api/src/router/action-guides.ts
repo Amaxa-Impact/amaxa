@@ -15,7 +15,6 @@ export const actionGuideRouter = createTRPCRouter({
       return await ctx.db.query.guides.findMany({
         where: (guides, { and, ilike }) =>
           and(title ? ilike(guides.title, `%${title}%`) : undefined),
-
       });
     }),
 });

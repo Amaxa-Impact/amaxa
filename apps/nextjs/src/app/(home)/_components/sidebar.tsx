@@ -55,9 +55,9 @@ const UserDetails = ({ session }: { session: Session }) => {
           <AvatarFallback className="border-2 border-border text-muted-foreground">
             {user.name
               ? user.name
-                .split(" ")
-                .map((word) => word[0]?.toUpperCase())
-                .join("")
+                  .split(" ")
+                  .map((word) => word[0]?.toUpperCase())
+                  .join("")
               : "~"}
           </AvatarFallback>
         </Avatar>
