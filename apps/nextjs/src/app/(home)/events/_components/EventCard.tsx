@@ -1,4 +1,4 @@
-import { RouterOutputs } from "@amaxa/api"
+import type { RouterOutputs } from "@amaxa/api"
 import { Button } from "@amaxa/ui/button"
 import { Card } from "@amaxa/ui/card"
 import { CalendarIcon, MapPinIcon } from "lucide-react"

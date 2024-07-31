@@ -18,10 +18,10 @@ import { CheckIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-type CourseData = {
+interface CourseData {
   value: number;
   label: string;
-};
+}
 
 export function PickerForm(props: { data: CourseData[], idx: string }) {
   const [open, setOpen] = React.useState(false);

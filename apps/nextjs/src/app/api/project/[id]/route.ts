@@ -1,7 +1,7 @@
 import { and, eq } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
 import { project_tracker, Projects, User } from "@amaxa/db/schema";
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 export async function GET(req: NextApiRequest) {

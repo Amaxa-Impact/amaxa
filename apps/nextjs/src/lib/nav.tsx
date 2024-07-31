@@ -1,10 +1,10 @@
 import { BookIcon, Calendar, HomeIcon } from "lucide-react";
-import { SidebarLink } from "~/app/(home)/_components/sidebar-items";
+import type { SidebarLink } from "~/app/(home)/_components/sidebar-items";
 
-type AdditionalLinks = {
+interface AdditionalLinks {
   title: string;
   links: SidebarLink[];
-};
+}
 
 export function getLink() {
   const defaultLinks: SidebarLink[] = [

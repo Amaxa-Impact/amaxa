@@ -9,13 +9,14 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
 
 import { db } from "@amaxa/db/client";
+import type {
+  ProjectPermission,
+  UserRole,
+  UserStatus} from "@amaxa/db/schema";
 import {
   Account,
-  ProjectPermission,
   Session,
-  User,
-  UserRole,
-  UserStatus,
+  User
 } from "@amaxa/db/schema";
 
 import { env } from "../env";

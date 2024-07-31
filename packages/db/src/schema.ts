@@ -12,7 +12,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { Permission } from "./perms";
+import type { Permission } from "./perms";
 
 export const User = pgTable("user", {
   id: text("id")
@@ -232,9 +232,6 @@ export const projectTrackerRelations = relations(project_tracker, ({ one }) => (
 export type ProjectTracker = typeof project_tracker.$inferSelect;
 export type ProjectPermission = ProjectTracker["permission"];
 
-const typeOfGuide = [
-  'fundraising',
-]
 
 export const skills = pgTable("skills", {
   id: text("id").primaryKey().$defaultFn(() => createId()),

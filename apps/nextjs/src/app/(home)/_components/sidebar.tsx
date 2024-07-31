@@ -3,7 +3,8 @@ import Link from "next/link";
 import SidebarItems from "./sidebar-items";
 import { Poppins } from 'next/font/google';
 import { memo } from "react";
-import { auth, Session } from "@amaxa/auth";
+import type { Session } from "@amaxa/auth";
+import { auth } from "@amaxa/auth";
 import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 
 const poppins = Poppins({
@@ -37,7 +38,7 @@ const UserDetails = ({ session }: { session: Session }) => {
   if (session === null) return null;
   const user = session.user;
 
-  if (!user?.name || user.name.length == 0) return null;
+  if (!user.name || user.name.length == 0) return null;
 
   return (
     <Link href="/account">
@@ -52,7 +53,7 @@ const UserDetails = ({ session }: { session: Session }) => {
           <AvatarFallback className="border-2 border-border text-muted-foreground">
             {user.name
               ? user.name
-                ?.split(" ")
+                .split(" ")
                 .map((word) => word[0]!.toUpperCase())
                 .join("")
               : "~"}

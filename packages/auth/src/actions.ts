@@ -1,7 +1,8 @@
 import { eq, sql } from "drizzle-orm";
 
 import { db } from "@amaxa/db/client";
-import { project_tracker, ProjectPermission, User } from "@amaxa/db/schema";
+import type { ProjectPermission} from "@amaxa/db/schema";
+import { project_tracker, User } from "@amaxa/db/schema";
 
 const preparedGetUserInfo = db
   .select({
