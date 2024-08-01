@@ -49,3 +49,5 @@ export default async function Home(props: {
     </div>
   );
 }
+
+export const dynamic = "force-dynamic"

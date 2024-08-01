@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { createEventSchema } from "@amaxa/db/schema";
 import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
+import { LoadingButton } from "@amaxa/ui/loading-button";
 import { Calendar } from "@amaxa/ui/calendar";
 import {
   Dialog,
@@ -44,11 +45,14 @@ type CreateEventProps = z.infer<typeof createEventSchema>;
 
 export const CreateEvent = () => {
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
 
-  const { mutate: create } = api.events.create.useMutation({
+  const { mutate: create, isPending } = api.events.create.useMutation({
     onSuccess: () => {
       toast.success("Event created");
       router.refresh();
+      form.reset();
+      toggleDialogState();
     },
     onError: (error) => {
       showErrorToast(error);
@@ -63,11 +67,15 @@ export const CreateEvent = () => {
     create(data);
   }
 
+  function toggleDialogState() {
+    setOpen((prev) => !prev);
+  }
+
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>Create an Event</Button>
+          <Button >Create an Event</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -155,18 +163,17 @@ export const CreateEvent = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
-                  name="desc"
+                  name="image"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel>Event Image URL</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Input {...field} />
                       </FormControl>
-                      <FormDescription>
-                        A description of the event
-                      </FormDescription>
+                      <FormDescription>URL for the event image</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -194,25 +201,11 @@ export const CreateEvent = () => {
                     </FormItem>
                   )}
                 />
-
-                <FormField
-                  name="image"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Event Image URL</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormDescription>URL for the event image</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
+                <div className="h-4" />
                 <FormField
                   name="isVirtual"
                   control={form.control}
+
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
@@ -233,8 +226,27 @@ export const CreateEvent = () => {
                   )}
                 />
 
+                <FormField
+                  name="desc"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        A description of the event
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+
+
                 <DialogFooter className="pt-10">
-                  <Button type="submit">Save changes</Button>
+                  <LoadingButton disabled={isPending} loading={isPending} type="submit">Save changes</LoadingButton>
                 </DialogFooter>
               </form>
             </Form>
