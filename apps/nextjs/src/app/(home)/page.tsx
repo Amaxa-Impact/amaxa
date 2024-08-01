@@ -23,7 +23,7 @@ export default async function Page() {
       {data.map((project) => {
         return (
           <Link key={project.id} href={`/project/${project.id}`}>
-            <Card className=" col-span-1 row-span-1 bg-primary-foreground transition-transform duration-200 hover:scale-105 hover:bg-muted">
+            <Card className=" col-span-1 row-span-1 bg-primary-foreground transition-transform duration-200 hover:bg-muted">
               <CardContent className="py-5">
                 <Image
                   src={""}
