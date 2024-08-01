@@ -12,7 +12,7 @@ export default async function Page() {
   const data = await api.projects.findAll({});
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col gap-5">
       {data.length === 0 && (
         <NoneAvaliable
           text="None Avaliable"

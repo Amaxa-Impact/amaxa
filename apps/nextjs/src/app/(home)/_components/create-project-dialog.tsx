@@ -25,6 +25,7 @@ export default function CreateProjectDialog() {
       toast.success("Project created");
     },
   });
+
   const form = useForm<CreateProjectSchema>({
     resolver: zodResolver(createProjectSchema),
   });
