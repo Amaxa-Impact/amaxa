@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { createEventSchema } from "@amaxa/db/schema";
 import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
-import { LoadingButton } from "@amaxa/ui/loading-button";
 import { Calendar } from "@amaxa/ui/calendar";
 import {
   Dialog,
@@ -32,6 +31,7 @@ import {
   FormMessage,
 } from "@amaxa/ui/form";
 import { Input } from "@amaxa/ui/input";
+import { LoadingButton } from "@amaxa/ui/loading-button";
 import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
 import { Switch } from "@amaxa/ui/switch";
 import { Textarea } from "@amaxa/ui/textarea";
@@ -75,7 +75,7 @@ export const CreateEvent = () => {
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button >Create an Event</Button>
+          <Button>Create an Event</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -205,7 +205,6 @@ export const CreateEvent = () => {
                 <FormField
                   name="isVirtual"
                   control={form.control}
-
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
@@ -243,10 +242,14 @@ export const CreateEvent = () => {
                   )}
                 />
 
-
-
                 <DialogFooter className="pt-10">
-                  <LoadingButton disabled={isPending} loading={isPending} type="submit">Save changes</LoadingButton>
+                  <LoadingButton
+                    disabled={isPending}
+                    loading={isPending}
+                    type="submit"
+                  >
+                    Save changes
+                  </LoadingButton>
                 </DialogFooter>
               </form>
             </Form>

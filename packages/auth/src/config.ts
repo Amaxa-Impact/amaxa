@@ -1,4 +1,3 @@
-//TODO: add permissions stuff
 import type {
   DefaultSession,
   NextAuthConfig,

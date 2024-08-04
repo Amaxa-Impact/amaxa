@@ -50,4 +50,4 @@ export default async function Home(props: {
   );
 }
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
