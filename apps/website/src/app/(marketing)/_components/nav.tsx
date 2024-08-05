@@ -12,7 +12,7 @@ import {
 
 export default function NavigationSection() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/#projects" legacyBehavior passHref>
