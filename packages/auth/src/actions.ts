@@ -34,11 +34,10 @@ async function getUserInformation(id: string) {
     userId: id,
   });
 
-  const project_permissions: Record<string, Set<ProjectPermission>> = {};
+  const project_permissions: Record<string, ProjectPermission> = {};
 
   for (const tracker of projectTrackersData) {
-    const permission = new Set(tracker.permission.flat());
-    project_permissions[tracker.projectId] = permission;
+    project_permissions[tracker.projectId] = tracker.permission;
   }
 
   return {

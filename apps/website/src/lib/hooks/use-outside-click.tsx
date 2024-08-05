@@ -5,7 +5,8 @@
 /** eslint-disable @typescript-eslint/no-unsafe-member-access */
 /** eslint-disable @typescript-eslint/no-explicit-any */
 /** eslint-disable @typescript-eslint/ban-types */
-import React, { useEffect } from "react";
+import type React from "react";
+import { useEffect } from "react";
 
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,

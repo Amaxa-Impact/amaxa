@@ -18,7 +18,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       role: UserRole;
-      project_permissions?: Record<string, Set<ProjectPermission>>;
+      project_permissions?: Record<string, ProjectPermission>;
       status: UserStatus;
       id: string;
     } & DefaultSession["user"];
