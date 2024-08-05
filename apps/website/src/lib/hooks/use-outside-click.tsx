@@ -1,20 +1,15 @@
-/** eslint-disable @typescript-eslint/ban-ts-comment */
-//@ts-nocheck
-/** eslint-disable @typescript-eslint/no-unsafe-call */
-/** eslint-disable @typescript-eslint/no-explicit-any */
-/** eslint-disable @typescript-eslint/no-unsafe-member-access */
-/** eslint-disable @typescript-eslint/no-explicit-any */
-/** eslint-disable @typescript-eslint/ban-types */
-import type React from "react";
-import { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
 export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
-  callback: Function,
+  ref: RefObject<HTMLDivElement>,
+  callback: (event: MouseEvent | TouchEvent) => void,
 ) => {
   useEffect(() => {
-    const listener = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!(event instanceof MouseEvent) && !(event instanceof TouchEvent)) {
+        return;
+      }
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       callback(event);
