@@ -9,9 +9,6 @@ export default function Home() {
     <div className="flex flex-col">
       <Hero />
       <HowItWorks />
-      <div className="overflow-x-hidden pt-3">
-        <div className="absolute bottom-0 ml-[-50%] mt-[100px] h-[20px] w-[200%] rounded-t-[100%] bg-white"></div>
-      </div>
       <Projects />
       <WhatMakesUsDiffrent />
       <Testimonials />
