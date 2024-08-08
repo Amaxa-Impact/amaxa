@@ -5,12 +5,10 @@ import React, { memo } from "react";
 import { Handle, Position } from "@xyflow/react";
 
 import type { TaskStatus } from "@amaxa/db/schema";
-import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 import { Button } from "@amaxa/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
 import { Input } from "@amaxa/ui/input";
 import { Label } from "@amaxa/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
 import {
   Select,
   SelectContent,
@@ -22,7 +20,6 @@ import { Textarea } from "@amaxa/ui/textarea";
 
 import type { NodeType } from "~/lib/types/flowcart";
 import useStore from "~/lib/store";
-import { ChangeStatus } from "./change-status";
 
 const getCardClassName = (status: string) => {
   switch (status) {
@@ -37,11 +34,12 @@ const getCardClassName = (status: string) => {
 
 const TaskNode = ({ data, isConnectable }: NodeProps<NodeType>) => {
   const [isEdit, setIsEdit] = React.useState(false);
-  const authorInitials =
+  /* const authorInitials =
     data.assigne.name
       ?.split(" ")
       .map((n) => n[0])
       .join("") ?? "S";
+      */
 
   const changeNode = useStore((state) => state.changeNode);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,48 +61,41 @@ const TaskNode = ({ data, isConnectable }: NodeProps<NodeType>) => {
           type="target"
           position={Position.Left}
           isConnectable={isConnectable}
-          style={{ left: "-8px", top: "50%", transform: "translateY(-50%)" }}
+          style={{
+            left: "-4px",
+            top: "50%",
+            height: "20px",
+            width: "1px",
+            transform: "translateY(-50%)",
+          }}
         />
-        <Card className={`${getCardClassName(data.status)} min-w-[200px]`}>
+        <Card
+          className={`${getCardClassName(data.status)} min-w-[250px]`}
+          onDoubleClick={() => setIsEdit(true)}
+        >
           <CardHeader>
             <CardTitle className="flex flex-row items-center gap-2">
-              <p>{data.title}</p>
-              <p>&#8226;</p>
-              <Popover>
-                <PopoverTrigger>
-                  <Avatar>
-                    <AvatarFallback>{authorInitials}</AvatarFallback>
-                  </Avatar>
-                </PopoverTrigger>
-                <PopoverContent className="flex flex-col">
-                  <div className="flex flex-row items-center gap-4">
-                    <Avatar>
-                      <AvatarFallback>{authorInitials}</AvatarFallback>
-                    </Avatar>
-                    <p className="text-xl font-bold">
-                      {data.assigne.name ?? "System"}
-                    </p>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <p className="text-2xl">{data.title}</p>
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex w-full flex-col gap-3">
-            <ChangeStatus id={data.id} defaultValue={data.status} />
-            <Button onClick={() => setIsEdit(true)}>Edit</Button>
-          </CardContent>
         </Card>
         <Handle
           type="source"
           position={Position.Right}
           isConnectable={isConnectable}
-          style={{ right: "-8px", top: "50%", transform: "translateY(-50%)" }}
+          style={{
+            right: "-4px",
+            top: "50%",
+            height: "20px",
+            width: "1px",
+            transform: "translateY(-50%)",
+          }}
         />
       </div>
     );
   } else {
     return (
-      <Card className="w-min-[400px] h-min-[200px]">
+      <Card className="h-min-[200px] w-[400px]">
         <CardHeader>
           <CardTitle>Edit Task</CardTitle>
         </CardHeader>

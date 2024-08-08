@@ -46,7 +46,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider defaultTheme="light">
           <TRPCReactProvider>
             <FlowProvider>{props.children}</FlowProvider>
           </TRPCReactProvider>
