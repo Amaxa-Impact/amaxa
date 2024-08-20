@@ -23,13 +23,11 @@ export const Header = () => {
       <NavigationSection />
       <div className="hidden gap-4 md:flex  md:flex-row">
         <Link href={"/apply"} passHref>
-          <button className="rounded-xl border border-black bg-black px-4 py-2 text-sm text-white transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+          <button
+            className="rounded-xl border border-primary bg-primary px-4 py-2 text-sm text-white transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]"
+            disabled
+          >
             Apply now
-          </button>
-        </Link>
-        <Link href={"/sign-in"} passHref>
-          <button className="rounded-xl border border-black bg-white px-4 py-2 text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
-            Login
           </button>
         </Link>
       </div>

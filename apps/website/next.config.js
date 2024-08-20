@@ -2,6 +2,15 @@
 const config = {
   reactStrictMode: true,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+
   /** Enables hot reloading for local packages without a build step */
   transpilePackages: [
     "@amaxa/api",
