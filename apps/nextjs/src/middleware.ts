@@ -1,9 +1,16 @@
-export { auth as middleware } from "@amaxa/auth";
+import { NextResponse } from "next/server";
 
-// Or like this if you need to do something here.
-// export default auth((req) => {
-//   console.log(req.auth) //  { session: { user: { ... } } }
-// })
+import { auth } from "@amaxa/auth";
+
+export default auth((req) => {
+  const { nextUrl } = req;
+
+  const isLoggedIn = !!req.auth;
+
+  if (!isLoggedIn && nextUrl.pathname !== "/sign-in") {
+    return NextResponse.redirect(new URL("/sign-in", nextUrl));
+  }
+});
 
 // Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
