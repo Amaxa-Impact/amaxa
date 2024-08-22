@@ -62,7 +62,7 @@ export function ProjectDashboard({ id }: { id: string }) {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="col-span-2">
           <CardHeader>
-            <CardTitle>Tasks Finished Over Time project {id}</CardTitle>
+            <CardTitle>Tasks Finished Over Time</CardTitle>
             <CardDescription>
               Number of tasks completed each month
             </CardDescription>
