@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { TrendingUp } from "lucide-react";
 import {
   Area,
@@ -48,13 +47,13 @@ const chartConfig = {
 const COLORS = ["#3498db", "#e74c3c", "#2ecc71", "#f39c12"];
 
 export function ProjectDashboard({ id }: { id: string }) {
-  const { data: taskData } = api.tasks.getTasksOverTime.useSuspenseQuery({
+  const [taskData] = api.tasks.getTasksOverTime.useSuspenseQuery({
     projectId: id,
   });
-  const { data: priorityData } = api.tasks.getTaskPriorities.useSuspenseQuery({
+  const [priorityData] = api.tasks.getTaskPriorities.useSuspenseQuery({
     projectId: id,
   });
-  const { data: statusData } = api.tasks.getTaskStatuses.useSuspenseQuery({
+  const [statusData] = api.tasks.getTaskStatuses.useSuspenseQuery({
     projectId: id,
   });
 
@@ -69,7 +68,7 @@ export function ProjectDashboard({ id }: { id: string }) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfig} className="h-[300px]">
+            <ChartContainer config={chartConfig} className="h-[300px] w-full">
               <AreaChart
                 data={taskData}
                 margin={{
