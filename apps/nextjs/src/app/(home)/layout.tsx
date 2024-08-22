@@ -1,6 +1,6 @@
 import React from "react";
 
-import Sidebar from "./_components/sidebar";
+import { Component } from "~/components/layout-tabs";
 
 export default function Layout({
   children,
@@ -9,15 +9,19 @@ export default function Layout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
+  const links = [
+    { href: "/", label: "Projects" },
+    { href: "/events", label: "Events" },
+    { href: "/guides/action-guides", label: "Guides" },
+  ];
+
   return (
     <div>
-      <div className="flex h-screen">
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-background p-8 pt-2 md:p-8">
-          {children}
-        </main>
-        {modal}
+      <div className="flex flex-col">
+        <Component links={links} className="bg-secondary/40" />
+        <main className="">{children}</main>
       </div>
+      {modal}
     </div>
   );
 }

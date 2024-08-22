@@ -2,6 +2,7 @@
 // import { Projects } from "@amaxa/db/schema";
 import { z } from "zod";
 
+import { eq } from "@amaxa/db";
 import { createProjectSchema, Projects } from "@amaxa/db/schema";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -39,5 +40,18 @@ export const projectsRouter = createTRPCRouter({
           image: true,
         },
       });
+    }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string().optional(),
+        description: z.string().optional(),
+        image: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...update } = input;
+      await ctx.db.update(Projects).set(update).where(eq(Projects.id, id));
     }),
 });

@@ -1,14 +1,7 @@
 import React, { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ChartArea,
-  House,
-  Search,
-  Settings,
-  User,
-  Workflow,
-} from "lucide-react";
+import { Search } from "lucide-react";
 
 import { db } from "@amaxa/db/client";
 import {
@@ -20,14 +13,15 @@ import {
   BreadcrumbSeparator,
 } from "@amaxa/ui/breadcrumb";
 import { Input } from "@amaxa/ui/input";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@amaxa/ui/tooltip";
 
 import ComingSoon from "~/components/ComingSoon";
 import { UserMenu } from "~/components/UserMenu";
 import GetLastBreadCrumb from "./_components/LastItem";
+import { Sidebar } from "./_components/sidebar";
 
-const getProjectInfo = cache(async () => {
+const getProjectInfo = cache(async (id: string) => {
   const data = await db.query.Projects.findFirst({
+    where: (Project, { eq }) => eq(Project.id, id),
     columns: {
       name: true,
       id: true,
@@ -46,7 +40,7 @@ export default async function Layout({
   };
 }) {
   const { id } = params;
-  const data = await getProjectInfo();
+  const data = await getProjectInfo(id);
 
   if (!data) {
     return notFound();
@@ -54,70 +48,8 @@ export default async function Layout({
 
   return (
     <div className="flex min-h-screen w-full flex-col ">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-        <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
-          <Link
-            href="/"
-            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-          >
-            <House className="h-5 w-5" />
-            <span className="sr-only">{data.name}</span>
-          </Link>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href={`/project/${id}/`}
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <ChartArea className="h-5 w-5" />
-                <span className="sr-only">Dashboard</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href={`/project/${id}/tasks`}
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Workflow className="h-5 w-5 bg-gray-100" />
-                <span className="sr-only">Tasks</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Tasks</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href={`/project/${id}/permissions`}
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <User className="h-5 w-5 bg-gray-100" />
-                <span className="sr-only">Users</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Users</TooltipContent>
-          </Tooltip>
-        </nav>
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
-        </nav>
-      </aside>
-
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+      <Sidebar id={data.id} name={data.name} />
+      <div className="flex flex-col bg-muted/40 sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>

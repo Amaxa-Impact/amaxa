@@ -4,7 +4,6 @@ import { z } from "zod";
 import { api } from "~/trpc/server";
 import { CreateEvent } from "./_components/CreateEvent";
 import { EventCard } from "./_components/EventCard";
-import { NoEvents } from "./_components/NoEvents";
 
 const searchParamsSchema = z.object({
   name: z.string().optional(),
@@ -21,26 +20,13 @@ export default async function Home(props: {
   });
 
   return (
-    <div className="p-5">
-      <div className="flex flex-row items-center justify-between py-5">
-        <div className="flex flex-col gap-3">
-          <h1 className="text-5xl font-bold">Events</h1>
-          <div>RSVP to upcoming events</div>
+    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-screen-xl">
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Events</h1>
+          <CreateEvent />
         </div>
-        <div className="flex justify-between gap-5">
-          <div />
-          <div>{data.length > 0 && <CreateEvent />}</div>
-        </div>
-      </div>
-      {data.length === 0 && (
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          <div className="h-[500px]">
-            <NoEvents />
-          </div>
-        </main>
-      )}
-      <div className="space-y-6">
-        <div className="grid grid-cols-3 grid-rows-3 gap-4 md:gap-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
           {data.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}

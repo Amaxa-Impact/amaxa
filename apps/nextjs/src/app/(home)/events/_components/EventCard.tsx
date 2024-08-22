@@ -11,7 +11,7 @@ export function EventCard({
   event: RouterOutputs["events"]["all"][0];
 }) {
   return (
-    <Card className="mx-auto min-w-[500px] max-w-md rounded-lg border border-muted bg-background p-6 shadow-sm">
+    <Card className="h-max-[300px] mx-auto w-full rounded-lg border border-muted bg-secondary/40 p-6 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <h3 className="text-xl font-semibold">{event.name}</h3>
