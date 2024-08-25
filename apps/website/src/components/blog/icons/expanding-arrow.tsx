@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function ExpandingArrow({ className }: { className?: string }) {
   return (
@@ -34,5 +34,5 @@ export default function ExpandingArrow({ className }: { className?: string }) {
         ></path>
       </svg>
     </div>
-  )
+  );
 }

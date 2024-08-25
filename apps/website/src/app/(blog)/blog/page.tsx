@@ -6,10 +6,10 @@ export default async function Blog() {
   const articles = await Promise.all(
     allBlogPosts
       .sort(
-        (a: any, b: any) =>
+        (a, b) =>
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
       )
-      .map(async (post: any) => ({
+      .map(async (post) => ({
         ...post,
         blurDataURL: await getBlurDataURL(post.image),
       })),

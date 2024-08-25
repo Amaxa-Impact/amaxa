@@ -31,12 +31,6 @@ import {
 
 import { api } from "~/trpc/react";
 
-interface ProjectPageProps {
-  params: {
-    id: string;
-  };
-}
-
 const chartConfig = {
   tasksFinished: {
     label: "Tasks Finished",
@@ -158,7 +152,7 @@ export function ProjectDashboard({ id }: { id: string }) {
                 <YAxis />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Bar dataKey="count">
-                  {statusData.map((entry, index) => (
+                  {statusData.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}

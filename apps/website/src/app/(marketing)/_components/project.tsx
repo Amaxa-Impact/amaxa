@@ -133,7 +133,7 @@ export function Projects() {
   ));
 
   return (
-    <div className="h-full w-full overflow-x-hidden py-20">
+    <div className="h-full w-full overflow-x-hidden bg-transparent py-20">
       <h2 className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 md:text-5xl">
         Our Projects
       </h2>

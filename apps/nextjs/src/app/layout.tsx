@@ -3,7 +3,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { cn } from "@amaxa/ui";
-import { ThemeProvider } from "@amaxa/ui/theme";
+import { ThemeProvider, ThemeToggle } from "@amaxa/ui/theme";
 import { Toaster } from "@amaxa/ui/toast";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -46,11 +46,15 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <ThemeProvider defaultTheme="dark" attribute="class">
+        <ThemeProvider defaultTheme="light" attribute="class">
           <TRPCReactProvider>
             <FlowProvider>{props.children}</FlowProvider>
           </TRPCReactProvider>
           <Toaster />
+
+          <div className="absolute bottom-4 right-4">
+            <ThemeToggle />
+          </div>
         </ThemeProvider>
       </body>
     </html>

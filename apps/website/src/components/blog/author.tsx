@@ -2,7 +2,7 @@ import Link from "next/link";
 import BlurImage from "@/lib/blog/blur-image";
 import { timeAgo } from "@/lib/utils";
 
-export default async function Author({
+export default function Author({
   username,
   updatedAt,
   imageOnly,

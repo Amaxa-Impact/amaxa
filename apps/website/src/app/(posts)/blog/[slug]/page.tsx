@@ -30,8 +30,8 @@ export async function generateMetadata({
   const { title, seoTitle, summary, seoDescription, image } = post;
 
   return constructMetadata({
-    title: `${seoTitle || title} – amaxa`,
-    description: seoDescription || summary,
+    title: `${seoTitle ?? title} – amaxa`,
+    description: seoDescription ?? summary,
     image,
   });
 }
@@ -51,8 +51,8 @@ export default async function BlogArticle({
   const thumbnailBlurhash = await getBlurDataURL(data.image);
 
   const images = await Promise.all(
-    (data.images || []).map(async (src: string) => ({
-      alt: src.split("/").pop()?.split(".")[0] || "Bloggbilde",
+    (data.images ?? []).map(async (src: string) => ({
+      alt: src.split("/").pop()?.split(".")[0] ?? "Blog",
       src,
       blurDataURL: await getBlurDataURL(src),
     })),
@@ -62,7 +62,7 @@ export default async function BlogArticle({
     (category) => category.slug === data.categories[0],
   )!;
 
-  const relatedArticles = (data.related || [])
+  const relatedArticles = (data.related ?? [])
     .map((relatedSlug) => {
       const found = allBlogPosts.find((post) => post.slug === relatedSlug);
       return found;

@@ -62,8 +62,6 @@ export default function BlogLayoutHero() {
                 setOpenPopover={setOpenPopover}
               />
             ))}
-            <CategoryLink title="Kundehistorier" href="/customers" mobile />
-            <CategoryLink title="Endringslogg" href="/changelog" mobile />
           </div>
         }
         openPopover={openPopover}
