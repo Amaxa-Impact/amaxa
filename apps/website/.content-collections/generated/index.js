@@ -3,7 +3,13 @@
 import allBlogPosts from "./allBlogPosts.js";
 import allChangelogPosts from "./allChangelogPosts.js";
 import allHelpPosts from "./allHelpPosts.js";
-import allLegalPosts from "./allLegalPosts.js";
 import allIntegrationsPosts from "./allIntegrationsPosts.js";
+import allLegalPosts from "./allLegalPosts.js";
 
-export { allBlogPosts, allChangelogPosts, allHelpPosts, allLegalPosts, allIntegrationsPosts };
+export {
+  allBlogPosts,
+  allChangelogPosts,
+  allHelpPosts,
+  allLegalPosts,
+  allIntegrationsPosts,
+};

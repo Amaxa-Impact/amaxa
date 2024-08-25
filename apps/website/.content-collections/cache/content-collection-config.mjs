@@ -5,26 +5,33 @@ import { remarkGfm } from "fumadocs-core/mdx-plugins";
 import GithubSlugger from "github-slugger";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+
 var computedFields = (type) => ({
   slug: (document) => {
     const slugger = new GithubSlugger();
     return document.slug || slugger.slug(document.title);
   },
   tableOfContents: (document) => {
-    const content = document.content || document.body?.raw || document.mdx?.code || "";
+    const content =
+      document.content || document.body?.raw || document.mdx?.code || "";
     const headings = content.match(/^##\s(.+)$/gm);
     const slugger = new GithubSlugger();
-    return headings?.map((heading) => {
-      const title = heading.replace(/^##\s/, "");
-      return {
-        title,
-        slug: slugger.slug(title)
-      };
-    }) || [];
+    return (
+      headings?.map((heading) => {
+        const title = heading.replace(/^##\s/, "");
+        return {
+          title,
+          slug: slugger.slug(title),
+        };
+      }) || []
+    );
   },
   images: (document) => {
     if (!document.body?.raw) return [];
-    return document.body.raw.match(/(?<=<Image[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g) || [];
+    return (
+      document.body.raw.match(/(?<=<Image[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g) ||
+      []
+    );
   },
   tweetIds: (document) => {
     if (!document.body?.raw) return [];
@@ -33,10 +40,12 @@ var computedFields = (type) => ({
   },
   githubRepos: (document) => {
     if (!document.body?.raw) return [];
-    return document.body.raw.match(
-      /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g
-    ) || [];
-  }
+    return (
+      document.body.raw.match(
+        /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g,
+      ) || []
+    );
+  },
 });
 var BlogPost = defineCollection({
   name: "BlogPost",
@@ -56,13 +65,13 @@ var BlogPost = defineCollection({
     related: z.array(z.string()).optional(),
     githubRepos: z.array(z.string()).optional(),
     tweetIds: z.array(z.string()).optional(),
-    slug: z.string().optional()
+    slug: z.string().optional(),
   }),
   transform: async (document, context) => {
     try {
       const mdx = await compileMDX(context, document, {
         rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm],
       });
       console.log("MDX compilation successful for:", document.title);
       const computed = computedFields("blog");
@@ -73,21 +82,21 @@ var BlogPost = defineCollection({
         related: document.related || [],
         tableOfContents: computed.tableOfContents({
           ...document,
-          body: { raw: mdx.raw }
+          body: { raw: mdx.raw },
         }),
         images: computed.images({ ...document, body: { raw: mdx.raw } }),
         tweetIds: computed.tweetIds({ ...document, body: { raw: mdx.raw } }),
         githubRepos: computed.githubRepos({
           ...document,
-          body: { raw: mdx.raw }
-        })
+          body: { raw: mdx.raw },
+        }),
       };
     } catch (error) {
       console.error("Error compiling MDX for:", document.title, error);
       console.error("Error details:", error.stack);
       throw error;
     }
-  }
+  },
 });
 var ChangelogPost = defineCollection({
   name: "ChangelogPost",
@@ -99,13 +108,13 @@ var ChangelogPost = defineCollection({
     summary: z.string(),
     image: z.string(),
     author: z.string(),
-    slug: z.string().optional()
+    slug: z.string().optional(),
   }),
   transform: async (document, context) => {
     try {
       const mdx = await compileMDX(context, document, {
         rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm],
       });
       console.log("MDX compilation successful for:", document.title);
       const computed = computedFields("changelog");
@@ -115,21 +124,21 @@ var ChangelogPost = defineCollection({
         mdx,
         tableOfContents: computed.tableOfContents({
           ...document,
-          body: { raw: mdx.raw }
+          body: { raw: mdx.raw },
         }),
         images: computed.images({ ...document, body: { raw: mdx.raw } }),
         tweetIds: computed.tweetIds({ ...document, body: { raw: mdx.raw } }),
         githubRepos: computed.githubRepos({
           ...document,
-          body: { raw: mdx.raw }
-        })
+          body: { raw: mdx.raw },
+        }),
       };
     } catch (error) {
       console.error("Error compiling MDX for:", document.title, error);
       console.error("Error details:", error.stack);
       throw error;
     }
-  }
+  },
 });
 var HelpPost = defineCollection({
   name: "HelpPost",
@@ -143,13 +152,13 @@ var HelpPost = defineCollection({
     categories: z.array(z.enum(["", "", "", "", ""])).default([""]),
     related: z.array(z.string()).optional(),
     excludeHeadingsFromSearch: z.boolean().optional(),
-    slug: z.string().optional()
+    slug: z.string().optional(),
   }),
   transform: async (document, context) => {
     try {
       const mdx = await compileMDX(context, document, {
         rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm],
       });
       const computed = computedFields("help");
       const result = {
@@ -159,7 +168,7 @@ var HelpPost = defineCollection({
         tableOfContents: computed.tableOfContents(document),
         images: computed.images(document),
         tweetIds: computed.tweetIds(document),
-        githubRepos: computed.githubRepos(document)
+        githubRepos: computed.githubRepos(document),
       };
       return result;
     } catch (error) {
@@ -167,7 +176,7 @@ var HelpPost = defineCollection({
       console.error("Error details:", error.stack);
       throw error;
     }
-  }
+  },
 });
 var LegalPost = defineCollection({
   name: "LegalPost",
@@ -176,13 +185,13 @@ var LegalPost = defineCollection({
   schema: (z) => ({
     title: z.string(),
     updatedAt: z.string(),
-    slug: z.string().optional()
+    slug: z.string().optional(),
   }),
   transform: async (document, context) => {
     try {
       const mdx = await compileMDX(context, document, {
         rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm],
       });
       console.log("MDX compilation successful for:", document.title);
       const computed = computedFields("legal");
@@ -192,21 +201,21 @@ var LegalPost = defineCollection({
         mdx,
         tableOfContents: computed.tableOfContents({
           ...document,
-          body: { raw: mdx.raw }
+          body: { raw: mdx.raw },
         }),
         images: computed.images({ ...document, body: { raw: mdx.raw } }),
         tweetIds: computed.tweetIds({ ...document, body: { raw: mdx.raw } }),
         githubRepos: computed.githubRepos({
           ...document,
-          body: { raw: mdx.raw }
-        })
+          body: { raw: mdx.raw },
+        }),
       };
     } catch (error) {
       console.error("Error compiling MDX for:", document.title, error);
       console.error("Error details:", error.stack);
       throw error;
     }
-  }
+  },
 });
 var IntegrationsPost = defineCollection({
   name: "IntegrationsPost",
@@ -224,13 +233,13 @@ var IntegrationsPost = defineCollection({
     integrationType: z.string(),
     integrationDescription: z.string(),
     compatibility: z.string(),
-    slug: z.string().optional()
+    slug: z.string().optional(),
   }),
   transform: async (document, context) => {
     try {
       const mdx = await compileMDX(context, document, {
         rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm],
       });
       console.log("MDX compilation successful for:", document.title);
       const computed = computedFields("integrations");
@@ -240,28 +249,28 @@ var IntegrationsPost = defineCollection({
         mdx,
         tableOfContents: computed.tableOfContents({
           ...document,
-          body: { raw: mdx.raw }
+          body: { raw: mdx.raw },
         }),
         images: computed.images({ ...document, body: { raw: mdx.raw } }),
         tweetIds: computed.tweetIds({ ...document, body: { raw: mdx.raw } }),
         githubRepos: computed.githubRepos({
           ...document,
-          body: { raw: mdx.raw }
-        })
+          body: { raw: mdx.raw },
+        }),
       };
     } catch (error) {
       console.error("Error compiling MDX for:", document.title, error);
       console.error("Error details:", error.stack);
       throw error;
     }
-  }
+  },
 });
 var content_collections_default = defineConfig({
-  collections: [BlogPost, ChangelogPost, HelpPost, LegalPost, IntegrationsPost]
+  collections: [BlogPost, ChangelogPost, HelpPost, LegalPost, IntegrationsPost],
 });
 export {
   HelpPost,
   IntegrationsPost,
   LegalPost,
-  content_collections_default as default
+  content_collections_default as default,
 };

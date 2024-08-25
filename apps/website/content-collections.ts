@@ -1,3 +1,4 @@
+/* eslint-disable */
 //@ts-nocheck
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
