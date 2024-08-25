@@ -25,17 +25,17 @@ export default function Guides() {
   const actionGuides = [
     {
       id: 1,
-      title: "Test Action Guide 1",
+      title: "How to Start a Fundraiser",
       description:
-        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+        "Fundraising is a great way to raise money for your cause. Here are some tips to get you started.",
       tags: ["Fundraising"],
       embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c",
     },
     {
       id: 2,
-      title: "Test Action Guide 2",
+      title: "How to Plan an Event",
       description:
-        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+        "Planning an event can be a lot of work, but it can also be a lot of fun. Here are some tips to help you get started.",
       tags: ["Impact Outreach"],
       embedId: "Opening-Guide-Copy-7acb2eb37957405694b19afa43ae7b9c",
     },
@@ -93,7 +93,7 @@ export default function Guides() {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredGuides.map((guide) => (
           <Link href={`/guide/${guide.embedId}`} key={guide.id}>
-            <Card>
+            <Card className="h-[200px]">
               <CardHeader>
                 <CardTitle>{guide.title}</CardTitle>
               </CardHeader>

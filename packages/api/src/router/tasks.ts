@@ -252,4 +252,50 @@ export const tasksRouter = createTRPCRouter({
         .groupBy(tasks.position);
       return result;
     }),
+
+  getTasksOverTime: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.db
+        .select({
+          month: sql<string>`to_char(${tasks.createdAt}, 'Month')`,
+          tasksFinished: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .where(eq(tasks.projectId, input.projectId))
+        .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
+        .orderBy(sql`to_char(${tasks.createdAt}, 'Month')`);
+
+      return result;
+    }),
+
+  getTaskPriorities: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.db
+        .select({
+          priority: tasks.priority,
+          count: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .where(eq(tasks.projectId, input.projectId))
+        .groupBy(tasks.priority);
+
+      return result;
+    }),
+
+  getTaskStatuses: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.db
+        .select({
+          status: tasks.status,
+          count: sql<number>`count(*)`,
+        })
+        .from(tasks)
+        .where(eq(tasks.projectId, input.projectId))
+        .groupBy(tasks.status);
+
+      return result;
+    }),
 });

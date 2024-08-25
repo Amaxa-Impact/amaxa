@@ -10,15 +10,13 @@ import NavigationSection from "./nav";
 
 export const Header = () => {
   return (
-    <div className="flex flex-row items-start justify-evenly md:items-center">
-      <Image
-        src="/amaxa.png"
-        alt="logo"
-        width={100}
-        height={100}
-        className="hidden md:block"
-      />
-
+    <div className="flex flex-row items-start justify-evenly pt-10 md:items-center">
+      <Link className="flex items-center gap-2" href="/">
+        <div />
+        <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
+          ámaxa
+        </span>
+      </Link>
       <MobileNav />
       <NavigationSection />
       <div className="hidden gap-4 md:flex  md:flex-row">
