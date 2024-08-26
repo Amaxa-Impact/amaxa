@@ -75,7 +75,7 @@ export default function BlogLayoutHero() {
           className="flex w-full items-center space-x-2 border-t border-border px-2.5 py-4 text-sm text-foreground"
         >
           <List size={16} />
-          <p>Kategorier</p>
+          <p>Catagory</p>
         </button>
       </Popover>
     </>

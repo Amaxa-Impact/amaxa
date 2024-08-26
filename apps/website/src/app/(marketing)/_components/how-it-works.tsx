@@ -23,7 +23,7 @@ const cardContents = [
 ];
 export default function HowItWorks() {
   return (
-    <motion.section className="relative pb-8">
+    <motion.section className="animate-fade-in relative pb-8">
       <h3 className="mt-20 text-[30px] font-bold md:text-[50px] ">
         How It Works
       </h3>

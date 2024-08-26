@@ -11,16 +11,16 @@ export default function Hero() {
     <motion.section className="relative items-center md:min-h-[375px]">
       <div className="hero-slide-up flex flex-col">
         {" "}
-        <h1 className="mt-6 text-[30px] font-semibold leading-none md:text-[80px]">
+        <h1 className="animate-fade-in mt-6 translate-y-[-1rem] text-[30px] font-semibold leading-none md:text-[80px]">
           {" "}
           We help you effect
           <br /> change in the world.
         </h1>
-        <p className="mt-4 max-w-[600px] text-[#878787] md:mt-6">
+        <p className="animate-fade-in mt-4 max-w-[600px] text-[#878787] md:mt-6">
           We connect high school students, college students, professionals, &
           retirees to high-impact projects with our 9 global partner nonprofits.
         </p>
-        <div className="mt-8">
+        <div className="animate-fade-in mt-8">
           <div className="flex items-center space-x-4">
             <Link href="">
               <Button
