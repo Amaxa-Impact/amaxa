@@ -6,7 +6,7 @@ import { Testimonials } from "./_components/testimonials";
 
 export default function Home() {
   return (
-    <div className="flex flex-col pt-32">
+    <div className="flex flex-col pt-12 md:pt-32">
       <Hero />
       <HowItWorks />
       <Projects />

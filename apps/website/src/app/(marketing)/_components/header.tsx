@@ -1,23 +1,73 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { MenuIcon, MountainIcon } from "lucide-react";
+import { Menu } from "lucide-react";
 
-import { Button } from "@amaxa/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@amaxa/ui/sheet";
-
+import { MobileNav } from "~/components/mobile-nav";
 import NavigationSection from "./nav";
 
 export const Header = () => {
+  const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
+
+  const toggleMobileMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
+  };
+
+  React.useEffect(() => {
+    const closeMobileMenuOnClickOutside = () => {
+      if (showMobileMenu) {
+        setShowMobileMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMobileMenuOnClickOutside);
+
+    return () => {
+      document.removeEventListener("click", closeMobileMenuOnClickOutside);
+    };
+  }, [showMobileMenu]);
+
   return (
-    <div className="flex flex-row items-start justify-evenly pt-10 md:items-center">
+    <div className="flex flex-row items-start justify-between px-5 pt-10 md:items-center md:justify-evenly">
       <Link className="flex items-center gap-2" href="/">
         <div />
         <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
           ámaxa
         </span>
       </Link>
-      <MobileNav />
+      <button
+        className="flex items-center space-x-2 md:hidden"
+        onClick={toggleMobileMenu}
+      >
+        {showMobileMenu ? <Menu /> : <Menu />}
+      </button>
+      {showMobileMenu && (
+        <MobileNav
+          items={[
+            {
+              title: "Projects",
+              href: "/project",
+            },
+            {
+              title: "How we work",
+              href: "/about-us",
+            },
+            {
+              title: "Meet the Team",
+              href: "/team",
+            },
+            {
+              title: "Blog",
+              href: "/blog",
+            },
+            {
+              title: "Platform",
+              href: "/platform",
+            },
+          ]}
+        />
+      )}
       <NavigationSection />
       <div className="hidden gap-4 md:flex  md:flex-row">
         <Link href={"/apply"} passHref>
@@ -30,54 +80,5 @@ export const Header = () => {
         </Link>
       </div>
     </div>
-  );
-};
-
-const MobileNav = () => {
-  return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="block md:hidden">
-          <MenuIcon className="h-6 w-6" />
-          <span className="sr-only">Toggle navigation menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left">
-        <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">amaxa</span>
-        </Link>
-        <div className="grid gap-2 py-6">
-          <Link
-            href="/#projects"
-            className="flex w-full items-center py-2 text-lg font-semibold"
-            prefetch={false}
-          >
-            Explore Our Projects
-          </Link>
-          <Link
-            href="/team"
-            className="flex w-full items-center py-2 text-lg font-semibold"
-            prefetch={false}
-          >
-            Meet the Team
-          </Link>
-          <Link
-            href="stories"
-            className="flex w-full items-center py-2 text-lg font-semibold"
-            prefetch={false}
-          >
-            Read Stories
-          </Link>
-          <Link
-            href="/support-us"
-            className="flex w-full items-center py-2 text-lg font-semibold"
-            prefetch={false}
-          >
-            Support Us
-          </Link>
-        </div>
-      </SheetContent>
-    </Sheet>
   );
 };

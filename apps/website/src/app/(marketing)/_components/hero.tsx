@@ -11,7 +11,7 @@ export default function Hero() {
     <motion.section className="relative items-center md:min-h-[375px]">
       <div className="hero-slide-up flex flex-col">
         {" "}
-        <h1 className="animate-fade-in mt-6 translate-y-[-1rem] text-[30px] font-semibold leading-none md:text-[80px]">
+        <h1 className="animate-fade-in mt-6 translate-y-[-1rem] text-[30px] font-bold leading-none md:text-[80px] md:font-semibold">
           {" "}
           We help you effect
           <br /> change in the world.
