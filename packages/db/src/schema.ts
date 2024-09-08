@@ -13,8 +13,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
-import type { Permission } from "./perms";
-
 export const User = pgTable("user", {
   id: text("id")
     .notNull()
@@ -29,9 +27,9 @@ export const User = pgTable("user", {
   })
     .notNull()
     .default("Unverified"),
-  role: varchar("role", { length: 30, enum: ["Admin", "Coach", "Student"] })
+  role: varchar("role", { length: 30, enum: ["Admin", "User"] })
     .notNull()
-    .default("Student"),
+    .default("User"),
   emailVerified: timestamp("emailVerified", {
     mode: "date",
     withTimezone: true,
@@ -216,7 +214,10 @@ export const project_tracker = pgTable(
   {
     userId: text("user_id").notNull(),
     projectId: text("project_id").notNull(),
-    permission: text("permissions").array().notNull().$type<Permission[]>(),
+    permission: varchar("permissions", {
+      length: 30,
+      enum: ["admin", "coach", "student"],
+    }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -225,6 +226,7 @@ export const project_tracker = pgTable(
     pk: primaryKey({ columns: [table.userId, table.projectId] }),
   }),
 );
+export const userRolesEnum = project_tracker.permission.enumValues;
 
 export const projectTrackerRelations = relations(
   project_tracker,

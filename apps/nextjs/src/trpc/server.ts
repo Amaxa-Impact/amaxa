@@ -1,8 +1,12 @@
 import { cache } from "react";
 import { headers } from "next/headers";
+import { createHydrationHelpers } from "@trpc/react-query/rsc";
 
+import type { AppRouter } from "@amaxa/api";
 import { createCaller, createTRPCContext } from "@amaxa/api";
 import { auth } from "@amaxa/auth";
+
+import { createQueryClient } from "./query-client";
 
 /**
  * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
@@ -18,4 +22,10 @@ const createContext = cache(async () => {
   });
 });
 
-export const api = createCaller(createContext);
+const getQueryClient = cache(createQueryClient);
+const caller = createCaller(createContext);
+
+export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
+  caller,
+  getQueryClient,
+);

@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const edges = data.edges.length === 0 ? undefined : data.edges;
 
   return (
-    <div>
+    <div className="w-full">
       <Flowchart tasksInit={tasks} edgesInit={edges} />
     </div>
   );

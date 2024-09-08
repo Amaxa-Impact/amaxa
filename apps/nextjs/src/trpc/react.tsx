@@ -1,25 +1,17 @@
 "use client";
 
+import type { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import SuperJSON from "superjson";
 
 import type { AppRouter } from "@amaxa/api";
+import { TooltipProvider } from "@amaxa/ui/tooltip";
 
 import { env } from "~/env";
-
-const createQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
-        staleTime: 30 * 1000,
-      },
-    },
-  });
+import { createQueryClient } from "./query-client";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -61,7 +53,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <api.Provider client={trpcClient} queryClient={queryClient}>
-        {props.children}
+        <TooltipProvider>{props.children}</TooltipProvider>
       </api.Provider>
     </QueryClientProvider>
   );

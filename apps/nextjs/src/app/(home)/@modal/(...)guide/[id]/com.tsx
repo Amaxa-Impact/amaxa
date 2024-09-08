@@ -17,7 +17,7 @@ export const Com = async (props: { id: string }) => {
       <CardHeader>
         <CardTitle className="text-3xl">Action Guide</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-primary-foreground">
         <NotionRenderer blockMap={data} />
       </CardContent>
     </Card>
