@@ -1,7 +1,7 @@
 "use client";
 
-import React, { forwardRef, useRef } from "react";
 import type { IconProps } from "@radix-ui/react-icons/dist/types";
+import React, { forwardRef, useRef } from "react";
 
 import { cn } from "@amaxa/ui";
 
