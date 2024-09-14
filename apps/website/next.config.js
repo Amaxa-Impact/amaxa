@@ -1,5 +1,3 @@
-import { withContentCollections } from "@content-collections/next";
-
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -27,4 +25,4 @@ const config = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default withContentCollections(config);
+export default config;
