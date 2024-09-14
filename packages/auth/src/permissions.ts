@@ -12,7 +12,7 @@ export const TEST_USER: E2EUsers = {
     user: {
       id: "test_user",
       name: "Jane Doe",
-      role: "Student",
+      role: "User",
       status: "Unverified",
     },
     // expires in +1 day
