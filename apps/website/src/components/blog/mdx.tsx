@@ -144,7 +144,7 @@ const components = {
       {(props.articles || POPULAR_ARTICLES).map((slug) => (
         <HelpArticleLink
           key={slug}
-          article={allHelpPosts.find((post) => post.slug === slug)!}
+          article={allHelpPosts.find((post) => post.slug === slug)}
         />
       ))}
     </div>

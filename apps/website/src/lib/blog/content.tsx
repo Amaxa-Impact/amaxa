@@ -1,5 +1,4 @@
 // import { Logo } from "#/ui/icons";
-import { allBlogPosts } from "content-collections";
 import { Settings } from "lucide-react";
 
 export const BLOG_CATEGORIES: {
@@ -36,7 +35,7 @@ export const HELP_CATEGORIES: {
 
 export const getPopularArticles = () => {
   const popularArticles = POPULAR_ARTICLES.map((slug) => {
-    const post = allBlogPosts.find((post) => post.slug === slug);
+    const post = {};
     if (!post) {
       console.warn(`Popular article with slug "${slug}" not found`);
     }

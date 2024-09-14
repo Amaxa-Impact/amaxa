@@ -98,3 +98,8 @@ export function ProjectDashboard({ id }: { id: string }) {
               </div>
             </div>
           </CardFooter>
+        </Card>
+      </div>
+    </main>
+  );
+}

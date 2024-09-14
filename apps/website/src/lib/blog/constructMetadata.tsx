@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export function constructMetadata({
-  title = "Propdock - Revolusjonerende eiendomsadministrasjon",
-  description = "Propdock er en innovativ løsning for eiendomsadministrasjon som kombinerer kraftig analyse, utleieadministrasjon og brukervennlig grensesnitt",
-  image = "https://propdock.no/_static/thumbnail.png",
+  title = "Amaxa",
+  description = "Amaxa",
+  image = "amaxa",
   icons = "/favicon.ico",
   noIndex = false,
 }: {
@@ -43,19 +43,11 @@ export function constructMetadata({
   };
 }
 
-export const HOME_DOMAIN =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
-    ? "https://propdock.no"
-    : process.env.NEXT_PUBLIC_VERCEL_ENV === "preview"
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://home.localhost:3000";
+export const HOME_DOMAIN = "https://amaxa-website.vercel.app";
 
 export const APP_HOSTNAMES = new Set([
-  "propdock.no",
-  "preview.propdock.no",
-  "localhost:8888",
+  "amaxa-website.vercel.app",
   "localhost:3000",
-  "localhost",
 ]);
 
 export const truncate = (str: string | null, length: number) => {

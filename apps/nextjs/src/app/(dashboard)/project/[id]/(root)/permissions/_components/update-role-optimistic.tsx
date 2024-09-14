@@ -12,7 +12,7 @@ import {
 } from "@amaxa/ui/select";
 import { toast } from "@amaxa/ui/toast";
 
-import { ProjectRoles } from "~/lib/types";
+import type { ProjectRoles } from "~/lib/types";
 import { api } from "~/trpc/react";
 
 export const UpdateRole = (props: {
