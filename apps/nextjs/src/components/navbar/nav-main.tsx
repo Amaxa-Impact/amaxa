@@ -2,15 +2,9 @@
 
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { ChevronRight, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { cn } from "@amaxa/ui";
-import { Button } from "@amaxa/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@amaxa/ui/collapsible";
 import { Drawer, DrawerContent, DrawerTrigger } from "@amaxa/ui/drawer";
 import { Input } from "@amaxa/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
@@ -20,7 +14,6 @@ import { useIsMobile } from "@amaxa/ui/use-mobile";
 export function NavMain({
   className,
   items,
-  searchResults,
 }: {
   items: {
     title: string;
@@ -36,9 +29,6 @@ export function NavMain({
 } & React.ComponentProps<"ul">) {
   return (
     <ul className={cn("grid gap-0.5", className)}>
-      <li>
-        <SidebarSearch results={searchResults} />
-      </li>
       {items.map((item) => (
         <li
           key={item.title}

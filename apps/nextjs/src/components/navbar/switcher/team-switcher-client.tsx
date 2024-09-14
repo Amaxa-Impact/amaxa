@@ -11,7 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@amaxa/ui/dropdown-menu";
 
@@ -66,12 +65,6 @@ export function TeamSwitcherClient({
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-2 px-1.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md border bg-background">
-            <Plus className="h-5 w-5" />
-          </div>
-          <div className="font-medium text-muted-foreground">Add project</div>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

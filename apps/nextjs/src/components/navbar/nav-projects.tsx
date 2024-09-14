@@ -1,16 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { MoreHorizontal, PlusSquare } from "lucide-react";
 
 import { cn } from "@amaxa/ui";
-import { Button } from "@amaxa/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@amaxa/ui/dropdown-menu";
 
 export function NavProjects({
   projects,

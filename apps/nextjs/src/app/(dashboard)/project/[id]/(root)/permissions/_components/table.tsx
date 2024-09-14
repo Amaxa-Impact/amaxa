@@ -1,30 +1,31 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@amaxa/ui/avatar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@amaxa/ui/select";
-import { TableBody, TableCell, TableRow } from "@amaxa/ui/table";
+import { TableCell, TableRow } from "@amaxa/ui/table";
 
 import { api } from "~/trpc/react";
+import { UpdateRole } from "./update-role-optimistic";
 
 export const PermissionsRows = ({ id }: { id: string }) => {
   const [users] = api.users.findUsersForProject.useSuspenseQuery({
     projectId: id,
   });
+  if (!users) {
+    return (
+      <div className="flex flex-col items-center justify-center text-3xl font-semibold">
+        No Users
+      </div>
+    );
+  }
   return (
-    <TableBody>
+    <>
       {users.map((user) => (
-        <TableRow>
+        <TableRow key={user.id}>
           <TableCell>
             <div className="flex items-center gap-2">
               <Avatar>
-                <AvatarImage src="/placeholder-user.jpg" />
-                <AvatarFallback>{user.name[0]}</AvatarFallback>
+                <AvatarImage src="" />
+                <AvatarFallback>{user.name?.[0]}</AvatarFallback>
               </Avatar>
               <div>
                 <div className="font-medium">{user.name}</div>
@@ -35,19 +36,10 @@ export const PermissionsRows = ({ id }: { id: string }) => {
             </div>
           </TableCell>
           <TableCell>
-            <Select defaultValue={user.role}>
-              <SelectTrigger className="w-[120px]">
-                <SelectValue placeholder="Select role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="viewer">User</SelectItem>
-                <SelectItem value="coach">Coach</SelectItem>
-                <SelectItem value="admin">Admin</SelectItem>
-              </SelectContent>
-            </Select>
+            <UpdateRole userId={user.id} projectId={id} roles={user.role} />
           </TableCell>
         </TableRow>
       ))}
-    </TableBody>
+    </>
   );
 };

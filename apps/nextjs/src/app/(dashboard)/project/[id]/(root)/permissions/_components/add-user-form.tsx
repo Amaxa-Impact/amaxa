@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "lucide-react";
@@ -43,6 +43,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
+import { toast } from "@amaxa/ui/toast";
 
 import { api } from "~/trpc/react";
 
@@ -62,14 +63,20 @@ export default function AddUserForm({
   }[];
 }) {
   const { id } = useParams();
-  const router = useRouter();
+  const [open, setOpen] = useState(false);
   const form = useForm<AddUserForm>({
     resolver: zodResolver(addUserSchema),
   });
+  const utils = api.useUtils();
 
   const { mutate: create } = api.users.joinProject.useMutation({
     onSuccess: () => {
-      router.refresh();
+      setOpen(false);
+      utils.users.invalidate();
+    },
+    onError: () => {
+      toast.error("error");
+      setOpen(false);
     },
   });
 
@@ -77,12 +84,12 @@ export default function AddUserForm({
     create({
       userId: data.userId,
       permission: data.permission,
-      projectId: id,
+      projectId: id as string,
     });
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Invite User</Button>
       </DialogTrigger>
@@ -137,7 +144,7 @@ export default function AddUserForm({
                   <FormLabel>User</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <FormControl>
+                      <FormControl className="w-full">
                         <Button
                           variant="outline"
                           role="combobox"

@@ -28,7 +28,7 @@ const getCardClassName = (status: string) => {
     case "unable-to-complete":
       return "border-red-600 bg-red-100 text-gray-600";
     default:
-      return null;
+      return "bg-zinc-700";
   }
 };
 

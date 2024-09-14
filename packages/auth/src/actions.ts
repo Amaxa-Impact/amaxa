@@ -1,6 +1,6 @@
 import { eq, sql } from "drizzle-orm";
 
-import type { ProjectPermission } from "@amaxa/db/schema";
+import type { ProjectPermission, UserRole } from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
 import { project_tracker, User } from "@amaxa/db/schema";
 
@@ -11,6 +11,7 @@ const preparedGetUserInfo = db
   })
   .from(User)
   .where(eq(User.id, sql.placeholder("id")))
+  .limit(1)
   .prepare("getUserInfo");
 
 const preparedGetUserProjectTrackers = db
@@ -42,6 +43,7 @@ async function getUserInformation(id: string) {
 
   return {
     ...user,
+    role: userData[0]?.role ?? ("Student" as UserRole),
     project_permissions,
   };
 }

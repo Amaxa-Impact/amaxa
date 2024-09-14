@@ -1,9 +1,6 @@
 "use client";
 
-import { url } from "inspector";
 import {
-  Atom,
-  Eclipse,
   GitGraphIcon,
   Home,
   InfoIcon,
@@ -11,7 +8,6 @@ import {
   Map,
   MapIcon,
   PieChart,
-  Rabbit,
   Send,
   UserIcon,
 } from "lucide-react";

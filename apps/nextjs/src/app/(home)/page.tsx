@@ -42,12 +42,7 @@ export default async function Page() {
                   </CardHeader>
                 </Card>
               ) : (
-                <Card className="col-span-1 row-span-1 flex h-[300px] w-[300px] flex-col items-center justify-center border-dashed border-black bg-secondary/10 transition-transform duration-200 dark:border-white">
-                  <CardHeader>
-                    Your not assigned to a project yet! Please contact your
-                    coach to assign you to a project
-                  </CardHeader>
-                </Card>
+                <div></div>
               )}
             </div>
           </div>
