@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import {
   ArrowDown,
@@ -13,7 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 
-import { Button } from "@amaxa/ui/button";
+import { Button, buttonVariants } from "@amaxa/ui/button";
 import { Card, CardContent } from "@amaxa/ui/card";
 
 import StudentStories from "./_components/student-stories";
@@ -226,7 +227,10 @@ function TechImpact() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section ref={ref} className="bg-primary py-16 text-primary-foreground">
+    <section
+      ref={ref}
+      className="rounded-3xl bg-primary py-16 text-primary-foreground"
+    >
       <div className="container mx-auto px-4 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -252,10 +256,16 @@ function TechImpact() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Button size="lg" variant="secondary">
+          <Link
+            href={"/platform"}
+            className={buttonVariants({
+              size: "md",
+              variant: "secondary",
+            })}
+          >
             Join Our Tech-Driven Movement
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
