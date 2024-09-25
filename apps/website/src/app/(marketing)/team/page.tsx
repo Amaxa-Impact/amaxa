@@ -37,13 +37,6 @@ const teamMembers: TeamMember[] = [
     photo: "/placeholder.svg?height=400&width=400",
   },
   {
-    name: "Hasibur",
-    role: "Director of Student Experience",
-    quote: "",
-    bio: "Hasibur transforms students' journeys through data-driven insights. Leveraging his experience developing accessibility tools as an Equitech Scholar and bringing 162 refugee students to full literacy in Bangladesh, he amplifies student voices to craft an empowering learning environment that propels students to success.",
-    photo: "/placeholder.svg?height=400&width=400",
-  },
-  {
     name: "Pari Singh",
     role: "Director of Operations",
     quote: "",

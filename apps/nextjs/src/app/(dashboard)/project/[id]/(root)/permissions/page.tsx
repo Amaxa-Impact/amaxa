@@ -20,7 +20,7 @@ import { AddUser } from "./_components/add-user";
 import { PermissionsRows } from "./_components/table";
 import { PermissionsRowsSkeleton } from "./_skeleton";
 
-export default async function Page({
+export default function Page({
   params,
 }: {
   params: {

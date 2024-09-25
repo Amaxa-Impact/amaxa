@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import {
@@ -9,15 +10,19 @@ import {
   Globe,
   Heart,
   Lightbulb,
+  QuoteIcon,
   Rocket,
   Users,
   Zap,
 } from "lucide-react";
 
-import { Button, buttonVariants } from "@amaxa/ui/button";
+import { buttonVariants } from "@amaxa/ui/button";
 import { Card, CardContent } from "@amaxa/ui/card";
 
-import StudentStories from "./_components/student-stories";
+import WhatMakesUsDiffrent from "../_components/different";
+import HowItWorks from "../_components/how-it-works";
+import ProgramInfo from "./_components/program-info";
+import { StoriesCarousel } from "./_components/student-stories";
 
 export default function AmaxaAboutUs() {
   const containerRef = useRef(null);
@@ -25,10 +30,14 @@ export default function AmaxaAboutUs() {
   return (
     <div ref={containerRef} className="min-h-screen w-full text-foreground">
       <Hero />
-      <Mission />
+      <TestimonialComponent />
       <Impact />
-      <StudentStories />
-      <UniqueValue />
+      <StoriesCarousel />
+      <HowItWorks />
+      <ProgramInfo />
+      <Mission />
+      <WhatMakesUsDiffrent />
+      <div className="h-[32px]" />
       <TechImpact />
     </div>
   );
@@ -178,50 +187,6 @@ function Impact() {
   );
 }
 
-function UniqueValue() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-
-  const uniqueFeatures = [
-    "High-impact, innovative, and community-driven projects",
-    "Personal matching to projects, teams, and coaches",
-    "Remote impact model fostering global connections",
-    "Empowering high school students as global leaders",
-    "Affordable program with scholarships available",
-  ];
-
-  return (
-    <section ref={ref} className="py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl">
-          What Makes Us Unique
-        </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {uniqueFeatures.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card>
-                <CardContent className="p-6">
-                  <div className="mb-4 flex items-center">
-                    <div className="mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      {index + 1}
-                    </div>
-                    <p className="font-semibold">{feature}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function TechImpact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -271,3 +236,57 @@ function TechImpact() {
     </section>
   );
 }
+const TestimonialComponent = () => (
+  <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-primary/25 shadow-lg">
+    <div className="flex flex-col md:flex-row">
+      <div className="relative h-64 md:h-auto md:w-1/3">
+        <Image
+          alt="Lauren McMillen"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-xl md:rounded-none"
+          src="/lauren-headshot.png"
+        />
+        <div className="absolute bottom-4 right-4 rounded-full bg-primary p-3 text-white shadow-lg">
+          <QuoteIcon size={24} />
+        </div>
+      </div>
+      <div className="p-6 md:w-2/3 md:p-12">
+        <blockquote className="text-gray-800">
+          <p className="mb-6 text-lg leading-relaxed md:text-xl">
+            When I was 16, my teacher Mr. Boyce believed in me. With his
+            mentorship, I raised $10,000 to purchase solar panels for a school
+            in Uganda. This experience taught me how to be impactful, and it
+            changed my life - but only because I was fortunate enough to meet
+            Mr. Boyce.
+          </p>
+          <p className="mb-6 text-lg leading-relaxed md:text-xl">
+            My story highlights a much larger issue: it's too difficult for
+            people who want to make a difference to actually do it. Individuals
+            facing poverty, conflict, and other challenges could be profoundly
+            impacted if more of us knew how to turn our passion into meaningful
+            change.
+          </p>
+          <p className="mb-6 text-lg leading-relaxed md:text-xl">
+            That's why I founded Amaxa. We're dedicated to empowering the next
+            generation of changemakers, providing them with the tools,
+            resources, and mentorship they need to create lasting positive
+            impact in their communities and beyond.
+          </p>
+          <p className="text-lg leading-relaxed md:text-xl">
+            Together, we can break down the barriers that prevent passionate
+            individuals from making a difference. We believe that everyone has
+            the potential to change the world - they just need the right support
+            and guidance to unlock that potential.
+          </p>
+        </blockquote>
+        <footer className="mt-8">
+          <p className="text-xl font-semibold text-gray-900">Lauren McMillen</p>
+          <p className="text-lg font-medium text-primary">
+            CEO & Founder, Amaxa
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+);

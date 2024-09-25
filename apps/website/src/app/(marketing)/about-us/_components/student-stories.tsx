@@ -1,10 +1,8 @@
-//@ts-nocheck
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
-import { Card, CardContent } from "@amaxa/ui/card";
+import { GraduationCap, Quote, User, Users } from "lucide-react";
 
 const stories = [
   {
@@ -34,108 +32,143 @@ const stories = [
     quote:
       "In the beginning of this project, I thought it was impossible. As time progressed, I realized that we could definitely create this change and, no matter how big anything may seem, with the right people and the right support, we can.",
   },
+  {
+    name: "Isabella and Zobia",
+    age: "16-17",
+    country: "US",
+    story:
+      "Planning student benefit concert to raise funds for Gazan students - ONGOING",
+    quote: "This is an ongoing project- updates to come!",
+  },
+  {
+    name: "An Nhi, Mohammed, and Lauryn",
+    age: "16-17",
+    country: "US, Turkey, and Vietnam",
+    story:
+      "Planted trees across 3 countries as part of the Amaxa Global Forest Initiative. Each team member identified an appropriate place to plant a native tree in their community, procured a native tree, and planted it. They did measurements on the tree and started the process of calculating the CO2 sequestration.",
+    quote:
+      "Amaxa taught me that if I have an idea that helps other people, I can develop it.",
+  },
 ];
 
-export default function StudentStories() {
-  const [activeStory, setActiveStory] = useState(0);
+export const StoriesCarousel = memo(() => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const intervalRef = useRef(null);
-  const progressIntervalRef = useRef(null);
+  const progressRef = useRef(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const nextStory = useCallback(() => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % stories.length);
+    progressRef.current = 0;
+    setProgress(0);
+  }, []);
+
+  const updateProgress = useCallback(() => {
+    progressRef.current += 0.5;
+    if (progressRef.current >= 100) {
+      nextStory();
+    } else {
+      setProgress(progressRef.current);
+    }
+  }, [nextStory]);
 
   useEffect(() => {
-    const startIntervals = () => {
-      clearInterval(intervalRef?.current!);
-      clearInterval(progressIntervalRef?.current!);
-
-      intervalRef.current = setInterval(() => {
-        setActiveStory((prev) => (prev + 1) % stories.length);
-        setProgress(0);
-      }, 10000);
-
-      progressIntervalRef.current = setInterval(() => {
-        setProgress((prev) => Math.min(prev + 1, 100));
-      }, 100);
-    };
-
-    startIntervals();
+    intervalRef.current = setInterval(updateProgress, 50);
 
     return () => {
-      clearInterval(intervalRef?.current!);
-      clearInterval(progressIntervalRef.current!);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
-  }, [activeStory]);
+  }, [updateProgress]);
 
-  const handleStoryClick = (index: any) => {
-    setActiveStory(index);
+  const handleStoryClick = (index: number) => {
+    setActiveIndex(index);
+    progressRef.current = 0;
     setProgress(0);
-    clearInterval(intervalRef.current!);
-    clearInterval(progressIntervalRef.current!);
   };
 
   return (
-    <section className="bg-background py-16">
+    <section className="py-16 text-gray-800">
       <div className="container mx-auto px-4">
-        <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl">
-          Student Stories
-        </h2>
-        <div className="flex flex-col items-center justify-center space-y-8 md:flex-row md:items-start md:space-x-8 md:space-y-0">
-          <div className="w-full max-w-2xl md:w-2/3">
-            <AnimatePresence mode="wait">
+        <h3 className="mb-12 bg-gradient-to-r from-primary to-pink-600 bg-clip-text text-center text-4xl font-extrabold text-transparent">
+          Inspiring Stories of Young Changemakers
+        </h3>
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[300px_1fr]">
+          <div className="space-y-4">
+            {stories.map((story, index) => (
               <motion.div
-                key={activeStory}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
+                key={index}
+                className={`relative cursor-pointer rounded-md p-4 transition-all duration-300 ease-in-out ${
+                  index === activeIndex ? "rounded-lg bg-white shadow-md" : ""
+                }`}
+                onClick={() => handleStoryClick(index)}
+                layout
               >
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="mb-2 text-2xl font-semibold">
-                      {stories[activeStory]?.name}
-                    </h3>
-                    <p className="mb-4 text-muted-foreground">
-                      Age: {stories[activeStory]?.age} | Country:{" "}
-                      {stories[activeStory]?.country}
-                    </p>
-                    <p className="mb-4">{stories[activeStory]?.story}</p>
-                    <blockquote className="border-l-4 border-primary pl-4 italic">
-                      "{stories[activeStory]?.quote}"
-                    </blockquote>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          <div className="w-full max-w-md md:w-1/3">
-            <div className="flex flex-col space-y-4">
-              {stories.map((story, index) => (
-                <div
-                  key={index}
-                  className="relative cursor-pointer"
-                  onClick={() => handleStoryClick(index)}
-                >
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
-                    <motion.div
-                      className="h-full origin-left bg-neutral-500 dark:bg-white"
-                      initial={{ scaleX: 0 }}
-                      animate={{
-                        scaleX: activeStory === index ? progress / 100 : 0,
-                      }}
-                      transition={{ duration: 0.1, ease: "linear" }}
-                    />
-                  </div>
-                  <h2 className="mb-2 text-xl font-bold">
-                    {story.name.split(",")[0]}
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    {story.country}
-                  </p>
+                <motion.div
+                  className="absolute bottom-0 left-0 top-0 w-1 origin-top rounded-3xl bg-purple-500"
+                  initial={{ scaleY: 0 }}
+                  animate={{
+                    scaleY: index === activeIndex ? progress / 100 : 0,
+                  }}
+                  transition={{ duration: 0.1 }}
+                />
+                <div className="ml-2 flex items-center space-x-4">
+                  {story.name.includes(",") ? (
+                    <Users className="h-6 w-6 text-purple-600" />
+                  ) : (
+                    <User className="h-6 w-6 text-purple-600" />
+                  )}
+                  <h4 className="text-xl font-semibold text-gray-800">
+                    {story.name}
+                  </h4>
                 </div>
-              ))}
-            </div>
+                <AnimatePresence mode="wait">
+                  {index === activeIndex && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="ml-2 mt-2 overflow-hidden text-gray-600"
+                    >
+                      {story.age} years old, {story.country}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
           </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="flex min-h-[300px] flex-col items-start justify-center rounded-lg bg-white p-6 shadow-lg "
+            >
+              <div className="mb-4 flex items-center space-x-2">
+                <GraduationCap className="h-6 w-6 text-primary" />
+                <h3 className="text-2xl font-semibold text-gray-800">
+                  Their Story
+                </h3>
+              </div>
+              <p className="mb-6 text-gray-600">
+                {stories?.[activeIndex]?.story}
+              </p>
+              <div className="flex items-start space-x-2">
+                <Quote className="h-6 w-6 flex-shrink-0 text-primary" />
+                <p className="italic text-gray-700">
+                  {stories[activeIndex]?.quote}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
   );
-}
+});
+
+StoriesCarousel.displayName = "StoriesCarousel";

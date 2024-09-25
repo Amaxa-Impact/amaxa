@@ -14,56 +14,61 @@ export default function WhatMakesUsDiffrent() {
           containerClassName="col-span-1 lg:col-span-2  text-black h-full bg-background border min-h-[500px] lg:min-h-[300px]"
           className=""
         >
-          <div className="max-w-xs">
+          <div className="">
             <h2 className="text-balance text-left text-base font-semibold  tracking-[-0.015em] text-black md:text-xl lg:text-3xl ">
-              We are tech centered
+              We provide end-to-end support for every step needed to actually
+              effect change.
             </h2>
             <p className="mt-4 text-left  text-base/6 text-black">
-              After a year of refining our model, we are ready to scale our
-              community - and our community’s impact - with the ámaxa app.
+              We match you with a high-impact nonprofit or ámaxa initiative,
+              connect you to a team, and provide a coach to guide you with 1-1
+              support. We train you in proven project management methods and
+              build features in our web app to solve the problems, however
+              minute, you identify. You drive the impact, and we ensure the
+              tools and support are in place to make it happen.
             </p>
           </div>
-          <Image
-            src="/dashboard.png"
-            width={500}
-            height={500}
-            alt="linear demo image"
-            className="absolute -bottom-10 -right-4 rounded-2xl object-contain grayscale filter lg:-right-[40%]"
-          />
         </WobbleCard>
         <WobbleCard containerClassName="col-span-1 min-h-[300px] bg-background border">
           <h2 className="max-w-80  text-balance text-left text-base font-semibold tracking-[-0.015em] text-black md:text-xl lg:text-3xl">
-            Our projects are innovative and community-founded.
+            We are accessible across income and location.
           </h2>
           <p className="mt-4 max-w-[26rem] text-left  text-base/6 ">
-            For instance, our partner in Ghana, Moving Health, constructs
-            cost-effective ambulances to transport mothers in labor to
-            hospitals.
+            The program is 100% remote, and our members have come from 26
+            countries. Our annual membership fee is $150, but we offer
+            scholarships to any student in need. Last year, two-thirds of our
+            members received partial or full scholarships.
           </p>
         </WobbleCard>
-        <WobbleCard containerClassName="col-span-1 lg:col-span-3 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px] bg-background border">
+        <WobbleCard containerClassName="col-span-1 min-h-[300px] bg-background border">
+          <h2 className="max-w-80  text-balance text-left text-base font-semibold tracking-[-0.015em] text-black md:text-xl lg:text-3xl">
+            We are a community.
+          </h2>
+          <p className="mt-4 max-w-[26rem] text-left  text-base/6 ">
+            Our members form friendships on their teams through months of
+            working together. They meet members from our other teams through our
+            remote events, ranging from casual meetups to guest speaker
+            seminars.
+          </p>
+        </WobbleCard>
+        <WobbleCard containerClassName="col-span-1 lg:col-span-2 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px] bg-background border">
           <div className="max-w-sm">
             <h2 className="max-w-sm text-balance  text-left text-base font-semibold tracking-[-0.015em] text-black md:max-w-lg md:text-xl lg:text-3xl">
-              We match you to a remote team with members from around the world
-              and an expert coach to guide you.
+              We are tech-centered.
             </h2>
             <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-black">
-              Our operating model looks very different from what one usually
-              thinks of when they imagine volunteering programs. We not only
-              match our members to an innovative project, but also to a team and
-              a coach. Through implementing creative, ambitious projects of
-              their own design, our students build skills well beyond those
-              gleaned from a more typical volunteering experience, such as
-              leadership, project management, global understanding, and
-              tolerance for discomfort and risk.
+              Our online platform, designed, build, and deployed by our
+              16-year-old CTO Ani Chenjeri, is built to solve the specific
+              problems ámaxa teams face. We value our members’ feedback above
+              all and design features directly based on your needs.
             </p>
           </div>
           <Image
-            src="/isnad.jpeg"
+            src="/platform-dark.png"
             width={500}
             height={500}
             alt="linear demo image"
-            className="absolute -bottom-[-75] rounded-2xl object-contain md:-right-[15%] lg:-left-[-50%]"
+            className="absolute -bottom-[105] rounded-2xl object-contain md:-right-[15%] lg:-left-[-50%]"
           />
         </WobbleCard>
       </div>

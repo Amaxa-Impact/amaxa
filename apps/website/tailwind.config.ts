@@ -15,6 +15,14 @@ export default {
         mono: ["var(--font-geist-mono)", ...fontFamily.mono],
       },
       keyframes: {
+        "skew-scroll": {
+          "0%": {
+            transform: "translateZ(0) translateY(0)",
+          },
+          "100%": {
+            transform: "translateZ(0) translateY(-100%)",
+          },
+        },
         "border-beam": {
           "100%": {
             "offset-distance": "100%",
@@ -60,6 +68,7 @@ export default {
       },
       animation: {
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        "skew-scroll": "skew-scroll 20s linear infinite",
         "image-glow": "image-glow 4100ms 600ms ease-out forwards",
         "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
         "fade-up": "fade-up 1000ms var(--animation-delay, 0ms) ease forwards",
