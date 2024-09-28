@@ -21,6 +21,8 @@ import { Card, CardContent } from "@amaxa/ui/card";
 
 import WhatMakesUsDiffrent from "../_components/different";
 import HowItWorks from "../_components/how-it-works";
+import { AmaxaDoes } from "./_components/amaxa-does";
+import { NonProfits } from "./_components/our-partners";
 import ProgramInfo from "./_components/program-info";
 import { StoriesCarousel } from "./_components/student-stories";
 
@@ -31,10 +33,12 @@ export default function AmaxaAboutUs() {
     <div ref={containerRef} className="min-h-screen w-full text-foreground">
       <Hero />
       <TestimonialComponent />
+      <AmaxaDoes />
       <Impact />
       <StoriesCarousel />
       <HowItWorks />
       <ProgramInfo />
+      <NonProfits />
       <Mission />
       <WhatMakesUsDiffrent />
       <div className="h-[32px]" />

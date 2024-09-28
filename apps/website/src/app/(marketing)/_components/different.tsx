@@ -64,7 +64,7 @@ export default function WhatMakesUsDiffrent() {
             </p>
           </div>
           <Image
-            src="/platform-dark.png"
+            src="https://s3-alpha-sig.figma.com/img/d1fd/e660/fd30bcfc25ed13bcbb3f12229164602b?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ub-OBd8QKD1r~ESzMVzsZjcZE1s2c6ctJfvfUZXA4Na37vkCi5OHZDGi0a3L5PzW6zxQ2fFHN0wZ0NPEZjMbVGbpPE6eDUrOwFEK2EumfUkULfhpKvrj-gGv-Cf7TEYxn9U0ai7AiE933yrnP5-~lBfBu0Na-i2GN1O9ItV2YaiKZMABWoboSCVabv5oOUIt9SYesZeNbOnsnHy9j~NrMD9Shpp8yHE8xGn6ukqGB0Kzt60i3vxcJvwI6oj99S4ZgrtDGdsepvDfN-iKvR2WXgBAriDGEMAPeZFl-h36dd7be-JAzu4qIlHH0CO8KuVnbNMIy-rfH0ogbAT8liSpIQ__"
             width={500}
             height={500}
             alt="linear demo image"
