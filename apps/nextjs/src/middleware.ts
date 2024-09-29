@@ -7,7 +7,11 @@ export default auth((req) => {
 
   const isLoggedIn = !!req.auth;
 
-  if (!isLoggedIn && nextUrl.pathname !== "/sign-in") {
+  if (
+    !isLoggedIn &&
+    nextUrl.pathname !== "/sign-in" &&
+    !nextUrl.pathname.includes("/schedule")
+  ) {
     return NextResponse.redirect(new URL("/sign-in", nextUrl));
   }
 });
