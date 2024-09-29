@@ -5,9 +5,9 @@ import { WordRotate } from "~/components/word-rotate";
 
 export const AmaxaDoes = () => {
   const rotatingWords = [
-    "nonprofits",
     "communities",
     "the world",
+    "nonprofits",
     "your passion",
     "social impact",
   ];
@@ -26,13 +26,7 @@ export const AmaxaDoes = () => {
             <WordRotate
               words={rotatingWords}
               className="text-yellow-300"
-              duration={3000}
-              framerProps={{
-                initial: { opacity: 0, y: -20 },
-                animate: { opacity: 1, y: 0 },
-                exit: { opacity: 0, y: 20 },
-                transition: { duration: 0.5, ease: "easeOut" },
-              }}
+              duration={1000}
             />
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-xl">

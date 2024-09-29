@@ -1,62 +1,26 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { BlurImage } from "~/components/ui/apple-cards";
-
-const projects = [
-  {
-    title: "Feeding Gaza: support for families in crisis",
-    image: "/gazachamps.png",
-  },
-  {
-    title: "Nyaka Global, Giving light: solar solutions for Ugandan grandmas",
-    image: "/nyaka.jpg",
-  },
-  {
-    title: `Ukraine : “Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.”`,
-    image: "/ukraine.png",
-  },
-  {
-    title: "Karina’s Library",
-    image: "/libr.png",
-  },
-  {
-    title:
-      "Global Forest: Going green: planting trees and tracking carbon sequestration",
-    image: "/forest.png",
-  },
-  {
-    title:
-      "ISNAD: Expanding learning and community: comprehensive support for Palestinian students",
-    image: "/insad.png",
-  },
-  {
-    title: "LGBTQ+ Artists",
-    image: "/lgbtq.png",
-  },
-  {
-    title: `Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education`,
-    image: "/mhfa.png",
-  },
-  {
-    title: "Educhildren",
-    image: "/educhildren.webp",
-  },
-];
+import { projects } from "./projects";
 
 const ProjectCard = ({
   project,
 }: {
   project: {
+    id: string;
     title: string;
     image: string;
   };
 }) => {
   return (
-    <div className="flex h-screen w-full flex-col items-start p-8">
-      <h1 className="mb-8 text-5xl font-bold">Project</h1>
+    <Link
+      className="flex h-screen w-full flex-col items-start"
+      href={`/project/${project.id}`}
+    >
       <motion.div className="relative z-10 flex h-56 w-full flex-row items-start justify-start overflow-hidden rounded-3xl bg-gray-100 dark:bg-neutral-900 md:h-80">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/4 bg-black" />
         <div className="relative z-40 flex h-full flex-col justify-center p-8">
@@ -73,13 +37,13 @@ const ProjectCard = ({
           />
         </div>
       </motion.div>
-    </div>
+    </Link>
   );
 };
 
 export default function Page() {
   return (
-    <div>
+    <div className="flex h-screen flex-col gap-4 overflow-y-scroll py-16">
       {projects.map((project, index) => (
         <ProjectCard project={project} key={index} />
       ))}
