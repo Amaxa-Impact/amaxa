@@ -89,9 +89,7 @@ const CustomCalendar = ({
 export function DateTimePicker() {
   const [{ selectedDate, is24Hour, timezone }, setQueryStates] =
     useQueryStates(searchParamsCache);
-  const [selectedTimeSlots, setSelectedTimeSlots] = React.useState<{
-    [key: string]: string[];
-  }>({});
+  const [selectedTimeSlots, setSelectedTimeSlots] = React.useState<Record<string, string[]>>({});
 
   const handleTimeSlotToggle = (slot: string) => {
     const dateKey = format(selectedDate, "yyyy-MM-dd");

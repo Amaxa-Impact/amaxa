@@ -79,9 +79,7 @@ const CustomCalendar = ({
 
 export default function DateTimePicker() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTimeSlots, setSelectedTimeSlots] = useState<{
-    [key: string]: string[];
-  }>({});
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState<Record<string, string[]>>({});
   const [is24Hour, setIs24Hour] = useState(false);
   const [timezone, setTimezone] = useState("America/New_York");
 

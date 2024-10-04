@@ -14,9 +14,6 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@amaxa/api": "workspace:*",
-    "@amaxa/auth": "workspace:*",
-    "@amaxa/db": "workspace:*",
     "@amaxa/ui": "workspace:*",
     "@amaxa/validators": "workspace:*",
     "framer-motion": "^11.2.11",
