@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Calendar,
   GitGraphIcon,
   Home,
   InfoIcon,
@@ -69,6 +70,11 @@ export function AppSidebar({
         name: "Flowchart",
         url: `/project/${id}/tasks`,
         icon: GitGraphIcon,
+      },
+      {
+        name: "Calendar",
+        url: `/project/${id}/calendar`,
+        icon: Calendar,
       },
       {
         name: "Tasks",

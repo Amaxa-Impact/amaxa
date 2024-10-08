@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { ChevronsUpDown, Plus } from "lucide-react";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { ChevronsUpDown } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -21,11 +21,14 @@ export function TeamSwitcherClient({
 }) {
   const { id: currentProjectId } = useParams();
   const router = useRouter();
+  const p = usePathname();
+  const pathname = p.split("/");
+
   const activeProject =
-    projects.find((p) => p.id === currentProjectId) || projects[0];
+    projects.find((p) => p.id === currentProjectId) ?? projects[0];
 
   function handleProjectChange(project: { id: string; name: string }) {
-    router.push(`/project/${project.id}`);
+    router.push(`/project/${project.id}/${pathname[3]}`);
   }
 
   if (!activeProject) return <Link href="/">Home</Link>;

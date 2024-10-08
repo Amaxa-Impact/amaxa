@@ -10,7 +10,9 @@ export default auth((req) => {
   if (
     !isLoggedIn &&
     nextUrl.pathname !== "/sign-in" &&
-    !nextUrl.pathname.includes("/schedule")
+    !nextUrl.pathname.includes("/schedule") &&
+    !nextUrl.pathname.includes("/apply") &&
+    !nextUrl.pathname.includes("/api")
   ) {
     return NextResponse.redirect(new URL("/sign-in", nextUrl));
   }

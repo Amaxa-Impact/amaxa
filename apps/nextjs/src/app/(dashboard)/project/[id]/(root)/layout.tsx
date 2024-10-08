@@ -21,6 +21,7 @@ import { TeamSwitcher } from "~/components/navbar/switcher";
 import { UserMenu } from "~/components/UserMenu";
 import { checkAuth } from "~/lib/auth";
 import GetLastBreadCrumb from "./_components/LastItem";
+import SearchBar from "./_components/search";
 
 const getProjectInfo = cache(async (id: string) => {
   const data = await db.query.Projects.findFirst({
@@ -85,17 +86,7 @@ export default async function Layout({
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <ComingSoon>
-            <div className="relative ml-auto flex-1 md:grow-0">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                disabled
-                placeholder="Search..."
-                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
-              />
-            </div>
-          </ComingSoon>
+          <SearchBar />
           <UserMenu />
         </header>
         {children}

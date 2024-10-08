@@ -7,9 +7,8 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
-  Pie,
-  PieChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -38,8 +37,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const COLORS = ["#3498db", "#e74c3c", "#2ecc71", "#f39c12"];
-
 export function ProjectDashboard({ id }: { id: string }) {
   const [taskData] = api.tasks.getTasksOverTime.useSuspenseQuery({
     projectId: id,
@@ -52,9 +49,9 @@ export function ProjectDashboard({ id }: { id: string }) {
   });
 
   return (
-    <main className="px-10">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="col-span-2">
+    <main className="max-h-screen px-10">
+      <div className="grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="col-span-2 row-span-1">
           <CardHeader>
             <CardTitle>Tasks Finished Over Time</CardTitle>
             <CardDescription>
@@ -98,6 +95,42 @@ export function ProjectDashboard({ id }: { id: string }) {
               </div>
             </div>
           </CardFooter>
+        </Card>
+        <Card className="col-span-1 row-span-1">
+          <CardHeader>
+            <CardTitle>Task Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer className="h-full w-full" config={chartConfig}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={statusData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="status" />
+                  <YAxis />
+                  <Tooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="count" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+        <Card className="col-span-3 row-span-1">
+          <CardHeader>
+            <CardTitle>Task Priority</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer className="h-full w-full" config={chartConfig}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={priorityData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="priority" />
+                  <YAxis />
+                  <Tooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="count" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
         </Card>
       </div>
     </main>

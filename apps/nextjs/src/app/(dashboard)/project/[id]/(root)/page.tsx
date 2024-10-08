@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { ProjectDashboard } from "./_components/ChartData";
 
 interface ProjectPageProps {
@@ -6,7 +8,11 @@ interface ProjectPageProps {
   };
 }
 
-export default async function HomePage({ params }: ProjectPageProps) {
+export default function HomePage({ params }: ProjectPageProps) {
   const id = params.id;
-  return <ProjectDashboard id={id} />;
+  return (
+    <Suspense fallback="loading">
+      <ProjectDashboard id={id} />;
+    </Suspense>
+  );
 }
