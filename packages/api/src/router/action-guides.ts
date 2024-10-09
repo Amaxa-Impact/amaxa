@@ -26,7 +26,7 @@ export const actionGuideRouter = createTRPCRouter({
       z.object({
         title: z.string().min(1),
         description: z.string().min(1),
-        embedId: z.string().url(),
+        embedId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
