@@ -7,7 +7,7 @@ import { NotionRenderer } from "react-notion";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
 
-export const Com = async (props: { id: string }) => {
+export const NotionPageData = async (props: { id: string }) => {
   const data = (await fetch(
     `https://notion-api.splitbee.io/v1/page/${props.id}`,
   ).then((res) => res.json())) as BlockMapType;

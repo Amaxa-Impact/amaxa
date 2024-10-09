@@ -2,7 +2,7 @@ import React from "react";
 
 import Modal from "@amaxa/ui/modal";
 
-import { Com } from "./com";
+import { NotionPageData } from "./com";
 
 export default function Page(props: {
   params: {
@@ -14,7 +14,7 @@ export default function Page(props: {
 
   return (
     <Modal>
-      <Com id={id} />
+      <NotionPageData id={id} />
     </Modal>
   );
 }

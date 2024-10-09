@@ -30,7 +30,7 @@ import { extractNotionId } from "~/lib/utils";
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
-  embedId: z.string().optional(),
+  embedId: z.string().min(1, "Embed URL is required").url(),
 });
 
 export default function CreateActionGuide() {
@@ -45,7 +45,7 @@ export default function CreateActionGuide() {
   });
 
   const utils = trpc.useUtils();
-  const createGuide = trpc.guides.create.useMutation({
+  const createGuide = trpc.actionGuides.create.useMutation({
     onSuccess: () => {
       setOpen(false);
       void utils.actionGuides.invalidate();

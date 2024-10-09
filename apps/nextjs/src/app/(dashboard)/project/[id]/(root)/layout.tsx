@@ -1,7 +1,7 @@
+/** eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Search } from "lucide-react";
 
 import { db } from "@amaxa/db/client";
 import {
@@ -12,10 +12,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@amaxa/ui/breadcrumb";
-import { Input } from "@amaxa/ui/input";
 import { SidebarTrigger } from "@amaxa/ui/sidebar";
 
-import ComingSoon from "~/components/ComingSoon";
 import { AppSidebar } from "~/components/navbar/app-sidebar";
 import { TeamSwitcher } from "~/components/navbar/switcher";
 import { UserMenu } from "~/components/UserMenu";
@@ -44,8 +42,8 @@ export default async function Layout({
   };
 }) {
   const { id } = params;
-  const data = await getProjectInfo(id);
-  const auth = await checkAuth();
+  // take data and auth and fetch them with Promise.all
+  const [data, auth] = await Promise.all([getProjectInfo(id), checkAuth()]);
 
   if (!data) {
     return notFound();

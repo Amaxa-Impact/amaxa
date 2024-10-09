@@ -3,6 +3,11 @@ export function captilize(item: string): string {
 }
 
 export function extractNotionId(url: string) {
-  const match = /([a-f0-9]{32})/.exec(url);
-  return match ? `a${match[1]}` : null;
+  return extractPathAndId(url) ?? "https://amaxaimpact.org";
+}
+
+function extractPathAndId(url: string): string | null | undefined {
+  const regex = /\/([^\/\?]+)\?/;
+  const match = regex.exec(url);
+  return match ? match[1] : null;
 }

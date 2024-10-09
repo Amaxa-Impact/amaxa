@@ -4,7 +4,6 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 
 import {
   Card,
@@ -20,7 +19,6 @@ import CreateActionGuide from "./create-action-guide";
 
 export default function Guides() {
   const [search, setSearch] = useState<string | undefined>();
-  const [selectedTags, setSelectedTags] = useState([]);
   const [actionGuides] = api.actionGuides.getActionGuides.useSuspenseQuery({
     title: search,
   });
@@ -28,7 +26,7 @@ export default function Guides() {
   const filteredGuides = useMemo(() => {
     return actionGuides.filter((guide) => {
       const titleMatch =
-        guide.title ?? "".toLowerCase().includes(search.toLowerCase());
+        guide.title ?? "".toLowerCase().includes(search?.toLowerCase() ?? "");
       return titleMatch;
     });
   }, [search, actionGuides]);
