@@ -22,9 +22,6 @@ export default function Guides() {
   const { data: actionGuides } = api.actionGuides.getActionGuides.useQuery({
     title: search ?? undefined,
   });
-  if (!actionGuides) {
-    return <div>Loading...</div>;
-  }
 
   const filteredGuides = useMemo(() => {
     return actionGuides.filter((guide) => {
@@ -33,6 +30,7 @@ export default function Guides() {
       return titleMatch;
     });
   }, [search, actionGuides]);
+
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
   };
