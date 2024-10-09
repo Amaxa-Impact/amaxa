@@ -24,7 +24,7 @@ export default function Guides() {
   });
 
   const filteredGuides = useMemo(() => {
-    return actionGuides.filter((guide) => {
+    return actionGuides?.filter((guide) => {
       const titleMatch =
         guide.title ?? "".toLowerCase().includes(search?.toLowerCase() ?? "");
       return titleMatch;
@@ -41,14 +41,14 @@ export default function Guides() {
       <div className="mb-6 flex flex-row justify-between">
         <Input
           placeholder="Search action guides..."
-          value={search}
+          value={search ?? ""}
           onChange={handleSearch}
           className="w-full max-w-md"
         />
         <CreateActionGuide />
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredGuides.map((guide) => (
+        {filteredGuides?.map((guide) => (
           <Link href={`/guide/${guide.embedId}`} key={guide.id}>
             <Card className="h-[200px]">
               <CardHeader>
