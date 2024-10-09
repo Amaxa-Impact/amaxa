@@ -294,7 +294,7 @@ export const guides = pgTable("guides", {
     .primaryKey()
     .$defaultFn(() => createId()),
   title: text("title"),
-  desc: text("description").notNull(),
+  description: text("description").notNull(),
   embedId: text("embed_id"),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
