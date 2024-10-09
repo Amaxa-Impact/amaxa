@@ -18,10 +18,13 @@ import { api } from "~/trpc/react";
 import CreateActionGuide from "./create-action-guide";
 
 export default function Guides() {
-  const [search, setSearch] = useState<string | undefined>();
-  const [actionGuides] = api.actionGuides.getActionGuides.useSuspenseQuery({
-    title: search,
+  const [search, setSearch] = useState<string | null>();
+  const { data: actionGuides } = api.actionGuides.getActionGuides.useQuery({
+    title: search ?? undefined,
   });
+  if (!actionGuides) {
+    return <div>Loading...</div>;
+  }
 
   const filteredGuides = useMemo(() => {
     return actionGuides.filter((guide) => {

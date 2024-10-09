@@ -1,4 +1,5 @@
-import React, { cache } from "react";
+import React from "react";
+import { unstable_cache as cache } from "next/cache";
 
 import { eq } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
@@ -8,17 +9,20 @@ import { checkAuth } from "~/lib/auth";
 import { TeamSwitcherClient } from "./team-switcher-client";
 
 // Function to get user's projects for TeamSwitcher
-export const getUserProjects = cache(async (userId: string) => {
-  return await db
-    .select({
-      id: Projects.id,
-      name: Projects.name,
-      image: Projects.image,
-    })
-    .from(project_tracker)
-    .where(eq(project_tracker.userId, userId))
-    .innerJoin(Projects, eq(Projects.id, project_tracker.projectId));
-});
+export const getUserProjects = cache(
+  async (userId: string) => {
+    return await db
+      .select({
+        id: Projects.id,
+        name: Projects.name,
+        image: Projects.image,
+      })
+      .from(project_tracker)
+      .where(eq(project_tracker.userId, userId))
+      .innerJoin(Projects, eq(Projects.id, project_tracker.projectId));
+  },
+  ["getUserProjects"],
+);
 
 export const TeamSwitcher = async () => {
   const session = await checkAuth();

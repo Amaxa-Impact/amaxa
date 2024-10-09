@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -38,6 +39,8 @@ export const userRouter = createTRPCRouter({
         });
       }
       const p = permission as "admin" | "coach" | "student";
+
+      revalidateTag("getUserProjects");
 
       await ctx.db.insert(project_tracker).values({
         userId,
