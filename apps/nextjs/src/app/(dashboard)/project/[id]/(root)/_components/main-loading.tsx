@@ -1,11 +1,7 @@
-"use client"
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
 import { Skeleton } from "@amaxa/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@amaxa/ui/card";
 
 export function ProjectDashboardSkeleton() {
   return (
@@ -13,7 +9,9 @@ export function ProjectDashboardSkeleton() {
       <div className="grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="col-span-2 row-span-1">
           <CardHeader>
-            <CardTitle><Skeleton className="h-6 w-3/4" /></CardTitle>
+            <CardTitle>
+              <Skeleton className="h-6 w-3/4" />
+            </CardTitle>
             <Skeleton className="h-4 w-1/2" />
           </CardHeader>
           <CardContent>
@@ -25,7 +23,9 @@ export function ProjectDashboardSkeleton() {
         </Card>
         <Card className="col-span-1 row-span-1">
           <CardHeader>
-            <CardTitle><Skeleton className="h-6 w-1/2" /></CardTitle>
+            <CardTitle>
+              <Skeleton className="h-6 w-1/2" />
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Skeleton className="h-[200px] w-full" />
@@ -33,7 +33,9 @@ export function ProjectDashboardSkeleton() {
         </Card>
         <Card className="col-span-3 row-span-1">
           <CardHeader>
-            <CardTitle><Skeleton className="h-6 w-1/3" /></CardTitle>
+            <CardTitle>
+              <Skeleton className="h-6 w-1/3" />
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Skeleton className="h-[200px] w-full" />
@@ -42,4 +44,4 @@ export function ProjectDashboardSkeleton() {
       </div>
     </main>
   );
-} 
+}
