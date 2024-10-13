@@ -18,7 +18,7 @@ export default function PlatformHero() {
     >
       <div className="backdrop-filter-[12px] animate-fade-in group inline-flex h-7 translate-y-[-1rem] items-center justify-between gap-1 rounded-full border border-white/5 bg-white/10 px-3 text-xs text-white opacity-0 transition-all ease-in hover:cursor-pointer hover:bg-white/20 dark:text-black">
         <TextShimmer className="inline-flex items-center justify-center">
-          <span>✨ Sign Up for our beta!</span>{" "}
+          <span>✨ Apply now for our beta!</span>{" "}
           <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
         </TextShimmer>
       </div>
