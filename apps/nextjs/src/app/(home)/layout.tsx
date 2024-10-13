@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import { AppHeader } from "~/components/app-header";
 import { AppNav } from "~/components/layout-tabs";
@@ -20,8 +20,10 @@ export default function Layout({
     <div>
       <div className="flex flex-col">
         <div className="">
-          <AppHeader />
-          <AppNav links={links} className="bg-secondary/40 " />
+          <Suspense fallback={<div>loading..</div>}>
+            <AppHeader />
+            <AppNav links={links} className="bg-secondary/40 " />
+          </Suspense>
         </div>
         <main className="">{children}</main>
       </div>

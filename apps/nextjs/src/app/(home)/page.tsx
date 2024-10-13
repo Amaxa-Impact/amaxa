@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Card, CardContent, CardFooter, CardHeader } from "@amaxa/ui/card";
 
+import { getUserProjects } from "~/components/navbar/switcher";
 import { checkAuth } from "~/lib/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import { CreateProject } from "./_components/create-project-dialog";
@@ -12,7 +13,7 @@ import { ProjectCards } from "./_components/project-cards";
 export default async function Page() {
   void api.projects.findAll.prefetch({});
   const session = await checkAuth();
-  console.log(session.user.projects);
+  const usersProjects = await getUserProjects(session.user.id);
 
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
@@ -21,7 +22,6 @@ export default async function Page() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-row justify-between gap-6">
               <h3 className="text-4xl font-semibold">Your Project</h3>
-              {session.user.role == "Admin" ? <CreateProject /> : null}
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
               {session.user.status == "Pending" ? (
@@ -39,10 +39,14 @@ export default async function Page() {
                   </CardHeader>
                 </Card>
               ) : (
-                <div>
-                  {session.user.projects?.map((project) => {
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+                  {usersProjects.map((project) => {
                     return (
-                      <Link key={project.id} href={`/project/${project.id}`}>
+                      <Link
+                        key={project.id}
+                        href={`/project/${project.id}`}
+                        className="col-span-1 row-span-1 bg-secondary/10 transition-transform duration-200"
+                      >
                         <Card className="col-span-1 row-span-1 bg-secondary/10 transition-transform duration-200">
                           <CardContent className="py-5">
                             <Image
@@ -66,7 +70,7 @@ export default async function Page() {
           <div className="flex flex-col gap-6">
             <h3 className="text-4xl font-semibold">Explore Projects</h3>
             <HydrateClient>
-              <Suspense fallback={<div></div>}>
+              <Suspense fallback={<div>loading..</div>}>
                 <ProjectCards />
               </Suspense>
             </HydrateClient>
