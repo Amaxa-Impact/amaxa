@@ -72,7 +72,7 @@ export default function AddUserForm({
   const { mutate: create } = api.users.joinProject.useMutation({
     onSuccess: () => {
       setOpen(false);
-      utils.users.invalidate();
+      void utils.users.invalidate();
     },
     onError: () => {
       toast.error("error");

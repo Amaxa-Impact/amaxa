@@ -26,7 +26,7 @@ export const UpdateRole = (props: {
 
   const { mutate: update } = api.users.updateProjectStatus.useMutation({
     onSuccess: () => {
-      utils.users.findUsersForProject.invalidate();
+      void utils.users.findUsersForProject.invalidate();
       router.refresh();
     },
     onError() {

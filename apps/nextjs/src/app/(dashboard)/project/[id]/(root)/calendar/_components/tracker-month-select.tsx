@@ -1,6 +1,6 @@
 import { TZDate } from "@date-fns/tz";
 import { addMonths, format, formatISO, startOfMonth } from "date-fns";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
@@ -19,7 +19,7 @@ export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
     : new TZDate(new Date(), "UTC");
 
   const selectPrevMonth = () => {
-    setParams(
+    void setParams(
       {
         date: formatISO(startOfMonth(addMonths(currentDate, -1)), {
           representation: "date",
@@ -30,7 +30,7 @@ export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
   };
 
   const selectNextMonth = () => {
-    setParams(
+    void setParams(
       {
         date: formatISO(startOfMonth(addMonths(currentDate, 1)), {
           representation: "date",
@@ -48,7 +48,7 @@ export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
         className="ml-2 mr-4 h-6 w-6 p-0 hover:bg-transparent"
         onClick={selectPrevMonth}
       >
-        <Icons.ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-6 w-6" />
       </Button>
       <span className="w-full text-center">
         {format(currentDate, dateFormat)}

@@ -5,7 +5,7 @@ import { projects } from "~/lib/constants/projects";
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 
-  const content = projects.filter((project) => project.id === id)[0];
+  const content = projects.find((project) => project.id === id);
 
   if (!content) {
     return <div>Project not found</div>;

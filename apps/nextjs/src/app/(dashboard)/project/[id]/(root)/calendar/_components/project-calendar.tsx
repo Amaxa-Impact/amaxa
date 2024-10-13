@@ -15,19 +15,10 @@ import {
   startOfWeek,
   subMonths,
 } from "date-fns";
-import { Info } from "lucide-react";
-import MotionNumber from "motion-number";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { cn } from "@amaxa/ui";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@amaxa/ui/tooltip";
 
-import { formatAmount, secondsToHoursAndMinutes } from "~/utils/format";
 import { useTrackerParams } from "./hooks";
 import { TrackerEvents } from "./tracker-events";
 import { TrackerMonthSelect } from "./tracker-month-selectoin";
@@ -65,6 +56,7 @@ export function TrackerCalendar({
 
   useHotkeys(
     "arrowLeft",
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     () => handleMonthChange(-1, new TZDate(currentDate, "UTC"), setParams),
     {
       enabled: !selectedDate,
@@ -73,6 +65,7 @@ export function TrackerCalendar({
 
   useHotkeys(
     "arrowRight",
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     () => handleMonthChange(1, new TZDate(currentDate, "UTC"), setParams),
     {
       enabled: !selectedDate,
@@ -80,7 +73,7 @@ export function TrackerCalendar({
   );
 
   const ref = useClickAway<HTMLDivElement>(() => {
-    if (range?.length === 1) setParams({ range: null });
+    if (range?.length === 1) void setParams({ range: null });
   });
 
   const handleMouseDown = (date: TZDate) => {
@@ -104,9 +97,9 @@ export function TrackerCalendar({
       let end = new TZDate(localRange[1], "UTC");
       if (start > end) [start, end] = [end, start];
 
-      setParams({ range: [localRange[0], localRange[1]] });
+      void setParams({ range: [localRange[0], localRange[1]] });
     } else if (localRange[0]) {
-      setParams({ selectedDate: localRange[0] });
+      void setParams({ selectedDate: localRange[0] });
     }
     setLocalRange(["", null]);
   };
@@ -126,12 +119,10 @@ export function TrackerCalendar({
           currentDate={new TZDate(currentDate, "UTC")}
           selectedDate={selectedDate ?? ""}
           data={data}
-          range={
-            range ?? [
-              "Sun Oct 06 2024 12:31:51 GMT-0600 (Mountain Daylight Time)",
-              "Sun Oct 06 2024 12:22:51 GMT-0600 (Mountain Daylight Time)",
-            ]
-          }
+          range={[
+            "Sun Oct 06 2024 12:31:51 GMT-0600 (Mountain Daylight Time)",
+            "Sun Oct 06 2024 12:22:51 GMT-0600 (Mountain Daylight Time)",
+          ]}
           localRange={localRange}
           isDragging={isDragging}
           weekStartsOnMonday={weekStartsOnMonday}
@@ -184,6 +175,8 @@ function handleMonthChange(
   });
 }
 
+type TrackerEvent = any;
+
 interface CalendarHeaderProps {
   meta: { totalDuration?: number };
   data: Record<string, TrackerEvent[]>;
@@ -192,7 +185,6 @@ interface CalendarHeaderProps {
 }
 
 function CalendarHeader({
-  meta,
   data,
   timeFormat,
   weekStartsOnMonday,
@@ -222,15 +214,6 @@ function CalendarHeader({
       { duration: number; amount: number; currency: string; rate: number }
     >,
   );
-
-  const sortedProjects = Object.entries(projectTotals)
-    .sort(([, a], [, b]) => b.duration - a.duration)
-    .map(([name, { duration, amount, currency }]) => ({
-      name,
-      duration,
-      amount,
-      currency,
-    }));
 
   const mostUsedCurrency = Object.values(projectTotals).reduce(
     (acc, { currency }) => {

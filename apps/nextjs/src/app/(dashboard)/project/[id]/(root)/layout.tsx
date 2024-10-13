@@ -1,5 +1,4 @@
 /** eslint-disable @typescript-eslint/no-non-null-assertion */
-/** eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";

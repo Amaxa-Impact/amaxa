@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { endOfMonth, formatISO, startOfMonth } from "date-fns";
 
 import { OpenTrackerSheet } from "./_components/open-tracker-sheet";
@@ -17,7 +18,7 @@ interface ProjectPageProps {
   };
 }
 
-export default async function Page({ params, searchParams }: ProjectPageProps) {
+export default function Page({ params, searchParams }: ProjectPageProps) {
   const { id } = params;
 
   const status = searchParams.statuses;

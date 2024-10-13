@@ -7,7 +7,7 @@ export default function Author({
   updatedAt,
   imageOnly,
 }: {
-  username: string | any;
+  username: any;
   updatedAt?: string;
   imageOnly?: boolean;
 }) {

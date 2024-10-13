@@ -19,7 +19,7 @@ export default function CopyBox(props: any) {
           type="button"
           className="rounded-md p-1 transition-colors hover:bg-gray-200 active:bg-gray-300"
           onClick={() => {
-            navigator.clipboard.writeText(props.copy);
+            void navigator.clipboard.writeText(props.copy);
             setCopied(true);
             toast.success("Copied to clipboard");
             setTimeout(() => setCopied(false), 3000);

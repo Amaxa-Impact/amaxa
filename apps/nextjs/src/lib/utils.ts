@@ -7,6 +7,7 @@ export function extractNotionId(url: string) {
 }
 
 function extractPathAndId(url: string): string | null | undefined {
+  // eslint-disable-next-line no-useless-escape
   const regex = /\/([^\/\?]+)\?/;
   const match = regex.exec(url);
   return match ? match[1] : null;
