@@ -33,12 +33,12 @@ import { TrackerEvents } from "./tracker-events";
 import { TrackerMonthSelect } from "./tracker-month-selectoin";
 import { TrackerSettings } from "./tracker-settings";
 
-type Props = {
+interface Props {
   weekStartsOnMonday?: boolean;
   timeFormat: number;
   data: any;
   meta: any;
-};
+}
 
 export function TrackerCalendar({
   weekStartsOnMonday = false,
@@ -184,12 +184,12 @@ function handleMonthChange(
   });
 }
 
-type CalendarHeaderProps = {
+interface CalendarHeaderProps {
   meta: { totalDuration?: number };
   data: Record<string, TrackerEvent[]>;
   timeFormat: number;
   weekStartsOnMonday: boolean;
-};
+}
 
 function CalendarHeader({
   meta,
@@ -265,7 +265,7 @@ function CalendarHeader({
   );
 }
 
-type CalendarGridProps = {
+interface CalendarGridProps {
   firstWeek: TZDate[];
   calendarDays: TZDate[];
   currentDate: TZDate;
@@ -278,7 +278,7 @@ type CalendarGridProps = {
   handleMouseDown: (date: TZDate) => void;
   handleMouseEnter: (date: TZDate) => void;
   handleMouseUp: () => void;
-};
+}
 
 function CalendarGrid({
   firstWeek,
@@ -322,7 +322,7 @@ function CalendarGrid({
   );
 }
 
-type CalendarDayProps = {
+interface CalendarDayProps {
   date: TZDate;
   currentDate: TZDate;
   selectedDate: string;
@@ -333,7 +333,7 @@ type CalendarDayProps = {
   handleMouseDown: (date: TZDate) => void;
   handleMouseEnter: (date: TZDate) => void;
   handleMouseUp: () => void;
-};
+}
 
 function CalendarDay({
   date,

@@ -20,11 +20,11 @@ interface ProjectPageProps {
 export default async function Page({ params, searchParams }: ProjectPageProps) {
   const { id } = params;
 
-  const status = searchParams?.statuses;
-  const sort = searchParams?.sort?.split(":") ?? ["status", "asc"];
+  const status = searchParams.statuses;
+  const sort = searchParams.sort.split(":") ?? ["status", "asc"];
 
   const currentDate =
-    searchParams?.date ?? formatISO(new Date(), { representation: "date" });
+    searchParams.date ?? formatISO(new Date(), { representation: "date" });
 
   return (
     <main className="max-h-screen px-10">

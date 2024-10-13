@@ -25,7 +25,7 @@ export function NavMain({
       url: string;
     }[];
   }[];
-  searchResults: React.ComponentProps<typeof SidebarSearch>["results"];
+  searchResults?: React.ComponentProps<typeof SidebarSearch>["results"];
 } & React.ComponentProps<"ul">) {
   return (
     <ul className={cn("grid gap-0.5", className)}>

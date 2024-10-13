@@ -20,17 +20,15 @@ export default async function Home(props: {
   });
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-screen-xl">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Events</h1>
-          <CreateEvent />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
-          {data.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
+    <div className="min-h-screen w-full p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Events</h1>
+        <CreateEvent />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+        {data.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
       </div>
     </div>
   );

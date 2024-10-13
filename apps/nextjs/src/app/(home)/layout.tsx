@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Component } from "~/components/layout-tabs";
+import { AppHeader } from "~/components/app-header";
+import { AppNav } from "~/components/layout-tabs";
 
 export default function Layout({
   children,
@@ -18,7 +19,10 @@ export default function Layout({
   return (
     <div>
       <div className="flex flex-col">
-        <Component links={links} className="bg-secondary/40" />
+        <div className="">
+          <AppHeader />
+          <AppNav links={links} className="bg-secondary/40 " />
+        </div>
         <main className="">{children}</main>
       </div>
       {modal}

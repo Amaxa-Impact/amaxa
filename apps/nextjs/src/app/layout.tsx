@@ -12,6 +12,7 @@ import "~/app/globals.css";
 
 import { env } from "~/env";
 import FlowProvider from "./_components/flow-provider";
+import { CSPostHogProvider } from "./providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -46,16 +47,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <TRPCReactProvider>
-            <FlowProvider>{props.children}</FlowProvider>
-          </TRPCReactProvider>
-          <Toaster />
+        <CSPostHogProvider>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            <TRPCReactProvider>
+              <FlowProvider>{props.children}</FlowProvider>
+            </TRPCReactProvider>
+            <Toaster />
 
-          <div className="absolute bottom-4 right-4">
-            <ThemeToggle />
-          </div>
-        </ThemeProvider>
+            <div className="absolute bottom-4 right-4">
+              <ThemeToggle />
+            </div>
+          </ThemeProvider>
+        </CSPostHogProvider>
       </body>
     </html>
   );

@@ -60,7 +60,9 @@
     "PORT",
     "TEST_USER_PASSWORD",
     "TEST_ADMIN_PASSWORD",
-    "TIPTAP_EDITOR"
+    "TIPTAP_EDITOR",
+    "NEXT_PUBLIC_POSTHOG_KEY",
+    "NEXT_PUBLIC_POSTHOG_HOST"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",

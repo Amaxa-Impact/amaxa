@@ -15,13 +15,13 @@ export function formatSize(bytes: number): string {
   }).format(+Math.round(bytes / 1024 ** unitIndex));
 }
 
-type FormatAmountParams = {
+interface FormatAmountParams {
   currency: string;
   amount: number;
   locale?: string;
   maximumFractionDigits?: number;
   minimumFractionDigits?: number;
-};
+}
 
 export function formatAmount({
   currency,
@@ -61,17 +61,17 @@ export function secondsToHoursAndMinutes(seconds: number) {
   return "0h";
 }
 
-type BurnRateData = {
+interface BurnRateData {
   value: number;
   date: string;
-};
+}
 
 export function calculateAvgBurnRate(data: BurnRateData[] | null) {
   if (!data) {
     return 0;
   }
 
-  return data?.reduce((acc, curr) => acc + curr.value, 0) / data?.length;
+  return data.reduce((acc, curr) => acc + curr.value, 0) / data.length;
 }
 
 export function formatTransactionDate(date: string) {

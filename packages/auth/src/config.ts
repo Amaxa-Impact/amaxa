@@ -7,7 +7,12 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
 
-import type { ProjectPermission, UserRole, UserStatus } from "@amaxa/db/schema";
+import type {
+  Project,
+  ProjectPermission,
+  UserRole,
+  UserStatus,
+} from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
 import { Account, Session, User } from "@amaxa/db/schema";
 
@@ -19,6 +24,7 @@ declare module "next-auth" {
     user: {
       role: UserRole;
       project_permissions?: Record<string, ProjectPermission>;
+      projects?: Project[];
       status: UserStatus;
       id: string;
     } & DefaultSession["user"];
@@ -78,6 +84,7 @@ export const validateToken = async (
         role: data.role,
         status: data.status,
         project_permissions: data.project_permissions,
+        projects: data.projects,
       },
       expires: session.session.expires.toISOString(),
     };

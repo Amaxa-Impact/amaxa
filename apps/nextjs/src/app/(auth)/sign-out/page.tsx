@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { signIn } from "@amaxa/auth";
+import { signOut } from "@amaxa/auth";
 import { Button } from "@amaxa/ui/button";
 import {
   Card,
@@ -10,10 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@amaxa/ui/card";
-import { Input } from "@amaxa/ui/input";
-import { Label } from "@amaxa/ui/label";
-
-import { env } from "~/env";
 
 export default function LoginForm() {
   return (
@@ -27,36 +23,14 @@ export default function LoginForm() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
-            {env.NODE_ENV === "development" ? (
-              <>
-                <form
-                  action={async (data) => {
-                    "use server";
-                    await signIn("email", {
-                      password: data.get("password"),
-                      redirectTo: "/",
-                    });
-                  }}
-                >
-                  <div className="flex flex-col gap-4">
-                    <Label htmlFor="password"> Password</Label>
-                    <Input id="password" type="password" required />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Login
-                  </Button>
-                </form>
-              </>
-            ) : null}
-
             <form
               action={async () => {
                 "use server";
-                await signIn("google", { redirectTo: "/" });
+                await signOut();
               }}
             >
               <Button variant="outline" className="w-full" type="submit">
-                Login with Google
+                Sign Out
               </Button>
             </form>
           </div>

@@ -2,7 +2,7 @@ import Guides from "./_components/GuideCard";
 
 export default function Page() {
   return (
-    <div>
+    <div className="w-full">
       <Guides />
     </div>
   );

@@ -16,10 +16,10 @@ import {
   DropdownMenuTrigger,
 } from "@amaxa/ui/dropdown-menu";
 
-type Props = {
+interface Props {
   timeFormat: number;
   weekStartsOnMonday: boolean;
-};
+}
 
 export function TrackerSettings({ timeFormat, weekStartsOnMonday }: Props) {
   return (

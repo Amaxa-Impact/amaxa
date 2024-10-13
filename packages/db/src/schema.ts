@@ -203,6 +203,8 @@ export type Project = typeof Projects.$inferSelect;
 
 export const createProjectSchema = createInsertSchema(Projects).omit({
   id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;

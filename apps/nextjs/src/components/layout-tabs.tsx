@@ -18,7 +18,7 @@ interface VercelTabsProps {
   className?: string;
 }
 
-export function Component({ links, className }: VercelTabsProps) {
+export function AppNav({ links, className }: VercelTabsProps) {
   const pathname = usePathname();
 
   if (!links || links.length === 0) {
@@ -29,7 +29,7 @@ export function Component({ links, className }: VercelTabsProps) {
     <TabsPrimitive.Root
       value={pathname}
       className={cn(
-        `relative flex w-full items-center overflow-x-auto`,
+        `relative flex w-full items-center overflow-x-auto px-8`,
         className,
       )}
     >

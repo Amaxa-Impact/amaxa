@@ -7,10 +7,10 @@ import { Button } from "@amaxa/ui/button";
 
 import { useTrackerParams } from "./hooks";
 
-type Props = {
+interface Props {
   className?: string;
   dateFormat?: string;
-};
+}
 
 export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
   const { date, setParams } = useTrackerParams();

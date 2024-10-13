@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 
 import type { ProjectPermission, UserRole } from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
-import { project_tracker, User } from "@amaxa/db/schema";
+import { project_tracker, Projects, User } from "@amaxa/db/schema";
 
 const preparedGetUserInfo = db
   .select({
@@ -22,7 +22,21 @@ const preparedGetUserProjectTrackers = db
   })
   .from(project_tracker)
   .where(eq(project_tracker.userId, sql.placeholder("userId")))
-  .prepare("getUserProjectTrackers");
+  .prepare("getUVerifiedserProjectTrackers");
+
+const preparedGetUserProjects = db
+  .select({
+    id: Projects.id,
+    name: Projects.name,
+    image: Projects.image,
+    description: Projects.description,
+    createdAt: Projects.createdAt,
+    updatedAt: Projects.updatedAt,
+  })
+  .from(project_tracker)
+  .where(eq(project_tracker.userId, sql.placeholder("userId")))
+  .innerJoin(Projects, eq(project_tracker.projectId, Projects.id))
+  .prepare("getUserProjects");
 
 async function getUserInformation(id: string) {
   const userData = await preparedGetUserInfo.execute({ id });
@@ -32,6 +46,10 @@ async function getUserInformation(id: string) {
   };
 
   const projectTrackersData = await preparedGetUserProjectTrackers.execute({
+    userId: id,
+  });
+
+  const projectData = await preparedGetUserProjects.execute({
     userId: id,
   });
 
@@ -45,6 +63,7 @@ async function getUserInformation(id: string) {
     ...user,
     role: userData[0]?.role ?? ("Student" as UserRole),
     project_permissions,
+    projects: projectData,
   };
 }
 
