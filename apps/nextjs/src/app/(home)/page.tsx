@@ -22,6 +22,8 @@ export default async function Page() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-row justify-between gap-6">
               <h3 className="text-4xl font-semibold">Your Project</h3>
+
+              {session.user.role === "Admin" ? <CreateProject /> : null}
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
               {session.user.status == "Pending" ? (
