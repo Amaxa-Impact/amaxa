@@ -1,8 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
 
-import type { Project } from "@amaxa/db/schema";
-
 interface TeamData {
   projectId: string;
   coaches: {
@@ -14,7 +12,14 @@ interface TeamData {
     image: string;
   }[];
 }
-const projects: Project[] = [
+const projects: {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+}[] = [
   {
     id: "1",
     name: "Project 1",
