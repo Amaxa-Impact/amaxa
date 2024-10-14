@@ -10,11 +10,18 @@ export default auth((req) => {
   if (
     !isLoggedIn &&
     nextUrl.pathname !== "/sign-in" &&
+    nextUrl.pathname !== "/unverified" &&
     !nextUrl.pathname.includes("/schedule") &&
     !nextUrl.pathname.includes("/apply") &&
     !nextUrl.pathname.includes("/api")
   ) {
     return NextResponse.redirect(new URL("/sign-in", nextUrl));
+  }
+
+  const status = req.auth?.user.status;
+
+  if (status === "Unverified") {
+    return NextResponse.redirect(new URL("/unverified", nextUrl));
   }
 });
 
