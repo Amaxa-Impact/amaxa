@@ -1,10 +1,12 @@
 // import { and, ilike } from "@amaxa/db";
 // import { Projects } from "@amaxa/db/schema";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { eq } from "@amaxa/db";
 import { createProjectSchema, Projects } from "@amaxa/db/schema";
 
+import { isAdmin, isProjectPrivileged } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const projectsRouter = createTRPCRouter({
@@ -20,6 +22,11 @@ export const projectsRouter = createTRPCRouter({
   create: protectedProcedure
     .input(createProjectSchema)
     .mutation(async ({ ctx, input }) => {
+      if (!isAdmin(ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to create a project",
+        });
       await ctx.db.insert(Projects).values(input);
     }),
   forDashboard: protectedProcedure
@@ -52,6 +59,11 @@ export const projectsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, ...update } = input;
+      if (!isProjectPrivileged(input.id, ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to update this project",
+        });
       await ctx.db.update(Projects).set(update).where(eq(Projects.id, id));
     }),
 });

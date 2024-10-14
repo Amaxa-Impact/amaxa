@@ -75,6 +75,7 @@ export const Flowchart: React.FC<FlowchartProps> = ({
 
   function handleSubmit() {
     const data = {
+      projectId: projectId,
       tasks: nodes,
       edges: edges.map((edge) => {
         return {

@@ -46,6 +46,7 @@ const schema = z.object({
       target: z.string(),
     }),
   ),
+  projectId: z.string(),
 });
 
 type InputProps = z.infer<typeof schema>;

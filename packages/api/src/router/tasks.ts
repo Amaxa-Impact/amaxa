@@ -1,8 +1,10 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { and, buildConflictUpdateColumns, eq, sql } from "@amaxa/db";
 import { edges, statusValues, tasks } from "@amaxa/db/schema";
 
+import { isProjectStudent } from "../permissions";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const tasksRouter = createTRPCRouter({
@@ -100,6 +102,7 @@ export const tasksRouter = createTRPCRouter({
             }),
           }),
         ),
+        projectId: z.string(),
 
         edges: z.array(
           z.object({
@@ -112,6 +115,11 @@ export const tasksRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!isProjectStudent(input.projectId, ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to create an event",
+        });
       const formattedTasks = input.tasks.map((task) => ({
         id: task.id,
         type: task.type,
@@ -169,6 +177,11 @@ export const tasksRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!isProjectStudent(input.projectId, ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to create an event",
+        });
       await ctx.db.insert(tasks).values(input);
     }),
   update: protectedProcedure

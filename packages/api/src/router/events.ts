@@ -1,7 +1,9 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createEventSchema, events } from "@amaxa/db/schema";
 
+import { isAdmin } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventsRouter = createTRPCRouter({
@@ -21,6 +23,11 @@ export const eventsRouter = createTRPCRouter({
   create: protectedProcedure
     .input(createEventSchema)
     .mutation(async ({ ctx, input }) => {
+      if (!isAdmin(ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to create an event",
+        });
       await ctx.db.insert(events).values(input);
     }),
 });

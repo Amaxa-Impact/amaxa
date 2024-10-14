@@ -17,7 +17,7 @@ export default async function Page() {
 
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-screen-xl">
+      <div className="">
         <div className="flex w-full flex-col gap-5">
           <div className="flex flex-col gap-6">
             <div className="flex flex-row justify-between gap-6">
