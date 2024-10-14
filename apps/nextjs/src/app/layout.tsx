@@ -53,10 +53,6 @@ export default function RootLayout(props: { children: React.ReactNode }) {
               <FlowProvider>{props.children}</FlowProvider>
             </TRPCReactProvider>
             <Toaster />
-
-            <div className="absolute bottom-4 right-4">
-              <ThemeToggle />
-            </div>
           </ThemeProvider>
         </CSPostHogProvider>
       </body>

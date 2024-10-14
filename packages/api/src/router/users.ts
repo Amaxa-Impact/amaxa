@@ -5,6 +5,7 @@ import { z } from "zod";
 import { and, eq } from "@amaxa/db";
 import { project_tracker, User } from "@amaxa/db/schema";
 
+import { isAdmin, isProjectPrivileged } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
@@ -78,6 +79,11 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { userId, projectId, permission } = input;
+      if (!isProjectPrivileged(projectId, ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to update this project",
+        });
 
       return await ctx.db
         .update(project_tracker)
@@ -90,5 +96,46 @@ export const userRouter = createTRPCRouter({
             eq(project_tracker.projectId, projectId),
           ),
         );
+    }),
+  getUsers: protectedProcedure.query(async ({ ctx }) => {
+    if (!isAdmin(ctx.session)) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You do not have permissions to access this resource",
+      });
+    }
+    return await ctx.db.select().from(User);
+  }),
+
+  updateUser: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string().optional(),
+        email: z.string().email().optional(),
+        isPublic: z.boolean().optional(),
+        status: z.enum(["Verified", "Unverified", "Pending"]).optional(),
+        role: z.enum(["Admin", "User"]).optional(),
+        image: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...updateData } = input;
+      return await ctx.db
+        .update(User)
+        .set(updateData)
+        .where(eq(User.id, id))
+        .returning();
+    }),
+
+  deleteUser: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!isAdmin(ctx.session))
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You do not have permissions to delete this user",
+        });
+      return await ctx.db.delete(User).where(eq(User.id, input.id));
     }),
 });
