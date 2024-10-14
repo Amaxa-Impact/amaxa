@@ -1,10 +1,9 @@
+/** eslint-disable @next/next/no-img-element */
 import { Loader2 } from "lucide-react";
-
-import { Button } from "@amaxa/ui/button";
 
 export default function Component() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4 dark:bg-neutral-900">
       <div className="w-full max-w-md space-y-8 text-center">
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/undraw_pending_approval_xuu9-SijgfHAu6eaJd2HZssLqinPtdimNF9.svg"
