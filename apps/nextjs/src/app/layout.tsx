@@ -3,7 +3,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { cn } from "@amaxa/ui";
-import { ThemeProvider, ThemeToggle } from "@amaxa/ui/theme";
+import { ThemeProvider } from "@amaxa/ui/theme";
 import { Toaster } from "@amaxa/ui/toast";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -17,7 +17,7 @@ import { CSPostHogProvider } from "./providers";
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://platform.amaxa.org"
+      ? "https://app.amaxaimpact.org"
       : "http://localhost:3000",
   ),
   title: "Amaxa Platform",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Amaxa Platform",
     description: "Platform for amaxa",
-    url: "https://platform.amaxa.org",
+    url: "https://app.amaxaimpact.org",
     siteName: "Amaxa Platform",
   },
 };

@@ -1,8 +1,17 @@
-//@ts-nocheck
-import { endOfMonth, formatISO, startOfMonth } from "date-fns";
-
-import { OpenTrackerSheet } from "./_components/open-tracker-sheet";
-import { TrackerCalendar } from "./_components/project-calendar";
+import {
+  Calendar,
+  CalendarCurrentDate,
+  CalendarDayView,
+  CalendarMonthView,
+  CalendarNextTrigger,
+  CalendarPrevTrigger,
+  CalendarTodayTrigger,
+  CalendarViewTrigger,
+  CalendarWeekView,
+  CalendarYearView,
+} from "@/components/calendar-full";
+import { addHours, endOfMonth, formatISO, startOfMonth } from "date-fns";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ProjectPageProps {
   params: {
@@ -19,30 +28,78 @@ interface ProjectPageProps {
 }
 
 export default function Page({ params, searchParams }: ProjectPageProps) {
-  const { id } = params;
-
-  const status = searchParams.statuses;
-  const sort = searchParams.sort.split(":") ?? ["status", "asc"];
-
-  const currentDate =
-    searchParams.date ?? formatISO(new Date(), { representation: "date" });
-
   return (
     <main className="max-h-screen px-10">
-      <TrackerCalendar
-        weekStartsOnMonday={true}
-        timeFormat={12}
-        data={[]}
-        meta={[]}
-      />
+      <Calendar
+        events={[
+          {
+            id: "1",
+            start: new Date(),
+            end: addHours(new Date(), 2),
+            title: "event A",
+            color: "pink",
+          },
+          {
+            id: "2",
+            start: addHours(new Date(), 1.5),
+            end: addHours(new Date(), 3),
+            title: "event B",
+            color: "blue",
+          },
+        ]}
+      >
+        <div className="flex h-dvh flex-col p-14">
+          <div className="mb-6 flex items-center gap-2 px-6">
+            <CalendarViewTrigger
+              className="aria-[current=true]:bg-accent"
+              view="day"
+            >
+              Day
+            </CalendarViewTrigger>
+            <CalendarViewTrigger
+              view="week"
+              className="aria-[current=true]:bg-accent"
+            >
+              Week
+            </CalendarViewTrigger>
+            <CalendarViewTrigger
+              view="month"
+              className="aria-[current=true]:bg-accent"
+            >
+              Month
+            </CalendarViewTrigger>
+            <CalendarViewTrigger
+              view="year"
+              className="aria-[current=true]:bg-accent"
+            >
+              Year
+            </CalendarViewTrigger>
 
-      <div className="mb-6 mt-14 flex items-center justify-between space-x-4">
-        <h2 className="text-md font-medium">Tasks</h2>
+            <span className="flex-1" />
 
-        <div className="flex space-x-2">
-          <OpenTrackerSheet />
+            <CalendarCurrentDate />
+
+            <CalendarPrevTrigger>
+              <ChevronLeft size={20} />
+              <span className="sr-only">Previous</span>
+            </CalendarPrevTrigger>
+
+            <CalendarTodayTrigger>Today</CalendarTodayTrigger>
+
+            <CalendarNextTrigger>
+              <ChevronRight size={20} />
+              <span className="sr-only">Next</span>
+            </CalendarNextTrigger>
+          </div>
+
+          <div className="flex-1 overflow-hidden px-6">
+            <CalendarDayView />
+            <CalendarWeekView />
+            <CalendarMonthView />
+            <CalendarYearView />
+          </div>
         </div>
-      </div>
+      </Calendar>
     </main>
   );
 }

@@ -145,7 +145,6 @@ export function AppSidebar({
                 icon: MapIcon,
               },
             ]}
-            searchResults={searchResults}
           />
         </SidebarItem>
         <SidebarItem>

@@ -5,21 +5,21 @@ import { GeistSans } from "geist/font/sans";
 
 export const metadata: Metadata = {
   title: {
-    default: "Amaxa",
-    template: "Amaxa | %s",
+    default: "amaxa",
+    template: "amaxa | %s",
   },
   description: "we help you effect change in the world",
   openGraph: {
-    title: "Amaxa",
+    title: "amaxa",
     description: "we help you effect change in the world",
     url: "https://www.amaxaimpact.org",
-    siteName: "Amaxa",
+    siteName: "amaxa",
     images: [
       {
         url: "https://www.amaxaimpact.org/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Amaxa",
+        alt: "amaxa",
       },
     ],
     locale: "en_US",
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amaxa",
+    title: "amaxa",
     description: "we help you effect change in the world",
     images: [
       {
         url: "https://www.amaxaimpact.org/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Amaxa",
+        alt: "amaxa",
       },
     ],
   },
@@ -56,6 +56,10 @@ export const metadata: Metadata = {
     "your passion",
     "social impact",
     "volunteering",
+    "ámaxa",
+    "amaxa",
+    "amaxaimapct",
+    "amaxaimapct",
     "impact",
     "college admissions",
     "college",
