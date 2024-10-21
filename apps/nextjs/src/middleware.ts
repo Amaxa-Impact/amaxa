@@ -11,7 +11,9 @@ export default auth((req) => {
 
   // Check if the current path is a public route
   const isPublicRoute = publicRoutes.some((route) =>
-    nextUrl.pathname.startsWith(route),
+    route === "/schedule"
+      ? nextUrl.pathname.includes(route)
+      : nextUrl.pathname.startsWith(route),
   );
 
   // Allow access to API routes without redirection
