@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { revalidateTag } from "next/cache";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "lucide-react";
@@ -67,15 +68,15 @@ export default function AddUserForm({
   const form = useForm<AddUserForm>({
     resolver: zodResolver(addUserSchema),
   });
-  const utils = api.useUtils();
 
   const { mutate: create } = api.users.joinProject.useMutation({
     onSuccess: () => {
       setOpen(false);
-      void utils.users.invalidate();
+      revalidateTag("getUserProjects");
     },
     onError: () => {
       toast.error("error");
+      revalidateTag("getUserProjects");
       setOpen(false);
     },
   });

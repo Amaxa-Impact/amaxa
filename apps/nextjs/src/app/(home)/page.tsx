@@ -6,14 +6,15 @@ import { Card, CardContent, CardFooter, CardHeader } from "@amaxa/ui/card";
 
 import { getUserProjects } from "~/components/navbar/switcher";
 import { checkAuth } from "~/lib/auth";
-import { api, HydrateClient } from "~/trpc/server";
 import { CreateProject } from "./_components/create-project-dialog";
-import { ProjectCards } from "./_components/project-cards";
+import { findAllProjects } from "./_queries";
 
 export default async function Page() {
-  void api.projects.findAll.prefetch({});
   const session = await checkAuth();
-  const usersProjects = await getUserProjects(session.user.id);
+  const [usersProjects, allProjects] = await Promise.all([
+    getUserProjects(session.user.id),
+    findAllProjects(),
+  ]);
 
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
@@ -70,14 +71,32 @@ export default async function Page() {
           </div>
           <div className="flex flex-col gap-6">
             <h3 className="text-4xl font-semibold">Explore Projects</h3>
-            <HydrateClient>
-              <Suspense fallback={<div>loading..</div>}>
-                <ProjectCards />
-              </Suspense>
-            </HydrateClient>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+              {allProjects.map((project) => {
+                return (
+                  <Link key={project.id} href={`/project/${project.id}`}>
+                    <Card className="col-span-1 row-span-1 bg-secondary/10 transition-transform duration-200">
+                      <CardContent className="py-5">
+                        <Image
+                          src={project.image ?? ""}
+                          width={1000}
+                          height={500}
+                          alt={String(project.id)}
+                        />
+                      </CardContent>
+                      <CardFooter className="justify-center text-center font-bold md:text-2xl">
+                        {project.name}
+                      </CardFooter>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+export const dynamic = "force-dynamic";

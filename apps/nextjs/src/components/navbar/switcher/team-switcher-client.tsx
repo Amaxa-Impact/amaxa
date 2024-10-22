@@ -28,6 +28,9 @@ export function TeamSwitcherClient({
     projects.find((p) => p.id === currentProjectId) ?? projects[0];
 
   function handleProjectChange(project: { id: string; name: string }) {
+    if (pathname[3] === undefined) {
+      router.push(`/project/${project.id}/`);
+    }
     router.push(`/project/${project.id}/${pathname[3]}`);
   }
 
