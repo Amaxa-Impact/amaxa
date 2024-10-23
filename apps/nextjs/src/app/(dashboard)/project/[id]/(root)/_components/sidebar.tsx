@@ -10,7 +10,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@amaxa/ui/tooltip";
 export const Sidebar = memo(({ id, name }: { id: string; name: string }) => {
   const pathname = usePathname();
 
-  console.log(pathname);
   return (
     <div>
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-muted/40 sm:flex">
