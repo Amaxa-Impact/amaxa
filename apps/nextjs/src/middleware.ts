@@ -28,6 +28,14 @@ export default auth((req) => {
 
   if (
     isLoggedIn &&
+    nextUrl.pathname.includes("admin") &&
+    req.auth?.user.role != "Admin"
+  ) {
+    return NextResponse.redirect(new URL("/unverified", nextUrl));
+  }
+
+  if (
+    isLoggedIn &&
     req.auth?.user.status === "Unverified" &&
     nextUrl.pathname !== "/unverified" &&
     nextUrl.pathname !== "/sign-out"

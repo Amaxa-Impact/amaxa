@@ -1,8 +1,9 @@
+import { cache } from "react";
 import { redirect } from "next/navigation";
 
 import { auth } from "@amaxa/auth";
 
-export const checkAuth = async () => {
+export const checkAuth = cache(async () => {
   const session = await auth();
 
   if (!session) {
@@ -10,4 +11,4 @@ export const checkAuth = async () => {
   }
 
   return session;
-};
+});

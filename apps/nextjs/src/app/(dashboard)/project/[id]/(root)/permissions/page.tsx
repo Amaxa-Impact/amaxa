@@ -20,14 +20,14 @@ import { AddUser } from "./_components/add-user";
 import { PermissionsRows } from "./_components/table";
 import { PermissionsRowsSkeleton } from "./_skeleton";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }) {
-  const { id } = params;
+  const id = (await params).id;
 
   void api.users.findUsersForProject.prefetch({
     projectId: id,

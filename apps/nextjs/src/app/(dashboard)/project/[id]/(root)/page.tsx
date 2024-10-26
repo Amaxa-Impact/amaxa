@@ -4,13 +4,13 @@ import { api, HydrateClient } from "~/trpc/server";
 import { ProjectDashboard } from "./_components/ChartData";
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function HomePage({ params }: ProjectPageProps) {
-  const id = params.id;
+export default async function HomePage({ params }: ProjectPageProps) {
+  const id = (await params).id;
 
   void api.tasks.getTasksOverTime.prefetch({
     projectId: id,

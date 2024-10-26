@@ -14,6 +14,8 @@ import { Label } from "@amaxa/ui/label";
 
 import { env } from "~/env";
 
+export const experimental_ppr = true;
+
 export default function LoginForm() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">

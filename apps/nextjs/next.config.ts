@@ -1,16 +1,20 @@
 import { fileURLToPath } from "url";
+import { NextConfig } from "next";
 import createJiti from "jiti";
 
 // Import env files to validate at build time. Use jiti so we can load .ts files in here.
 createJiti(fileURLToPath(import.meta.url))("./src/env");
 
-/** @type {import("next").NextConfig} */
-const config = {
+const config: NextConfig = {
   reactStrictMode: true,
   compiler: {
     removeConsole: {
       exclude: ["error"],
     },
+  },
+
+  experimental: {
+    ppr: "incremental",
   },
   images: {
     remotePatterns: [
