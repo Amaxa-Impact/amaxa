@@ -10,24 +10,10 @@ import {
   CalendarWeekView,
   CalendarYearView,
 } from "@/components/calendar-full";
-import { addHours, endOfMonth, formatISO, startOfMonth } from "date-fns";
+import { addHours } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-interface ProjectPageProps {
-  params: {
-    id: string;
-  };
-  searchParams: {
-    statuses: string;
-    sort: string;
-    q: string;
-    start?: string;
-    end?: string;
-    date?: string;
-  };
-}
-
-export default function Page({ params, searchParams }: ProjectPageProps) {
+export default function Page() {
   return (
     <main className="max-h-screen px-10">
       <Calendar
