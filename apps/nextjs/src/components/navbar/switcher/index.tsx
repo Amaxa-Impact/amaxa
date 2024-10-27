@@ -9,8 +9,8 @@ import { next_cache } from "~/lib/cache";
 import { TeamSwitcherClient } from "./team-switcher-client";
 
 export const getUserProjects = next_cache(
-  (userId: string) =>
-    db
+  async (userId: string) =>
+    await db
       .select({
         id: Projects.id,
         name: Projects.name,
