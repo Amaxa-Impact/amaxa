@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { Button } from "@amaxa/ui/button";
 import { Checkbox } from "@amaxa/ui/checkbox";
 import {
   Form,
@@ -17,6 +16,7 @@ import {
   FormMessage,
 } from "@amaxa/ui/form";
 import { Input } from "@amaxa/ui/input";
+import { LoadingButton } from "@amaxa/ui/loading-button";
 import {
   Select,
   SelectContent,
@@ -50,7 +50,7 @@ export function UserEditForm({ user, onSuccess }: UserEditFormProps) {
       toast.success("User updated");
       onSuccess();
     },
-    onError: (error) => {
+    onError: () => {
       utils.users.invalidate();
       toast.error("Error updating user");
     },
@@ -165,7 +165,9 @@ export function UserEditForm({ user, onSuccess }: UserEditFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit">Save changes</Button>
+        <LoadingButton loading={updateUser.isPending} type="submit">
+          Save changes
+        </LoadingButton>
       </form>
     </Form>
   );

@@ -23,7 +23,7 @@ import { api } from "~/trpc/react";
 import { UserEditForm } from "./form";
 
 export function UserManagement() {
-  const [editingUser, setEditingUser] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [users] = api.users.getUsers.useSuspenseQuery();
   const utils = api.useUtils();
   const deleteUser = api.users.deleteUser.useMutation({
@@ -61,8 +61,10 @@ export function UserManagement() {
               <TableCell>{user.role}</TableCell>
               <TableCell>
                 <Dialog
-                  open={editingUser}
-                  onOpenChange={(open) => setEditingUser(open)}
+                  open={editingUserId === user.id}
+                  onOpenChange={(open) =>
+                    setEditingUserId(open ? user.id : null)
+                  }
                 >
                   <DialogTrigger asChild>
                     <Button variant="outline">Edit</Button>
@@ -74,7 +76,7 @@ export function UserManagement() {
                     <UserEditForm
                       user={user}
                       onSuccess={() => {
-                        setEditingUser(false);
+                        setEditingUserId(null);
                       }}
                     />
                   </DialogContent>
