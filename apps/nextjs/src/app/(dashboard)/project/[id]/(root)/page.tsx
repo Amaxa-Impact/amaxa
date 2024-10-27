@@ -1,34 +1,36 @@
 import { Suspense } from "react";
 
-import { api, HydrateClient } from "~/trpc/server";
-import { ProjectDashboard } from "./_components/ChartData";
+import {
+  TaskPriorityChart,
+  TasksOverTimeChart,
+  TaskStatusChart,
+} from "./_components/ChartData";
+import {
+  TaskPrioritySkeletonCard,
+  TasksOverTimeSkeletonCard,
+  TaskStatusSkeletonCard,
+} from "./_components/skeletons";
 
-interface ProjectPageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
+export const experimental_ppr = true;
 
-export default async function HomePage({ params }: ProjectPageProps) {
-  const id = (await params).id;
-
-  void api.tasks.getTasksOverTime.prefetch({
-    projectId: id,
-  });
-
-  void api.tasks.getTaskPriorities.prefetch({
-    projectId: id,
-  });
-
-  void api.tasks.getTaskStatuses.prefetch({
-    projectId: id,
-  });
-
+export default function ProjectDashboard({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   return (
-    <HydrateClient>
-      <Suspense fallback="loading">
-        <ProjectDashboard id={id} />;
-      </Suspense>
-    </HydrateClient>
+    <main className="max-h-screen px-10">
+      <div className="grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Suspense fallback={<TasksOverTimeSkeletonCard />}>
+          <TasksOverTimeChart params={params} />
+        </Suspense>
+        <Suspense fallback={<TaskStatusSkeletonCard />}>
+          <TaskStatusChart params={params} />
+        </Suspense>
+        <Suspense fallback={<TaskPrioritySkeletonCard />}>
+          <TaskPriorityChart params={params} />
+        </Suspense>
+      </div>
+    </main>
   );
 }

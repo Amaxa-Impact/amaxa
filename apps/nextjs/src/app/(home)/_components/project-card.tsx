@@ -19,7 +19,7 @@ export function ProjectCard({
 }) {
   if (isPending) {
     return (
-      <Card className="col-span-1 row-span-1 flex h-[300px] w-[300px] flex-col items-center justify-center border-dashed bg-secondary/10 transition-transform duration-200">
+      <Card className="col-span-1 row-span-1 flex h-[500px] w-[500px] flex-col items-center justify-center border-dashed bg-secondary/10 transition-transform duration-200">
         <CardContent>{message}</CardContent>
       </Card>
     );

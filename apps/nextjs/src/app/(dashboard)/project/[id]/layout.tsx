@@ -1,4 +1,5 @@
 import React from "react";
+import { cookies } from "next/headers";
 
 import { SidebarLayout } from "@amaxa/ui/sidebar";
 
@@ -7,14 +8,11 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const { cookies } = await import("next/headers");
+  const cookiesStore = await cookies();
+  const isOpen = cookiesStore.get("sidebar:state")?.value === "true";
   return (
     <div>
-      <SidebarLayout
-        defaultOpen={cookies().get("sidebar:state")?.value === "true"}
-      >
-        {children}
-      </SidebarLayout>
+      <SidebarLayout defaultOpen={isOpen}>{children}</SidebarLayout>
     </div>
   );
 }
