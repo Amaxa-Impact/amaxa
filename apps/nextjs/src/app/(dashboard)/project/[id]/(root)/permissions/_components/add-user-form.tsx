@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { revalidateTag } from "next/cache";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";

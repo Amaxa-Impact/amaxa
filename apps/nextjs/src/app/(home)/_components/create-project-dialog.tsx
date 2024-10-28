@@ -2,6 +2,7 @@
 
 import type { z } from "zod";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -33,6 +34,7 @@ import { api } from "~/trpc/react";
 
 export function CreateProject() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,22 +45,21 @@ export function CreateProject() {
     },
   });
 
-  const utils = api.useUtils();
   const createProject = api.projects.create.useMutation({
     onSuccess: () => {
       toast.success("Project created");
       form.reset();
-      void utils.projects.invalidate();
       setIsOpen(false);
+      router.refresh();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("something went wrong");
     },
   });
 
-  const onSubmit = async (values: CreateProjectSchema) => {
-    try {
-      await createProject.mutateAsync(values);
-    } catch (error) {
-      toast.error("Error creating project");
-    }
+  const onSubmit = (values: CreateProjectSchema) => {
+    createProject.mutate(values);
   };
 
   return (

@@ -1,5 +1,6 @@
 // import { and, ilike } from "@amaxa/db";
 // import { Projects } from "@amaxa/db/schema";
+import { revalidatePath } from "next/cache";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -27,6 +28,7 @@ export const projectsRouter = createTRPCRouter({
           code: "UNAUTHORIZED",
           message: "You do not have permissions to create a project",
         });
+      revalidatePath("/");
       await ctx.db.insert(Projects).values(input);
     }),
   forDashboard: protectedProcedure
