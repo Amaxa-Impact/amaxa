@@ -17,7 +17,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Lauren McMillen",
     role: "Founder and CEO",
-    quote: "",
+    quote: "When I was 16, my teacher Mr. Boyce believed in me. With his mentorship, I raised $10,000 to purchase solar panels for a school in Uganda. This experience taught me how to be impactful, and it changed my life - but only because I was fortunate enough to meet Mr. Boyce. I started amaxa to give to others what Mr. Boyce gave to me.",
     bio: "Lauren, a New York University Abu Dhabi graduate in Computer Science and Arabic, is now pursuing a Master's in Middle Eastern Studies at the University of Edinburgh. With a strong foundation in technology and experience in over a dozen non-profits, she's driven by a powerful mission: empowering others to recognize their potential to make a real difference in the world.",
     photo: "/lauren-headshot.png",
   },
@@ -39,23 +39,23 @@ const teamMembers: TeamMember[] = [
   {
     name: "Pari Singh",
     role: "Director of Operations",
-    quote: "",
+    quote: "I have always been drawn to community outreach, my father instilled in us since day one the importance of selflessness and giving back. Sometimes it is so easy to get wrapped up in our own lives and not realize how privileged we really are. That's why I was ecstatic to find an organization like amaxa! I love that we are an organization that extends beyonds borders to facilitate change. I am excited to be on the team and see how far we go!",
     bio: "Pari is a skilled Scrum Master and Project Manager, known for co-ordinating teams to deliver impactful results. As Senior Advisor for the bhangra team, she raised over $1000 for cancer research through her Greek life organization. With strong management, leadership, and determination, Pari is ready to lead ámaxa to success.",
-    photo: "/placeholder.svg?height=400&width=400",
+    photo: "/pari-headshot.jpg",
   },
   {
     name: "Heather Miller",
     role: "Director of Digital Marketing",
-    quote: "",
+    quote: "I’ve always hoped I could use marketing skills to make a positive impact, and I am happy to be part of a team where I can now use my expertise in Google Ads, blog writing, and keyword research, to make an impact on people around the world.",
     bio: "Heather oversees our $10,000 Google Ads grant, designs landing pages, and writes compelling blog posts. With a Marketing degree and digital marketing certificate from BYU-Idaho, she brings years of experience as a Google Ads Specialist at Hangar Marketing, managing campaigns for diverse clients. Her expertise in Google Ads, combined with her strong content creation skills and in-depth keyword research, ensures both effective ad management and engaging, impactful content.",
-    photo: "/placeholder.svg?height=400&width=400",
+    photo: "/heather-headshot.jpg",
   },
   {
     name: "Phoebe Cox",
     role: "Head of Research and Strategy",
-    quote: "",
+    quote: "As a child, my mother was heavily involved in charity work in China (where I grew up) so I always knew how I could turn my passion into impact by relying on her expertise, support and guidance. When I left China, I found it much harder to figure out how to help or make a difference in my new communities – it is for this reason that I truly believe in amaxa’s mission, as there are so many people with a passion for helping others, who just don’t know how to go about doing so.",
     bio: "Phoebe leverages her psychology background to drive market and user research, bringing valuable insights from her experience in refugee aid, fundraising, research, and copywriting. As co-founder of Bike4Bast, she raised £12,000 for recovery programs and is deeply committed to Amaxa's mission, inspired by her charity work in China and her passion for helping others.",
-    photo: "/placeholder.svg?height=400&width=400",
+    photo: "/phoebe-headshot.JPG",
   },
 ];
 

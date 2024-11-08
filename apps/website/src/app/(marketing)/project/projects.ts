@@ -2,7 +2,7 @@ export const projects = [
   {
     id: "gazachamps",
     title: "Feeding Gaza: support for families in crisis",
-    image: "/gazachamps.png",
+    image: "/gazachampions.jpg",
   },
   {
     id: "nyaka",
