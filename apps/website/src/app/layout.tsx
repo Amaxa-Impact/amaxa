@@ -3,6 +3,8 @@ import "~/app/globals.css";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 
+import { CSPostHogProvider } from "./provides/posthog";
+
 export const metadata: Metadata = {
   title: {
     default: "amaxa",
@@ -74,7 +76,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CSPostHogProvider>{children}</CSPostHogProvider>
+      </body>
     </html>
   );
 }
