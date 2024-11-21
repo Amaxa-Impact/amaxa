@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
@@ -48,7 +49,9 @@ export function Hero() {
               </Button>
             </Link>
 
-            <ApplyButton />
+            <Suspense>
+              <ApplyButton />
+            </Suspense>
           </div>
         </div>
       </div>

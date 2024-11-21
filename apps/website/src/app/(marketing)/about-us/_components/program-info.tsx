@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   Award,
   Calendar,
   CheckCircle,
@@ -177,7 +175,9 @@ export default function ProgramInfo() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: 0.5 }}
       >
-        <ApplyButton />
+        <Suspense>
+          <ApplyButton />
+        </Suspense>
       </motion.div>
     </div>
   );

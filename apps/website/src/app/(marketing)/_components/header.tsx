@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
@@ -71,7 +71,9 @@ export const Header = () => {
       )}
       <NavigationSection />
       <div className="hidden gap-4 md:flex  md:flex-row">
-        <ApplyButton />
+        <Suspense>
+          <ApplyButton />
+        </Suspense>
       </div>
     </div>
   );

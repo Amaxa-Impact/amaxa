@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -33,7 +33,9 @@ export default function Hero() {
               </Button>
             </Link>
 
-            <ApplyButton />
+            <Suspense>
+              <ApplyButton />
+            </Suspense>
           </div>
         </div>
         <p className="mt-8 font-mono text-xs text-[#707070]">

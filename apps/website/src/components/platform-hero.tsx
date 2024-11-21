@@ -1,12 +1,9 @@
 /** eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useRef } from "react";
-import Link from "next/link";
+import { Suspense, useRef } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useInView } from "framer-motion";
-
-import { Button } from "@amaxa/ui/button";
 
 import { ApplyButton } from "~/app/(marketing)/_components/apply-button";
 import { TextShimmer } from "./text-shimmer";
@@ -34,7 +31,9 @@ export default function PlatformHero() {
         amplify
         <br className="hidden md:block" /> what you can achive.
       </p>
-      <ApplyButton />
+      <Suspense>
+        <ApplyButton />
+      </Suspense>
       <div
         ref={ref}
         className="animate-fade-up relative mt-[8rem] opacity-0 [--animation-delay:400ms] [perspective:2000px] after:absolute after:inset-0 after:z-50 after:[background:linear-gradient(to_top,hsl(var(--background))_30%,transparent)]"
