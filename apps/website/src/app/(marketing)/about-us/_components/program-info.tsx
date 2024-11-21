@@ -16,6 +16,8 @@ import {
   Users,
 } from "lucide-react";
 
+import { ApplyButton } from "../../_components/apply-button";
+
 const InfoCard = ({
   icon: Icon,
   title,
@@ -175,12 +177,7 @@ export default function ProgramInfo() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: 0.5 }}
       >
-        <Link
-          href="/apply"
-          className="inline-flex items-center rounded-full border border-transparent bg-primary px-6 py-3 text-lg font-medium text-white shadow-sm transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Apply Now <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+        <ApplyButton />
       </motion.div>
     </div>
   );

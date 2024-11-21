@@ -16,7 +16,7 @@ export default function PostHogPageView() {
       if (searchParams.toString()) {
         url = url + `?${searchParams.toString()}`;
       }
-      posthog.capture("$pageview", {
+      posthog.capture("user_apply", {
         $current_url: url,
       });
     }

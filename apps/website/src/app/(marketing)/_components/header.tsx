@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 
 import { MobileNav } from "~/components/mobile-nav";
+import { ApplyButton } from "./apply-button";
 import NavigationSection from "./nav";
 
 export const Header = () => {
@@ -70,11 +71,7 @@ export const Header = () => {
       )}
       <NavigationSection />
       <div className="hidden gap-4 md:flex  md:flex-row">
-        <Link href={"/apply"} passHref>
-          <button className="rounded-xl border border-primary bg-primary px-4 py-2 text-sm text-white transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
-            Apply now
-          </button>
-        </Link>
+        <ApplyButton />
       </div>
     </div>
   );

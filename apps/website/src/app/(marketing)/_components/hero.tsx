@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 
 import { Button } from "@amaxa/ui/button";
 
+import { ApplyButton } from "./apply-button";
+
 export default function Hero() {
   return (
     <motion.section className="relative flex flex-row  items-center gap-20 md:min-h-[375px]">
@@ -31,9 +33,7 @@ export default function Hero() {
               </Button>
             </Link>
 
-            <a href="/apply">
-              <Button className="h-12 px-5">Apply Now</Button>
-            </a>
+            <ApplyButton />
           </div>
         </div>
         <p className="mt-8 font-mono text-xs text-[#707070]">

@@ -5,6 +5,8 @@ import { cn } from "@amaxa/ui";
 import { Badge } from "@amaxa/ui/badge";
 import { Button } from "@amaxa/ui/button";
 
+import { ApplyButton } from "./apply-button";
+
 export function Hero() {
   return (
     <div className="my-10 flex w-full flex-col justify-center gap-1 px-3 py-4 text-center md:my-20 md:p-6">
@@ -46,9 +48,7 @@ export function Hero() {
               </Button>
             </Link>
 
-            <a href="/apply">
-              <Button className="h-12 px-5">Apply Now</Button>
-            </a>
+            <ApplyButton />
           </div>
         </div>
       </div>

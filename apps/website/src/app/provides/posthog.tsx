@@ -13,6 +13,7 @@ if (typeof window !== "undefined") {
     capture_pageleave: true, // Enable pageleave capture
   });
 }
+
 export function CSPostHogProvider({ children }: { children: React.ReactNode }) {
   return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
 }
