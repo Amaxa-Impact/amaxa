@@ -2,7 +2,7 @@ import React from "react";
 
 import { eq } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
-import { project_tracker, Projects } from "@amaxa/db/schema";
+import { Project_Tracker, Projects } from "@amaxa/db/schema";
 
 import { checkAuth } from "~/lib/auth";
 import { next_cache } from "~/lib/cache";
@@ -16,9 +16,9 @@ export const getUserProjects = next_cache(
         name: Projects.name,
         image: Projects.image,
       })
-      .from(project_tracker)
-      .where(eq(project_tracker.userId, userId))
-      .innerJoin(Projects, eq(Projects.id, project_tracker.projectId)),
+      .from(Project_Tracker)
+      .where(eq(Project_Tracker.userId, userId))
+      .innerJoin(Projects, eq(Projects.id, Project_Tracker.projectId)),
   ["getUserProjects"],
 );
 

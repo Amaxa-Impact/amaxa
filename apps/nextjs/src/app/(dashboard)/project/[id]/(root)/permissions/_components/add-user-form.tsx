@@ -8,7 +8,7 @@ import { CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { userRolesEnum } from "@amaxa/db/schema";
+import { UserRolesEnum } from "@amaxa/db/schema";
 import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import {
@@ -117,7 +117,7 @@ export default function AddUserForm({
                     </FormControl>
                     <SelectContent>
                       <SelectGroup>
-                        {userRolesEnum.map((item) => (
+                        {UserRolesEnum.map((item) => (
                           <SelectItem
                             key={item}
                             value={item}
@@ -156,7 +156,7 @@ export default function AddUserForm({
                         >
                           {field.value
                             ? userMap.find((user) => user.value === field.value)
-                                ?.label
+                              ?.label
                             : "Select User"}
                         </Button>
                       </FormControl>

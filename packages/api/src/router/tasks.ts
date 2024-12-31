@@ -2,7 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { and, buildConflictUpdateColumns, eq, sql } from "@amaxa/db";
-import { edges, statusValues, tasks } from "@amaxa/db/schema";
+import { Edges, StatusValues, Tasks } from "@amaxa/db/schema";
 
 import { isProjectStudent } from "../permissions";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -134,11 +134,11 @@ export const tasksRouter = createTRPCRouter({
 
       // Insert or update tasks
       await ctx.db
-        .insert(tasks)
+        .insert(Tasks)
         .values(formattedTasks)
         .onConflictDoUpdate({
-          target: tasks.id,
-          set: buildConflictUpdateColumns(tasks, [
+          target: Tasks.id,
+          set: buildConflictUpdateColumns(Tasks, [
             "description",
             "type",
             "title",
@@ -154,11 +154,11 @@ export const tasksRouter = createTRPCRouter({
 
       // Insert or update edges
       await ctx.db
-        .insert(edges)
+        .insert(Edges)
         .values(input.edges)
         .onConflictDoUpdate({
-          target: edges.id,
-          set: buildConflictUpdateColumns(edges, ["source", "target"]),
+          target: Edges.id,
+          set: buildConflictUpdateColumns(Edges, ["source", "target"]),
         });
     }),
   create: protectedProcedure
@@ -182,7 +182,7 @@ export const tasksRouter = createTRPCRouter({
           code: "UNAUTHORIZED",
           message: "You do not have permissions to create an event",
         });
-      await ctx.db.insert(tasks).values(input);
+      await ctx.db.insert(Tasks).values(input);
     }),
   update: protectedProcedure
     .input(
@@ -196,12 +196,12 @@ export const tasksRouter = createTRPCRouter({
           })
           .optional(),
         assigneeId: z.string().optional(),
-        status: z.enum(statusValues).optional(),
+        status: z.enum(StatusValues).optional(),
         doneBy: z.date().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.update(tasks).set(input).where(eq(tasks.id, input.id));
+      await ctx.db.update(Tasks).set(input).where(eq(Tasks.id, input.id));
     }),
   getTaskData: protectedProcedure
     .input(
@@ -215,19 +215,19 @@ export const tasksRouter = createTRPCRouter({
 
       const result = await ctx.db
         .select({
-          month: sql<string>`to_char(${tasks.createdAt}, 'Month')`,
+          month: sql<string>`to_char(${Tasks.createdAt}, 'Month')`,
           tasksFinished: sql<number>`count(*)`,
         })
-        .from(tasks)
+        .from(Tasks)
         .where(
           and(
-            eq(tasks.status, "done"),
-            sql`${tasks.createdAt} >= ${sixMonthsAgo}`,
-            eq(tasks.projectId, input.id),
+            eq(Tasks.status, "done"),
+            sql`${Tasks.createdAt} >= ${sixMonthsAgo}`,
+            eq(Tasks.projectId, input.id),
           ),
         )
-        .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
-        .orderBy(sql`min(${tasks.createdAt})`);
+        .groupBy(sql`to_char(${Tasks.createdAt}, 'Month')`)
+        .orderBy(sql`min(${Tasks.createdAt})`);
 
       return result;
     }),
@@ -240,12 +240,12 @@ export const tasksRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
-          priority: tasks.priority,
+          priority: Tasks.priority,
           count: sql<number>`count(*)`,
         })
-        .from(tasks)
-        .where(eq(tasks.projectId, input.id))
-        .groupBy(tasks.priority);
+        .from(Tasks)
+        .where(eq(Tasks.projectId, input.id))
+        .groupBy(Tasks.priority);
       return result;
     }),
   getPositionData: protectedProcedure
@@ -257,12 +257,12 @@ export const tasksRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
-          position: tasks.position,
+          position: Tasks.position,
           count: sql<number>`count(*)`,
         })
-        .from(tasks)
-        .where(eq(tasks.projectId, input.id))
-        .groupBy(tasks.position);
+        .from(Tasks)
+        .where(eq(Tasks.projectId, input.id))
+        .groupBy(Tasks.position);
       return result;
     }),
 
@@ -271,13 +271,13 @@ export const tasksRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
-          month: sql<string>`to_char(${tasks.createdAt}, 'Month')`,
+          month: sql<string>`to_char(${Tasks.createdAt}, 'Month')`,
           tasksFinished: sql<number>`count(*)`,
         })
-        .from(tasks)
-        .where(eq(tasks.projectId, input.projectId))
-        .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
-        .orderBy(sql`to_char(${tasks.createdAt}, 'Month')`);
+        .from(Tasks)
+        .where(eq(Tasks.projectId, input.projectId))
+        .groupBy(sql`to_char(${Tasks.createdAt}, 'Month')`)
+        .orderBy(sql`to_char(${Tasks.createdAt}, 'Month')`);
 
       return result;
     }),
@@ -287,12 +287,12 @@ export const tasksRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
-          priority: tasks.priority,
+          priority: Tasks.priority,
           count: sql<number>`count(*)`,
         })
-        .from(tasks)
-        .where(eq(tasks.projectId, input.projectId))
-        .groupBy(tasks.priority);
+        .from(Tasks)
+        .where(eq(Tasks.projectId, input.projectId))
+        .groupBy(Tasks.priority);
 
       return result;
     }),
@@ -302,12 +302,12 @@ export const tasksRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
-          status: tasks.status,
+          status: Tasks.status,
           count: sql<number>`count(*)`,
         })
-        .from(tasks)
-        .where(eq(tasks.projectId, input.projectId))
-        .groupBy(tasks.status);
+        .from(Tasks)
+        .where(eq(Tasks.projectId, input.projectId))
+        .groupBy(Tasks.status);
 
       return result;
     }),

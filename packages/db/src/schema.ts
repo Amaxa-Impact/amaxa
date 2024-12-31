@@ -90,7 +90,7 @@ export const SessionRelations = relations(Session, ({ one }) => ({
   user: one(User, { fields: [Session.userId], references: [User.id] }),
 }));
 
-export const tasks = pgTable("tasks", {
+export const Tasks = pgTable("tasks", {
   id: text("id")
     .$defaultFn(() => createId())
     .primaryKey(),
@@ -131,25 +131,25 @@ export const tasks = pgTable("tasks", {
     .$onUpdate(() => new Date()),
 });
 
-export type Task = typeof tasks.$inferSelect;
+export type Task = typeof Tasks.$inferSelect;
 export type TaskStatus = Task["status"];
 
-export const tasksRelations = relations(tasks, ({ one }) => ({
-  assignee: one(User, { fields: [tasks.assigneeId], references: [User.id] }),
+export const TasksRelations = relations(Tasks, ({ one }) => ({
+  assignee: one(User, { fields: [Tasks.assigneeId], references: [User.id] }),
   project: one(Projects, {
-    fields: [tasks.projectId],
+    fields: [Tasks.projectId],
     references: [Projects.id],
   }),
-  parent: one(tasks, { fields: [tasks.parentId], references: [tasks.id] }),
+  parent: one(Tasks, { fields: [Tasks.parentId], references: [Tasks.id] }),
 }));
 
-export const edges = pgTable("edges", {
+export const Edges = pgTable("edges", {
   id: text("id").primaryKey(),
   source: text("source")
-    .references(() => tasks.id)
+    .references(() => Tasks.id)
     .notNull(),
   target: text("target")
-    .references(() => tasks.id)
+    .references(() => Tasks.id)
     .notNull(),
   projectId: text("project_id").notNull(),
   createdAt: timestamp("created_at")
@@ -158,30 +158,30 @@ export const edges = pgTable("edges", {
   updatedAt: timestamp("updatedAt"),
 });
 
-export const edgesRelations = relations(edges, ({ one }) => ({
+export const EdgesRelations = relations(Edges, ({ one }) => ({
   project: one(Projects, {
-    fields: [edges.projectId],
+    fields: [Edges.projectId],
     references: [Projects.id],
   }),
-  source: one(tasks, {
-    fields: [edges.source],
-    references: [tasks.id],
+  source: one(Tasks, {
+    fields: [Edges.source],
+    references: [Tasks.id],
   }),
-  target: one(tasks, {
-    fields: [edges.target],
-    references: [tasks.id],
+  target: one(Tasks, {
+    fields: [Edges.target],
+    references: [Tasks.id],
   }),
 }));
 
-export type Edge = typeof edges.$inferSelect;
+export type Edge = typeof Edges.$inferSelect;
 
-export const createTaskSchema = createInsertSchema(tasks).omit({
+export const createTaskSchema = createInsertSchema(Tasks).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
 });
 
-export const selectTaskSchema = createSelectSchema(tasks);
+export const selectTaskSchema = createSelectSchema(Tasks);
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
 export type TaskSchema = z.infer<typeof selectTaskSchema>;
@@ -199,6 +199,13 @@ export const Projects = pgTable("projects", {
   updatedAt: timestamp("updatedAt"),
 });
 
+export const ProjectRelations = relations(Projects, ({ one, many }) => ({
+  reports: many(Reports),
+  tasks: many(Tasks),
+
+}));
+
+
 export type Project = typeof Projects.$inferSelect;
 
 export const createProjectSchema = createInsertSchema(Projects).omit({
@@ -209,9 +216,9 @@ export const createProjectSchema = createInsertSchema(Projects).omit({
 
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
 
-export const statusValues = tasks.status.enumValues;
+export const StatusValues = Tasks.status.enumValues;
 
-export const project_tracker = pgTable(
+export const Project_Tracker = pgTable(
   "project_tracker",
   {
     userId: text("user_id").notNull(),
@@ -228,25 +235,25 @@ export const project_tracker = pgTable(
     pk: primaryKey({ columns: [table.userId, table.projectId] }),
   }),
 );
-export const userRolesEnum = project_tracker.permission.enumValues;
+export const UserRolesEnum = Project_Tracker.permission.enumValues;
 
-export const projectTrackerRelations = relations(
-  project_tracker,
+export const ProjectTrackerRelations = relations(
+  Project_Tracker,
   ({ one }) => ({
     project: one(Projects, {
-      fields: [project_tracker.projectId],
+      fields: [Project_Tracker.projectId],
       references: [Projects.id],
     }),
     user: one(User, {
-      fields: [project_tracker.userId],
+      fields: [Project_Tracker.userId],
       references: [User.id],
     }),
   }),
 );
-export type ProjectTracker = typeof project_tracker.$inferSelect;
+export type ProjectTracker = typeof Project_Tracker.$inferSelect;
 export type ProjectPermission = ProjectTracker["permission"];
 
-export const skills = pgTable("skills", {
+export const Skills = pgTable("skills", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -257,19 +264,19 @@ export const skills = pgTable("skills", {
   updatedAt: timestamp("updatedAt"),
 });
 
-export const skillsRelations = relations(skills, ({ many }) => ({
-  guides: many(skillsToGuide),
+export const SkillsRelations = relations(Skills, ({ many }) => ({
+  guides: many(SkillsToGuide),
 }));
 
-export const skillsToGuide = pgTable(
+export const SkillsToGuide = pgTable(
   "skills_to_guide",
   {
     skillId: text("skill_id")
       .notNull()
-      .references(() => skills.id),
+      .references(() => Skills.id),
     guideId: text("guide_id")
       .notNull()
-      .references(() => guides.id),
+      .references(() => Guides.id),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -280,18 +287,18 @@ export const skillsToGuide = pgTable(
   }),
 );
 
-export const skillsToGuideRelations = relations(skillsToGuide, ({ one }) => ({
-  skill: one(skills, {
-    fields: [skillsToGuide.skillId],
-    references: [skills.id],
+export const SkillsToGuideRelation = relations(SkillsToGuide, ({ one }) => ({
+  skill: one(Skills, {
+    fields: [SkillsToGuide.skillId],
+    references: [Skills.id],
   }),
-  guide: one(guides, {
-    fields: [skillsToGuide.guideId],
-    references: [guides.id],
+  guide: one(Guides, {
+    fields: [SkillsToGuide.guideId],
+    references: [Guides.id],
   }),
 }));
 
-export const guides = pgTable("guides", {
+export const Guides = pgTable("guides", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -304,11 +311,11 @@ export const guides = pgTable("guides", {
   updatedAt: timestamp("updatedAt"),
 });
 
-export const guidesRelations = relations(guides, ({ many }) => ({
-  skills: many(skillsToGuide),
+export const GuidesRelations = relations(Guides, ({ many }) => ({
+  skills: many(SkillsToGuide),
 }));
 
-export const events = pgTable("events", {
+export const Events = pgTable("events", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -327,8 +334,24 @@ export const events = pgTable("events", {
   updatedAt: timestamp("updatedAt"),
 });
 
-export const createEventSchema = createInsertSchema(events).omit({
+export const createEventSchema = createInsertSchema(Events).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
 });
+
+
+export const Reports = pgTable('report', {
+  id: text('id').primaryKey().$defaultFn(() => createId()),
+  url: text('url').notNull(),
+  projectId: text('project_id').notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+})
+
+export const ReportRelations = relations(Reports, ({ one }) => ({
+  project: one(Projects, {
+    fields: [Reports.projectId],
+    references: [Projects.id],
+  })
+}))

@@ -6,7 +6,7 @@ import type { TaskStatus } from "@amaxa/db/schema";
 import { auth } from "@amaxa/auth";
 import { buildConflictUpdateColumns } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
-import { edges, tasks } from "@amaxa/db/schema";
+import { Edges, Tasks } from "@amaxa/db/schema";
 
 const schema = z.object({
   tasks: z.array(
@@ -77,11 +77,11 @@ export async function saveTasks(data: InputProps) {
     });
     // Insert or update tasks
     await db
-      .insert(tasks)
+      .insert(Tasks)
       .values(formattedTasks)
       .onConflictDoUpdate({
-        target: tasks.id,
-        set: buildConflictUpdateColumns(tasks, [
+        target: Tasks.id,
+        set: buildConflictUpdateColumns(Tasks, [
           "title",
           "parentId",
           "description",
@@ -98,11 +98,11 @@ export async function saveTasks(data: InputProps) {
 
     // Insert or update edges
     await db
-      .insert(edges)
+      .insert(Edges)
       .values(validatedData.edges)
       .onConflictDoUpdate({
-        target: edges.id,
-        set: buildConflictUpdateColumns(edges, [
+        target: Edges.id,
+        set: buildConflictUpdateColumns(Edges, [
           "source",
           "target",
           "projectId",

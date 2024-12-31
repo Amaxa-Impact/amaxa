@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { and, eq } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
-import { project_tracker, Projects, User } from "@amaxa/db/schema";
+import { Project_Tracker, Projects, User } from "@amaxa/db/schema";
 
 export async function GET(req: NextApiRequest) {
   try {
@@ -34,10 +34,10 @@ export async function GET(req: NextApiRequest) {
           role: User.role,
           image: User.image,
         })
-        .from(project_tracker)
-        .where(and(eq(project_tracker.projectId, projectId)))
-        .innerJoin(User, eq(project_tracker.userId, User.id))
-        .innerJoin(Projects, eq(project_tracker.projectId, Projects.id));
+        .from(Project_Tracker)
+        .where(and(eq(Project_Tracker.projectId, projectId)))
+        .innerJoin(User, eq(Project_Tracker.userId, User.id))
+        .innerJoin(Projects, eq(Project_Tracker.projectId, Projects.id));
 
       const coaches = await tx
         .select({
@@ -46,10 +46,10 @@ export async function GET(req: NextApiRequest) {
           role: User.role,
           image: User.image,
         })
-        .from(project_tracker)
-        .where(and(eq(project_tracker.projectId, projectId)))
-        .innerJoin(User, eq(project_tracker.userId, User.id))
-        .innerJoin(Projects, eq(project_tracker.projectId, Projects.id));
+        .from(Project_Tracker)
+        .where(and(eq(Project_Tracker.projectId, projectId)))
+        .innerJoin(User, eq(Project_Tracker.userId, User.id))
+        .innerJoin(Projects, eq(Project_Tracker.projectId, Projects.id));
 
       return { project, users, coaches };
     });

@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import type { TaskStatus } from "@amaxa/db/schema";
-import { statusValues } from "@amaxa/db/schema";
+import { StatusValues } from "@amaxa/db/schema";
 import {
   Select,
   SelectContent,
@@ -36,7 +36,7 @@ export function ChangeStatus({ defaultValue, id }: ChangeStatusProps) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {statusValues.map((item) => (
+          {StatusValues.map((item) => (
             <SelectItem key={item} value={item} className="capitalize">
               {item}
             </SelectItem>

@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 
 import type { ProjectPermission, UserRole } from "@amaxa/db/schema";
 import { db } from "@amaxa/db/client";
-import { project_tracker, Projects, User } from "@amaxa/db/schema";
+import { Project_Tracker, Projects, User } from "@amaxa/db/schema";
 
 const preparedGetUserInfo = db
   .select({
@@ -16,12 +16,12 @@ const preparedGetUserInfo = db
 
 const preparedGetUserProjectTrackers = db
   .select({
-    projectId: project_tracker.projectId,
-    permission: project_tracker.permission,
-    createdAt: project_tracker.createdAt,
+    projectId: Project_Tracker.projectId,
+    permission: Project_Tracker.permission,
+    createdAt: Project_Tracker.createdAt,
   })
-  .from(project_tracker)
-  .where(eq(project_tracker.userId, sql.placeholder("userId")))
+  .from(Project_Tracker)
+  .where(eq(Project_Tracker.userId, sql.placeholder("userId")))
   .prepare("getUVerifiedserProjectTrackers");
 
 const preparedGetUserProjects = db
@@ -33,9 +33,9 @@ const preparedGetUserProjects = db
     createdAt: Projects.createdAt,
     updatedAt: Projects.updatedAt,
   })
-  .from(project_tracker)
-  .where(eq(project_tracker.userId, sql.placeholder("userId")))
-  .innerJoin(Projects, eq(project_tracker.projectId, Projects.id))
+  .from(Project_Tracker)
+  .where(eq(Project_Tracker.userId, sql.placeholder("userId")))
+  .innerJoin(Projects, eq(Project_Tracker.projectId, Projects.id))
   .prepare("getUserProjects");
 
 async function getUserInformation(id: string) {

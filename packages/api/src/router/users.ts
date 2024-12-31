@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { and, eq } from "@amaxa/db";
-import { project_tracker, User } from "@amaxa/db/schema";
+import { Project_Tracker, User } from "@amaxa/db/schema";
 
 import { isAdmin, isProjectPrivileged } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -43,7 +43,7 @@ export const userRouter = createTRPCRouter({
 
       revalidateTag("getUserProjects");
 
-      await ctx.db.insert(project_tracker).values({
+      await ctx.db.insert(Project_Tracker).values({
         userId,
         projectId,
         permission: p,
@@ -63,11 +63,11 @@ export const userRouter = createTRPCRouter({
           name: User.name,
           image: User.image,
           email: User.email,
-          role: project_tracker.permission,
+          role: Project_Tracker.permission,
         })
-        .from(project_tracker)
-        .where(eq(project_tracker.projectId, input.projectId))
-        .innerJoin(User, eq(User.id, project_tracker.userId));
+        .from(Project_Tracker)
+        .where(eq(Project_Tracker.projectId, input.projectId))
+        .innerJoin(User, eq(User.id, Project_Tracker.userId));
     }),
   updateProjectStatus: protectedProcedure
     .input(
@@ -86,14 +86,14 @@ export const userRouter = createTRPCRouter({
         });
 
       return await ctx.db
-        .update(project_tracker)
+        .update(Project_Tracker)
         .set({
           permission: permission as "admin" | "coach" | "student",
         })
         .where(
           and(
-            eq(project_tracker.userId, userId),
-            eq(project_tracker.projectId, projectId),
+            eq(Project_Tracker.userId, userId),
+            eq(Project_Tracker.projectId, projectId),
           ),
         );
     }),

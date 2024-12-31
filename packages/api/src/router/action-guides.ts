@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { guides } from "@amaxa/db/schema";
+import { Guides } from "@amaxa/db/schema";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
@@ -26,7 +26,7 @@ export const actionGuideRouter = createTRPCRouter({
         });
       }
       const { title, description, embedId } = input;
-      await ctx.db.insert(guides).values({
+      await ctx.db.insert(Guides).values({
         title,
         description,
         embedId,
