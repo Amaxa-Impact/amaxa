@@ -12,6 +12,7 @@ export const env = createEnv({
         ? z.string().min(1)
         : z.string().min(1).optional(),
     NODE_ENV: z.enum(["development", "production"]).optional(),
+    UPLOADTHING_TOKEN: z.string().min(1),
     TEST_USER_PASSWORD: z.string().min(1),
     TEST_ADMIN_PASSWORD: z.string().min(1),
   },

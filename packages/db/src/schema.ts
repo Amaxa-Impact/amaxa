@@ -202,7 +202,7 @@ export const Projects = pgTable("projects", {
 export const ProjectRelations = relations(Projects, ({ one, many }) => ({
   reports: many(Reports),
   tasks: many(Tasks),
-
+  users: many(User),
 }));
 
 

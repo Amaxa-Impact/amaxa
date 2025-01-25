@@ -6,8 +6,10 @@ export const reportsRouter = createTRPCRouter({
     .input(z.object({
       id: z.string(),
     })).query(async ({ ctx, input }) => {
-
-    })
+      return await ctx.db.query.Reports.findFirst({
+        where: (Reports, { eq }) => eq(Reports.id, input.id),
+      })
+    }),
 })
 
 
