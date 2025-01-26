@@ -24,13 +24,10 @@
   },
   "devDependencies": {
     "@amaxa/prettier-config": "workspace:*",
-    "@turbo/gen": "^2.0.3",
+    "@turbo/gen": "^2.1.3",
     "prettier": "^3.3.1",
     "turbo": "^2.1.3",
     "typescript": "^5.4.5"
   },
-  "prettier": "@amaxa/prettier-config",
-  "dependencies": {
-    "lucide-react": "^0.416.0"
-  }
+  "prettier": "@amaxa/prettier-config"
 }
