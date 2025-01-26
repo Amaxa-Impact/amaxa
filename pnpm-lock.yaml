@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      lucide-react:
-        specifier: ^0.416.0
-        version: 0.416.0(react@18.3.1)
     devDependencies:
       '@amaxa/prettier-config':
         specifier: workspace:*
