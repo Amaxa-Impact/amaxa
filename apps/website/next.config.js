@@ -1,7 +1,15 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-
+  async redirects() {
+    return [
+      {
+        source: '/landing-page.html',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
