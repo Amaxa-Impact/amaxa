@@ -1,7 +1,7 @@
 "use client";
 
-import { Gaza } from "~/app/(marketing)/_components/project-content/Gaza";
-import { ProjectContentShell } from "~/app/(marketing)/_components/project-content/ProjectContentShell";
+import { Gaza } from "~/components/project-content/Gaza";
+import { ProjectContentShell } from "~/components/project-content/ProjectContentShell";
 
 export const projects = [
   {

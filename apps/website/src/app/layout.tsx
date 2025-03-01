@@ -3,8 +3,7 @@ import "~/app/globals.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { GeistSans } from "geist/font/sans";
-
-import { CSPostHogProvider } from "./provides/posthog";
+import { PostHogProvider } from "./_providers/posthog-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -70,10 +69,6 @@ export const metadata: Metadata = {
   ],
 };
 
-const PostHogPageView = dynamic(() => import("./_analytics/capture"), {
-  ssr: false,
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -81,12 +76,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <CSPostHogProvider>
-        <body>
-          <PostHogPageView />
-          {children}
-        </body>
-      </CSPostHogProvider>
+      <body>
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }

@@ -4,19 +4,19 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   navigationMenuTriggerStyle,
-} from "@amaxa/ui/navigation-menu";
-import { cn } from "@amaxa/ui";
-import { Button } from "@amaxa/ui/button";
+} from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { Button } from "@amaxa/ui/button";
+import { cn } from "@amaxa/ui";
 
-export const Header = () => {
+export const Navbar = () => {
   const cls = cn(
     "text-2xl",
 
     navigationMenuTriggerStyle(),
   );
   return (
-    <header className="w-max-screen  relative hidden h-[108px] flex-row items-center justify-between px-10 md:flex lg:px-8">
+    <header className="w-max-screen  relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
       <div>
         <h1 className="text-3xl font-bold">ámaxa</h1>
       </div>
@@ -31,9 +31,9 @@ export const Header = () => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/projects" legacyBehavior passHref>
+            <Link href="/program" legacyBehavior passHref>
               <NavigationMenuLink className={cls}>
-                Our Program
+                Our Cohorts
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -47,7 +47,7 @@ export const Header = () => {
           <NavigationMenuItem>
             <Link href="/support-us" legacyBehavior passHref>
               <NavigationMenuLink className={cls}>
-                Who Are We?
+                Support Us
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -55,11 +55,11 @@ export const Header = () => {
       </NavigationMenu>
 
       <div className="flex flex-row gap-[24px]">
-        <Button className="bg-primary rounded-[1.5rem]" variant="default">
-          Apply Now
+        <Button className="bg-primary rounded-[3rem]">Apply Now</Button>
+        <Button variant={"outline"} className="rounded-[3rem]">
+          Login
         </Button>
-        <Button variant="outline" className="rounded-[1.5rem]">Login</Button>
       </div>
     </header>
   );
-}
+};

@@ -1,15 +1,26 @@
-"use client";
+import React from "react";
+import { GenericHome } from "../../_sections/project-shell";
+import { projects } from "~/lib/projects";
 
-import { projects } from "~/lib/constants/projects";
+interface Props {
+  params: { id: string };
+}
 
-export default function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-
-  const content = projects.find((project) => project.id === id);
-
-  if (!content) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{
+    id: string;
+  }>;
+}) {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
+  if (!project) {
     return <div>Project not found</div>;
   }
-
-  return <div className="py-16"> {content.content} </div>;
+  return (
+    <div>
+      <GenericHome data={project} />
+    </div>
+  );
 }
