@@ -29,7 +29,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#278CD4",
     imageAlt: "mental health banner",
     imageSrc:
-      "https://s3-alpha-sig.figma.com/img/4716/2891/49a52dbc204c5ea8ab3a717cf2dbd5b4?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IavEsmgVBYZGnb3ldnMIwXI4mDjnrltTtVF0Jx1aYNd9gq-UcjRIujrzeD5JxmZ4toN2GoDAupnQjn02F5f0Gi8dl2VqJEnUb--yxlM8moNPHLB0WJI8x-dRYgNIlDN-u4Nl0oZyhIh5DfUVqGPH0h4ny2sTgS2dys2f8HmQJfKRdkSwhLksgH~NW9htyO0n~CmP90HFKzwzPpzTSVNNl4aS3zh8hU0Q6OAR6v20A22phHo7Wss-oFHVmAkRNK49th17aKexKvbB8PKuXnsOKKMnT9Fo31ZEvvwd-MU5dGbGceRQM3C~V5-~Ydk3lyCyUnoiZb0gnUw6x5uZ~nIExg__",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Mental Health First Aid: Research, Expert Opinions, & Peer-to-Peer Education",
@@ -60,7 +60,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#666666",
     imageAlt: "forest image",
     imageSrc:
-      "https://utfs.io/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Plant trees & track carbon sequestration with ámaxa’s Global Forest initiative.",
@@ -98,6 +98,7 @@ export const projects: HomePageData[] = [
       videoUrl: "https://youtube.com/embed/1mNWMKv2xPU?si=7bEp8vcsKRu33eHQ",
     },
   },
+
   {
     id: "nyaka",
     headerTitle:
@@ -106,7 +107,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#7A26D6",
     imageAlt: "solar lights in Uganda",
     imageSrc:
-      "https://s3-alpha-sig.figma.com/img/f129/43aa/2300062d97dac975155c10c1533ee7a2?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eWN2oNcuEI7ymtXcWBxL4gCrMgkam5NAddYuKaK5rOKEnAMvjl-d4M9b8J23kUBnSgJTtF8guuoG7xZf75yXevDpVzbvRZjkW9K5DKHjY~0jgJAKXwLBY6i~wSn-rVSV81M7WnJDXTkjd8op3apjux8ouOSs49b2OS~27gBIbgXpVjqpvLo6vcWwZ1UU-NbwXEBBE97f4wgI34XALhjxTKTKVeA9pMsU~cVFJpVGfnkGL09LEFEZOkvaOE8PSC9cYXDCaUq6j98rTGJfGou3G8ijOTYwCVbZV9k6DlMeemZ8jt5F987Palj9Lp3ZDYr~HW3gVD~OVu3aLATH6rEXKg__",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
@@ -126,6 +127,7 @@ export const projects: HomePageData[] = [
       videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
     },
   },
+
   {
     id: "ukrainian-aid",
     headerTitle:
@@ -134,7 +136,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#FFD700", // Yellow (inspired by the Ukrainian flag)
     imageAlt: "Ukrainian medical aid banner",
     imageSrc:
-      "https://via.placeholder.com/600x400?text=Urgent+Medical+Aid+for+Ukraine",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Frontline Support: Providing Urgent Medical Aid to Ukrainians Caught in the Crossfire",
@@ -153,14 +155,15 @@ export const projects: HomePageData[] = [
       videoUrl: "",
     },
   },
+
   {
-    id: "palestinians",
+    id: "insad",
     headerTitle:
       "Palestinian students in the West Bank cannot access diverse educational opportunities due to the Israeli occupation.",
     headerBgFrom: "#CE1126", // inspired by the red in the Palestinian flag
     headerBgTo: "#006C35", // inspired by green from the Palestinian flag
     imageAlt: "Palestinian education banner",
-    imageSrc: "https://via.placeholder.com/600x400?text=Palestinian+Education",
+    imageSrc: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Expanding learning and community: Opening the Window for Palestinian students",
@@ -181,4 +184,33 @@ export const projects: HomePageData[] = [
       videoUrl: "",
     },
   },
+
+  {
+    id: "gaza",
+    headerTitle:
+      "Gazan children are dying of starvation in the ongoing genocide.",
+    headerBgFrom: "#000000", // Black
+    headerBgTo: "#006C35", // Green from Palestinian flag
+    imageAlt: "Gaza humanitarian aid banner",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d", // Using the same image as ISNAD for now
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Feeding Gaza: support for families during the ongoing genocide",
+    solutionParagraphs: [
+      "ámaxa members on the Gaza project team are urgently raising funds to support families trapped in Gaza amidst the ongoing humanitarian crisis. For the Summer 2024 cohort, the team focused on raising money. The funds will go to two families we connected with through our partner: Gaza Champions. These funds are crucial for providing immediate essentials, such as food, to prevent starvation and meet basic needs. Once borders open again, funds can go towards paying the $5000 fee to Egypt required to flee across the border.",
+      "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
+      "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion."
+    ],
+    spotlightData: {
+      heading: "TEAM SPOTLIGHT",
+      name: "Meet Isabella and Zobia.",
+      ageLocation: "16 & 17, USA",
+      paragraphs: [
+        "\"Change, in any capacity, can and should start with us.\" -Isabella"
+      ],
+      teammates: "",
+      videoUrl: ""
+    }
+  }
 ];

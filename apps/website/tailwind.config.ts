@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin"
 
 import baseConfig from "@amaxa/tailwind-config/web";
 
@@ -78,5 +79,20 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        /* Chrome, Safari and Opera */
+        ".scrollbar-hidden::-webkit-scrollbar": {
+          display: "none",
+        },
+
+        ".scrollbar-hidden": {
+          "scrollbar-width": "none" /* Firefox */,
+          "-ms-overflow-style": "none" /* IE and Edge */,
+        },
+      })
+    }),
+  ],
 } satisfies Config;

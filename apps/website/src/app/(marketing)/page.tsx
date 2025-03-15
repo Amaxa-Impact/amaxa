@@ -1,9 +1,12 @@
+"use client"
 import Footer from "~/components/footer";
 import { Projects } from "./_sections/projects";
+import SynchronizedCarousel from "./_sections/hero";
 
 export default function Page() {
   return (
     <main>
+      <SynchronizedCarousel />
       <section className="relative w-full bg-[#F5F2F2] flex flex-col py-16 md:py-24">
         {/* Background graphics */}
 

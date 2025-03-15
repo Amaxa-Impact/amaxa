@@ -6,7 +6,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { Button } from "@amaxa/ui/button";
+import { Button, buttonVariants } from "@amaxa/ui/button";
 import { cn } from "@amaxa/ui";
 
 export const Navbar = () => {
@@ -18,13 +18,13 @@ export const Navbar = () => {
   return (
     <header className="w-max-screen  relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
       <div>
-        <h1 className="text-3xl font-bold">ámaxa</h1>
+        <Link href="/" className="text-3xl font-bold">ámaxa</Link>
       </div>
 
       <NavigationMenu>
         <NavigationMenuList className="text-xl">
           <NavigationMenuItem>
-            <Link href="/projects" legacyBehavior passHref>
+            <Link href="/project" legacyBehavior passHref>
               <NavigationMenuLink className={cls}>
                 Explore Projects
               </NavigationMenuLink>
@@ -40,14 +40,7 @@ export const Navbar = () => {
           <NavigationMenuItem>
             <Link href="/who-are-we" legacyBehavior passHref>
               <NavigationMenuLink className={cls}>
-                Who Are We?
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/support-us" legacyBehavior passHref>
-              <NavigationMenuLink className={cls}>
-                Support Us
+                Who Are We
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -55,11 +48,19 @@ export const Navbar = () => {
       </NavigationMenu>
 
       <div className="flex flex-row gap-[24px]">
-        <Button className="bg-primary rounded-[3rem]">Apply Now</Button>
-        <Button variant={"outline"} className="rounded-[3rem]">
+        <Button className="rounded-[3rem]">Apply Now</Button>
+        <Link
+          href="https://app.amaxaimpact.org"
+          target="_blank"
+          className={cn(
+            buttonVariants({
+              variant: "outline"
+            }),
+            "rounded-[3rem]"
+          )}>
           Login
-        </Button>
+        </Link>
       </div>
-    </header>
+    </header >
   );
 };

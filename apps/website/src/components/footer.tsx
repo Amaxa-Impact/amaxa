@@ -5,16 +5,16 @@ const Footer = () => {
     <div className="relative h-[448px]">
       {/* Subscribe section */}
       <div className="absolute left-0 right-0 top-0 bottom-[35.49%] bg-[#F5F2F2] rounded-[25px]">
-        <div className="absolute w-[1180px] h-[23px] left-[50px] top-[36px] font-['Geist'] font-normal text-[16px] leading-[24px] text-[#3B3B3B]">
+        <div className="absolute w-[1180px] h-[23px] left-[50px] top-[36px] font-normal text-[16px] leading-[24px] text-[#3B3B3B]">
           STAY IN THE LOOP
         </div>
 
-        <h2 className="absolute w-[1031px] h-[61px] left-[50px] top-[95px] font-['Geist'] font-normal text-[48px] leading-[60px] text-[#3B3B3B]">
+        <h2 className="absolute w-[1031px] h-[61px] left-[50px] top-[95px] font-normal text-[48px] leading-[60px] text-[#3B3B3B]">
           Subscribe to our{" "}
           <span className="font-semibold">highly reviewed</span> newsletter.
         </h2>
 
-        <p className="absolute w-[1031px] h-[61px] left-[50px] top-[192px] font-['Geist'] font-normal text-[32px] leading-[40px] text-[#3B3B3B]">
+        <p className="absolute w-[1031px] h-[61px] left-[50px] top-[192px]  font-normal text-[32px] leading-[40px] text-[#3B3B3B]">
           We promise it's worth your while.
         </p>
 

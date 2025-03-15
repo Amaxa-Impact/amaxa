@@ -1,4 +1,0 @@
-{
-  "extends": "@amaxa/tsconfig/base.json",
-  "include": ["routes"]
-}
