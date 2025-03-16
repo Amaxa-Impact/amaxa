@@ -2,10 +2,6 @@ import React from "react";
 import { GenericHome } from "../../_sections/project-shell";
 import { projects } from "~/lib/projects";
 
-interface Props {
-  params: { id: string };
-}
-
 export default async function Page({
   params,
 }: {

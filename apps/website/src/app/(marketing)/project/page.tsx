@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import { BlurImage } from "~/components/ui/apple-cards";
 import { projects } from "./projects";
+import { ApplyButton } from "~/components/apply";
 
 const ProjectCard = ({
   project,
@@ -46,8 +47,6 @@ export default function Page() {
     <main>
       <section>
         <div className="relative w-full min-h-[400px] bg-[#F5F2F2] flex flex-col px-6 md:px-12 lg:px-20">
-
-
           {/* Content container with flex layout */}
           <div className="flex flex-col justify-center h-full w-full relative z-10 pt-10 ">
             {/* Main heading - centered on mobile, left-aligned on larger screens */}
@@ -59,12 +58,14 @@ export default function Page() {
 
             {/* Apply now link - positioned at bottom right on larger screens */}
             <div className="flex justify-end mt-8 md:mt-16 lg:mt-24">
-              <Link
-                href="/apply"
-                className="font-normal text-[32px] md:text-[40px] lg:text-[48px] leading-tight text-black hover:opacity-80 transition-opacity"
-              >
-                Apply now →
-              </Link> </div>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <ApplyButton
+                  variant="ghost"
+                >
+                  Apply now →
+                </ApplyButton>
+              </React.Suspense>
+            </div>
           </div>
         </div>
       </section>
@@ -90,15 +91,4 @@ export default function Page() {
 
     </main>
   );
-}
-function Jumbotron({
-  name
-}: {
-  name: string
-}) {
-  return (
-    <section>
-
-    </section>
-  )
 }

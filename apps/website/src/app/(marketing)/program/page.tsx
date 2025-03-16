@@ -1,4 +1,5 @@
 import React from "react";
+import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   return (
@@ -26,33 +27,21 @@ export default function ProgramPage() {
                     d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
                     stroke="#BCD96C"
                     strokeWidth="8"
-                    strokeLinecap="round"
                   />
+                  strokeLinecap="round"
                 </svg>
               </div>
             </div>
 
             <div className="mt-8 md:mt-16 lg:mt-24 self-end md:self-center">
-              <a
-                href="#apply"
-                className="inline-flex items-center text-2xl md:text-3xl lg:text-5xl font-normal text-black hover:underline"
-              >
-                Apply now
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 ml-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              <React.Suspense fallback={<div>Loading...</div>}>
+
+                <ApplyButton
+                  variant="ghost"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </a>
+                  Apply now
+                </ApplyButton>
+              </React.Suspense>
             </div>
           </div>
         </div>
@@ -141,12 +130,13 @@ export default function ProgramPage() {
             </p>
 
             <div>
-              <a
-                href="#apply-high-school"
-                className="inline-flex items-center justify-center px-7 py-3 bg-[#BCD96C] border border-black rounded-full text-base md:text-lg text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
-              >
-                Apply to Ámaxa High School →
-              </a>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <ApplyButton
+                  variant="color"
+                >
+                  Apply to Ámaxa High School →
+                </ApplyButton>
+              </React.Suspense>
             </div>
           </div>
 
@@ -164,12 +154,13 @@ export default function ProgramPage() {
             </p>
 
             <div>
-              <a
-                href="#apply-college"
-                className="inline-flex items-center justify-center px-7 py-3 bg-[#3B3B3B] border border-black rounded-full text-base md:text-lg text-white hover:bg-[#2a2a2a] transition-colors"
-              >
-                Apply to Ámaxa College & Professionals →
-              </a>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <ApplyButton
+                  variant="black"
+                >
+                  Apply to Ámaxa College & Professionals →
+                </ApplyButton>
+              </React.Suspense>
             </div>
           </div>
         </div>
@@ -275,7 +266,7 @@ export default function ProgramPage() {
 
           <div>
             <a
-              href="/project-stories"
+              href="/project"
               className="inline-flex items-center justify-center px-7 py-3 bg-white border border-[#3B3B3B] rounded-full text-base md:text-lg text-[#3B3B3B] hover:bg-gray-50 transition-colors"
             >
               Read project stories →

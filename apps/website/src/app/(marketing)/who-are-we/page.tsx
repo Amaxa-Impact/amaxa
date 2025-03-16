@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { ApplyButton } from "~/components/apply";
+import { ProfileCard } from "./_components/people";
+import React from "react";
 
 export default function WhoAreWePage() {
   return (
@@ -20,12 +23,14 @@ export default function WhoAreWePage() {
 
           {/* Apply now link - positioned at bottom right on larger screens */}
           <div className="flex justify-end mt-8 md:mt-16 lg:mt-24">
-            <Link
-              href="/apply"
-              className="font-normal text-[32px] md:text-[40px] lg:text-[48px] leading-tight text-black hover:opacity-80 transition-opacity"
-            >
-              Apply now →
-            </Link> </div>
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <ApplyButton
+                variant="ghost"
+              >
+                Apply now →
+              </ApplyButton>
+            </React.Suspense>
+          </div>
         </div>
       </div>
 
@@ -89,6 +94,37 @@ export default function WhoAreWePage() {
             </p>
           </div>
         </div>
+      </section>
+      <section className="w-full">
+        {
+          [
+            {
+              name: "Lauren McMillen",
+              title: "Founder & CEO",
+              bio: `Lauren, a New York University Abu Dhabi graduate in Computer Science and Arabic, is now pursuing a Master's in Middle Eastern Studies at the University of Edinburgh. With a strong foundation in technology and experience in over a dozen non-profits, she's driven by a powerful mission: empowering others to recognize their potential to make a real difference in the world.`,
+              imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOTtH94SrPvV4ygRa57DXtJwU9SfhC1qxONmlA"
+            },
+            {
+              name: "Alexi Jones",
+              title: "COO",
+              bio: `
+"The world is a crazy place right now. I love that Amaxa empowers students and young professionals to face it head on, and to come up with creative, innovative and energetic solutions to the problems we are facing. Getting to be a part of the Amaxa team is a chance for me to tell students, young adults and dreamers what I wish I'd been told: 'Your ideas matter and you can make a difference; now let's get started."
+Lexi grew up in central Illinois, where cornfields stretch to the horizon and Friday nights are for football. Currently, she is pursuing a degree in International Studies with a Political Science minor at the University of Tampa. Lexi's journey includes internships at CHANGE Illinois and United Way Suncoast, volunteering on the Polish-Ukrainian border, and contributing to the North America for Ukraine leadership team.
+`,
+              imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOeKcidoyvrS3NH5LD0fGBOXwFydpiVbYzJMa1"
+            },
+            {
+              name: "Aniketh Chenjeri",
+              title: "CTO",
+              bio: `
+Ani drives the development of the ámaxa platform, tackling key challenges and creating innovative software solutions. A junior in high school, he has invested thousands of hours in programming and problem-solving. His skills have earned national recognition, with multiple state and national titles in programming and cybersecurity.
+            `,
+              imageUrl: ""
+            }
+          ].map((person, idx) => (
+            <ProfileCard key={idx} name={person.name} title={person.title} bio={person.bio} imageUrl={person.imageUrl} />
+          ))
+        }
       </section>
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative">
         <div className="flex flex-col">

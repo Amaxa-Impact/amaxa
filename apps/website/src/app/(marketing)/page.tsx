@@ -1,7 +1,9 @@
 "use client"
-import Footer from "~/components/footer";
 import { Projects } from "./_sections/projects";
 import SynchronizedCarousel from "./_sections/hero";
+import { Spotlight } from "./_sections/spotlight";
+import { ApplyButton } from "~/components/apply";
+import React from "react";
 
 export default function Page() {
   return (
@@ -38,7 +40,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative py-16 md:py-24 bg-white">
+      <section className="relative py-16 md:py-24 lg:px-30 bg-white">
         <div className="px-6 md:px-16 lg:px-20">
           {/* Main heading */}
           <h1 className="font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-black mb-12 md:mb-16">
@@ -65,18 +67,20 @@ export default function Page() {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-10">
             {/* High school button */}
-            <button className="box-border flex justify-center items-center py-3 px-6 bg-[#BCD96C] border border-black rounded-full">
-              <span className="font-normal text-base md:text-lg text-[#3B3B3B]">
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <ApplyButton
+                variant="color"
+              >
                 I'm a high school student →
-              </span>
-            </button>
+              </ApplyButton>
 
-            {/* College button */}
-            <button className="box-border flex justify-center items-center py-3 px-6 bg-[#3B3B3B] border border-black rounded-full">
-              <span className="font-normal text-base md:text-lg text-white">
+              {/* College button */}
+              <ApplyButton
+                variant="black"
+              >
                 I'm in college or beyond →
-              </span>
-            </button>
+              </ApplyButton>
+            </React.Suspense>
           </div>
         </div>
       </section>
@@ -114,6 +118,55 @@ export default function Page() {
           thousands of people globally.
         </h2>
       </section>
+      {
+        [
+          {
+            heading: "Member Spotlight",
+            name: "Meet An Nhi.",
+            ageLocation: "16, Vietnam",
+            paragraphs: [
+              `
+Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
+`,
+              `
+Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations. 
+`,
+              `
+By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.
+`,
+            ],
+            teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
+            videoUrl: "https://youtube.com/embed/1mNWMKv2xPU?si=7bEp8vcsKRu33eHQ",
+          },
+          {
+            heading: "TEAM SPOTLIGHT",
+            name: "Meet Isabella and Zobia.",
+            ageLocation: "16 & 17, USA",
+            paragraphs: [
+              "\"Change, in any capacity, can and should start with us.\" -Isabella",
+              `
+Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
+`
+            ],
+            teammates: "",
+            videoUrl: ""
+          },
+          {
+            heading: "TEAM SPOTLIGHT",
+            name: "Meet Panshul, Jad, and Yueqi.",
+            ageLocation: "UAE, LEBANON, & CHINA",
+            paragraphs: [
+              `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
+              `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
+              `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`
+            ],
+            teammates: "",
+            videoUrl: "",
+          }
+        ].map((spotlight, idx) => (
+          <Spotlight key={idx} spotlightData={spotlight} />
+        ))
+      }
 
       <section className="py-16 md:py-24 lg:py-32 bg-[#F5F2F2]">
         <div className="px-6 md:px-16 lg:px-20">
@@ -131,7 +184,7 @@ export default function Page() {
           </button>
         </div>
       </section>
-      <Footer />
     </main>
   );
 }
+

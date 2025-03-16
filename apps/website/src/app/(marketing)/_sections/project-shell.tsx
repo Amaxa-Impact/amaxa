@@ -10,14 +10,13 @@ interface GenericHomeProps {
 export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
   const {
     headerTitle,
-    headerBgFrom,
-    headerBgTo,
     imageAlt,
     imageSrc,
     solutionTitle,
     solutionSubtitle,
     solutionParagraphs,
     spotlightData,
+    spotlightData1,
   } = data;
 
   return (
@@ -81,7 +80,6 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
             </p>
           </div>
         </div>
-
         {/* Right Section */}
         <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
           <div className="relative w-full h-full">
@@ -89,6 +87,43 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
           </div>
         </div>
       </section>
+      {
+        spotlightData1 ?
+          <section>
+            <div className="md:w-2/4 lg:w-3/4 p-4 flex flex-col gap-5">
+              <h2 className="text-sm uppercase font-bold text-gray-500 mb-2">
+
+                {spotlightData1.heading}
+              </h2>
+              <div>
+
+                <div className="flex flex-col gap-0">
+                  <h1 className="text-4xl font-semibold mb-1">
+                    {spotlightData1.name}
+                  </h1>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {spotlightData1.ageLocation}
+                  </p>
+                </div>
+                {spotlightData1.paragraphs.map((p, i) => (
+                  <p key={i} className="mb-4 text-gray-700">
+                    {p}
+                  </p>
+                ))}
+                <p className="font-semibold mt-4 text-gray-700">
+                  {spotlightData1.teammates}
+                </p>
+              </div>
+            </div>
+
+            <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+              <div className="relative w-full h-full">
+                <iframe src={spotlightData1.videoUrl} className="w-full h-full" />
+              </div>
+            </div>
+          </section>
+          : null
+      }
     </main>
   );
 };

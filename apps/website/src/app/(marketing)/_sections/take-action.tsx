@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { ApplyButton } from "~/components/apply";
+import React from "react";
 
 export function TakeActionSection() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
@@ -37,23 +39,13 @@ export function TakeActionSection() {
               action: "Apply to Ámaxa for Professionals",
             },
           ].map((button, index) => (
-            <motion.button
-              key={index}
-              className="w-full border bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-6 rounded-[24px] transition-colors duration-200 flex justify-between items-center"
-              onMouseEnter={() => setHoveredButton(button.text)}
-              onMouseLeave={() => setHoveredButton(null)}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-            >
-              <span>{button.text}</span>
-              <motion.div
-                animate={{ x: hoveredButton === button.text ? 5 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ArrowRight className="w-5 h-5" />
-              </motion.div>
-            </motion.button>
+            <React.Suspense fallback={<div>Loading...</div>}>
+
+              <ApplyButton variant="long" key={index}>
+                {button.text}
+              </ApplyButton>
+            </React.Suspense>
+
           ))}
         </div>
         <motion.div
