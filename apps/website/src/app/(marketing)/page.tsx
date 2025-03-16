@@ -18,9 +18,7 @@ export default function Page() {
             Welcome to ámaxa.
           </h1>
 
-          <h2 className="text-xl md:text-2xl font-normal leading-tight text-[#3B3B3B] mb-4 md:mb-10">
-            THE PROBLEM
-          </h2>
+        
 
           <p className="text-2xl md:text-3xl lg:text-4xl font-normal leading-tight text-black max-w-4xl mb-8 md:mb-10">
             It's too hard for people who want to make a difference to actually
