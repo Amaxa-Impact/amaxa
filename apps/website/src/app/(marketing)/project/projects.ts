@@ -1,49 +1,41 @@
 export const projects = [
   {
-    id: "gazachamps",
+    id: "gaza",
     title: "Feeding Gaza: support for families in crisis",
-    image: "/gazachampions.jpg",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
   },
   {
     id: "nyaka",
     title: "Nyaka Global, Giving light: solar solutions for Ugandan grandmas",
-    image: "/nyaka.jpg",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
   },
   {
     id: "ukraine",
     title: `Ukraine : “Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.”`,
-    image: "/ukraine.png",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
   },
   {
-    id: "karina",
-    title: "Karina’s Library",
-    image: "/libr.png",
-  },
-  {
-    id: "forest",
+    id: "global-forest",
     title:
       "Global Forest: Going green: planting trees and tracking carbon sequestration",
-    image: "/forest.png",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+
   },
   {
     id: "insad",
     title:
       "ISNAD: Expanding learning and community: comprehensive support for Palestinian students",
-    image: "/insad.png",
-  },
-  {
-    id: "lgbtq",
-    title: "LGBTQ+ Artists",
-    image: "/lgbtq.png",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc"
   },
   {
     id: "mhfa",
     title: `Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education`,
-    image: "/mhfa.png",
-  },
-  {
-    id: "educhildren",
-    title: "Educhildren",
-    image: "/educhildren.webp",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy"
   },
 ];

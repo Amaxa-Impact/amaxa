@@ -1,21 +1,23 @@
 "use client";
 
-import { Gaza } from "~/app/(marketing)/_components/project-content/Gaza";
-import { ProjectContentShell } from "~/app/(marketing)/_components/project-content/ProjectContentShell";
+import { Gaza } from "~/components/project-content/Gaza";
+import { ProjectContentShell } from "~/components/project-content/ProjectContentShell";
 
 export const projects = [
   {
     category: "Project",
     id: "gazachamps",
+    link: "/project/gaza",
     title: "Feeding Gaza: support for families in crisis",
-    src: "/gazachamps.png",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
     content: <Gaza />,
   },
   {
     category: "Project",
     id: "nyaka",
     title: "Nyaka Global, Giving light: solar solutions for Ugandan grandmas",
-    src: "/nyaka.jpg",
+    link: "/project/nyaka",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     content: (
       <ProjectContentShell
         content={[
@@ -30,7 +32,8 @@ export const projects = [
     category: "Project",
     title: `Ukraine : “Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.”`,
     id: "ukraine",
-    src: "/ukraine.png",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    link: "/project/ukraine",
     content: (
       <ProjectContentShell
         content={[
@@ -41,27 +44,32 @@ export const projects = [
       />
     ),
   },
+  /**
+ {
+   category: "Project",
+   id: "karina",
+   title: "Karina’s Library",
+   src: "",
+   link: "/project/library",
+   content: (
+     <ProjectContentShell
+       content={[
+         "The Feminist Library Project is centered on representation and education, and is also one of ámaxa’s newest projects. ámaxa teams will begin by researching and creating a reading list to work with. The reading list will be comprehensive. For younger children, the goal is simply to find books that feature multifaceted girls in positions of empowerment, while also pushing back against some of the damaging narratives that girls are all too often introduced to at a young age. For example, Gertrude McFuzz by Dr. Seuss follows a bird who wishes she could look “more beautiful” by having more feathers. As the story progresses, she realizes that having more feathers infringes on some of her previous abilities and her interactions with others. It’s a great story to start dispelling negative beauty standards for younger readers. For older readers, the list may delve into works that are not only narratives, but also social commentary. The Handmaid’s Tale by Margaret Atwood is a well-known example that would be on this portion of the list.",
+         "After the list has been created, edited, and finalized, ámaxa teams will engage in book collection. Teams may fundraise in order to purchase the books, organize book drives, or even venture out to thrift stores and libraries in their communities to find pre-loved books that can be reused for the project. Once the ámaxa feminist library is large enough in size, we will open up a signup form on the ámaxa website. There schools can sign up to receive a book box, with a curated selection of books for their school library. ",
+         "Ultimately, our goal is to empower students with knowledge. Reading not only fosters learning and understanding of the world but also broadens horizons, introducing diverse cultures, perspectives, and ideas. If the books we donate to schools inspire even one young girl to recognize her potential and see herself as the protagonist of her own story, then the library will have achieved its purpose.",
+       ]}
+     />
+   ),
+ },
+
+ **/
   {
     category: "Project",
-    id: "karina",
-    title: "Karina’s Library",
-    src: "/libr.png",
-    content: (
-      <ProjectContentShell
-        content={[
-          "The Feminist Library Project is centered on representation and education, and is also one of ámaxa’s newest projects. ámaxa teams will begin by researching and creating a reading list to work with. The reading list will be comprehensive. For younger children, the goal is simply to find books that feature multifaceted girls in positions of empowerment, while also pushing back against some of the damaging narratives that girls are all too often introduced to at a young age. For example, Gertrude McFuzz by Dr. Seuss follows a bird who wishes she could look “more beautiful” by having more feathers. As the story progresses, she realizes that having more feathers infringes on some of her previous abilities and her interactions with others. It’s a great story to start dispelling negative beauty standards for younger readers. For older readers, the list may delve into works that are not only narratives, but also social commentary. The Handmaid’s Tale by Margaret Atwood is a well-known example that would be on this portion of the list.",
-          "After the list has been created, edited, and finalized, ámaxa teams will engage in book collection. Teams may fundraise in order to purchase the books, organize book drives, or even venture out to thrift stores and libraries in their communities to find pre-loved books that can be reused for the project. Once the ámaxa feminist library is large enough in size, we will open up a signup form on the ámaxa website. There schools can sign up to receive a book box, with a curated selection of books for their school library. ",
-          "Ultimately, our goal is to empower students with knowledge. Reading not only fosters learning and understanding of the world but also broadens horizons, introducing diverse cultures, perspectives, and ideas. If the books we donate to schools inspire even one young girl to recognize her potential and see herself as the protagonist of her own story, then the library will have achieved its purpose.",
-        ]}
-      />
-    ),
-  },
-  {
-    category: "Project",
-    id: "forest",
+    id: "global-forest",
+    link: "/project/forest",
     title:
       "Global Forest: Going green: planting trees and tracking carbon sequestration",
-    src: "/forest.png",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
     content: (
       <ProjectContentShell
         content={[
@@ -77,7 +85,8 @@ export const projects = [
     id: "insad",
     title:
       "ISNAD: Expanding learning and community: comprehensive support for Palestinian students",
-    src: "/insad.png",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
+    link: "/project/insad",
     content: (
       <ProjectContentShell
         content={[
@@ -88,11 +97,13 @@ export const projects = [
       />
     ),
   },
+  /**
   {
     category: "Project",
     id: "lgbtq",
     title: "LGBTQ+ Artists",
-    src: "/lgbtq.png",
+    src: "",
+    link: "/project/lgbtq",
     content: (
       <ProjectContentShell
         content={[
@@ -103,11 +114,13 @@ export const projects = [
       />
     ),
   },
+  **/
   {
     category: "Project",
     title: `Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education`,
     id: "mhfa",
-    src: "/mhfa.png",
+    src: "",
+    link: "/project/mhfa",
     content: (
       <ProjectContentShell
         content={[
@@ -118,11 +131,13 @@ export const projects = [
       />
     ),
   },
+  /**
   {
     category: "Project",
     title: "Educhildren",
     id: "educhildren",
-    src: "/educhildren.webp",
+    src: "",
+    link: "/project/educhildren",
     content: (
       <ProjectContentShell
         content={[
@@ -133,4 +148,5 @@ export const projects = [
       />
     ),
   },
+  **/
 ];

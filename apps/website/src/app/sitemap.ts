@@ -7,19 +7,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: "https://www.amaxaimpact.org/about-us",
+      url: "https://www.amaxaimpact.org/program",
       lastModified: new Date(),
     },
     {
-      url: "https://www.amaxaimpact.org/platform",
+      url: "https://www.amaxaimpact.org/who-are-we",
       lastModified: new Date(),
     },
     {
-      url: "https://www.amaxaimpact.org/blog",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://www.amaxaimpact.org/apply",
+      url: "https://www.amaxaimpact.org/project",
       lastModified: new Date(),
     },
   ];
