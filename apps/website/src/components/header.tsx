@@ -48,9 +48,20 @@ export const Navbar = () => {
       </NavigationMenu>
 
       <div className="flex flex-row gap-[24px]">
-        <Button className="rounded-[3rem]">Apply Now</Button>
+        {/* <Button href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F" className="rounded-[3rem]">Apply Now</Button> */}
         <Link
           href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
+          target="_blank"
+          className={cn(
+            buttonVariants({
+              // variant: "outline"
+            }),
+            "rounded-[3rem]"
+          )}>
+          Apply Now
+        </Link>
+        <Link
+          href="https://app.amaxaimpact.org"
           target="_blank"
           className={cn(
             buttonVariants({
