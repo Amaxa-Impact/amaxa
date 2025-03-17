@@ -29,7 +29,7 @@ export const ApplyButton = (props: {
   if (variant === "color") {
     return (
       <button
-        className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 rounded-full bg-[#b9d66e] text-gray-800 font-medium hover:bg-[#a8c55f] transition-colors text-sm md:text-base"
+        className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 rounded-full border-[1px] border-[#3B3B3B] bg-[#b9d66e] text-[#3B3B3B] font-light hover:bg-[#a8c55f] transition-colors text-sm md:text-base"
         onClick={onClick}
       >
         {children}
@@ -37,10 +37,12 @@ export const ApplyButton = (props: {
     )
   } else if (variant === "black") {
     return (
-      <Button className="rounded-[3rem] inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 font-medium transition-colors text-sm md:text-base"
-        onClick={onClick}>
-        Apply Now</Button>
-
+      <button
+        className="rounded-[3rem] inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 bg-[#3B3B3B] text-white font-light transition-colors text-sm md:text-base"
+        onClick={onClick}
+      >
+        {children}
+      </button>
     )
   } else if (variant === "long") {
     return (
