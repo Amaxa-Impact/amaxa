@@ -50,7 +50,7 @@ export const Navbar = () => {
       <div className="flex flex-row gap-[24px]">
         <Button className="rounded-[3rem]">Apply Now</Button>
         <Link
-          href="https://app.amaxaimpact.org"
+          href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
           target="_blank"
           className={cn(
             buttonVariants({
