@@ -30,7 +30,7 @@ export const projects = [
   },
   {
     category: "Project",
-    title: "Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.",
+    title: "Frontline support: urgent medical aid to Ukrainians caught in the crossfire",
     id: "ukraine",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     link: "/project/ukraine",
