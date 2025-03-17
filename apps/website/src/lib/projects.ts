@@ -136,7 +136,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
   },
 
   {
-    id: "ukrainian-aid",
+    id: "ukraine",
     headerTitle:
       "Ukrainians enduring bombing and occupation need urgent medical supplies.",
     headerBgFrom: "#0057B7", // Blue (inspired by the Ukrainian flag)

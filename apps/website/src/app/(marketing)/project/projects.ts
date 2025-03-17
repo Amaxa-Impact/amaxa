@@ -7,20 +7,20 @@ export const projects = [
   },
   {
     id: "nyaka",
-    title: "Nyaka Global, Giving light: solar solutions for Ugandan grandmas",
+    title: "Giving light: solar solutions for Ugandan women",
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
   },
   {
     id: "ukraine",
-    title: `Ukraine : “Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.”`,
+    title: "Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.",
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
   },
   {
     id: "global-forest",
     title:
-      "Global Forest: Going green: planting trees and tracking carbon sequestration",
+      "Ámaxa Global Forest: Planting trees and tracking carbon sequestration",
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
 
@@ -28,7 +28,7 @@ export const projects = [
   {
     id: "insad",
     title:
-      "ISNAD: Expanding learning and community: comprehensive support for Palestinian students",
+      "Expanding learning and community: comprehensive support for Palestinian students",
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc"
   },
