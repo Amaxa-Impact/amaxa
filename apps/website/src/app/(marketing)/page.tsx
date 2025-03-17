@@ -4,6 +4,7 @@ import SynchronizedCarousel from "./_sections/hero";
 import { Spotlight } from "./_sections/spotlight";
 import { ApplyButton } from "~/components/apply";
 import React from "react";
+import Footer from "~/components/footer";
 
 export default function Page() {
   return (
@@ -184,6 +185,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           </button>
         </div>
       </section>
+      <Footer></Footer>
     </main>
   );
 }
