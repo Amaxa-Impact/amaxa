@@ -54,7 +54,7 @@ export function TakeActionSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <a href="#" className="transition-colors duration-200 text-gray-600">
+          <a href="#" className="transition-colors duration-200 text-[#3B3B3B]">
             Not ready to apply yet?{" "}
             <strong className="font-semibold">
               {" "}
