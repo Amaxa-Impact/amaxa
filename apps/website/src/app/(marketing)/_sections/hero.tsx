@@ -185,7 +185,7 @@ const ImpactSection: React.FC = () => {
         <div className="max-w-xl mx-auto lg:mx-0">
           <p className="text-gray-700 text-lg md:text-xl pb-4 md:pb-8">
             Change{" "}
-            <span className="font-light">"I wish I could help"</span> to
+            <span className="font-thin">"I wish I could help"</span> to
           </p>
 
           {/* Rotating impact statement with typewriter effect */}
