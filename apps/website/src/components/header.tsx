@@ -40,7 +40,7 @@ export const Navbar = () => {
           <NavigationMenuItem>
             <Link href="/who-are-we" legacyBehavior passHref>
               <NavigationMenuLink className={cls}>
-                Who Are We
+                Who We Are
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
