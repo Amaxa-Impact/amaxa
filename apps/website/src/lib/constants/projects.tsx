@@ -5,7 +5,7 @@ import { ProjectContentShell } from "~/components/project-content/ProjectContent
 
 export const projects = [
   {
-    category: "Project",
+    category: "PARTNER: GAZA CHAMPIONS",
     id: "gazachamps",
     link: "/project/gaza",
     title: "Feeding Gaza: support for families in crisis",
@@ -13,7 +13,7 @@ export const projects = [
     content: <Gaza />,
   },
   {
-    category: "Project",
+    category: "PARTNER: NYAKA GLOBAL",
     id: "nyaka",
     title: "Giving light: Solar solutions for Ugandan women",
     link: "/project/nyaka",
@@ -29,7 +29,7 @@ export const projects = [
     ),
   },
   {
-    category: "Project",
+    category: "PARTNER: UKRAINIAN ACTION",
     title: "Frontline support: urgent medical aid to Ukrainians caught in the crossfire",
     id: "ukraine",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
@@ -64,7 +64,7 @@ export const projects = [
 
  **/
   {
-    category: "Project",
+    category: "ÁMAXA ORIGINAL INITIATIVE",
     id: "global-forest",
     link: "/project/global-forest",
     title:
@@ -81,7 +81,7 @@ export const projects = [
     ),
   },
   {
-    category: "Project",
+    category: "PARTNER: ISNAD EDUCATION CENTER",
     id: "isnad",
     title:
       "Expanding learning and community: comprehensive support for Palestinian students",
@@ -116,7 +116,7 @@ export const projects = [
   },
   **/
   {
-    category: "Project",
+    category: "ÁMAXA ORIGINAL INITIATIVE",
     title: `Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education`,
     id: "mhfa",
     src: "",
