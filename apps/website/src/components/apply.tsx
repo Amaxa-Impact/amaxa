@@ -47,7 +47,7 @@ export const ApplyButton = (props: {
   } else if (variant === "long") {
     return (
       <button
-        className="w-full border bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-6 rounded-[24px] transition-colors duration-200 flex justify-between items-center"
+        className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 rounded-full border-[1px] border-[#3B3B3B] text-[#3B3B3B] font-light hover:bg-gray-100 transition-colors text-sm md:text-base"
       >
         <span>{children}</span>
         <div
@@ -67,3 +67,6 @@ export const ApplyButton = (props: {
     )
   }
 }
+
+
+
