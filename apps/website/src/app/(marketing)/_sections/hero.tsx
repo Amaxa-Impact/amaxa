@@ -103,7 +103,7 @@ const content: ContentItem[] = [
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
-    statement: "I helped build a peer-to-peer Mental Health First Aid course.",
+    statement: "I helped build effective mental health resources.",
   },
   {
     image:
@@ -119,13 +119,13 @@ const content: ContentItem[] = [
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
     statement:
-      "I helped Palestinian students build community",
+      "I helped students in the West Bank build community.",
   },
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
     statement:
-      "I planted a tree in my community & measured its impact",
+      "I planted a tree in my community to sequester CO2.",
   },
 ];
 
