@@ -66,7 +66,7 @@ export const projects = [
   {
     category: "Project",
     id: "global-forest",
-    link: "/project/forest",
+    link: "/project/global-forest",
     title:
       "Global Forest: Planting trees and tracking carbon sequestration",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
