@@ -15,7 +15,7 @@ export const projects = [
   {
     category: "Project",
     id: "nyaka",
-    title: "Nyaka Global, Giving light: solar solutions for Ugandan grandmas",
+    title: "Giving light: Solar solutions for Ugandan women",
     link: "/project/nyaka",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     content: (
@@ -30,7 +30,7 @@ export const projects = [
   },
   {
     category: "Project",
-    title: `Ukraine : “Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.”`,
+    title: "Frontline support: providing urgent medical aid to Ukrainians caught in the crossfire.",
     id: "ukraine",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     link: "/project/ukraine",
@@ -68,7 +68,7 @@ export const projects = [
     id: "global-forest",
     link: "/project/forest",
     title:
-      "Global Forest: Going green: planting trees and tracking carbon sequestration",
+      "Global Forest: Planting trees and tracking carbon sequestration",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
     content: (
       <ProjectContentShell
@@ -84,7 +84,7 @@ export const projects = [
     category: "Project",
     id: "insad",
     title:
-      "ISNAD: Expanding learning and community: comprehensive support for Palestinian students",
+      "Expanding learning and community: comprehensive support for Palestinian students",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
     link: "/project/insad",
     content: (
