@@ -4,9 +4,9 @@ import Link from "../../../../node_modules/next/link";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col h-[448px] relative">
+    <div className="flex flex-col h-[360px] relative bg-[#b9d66e]">
       {/* Subscribe section */}
-      <div className="flex flex-col p-10 rounded-[25px] h-[64.51%] bg-[#b9d66e]">
+      <div className="flex flex-col p-10 rounded-[25px] h-[64.51%] ">
         <div className="font-normal text-[16px] leading-[24px] text-[#3B3B3B] mb-8">
           STAY IN THE LOOP
         </div>
