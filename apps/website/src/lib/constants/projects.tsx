@@ -82,11 +82,11 @@ export const projects = [
   },
   {
     category: "Project",
-    id: "insad",
+    id: "isnad",
     title:
       "Expanding learning and community: comprehensive support for Palestinian students",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
-    link: "/project/insad",
+    link: "/project/isnad",
     content: (
       <ProjectContentShell
         content={[

@@ -26,7 +26,7 @@ export const projects = [
 
   },
   {
-    id: "insad",
+    id: "isnad",
     title:
       "Expanding learning and community: comprehensive support for Palestinian students",
     image:

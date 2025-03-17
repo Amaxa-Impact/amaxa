@@ -164,7 +164,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
   },
 
   {
-    id: "insad",
+    id: "isnad",
     headerTitle:
       "Palestinian students in the West Bank cannot access diverse educational opportunities due to the Israeli occupation.",
     headerBgFrom: "#CE1126", // inspired by the red in the Palestinian flag
@@ -192,7 +192,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
     },
     spotlightData1: {
       heading: "TEAM SPOTLIGHT",
-      name: "Meet Panshul, Jad, and Yueqi.",
+      name: "Meet Panshul, Jad, and Yueqi",
       ageLocation: "UAE, LEBANON, & CHINA",
       paragraphs: [
         `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
