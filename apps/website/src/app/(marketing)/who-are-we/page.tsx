@@ -6,35 +6,46 @@ import React from "react";
 export default function WhoAreWePage() {
   return (
     <main>
-      <div className="relative w-full min-h-[400px] md:min-h-[517px] bg-[#F5F2F2] flex flex-col px-6 md:px-12 lg:px-20">
+      <div className="relative w-full max-h-[320px] md:max-h-[320px] sm:max-h-[240px] bg-white flex flex-col px-6 md:px-12 lg:px-20">
         {/* Background container - hidden but preserved for reference */}
         <div className="absolute inset-0 invisible">
           <div className="w-full h-full" style={{ background: "url(/Untitled design.png)" }} />
         </div>
-
         {/* Content container with flex layout */}
-        <div className="flex flex-col justify-center h-full w-full relative z-10 py-12 md:py-20">
-          {/* Main heading - centered on mobile, left-aligned on larger screens */}
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
-            <h1 className="text-[40px] md:text-[50px] lg:text-[60px] leading-tight text-[#3B3B3B] font-normal mb-12 md:mb-0">
-              Who We Are
-            </h1>
-          </div>
+        <section className="w-full py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-16 lg:px-20">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
+               Who We Are{" "}
+                <span className="font-normal text-[#3B3B3B]">
+                  & Our Mission
+                </span>
+              </h1>
 
-          {/* Apply now link - positioned at bottom right on larger screens */}
-          <div className="flex justify-end mt-8 md:mt-16 lg:mt-24">
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <ApplyButton
-                variant="ghost"
-              >
-                Apply now →
-              </ApplyButton>
-            </React.Suspense>
+              {/* Green wavy line - SVG replacement for the image */}
+              <div className="relative h-6 w-48 md:w-64 lg:w-200 ml-auto -mt-2 md:-mt-4">
+                <svg
+                  viewBox="0 0 325 500"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className=""
+                >
+                  <path
+                    d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
+                    stroke="#BCD96C"
+                    strokeWidth="8"
+                  />
+                  strokeLinecap="round"
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
       </div>
 
-      <section className="py-16 md:py-24 bg-[#F5F2F2] flex flex-col justify-center items-start px-6 md:px-16 lg:px-20">
+      {/* <section className="py-16 md:py-24 bg-[#F5F2F2] flex flex-col justify-center items-start px-6 md:px-16 lg:px-20">
         <div className="relative mb-8 w-full">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-[#3B3B3B] leading-tight">
             ámaxa (άμαξα): Greek for vehicle
@@ -63,7 +74,8 @@ export default function WhoAreWePage() {
           <span className="font-semibold">vehicle for impact</span> for
           thousands of people globally.
         </h2>
-      </section>
+      </section> */}
+
       <section className="w-full bg-[#F5F2F2] py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:px-20">
         <div className="flex flex-col">
           {/* Heading - left aligned */}
@@ -95,7 +107,7 @@ export default function WhoAreWePage() {
           </div>
         </div>
       </section>
-      <section className="w-full absolute">
+      <section className="w-full">
         {
           [
             {

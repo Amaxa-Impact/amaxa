@@ -4,7 +4,48 @@ import { ApplyButton } from "~/components/apply";
 export default function ProgramPage() {
   return (
     <main>
-      <section className="w-full bg-white py-16 md:py-24">
+
+<div className="relative w-full max-h-[320px] md:max-h-[320px] sm:max-h-[240px] bg-white flex flex-col px-6 md:px-12 lg:px-20">
+        {/* Background container - hidden but preserved for reference */}
+        <div className="absolute inset-0 invisible">
+          <div className="w-full h-full" style={{ background: "url(/Untitled design.png)" }} />
+        </div>
+        {/* Content container with flex layout */}
+        <section className="w-full py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-16 lg:px-20">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
+              <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
+               Join us: {" "}
+                <span className="font-normal text-[#3B3B3B]">
+                  Ámaxa Cohorts
+                </span>
+              </h1>
+
+              {/* Green wavy line - SVG replacement for the image */}
+              <div className="relative h-6 w-48 md:w-64 lg:w-200 ml-auto -mt-2 md:-mt-4">
+                <svg
+                  viewBox="0 0 325 500"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className=""
+                >
+                  <path
+                    d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
+                    stroke="#BCD96C"
+                    strokeWidth="8"
+                  />
+                  strokeLinecap="round"
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      
+      {/* <section className="w-full bg-white py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-16 lg:px-20">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
@@ -15,7 +56,6 @@ export default function ProgramPage() {
                 </span>
               </h1>
 
-              {/* Green wavy line - SVG replacement for the image */}
               <div className="relative h-6 w-48 md:w-64 lg:w-80 ml-auto -mt-2 md:-mt-4">
                 <svg
                   viewBox="0 0 325 82"
@@ -45,7 +85,7 @@ export default function ProgramPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="w-full bg-[#F5F2F2] py-16 md:py-20 px-6 md:px-16 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="space-y-12 md:space-y-16 lg:space-y-20">
