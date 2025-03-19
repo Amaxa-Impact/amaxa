@@ -95,7 +95,7 @@ export default function WhoAreWePage() {
           </div>
         </div>
       </section>
-      <section className="w-full">
+      <section className="w-full absolute">
         {
           [
             {
