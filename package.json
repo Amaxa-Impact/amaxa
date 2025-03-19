@@ -29,5 +29,8 @@
     "turbo": "^2.1.3",
     "typescript": "^5.4.5"
   },
-  "prettier": "@amaxa/prettier-config"
+  "prettier": "@amaxa/prettier-config",
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  }
 }
