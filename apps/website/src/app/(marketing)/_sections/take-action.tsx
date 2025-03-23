@@ -42,7 +42,9 @@ export function TakeActionSection() {
             <React.Suspense fallback={<div>Loading...</div>}>
 
               <ApplyButton variant="long" key={index}>
+                <a href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F">
                 {button.text}
+                </a>
               </ApplyButton>
             </React.Suspense>
 
@@ -54,13 +56,13 @@ export function TakeActionSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <a href="#" className="transition-colors duration-200 text-[#3B3B3B]">
+        
             Not ready to apply yet?{" "}
-            <strong className="font-semibold">
+            
               {" "}
-              Learn more about how our program works{" "}
-            </strong>
-          </a>
+              Learn more about <strong className="font-semibold"><a href="/program" className="transition-colors duration-200 text-[#3B3B3B] underline">our cohorts.</a></strong>{" "}
+       
+      
         </motion.div>
       </div>
     </section>
