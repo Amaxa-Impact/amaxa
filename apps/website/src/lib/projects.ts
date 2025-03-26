@@ -100,6 +100,9 @@ export const projects: HomePageData[] = [
     },
   },
 
+  
+  
+
   //KARINA'S LIBRARY
   {
     id: "karinas-library",
@@ -164,63 +167,68 @@ export const projects: HomePageData[] = [
   ///***PARTNER NONPROFITS***
   ///////////////////////////
 
-  //NYAKA
+  ///EDUCHILDREN
   {
-    id: "nyaka",
+    id: "educhildren",
     headerTitle:
-      "Women and the children they support in southwestern Uganda cannot work or do homework after the sun sets.",
+     "Students in Liberia don’t go to school if they cannot pay $80 for one year’s tuition.",
     headerBgFrom: "#585858",
     headerBgTo: "#7A26D6",
-    imageAlt: "solar lights in Uganda",
+    imageAlt: "educhildren",
     imageSrc:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
-    solutionParagraphs: [
-      "The HIV/AIDS crisis has left thousands of children orphaned in southwestern Uganda. Grandmothers are the pillars of the community, taking care of not only their own grandchildren but other children orphaned as well. Yet, after dusk (before 7 pm due to Uganda’s location on the Equator), income-generating activities like weaving and students’ ability to do homework becomes impossible.",
-      "With our partner Nyaka Global, Ámaxa teams fundraise and conduct outreach to provide solar powered lights to grandmothers in Nyaka, which provide free electricity to them and the children they support. This initiative truly shows how social issues are oftentimes intricately interwoven with one another.",
+      "Unlocking potential: sponsoring Liberian students' education",
+    solutionParagraphs: 
+    ["In Liberia, education is not something to be taken for granted. The long-lasting effects of a 14-year civil war, compounded by the 2014 school closure due to the Ebola outbreak, had a huge impact on the education system.” Many schools were damaged or destroyed, and many teachers fled the country or changed careers. As a result, many schools closed, and many of the schools that stayed open are concentrated in urban areas. Now take all of those damaging factors, and add in cost. According to Insights Liberia, “Poverty is a major barrier to education in Liberia. Many children are unable to attend school due to the costs associated with uniforms, books, and other supplies.",
+      "Enter Educate Children. Educate Children works to improve access to and quality of education for primary-age children in Liberia’s slum communities. They develop programs to increase enrollment, enhance quality of instruction, and improve learning outcomes in primary schools. ámaxa teams work to raise funds to pay tuition costs for Liberian students within Educate Children’s communities of focus. One year of tuition is only $80, and we don’t want financial costs to be the reason any child does not receive an education.",
+      "Thus far, ámaxa teams have worked hard to help Educate Children further their mission. One team sponsored 7 students’ full tuition by organizing a bike race to raise funds. Other groups have contributed to digital marketing efforts by creating content and working on a newsletter. All ámaxa students that work with Educate Children come away from the experience with not only transferable skills, (marketing, content creation, teamwork, organization, event planning, etc.) but also a greater knowledge of the world around them, and an enhanced understanding of education issues around the globe.",
     ],
     spotlightData: {
       heading: "PARTNER SPOTLIGHT",
-      name: "Meet Nyaka Global.",
-      ageLocation: "NYAKAGYEZI, UGANDA",
+      name: "Meet Educhildren.",
+      ageLocation: "MONROVIA, LIBERIA",
       paragraphs: [
-        "Our partner Nyaka Global provides community-based solutions to address the needs of orphaned and vulnerable children in rural southwestern Uganda. Founded in 2003 by Jackson Kaguri, who grew up in the village, Nyaka has built two primary schools, a secondary school, and a vocational school which provides education, uniforms, supplies, and meals, completely free for all its students.",
-        "More than building schools, however, Nyaka built a library, a clinic, and founded a program for grandmothers to earn income through weaving and more. Visit them at their website to learn more.",
-      ],
-      teammates: "",
-      videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
-    },
-  },
-
-//UKRAINIAN ACTION
-  {
-    id: "ukraine",
-    headerTitle:
-      "Ukrainians enduring bombing and occupation need urgent medical supplies.",
-    headerBgFrom: "#0057B7", // Blue (inspired by the Ukrainian flag)
-    headerBgTo: "#FFD700", // Yellow (inspired by the Ukrainian flag)
-    imageAlt: "Ukrainian medical aid banner",
-    imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
-    solutionTitle: "THE SOLUTION",
-    solutionSubtitle:
-      "Frontline Support: Providing Urgent Medical Aid to Ukrainians Caught in the Crossfire",
-    solutionParagraphs: [
-      "It’s often said that in war, civilians suffer the most. This truth has clearly shown itself in Ukraine. Since Russia's unjust full-scale invasion in 2022 and the war that has followed, civilians have not only had to worry about shelling and invading forces, but also about food and medicine shortages. This is especially true for those living near the frontlines. Although many Ukrainians have relocated, or fled the country as refugees, some have not been able to leave. For example, many elderly Ukrainians have opted to stay in their homes, as moving is simply not an option for them due to age.",
-      "Ámaxa teams raise funds for urgent medical and humanitarian supplies needed by Ukrainian civilians with our partner Ukrainian Action. Teams help with digital fundraising and marketing campaigns, while also fundraising in their communities. Although we are acutely aware that we cannot replace all that has been lost, our goal is to do everything we can to provide dignity and the best quality of life possible for Ukrainians caught in the crosshairs of war.",
-    ],
-    spotlightData: {
-      heading: "PARTNER SPOTLIGHT",
-      name: "Meet Ukrainian Action.",
-      ageLocation: "US & UK",
-      paragraphs: [
-        "Ukrainian Action is a volunteer-run, US nonprofit and UK charity that is dedicated to supporting Ukraine. They regularly drive and donate vehicles filled with humanitarian and medical supplies to the country, and support local reconstruction and healthcare projects.",
+        "Our partner Educhildren, founded by Monrovia native Sekou Jabateh, employs a community-based approach to ensuring students have the funds to attend school.",
+        "Enrollment Through Local Philanthropy (ETLP) is their primary program. It aims to increase primary school enrollment through local philanthropy within Liberia. Through a system of Volunteers Operation, we identify primary-age children (5-11years) in specific slum communities who are not enrolled in school, or have dropped out of school. We conduct assessment studies to identify cases where this is due to economic constraints.  Educate Children then identifies sponsors who support these children through school, and pair them with the children. Sponsors range from local donors to philanthropists, humanitarians, well-meaning individuals as well as corporate social responsibilities. Our pairing system emphasizes constant interaction between sponsors and their beneficiaries, allowing sponsors to track the progress of the children they are supporting in school.",
       ],
       teammates: "",
       videoUrl: "",
     },
+  },
+
+  //GAZA
+  {
+    id: "gaza",
+    headerTitle:
+      "Gazan children are dying of starvation in the ongoing genocide.",
+    headerBgFrom: "#000000", // Black
+    headerBgTo: "#006C35", // Green from Palestinian flag
+    imageAlt: "Gaza humanitarian aid banner",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d", // Using the same image as ISNAD for now
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Feeding Gaza: support for families during the ongoing genocide",
+    solutionParagraphs: [
+      "ámaxa members on the Gaza project team are urgently raising funds to support families trapped in Gaza amidst the ongoing humanitarian crisis. For the Summer 2024 cohort, the team focused on raising money. The funds will go to two families we connected with through our partner: Gaza Champions. These funds are crucial for providing immediate essentials, such as food, to prevent starvation and meet basic needs. Once borders open again, funds can go towards paying the $5000 fee to Egypt required to flee across the border.",
+      "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
+      "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion."
+    ],
+    spotlightData: {
+      heading: "TEAM SPOTLIGHT",
+      name: "Meet Isabella and Zobia.",
+      ageLocation: "16 & 17, USA",
+      paragraphs: [
+        "\"Change, in any capacity, can and should start with us.\" -Isabella",
+        `
+Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
+`
+      ],
+      teammates: "",
+      videoUrl: ""
+    }
   },
 
   //ISNAD
@@ -265,42 +273,9 @@ export const projects: HomePageData[] = [
     }
   },
 
-  //GAZA
+  ///NYAKA
   {
-    id: "gaza",
-    headerTitle:
-      "Gazan children are dying of starvation in the ongoing genocide.",
-    headerBgFrom: "#000000", // Black
-    headerBgTo: "#006C35", // Green from Palestinian flag
-    imageAlt: "Gaza humanitarian aid banner",
-    imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d", // Using the same image as ISNAD for now
-    solutionTitle: "THE SOLUTION",
-    solutionSubtitle:
-      "Feeding Gaza: support for families during the ongoing genocide",
-    solutionParagraphs: [
-      "ámaxa members on the Gaza project team are urgently raising funds to support families trapped in Gaza amidst the ongoing humanitarian crisis. For the Summer 2024 cohort, the team focused on raising money. The funds will go to two families we connected with through our partner: Gaza Champions. These funds are crucial for providing immediate essentials, such as food, to prevent starvation and meet basic needs. Once borders open again, funds can go towards paying the $5000 fee to Egypt required to flee across the border.",
-      "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
-      "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion."
-    ],
-    spotlightData: {
-      heading: "TEAM SPOTLIGHT",
-      name: "Meet Isabella and Zobia.",
-      ageLocation: "16 & 17, USA",
-      paragraphs: [
-        "\"Change, in any capacity, can and should start with us.\" -Isabella",
-        `
-Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
-`
-      ],
-      teammates: "",
-      videoUrl: ""
-    }
-  },
-
-  //EDUCHILDREN
-  {
-    id: "educhildren",
+    id: "nyaka",
     headerTitle:
       "Women and the children they support in southwestern Uganda cannot work or do homework after the sun sets.",
     headerBgFrom: "#585858",
@@ -328,5 +303,38 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     },
   },
 
+///UKRAINIAN ACTION
+  {
+    id: "ukraine",
+    headerTitle:
+      "Ukrainians enduring bombing and occupation need urgent medical supplies.",
+    headerBgFrom: "#0057B7", // Blue (inspired by the Ukrainian flag)
+    headerBgTo: "#FFD700", // Yellow (inspired by the Ukrainian flag)
+    imageAlt: "Ukrainian medical aid banner",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Frontline Support: Providing Urgent Medical Aid to Ukrainians Caught in the Crossfire",
+    solutionParagraphs: [
+      "It’s often said that in war, civilians suffer the most. This truth has clearly shown itself in Ukraine. Since Russia's unjust full-scale invasion in 2022 and the war that has followed, civilians have not only had to worry about shelling and invading forces, but also about food and medicine shortages. This is especially true for those living near the frontlines. Although many Ukrainians have relocated, or fled the country as refugees, some have not been able to leave. For example, many elderly Ukrainians have opted to stay in their homes, as moving is simply not an option for them due to age.",
+      "Ámaxa teams raise funds for urgent medical and humanitarian supplies needed by Ukrainian civilians with our partner Ukrainian Action. Teams help with digital fundraising and marketing campaigns, while also fundraising in their communities. Although we are acutely aware that we cannot replace all that has been lost, our goal is to do everything we can to provide dignity and the best quality of life possible for Ukrainians caught in the crosshairs of war.",
+    ],
+    spotlightData: {
+      heading: "PARTNER SPOTLIGHT",
+      name: "Meet Ukrainian Action.",
+      ageLocation: "US & UK",
+      paragraphs: [
+        "Ukrainian Action is a volunteer-run, US nonprofit and UK charity that is dedicated to supporting Ukraine. They regularly drive and donate vehicles filled with humanitarian and medical supplies to the country, and support local reconstruction and healthcare projects.",
+      ],
+      teammates: "",
+      videoUrl: "",
+    },
+  },
+
+  
+  
+
+  
   
 ];
