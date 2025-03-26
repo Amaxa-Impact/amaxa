@@ -31,6 +31,10 @@
   },
   "prettier": "@amaxa/prettier-config",
   "dependencies": {
-    "react-icons": "^5.5.0"
+    "@tabler/icons-react": "^3.31.0",
+    "clsx": "^2.1.1",
+    "motion": "^12.5.0",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^2.5.2"
   }
 }
