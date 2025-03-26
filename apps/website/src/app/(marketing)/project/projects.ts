@@ -38,4 +38,22 @@ export const projects = [
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy"
   },
+  {
+    id: "karinas-library",
+    title: "Karina’s Library: Empowering Women, Fighting against Censorship", 
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSbTnpOwdQt18rFgVynhG5ljvz0eRmMCYuOWw"
+  },
+  {
+    id: "educdhildren",
+    title: "Unlocking potential: sponsoring Liberian students' education",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy"
+  },
+  {
+    id: "lbgtq",
+    title: "The LGBTQ+ Artists Program: Promoting LGBTQ+ Voices, Empowering Creative Equality",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy"
+  },
 ];
