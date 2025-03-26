@@ -100,7 +100,7 @@ export const projects = [
   {
     category: "ÁMAXA ORIGINAL INITIATIVE",
     id: "lgbtq",
-    title: "The LGBTQ+ Artists Program: Promoting LGBTQ+ Voices, Empowering Creative Equality",
+    title: "The LGBTQ+ Artists Program: Promoting Voices, Empowering Creative Equality",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
     link: "/project/lgbtq",
     content: (

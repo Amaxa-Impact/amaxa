@@ -13,9 +13,6 @@ import { projects } from "~/lib/constants/projects";
 import { Projects } from "../_sections/projects";
 
 
-
-
-
 export default function Page() {
   return (
     <main>

@@ -131,7 +131,7 @@ const content: ContentItem[] = [
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
     statement:
-      "I helped promote diverse storytelling &  LGBTQ+ creatives.",
+      "I helped promote diverse storytelling & LGBTQ+ creatives.",
   },
 ];
 

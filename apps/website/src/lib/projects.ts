@@ -132,31 +132,32 @@ export const projects: HomePageData[] = [
 
   //LGBTQ+ IN THE ARTS
   {
-    id: "educhildren",
+    id: "lgbtq",
     headerTitle:
-      "Women and the children they support in southwestern Uganda cannot work or do homework after the sun sets.",
+      "LGBTQ+ artists and queer stories are underrepresented and underfunded.",
     headerBgFrom: "#585858",
     headerBgTo: "#7A26D6",
-    imageAlt: "solar lights in Uganda",
+    imageAlt: "lgbtq",
     imageSrc:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
+      "The LGBTQ+ Artists Program: Promoting Voices, Empowering Creative Equality",
     solutionParagraphs: [
-      "The HIV/AIDS crisis has left thousands of children orphaned in southwestern Uganda. Grandmothers are the pillars of the community, taking care of not only their own grandchildren but other children orphaned as well. Yet, after dusk (before 7 pm due to Uganda’s location on the Equator), income-generating activities like weaving and students’ ability to do homework becomes impossible.",
-      "With our partner Nyaka Global, Ámaxa teams fundraise and conduct outreach to provide solar powered lights to grandmothers in Nyaka, which provide free electricity to them and the children they support. This initiative truly shows how social issues are oftentimes intricately interwoven with one another.",
+      "Representation and equality of opportunity is a constant struggle for the arts and entertainment industries. We are seeing more LGBTQ+ stories told than ever before, and the industry has continued to crack its gates open more widely for LGBTQ+ artists, but there is still much work to be done. Anyone in the art and entertainment industry will tell you that getting funding is hard. However, getting funding for, let’s say, a gay miniseries, or a trans romantic novel, is even harder. Studios, publishing houses, and execs still see these stories as ‘risky.’ Furthermore, LGBTQ+ artists themselves can have a harder time getting their foot, and therefore their art, inside the door. Without funding, everything else becomes harder too, including PR and marketing.",
+      "Over the last few years, we have seen more students than ever coming to us with interests in PR and marketing. This program is a way for ámaxa to help LGBTQ+ artists and storytellers get the attention they deserve, while also allowing us to give our students tangible experience in their fields of interests. Through the application (which will be posted on our website prior to each cycle) LGBTQ+ artists and storytellers can apply to be our next feature artist. If selected, they will benefit from the help of our team of young professionals and marketing and PR students. From social media management and content creation, to pitch decks, to garnering publicity, the ámaxa team will work in alignment with the artist to promote and empower.",
+      "Think of it as ámaxa’s own in-house PR and marketing agency; an agency where no story and no artist is too risky, and where all are encouraged to be and create with full authenticity. This is our homage to the arts: film, tv, paintings, music, novels, poetry, graphic design, animation, painting, sculpture and more. All art, and all artists, should be given equal opportunities to exist, create, and work – that’s what this project stands for. ",
     ],
     spotlightData: {
-      heading: "PARTNER SPOTLIGHT",
-      name: "Meet Nyaka Global.",
-      ageLocation: "NYAKAGYEZI, UGANDA",
+      heading: "PROJECT STORY",
+      name: "Hear from COO Lexi on why she founded this project.",
+      ageLocation: "",
       paragraphs: [
-        "Our partner Nyaka Global provides community-based solutions to address the needs of orphaned and vulnerable children in rural southwestern Uganda. Founded in 2003 by Jackson Kaguri, who grew up in the village, Nyaka has built two primary schools, a secondary school, and a vocational school which provides education, uniforms, supplies, and meals, completely free for all its students.",
-        "More than building schools, however, Nyaka built a library, a clinic, and founded a program for grandmothers to earn income through weaving and more. Visit them at their website to learn more.",
+        "I am living proof that diverse storytelling and storytellers matter. So often, we fear, and discriminate and hate out of lack of understanding and lack of exposure. In the divisive climate we exist in today, art is one of the best ways for all of us to look beyond our own hometowns, beliefs, cultures, and personal stories and absorb what may be different, new or foreign to us. Along the way, art also tends to show us that we are all connected, and that hope and frustration, joy and anger, longing, and most of all, love, are universal. The best art makes us feel deeply, and at times makes us see the world around us differently – I know that’s certainly what it has done for me.",
+        "I believe in the power of art, and I also believe that that power cannot be unleashed fully until we reach an equality of opportunity in the arts and entertainment industry. This project is my love letter to the arts, and my small way of moving towards a world where every story and every creator gets a chance.",
       ],
       teammates: "",
-      videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
+      videoUrl: "",
     },
   },
 
