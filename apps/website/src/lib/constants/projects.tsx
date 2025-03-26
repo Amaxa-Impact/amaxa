@@ -44,13 +44,13 @@ export const projects = [
       />
     ),
   },
-  /**
+
  {
-   category: "Project",
-   id: "karina",
-   title: "Karina’s Library",
-   src: "",
-   link: "/project/library",
+   category: "ÁMAXA ORIGINAL INITIATIVE",
+   id: "karinas-library",
+   title: "Karina’s Library: Empowering Women, Fighting against Censorship",
+   src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSbTnpOwdQt18rFgVynhG5ljvz0eRmMCYuOWw",
+   link: "/project/karinas-library",
    content: (
      <ProjectContentShell
        content={[
@@ -62,7 +62,6 @@ export const projects = [
    ),
  },
 
- **/
   {
     category: "ÁMAXA ORIGINAL INITIATIVE",
     id: "global-forest",
@@ -97,12 +96,12 @@ export const projects = [
       />
     ),
   },
-  /**
+
   {
-    category: "Project",
+    category: "ÁMAXA ORIGINAL INITIATIVE",
     id: "lgbtq",
-    title: "LGBTQ+ Artists",
-    src: "",
+    title: "The LGBTQ+ Artists Program: Promoting LGBTQ+ Voices, Empowering Creative Equality",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
     link: "/project/lgbtq",
     content: (
       <ProjectContentShell
@@ -114,12 +113,12 @@ export const projects = [
       />
     ),
   },
-  **/
+
   {
     category: "ÁMAXA ORIGINAL INITIATIVE",
-    title: `Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education`,
+    title: "Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education",
     id: "mhfa",
-    src: "",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
     link: "/project/mhfa",
     content: (
       <ProjectContentShell
@@ -131,12 +130,12 @@ export const projects = [
       />
     ),
   },
-  /**
+
   {
-    category: "Project",
-    title: "Educhildren",
+    category: "PARTNER: EDUCHILDREN",
+    title: "Unlocking potential: sponsoring Liberian students' education",
     id: "educhildren",
-    src: "",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
     link: "/project/educhildren",
     content: (
       <ProjectContentShell
@@ -148,5 +147,5 @@ export const projects = [
       />
     ),
   },
-  **/
+
 ];
