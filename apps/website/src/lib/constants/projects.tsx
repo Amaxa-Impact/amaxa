@@ -6,7 +6,7 @@ import { ProjectContentShell } from "~/components/project-content/ProjectContent
 export const projects = [
   {
     category: "PARTNER: GAZA CHAMPIONS",
-    id: "gazachamps",
+    id: "gaza",
     link: "/project/gaza",
     title: "Feeding Gaza: support for families in crisis",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d",

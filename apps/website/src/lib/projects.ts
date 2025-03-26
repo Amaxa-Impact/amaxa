@@ -22,6 +22,12 @@ export interface HomePageData {
 }
 
 export const projects: HomePageData[] = [
+
+
+  //***ORIGINAL INITIATIVES***
+  ///////////////////////////
+
+  //MHFA
   {
     id: "mhfa",
     headerTitle:
@@ -52,7 +58,8 @@ export const projects: HomePageData[] = [
       videoUrl: "", // optional if you don't have a video
     },
   },
-
+  
+  //GLOBAL FOREST
   {
     id: "global-forest",
     headerTitle:
@@ -77,35 +84,86 @@ export const projects: HomePageData[] = [
             then plant them in local communities around the world. Once trees
             are planted, ámaxa teams measure the carbon sequestration of each
             tree. This data helps us learn which trees are most beneficial to
-            the climate.`,
-      `
-
+            the climate.`,`
             Once enough data is gathered, we’ll share our findings and continue
             to grow the project strategically. Our goal is to create visual,
             data-backed resources that highlight a simple message: when you
-            nurture the Earth, it provides.
-`,
-    ],
+            nurture the Earth, it provides.`,],
     spotlightData: {
       heading: "Member Spotlight",
       name: "Meet An Nhi.",
       ageLocation: "16, Vietnam",
-      paragraphs: [
-        `
-Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
-`,
-        `
-Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations. 
-`,
-        `
-By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.
-`,
-      ],
+      paragraphs: [`Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.`,
+        `Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.`,`By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.`],
       teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
       videoUrl: "https://youtube.com/embed/1mNWMKv2xPU?si=7bEp8vcsKRu33eHQ",
     },
   },
 
+  //KARINA'S LIBRARY
+  {
+    id: "karinas-library",
+    headerTitle:
+      "Book bans and censorship threaten the lives of women and girls in the US and beyond.",
+    headerBgFrom: "#585858",
+    headerBgTo: "#7A26D6",
+    imageAlt: "karina miszori",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSbTnpOwdQt18rFgVynhG5ljvz0eRmMCYuOWw",
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Karina’s Library: Empowering Minds, Inspiring Equality",
+    solutionParagraphs: [
+      "Feminism tends to mean different things to different people. For our late Chief Partnerships Officer, Karina Miszori, it represented a calling. Karina ardently believed in, and fought for, a world in which equality was the norm and women were educated, empowered, and equal in every facet of life. This project is in honor of Karina, and the world she envisioned.",
+      "Karina’s Library is centered on representation and education and is one of ámaxa’s newest projects. ámaxa teams will begin by researching and creating a reading list to work with. The reading list will be comprehensive. For younger children, the goal is simply to find books that feature multifaceted girls in positions of empowerment, while also pushing back against some of the damaging narratives that girls are all too often introduced to at a young age. For example, Gertrude McFuzz by Dr. Seuss follows a bird who wishes she could look “more beautiful” by having more feathers. As the story progresses, she realizes that having more feathers infringes on some of her previous abilities and her interactions with others. It’s a great story to start dispelling negative beauty standards for younger readers. For older readers, the list may delve into works that are not only narratives, but also social commentary. The Handmaid’s Tale by Margaret Atwood is a well-known example that would be on this portion of the list.",
+"After the list has been created, edited, and finalized, ámaxa teams will engage in book collection. Teams may fundraise in order to purchase the books, organize book drives, or even venture out to thrift stores and libraries in their communities to find pre-loved books that can be reused for the project. Once the ámaxa feminist library is large enough in size, we will open up a signup form on the ámaxa website. There schools can sign up to receive a book box, with a curated selection of books for their school library.",
+"Ultimately, our goal is to empower students with knowledge. Reading not only fosters learning and understanding of the world but also broadens horizons, introducing diverse cultures, perspectives, and ideas. If the books we donate to schools inspire even one young girl to recognize her potential and see herself as the protagonist of her own story, then Karina’s Library will have achieved its purpose.",    ],
+    spotlightData: {
+      heading: "",
+      name: "In Honor of Karina Miszori",
+      ageLocation: "",
+      paragraphs: [
+       "For those of us on the ámaxa team, we knew Karina as a beacon of light and passion. She was a force of nature in her commitment to our mission, as well as to her passion for feminism and womens’ rights, neurodivergence research, and LGBTQ+ rights. Karina joined ámaxa as a Blog Writer intern in 2022, but it quickly became clear that we needed her contagious passion on our leadership team. She then laid the foundations of our social media strategy - a huge project that was a top priority. In 2023, she transitioned to Chief Partnerships Officer, opening crucial doors for us by forging partnerships with NYUAD group Violet Ventures, education consultancies, and more. In addition to her amazing work on our team, Karina founded the Gender Studies Minor at NYUAD. Because of her dedication to gender issues, thousands of students will be empowered to deepen and refine their passion for feminism, womens’ rights, and LGBTQ+ rights.",
+      ],
+      teammates: "",
+      videoUrl: "",
+    },
+  },
+
+  //LGBTQ+ IN THE ARTS
+  {
+    id: "educhildren",
+    headerTitle:
+      "Women and the children they support in southwestern Uganda cannot work or do homework after the sun sets.",
+    headerBgFrom: "#585858",
+    headerBgTo: "#7A26D6",
+    imageAlt: "solar lights in Uganda",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
+    solutionParagraphs: [
+      "The HIV/AIDS crisis has left thousands of children orphaned in southwestern Uganda. Grandmothers are the pillars of the community, taking care of not only their own grandchildren but other children orphaned as well. Yet, after dusk (before 7 pm due to Uganda’s location on the Equator), income-generating activities like weaving and students’ ability to do homework becomes impossible.",
+      "With our partner Nyaka Global, Ámaxa teams fundraise and conduct outreach to provide solar powered lights to grandmothers in Nyaka, which provide free electricity to them and the children they support. This initiative truly shows how social issues are oftentimes intricately interwoven with one another.",
+    ],
+    spotlightData: {
+      heading: "PARTNER SPOTLIGHT",
+      name: "Meet Nyaka Global.",
+      ageLocation: "NYAKAGYEZI, UGANDA",
+      paragraphs: [
+        "Our partner Nyaka Global provides community-based solutions to address the needs of orphaned and vulnerable children in rural southwestern Uganda. Founded in 2003 by Jackson Kaguri, who grew up in the village, Nyaka has built two primary schools, a secondary school, and a vocational school which provides education, uniforms, supplies, and meals, completely free for all its students.",
+        "More than building schools, however, Nyaka built a library, a clinic, and founded a program for grandmothers to earn income through weaving and more. Visit them at their website to learn more.",
+      ],
+      teammates: "",
+      videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
+    },
+  },
+
+  ///***PARTNER NONPROFITS***
+  ///////////////////////////
+
+  //NYAKA
   {
     id: "nyaka",
     headerTitle:
@@ -135,6 +193,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
     },
   },
 
+//UKRAINIAN ACTION
   {
     id: "ukraine",
     headerTitle:
@@ -163,6 +222,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
     },
   },
 
+  //ISNAD
   {
     id: "isnad",
     headerTitle:
@@ -204,6 +264,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
     }
   },
 
+  //GAZA
   {
     id: "gaza",
     headerTitle:
@@ -234,5 +295,37 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       teammates: "",
       videoUrl: ""
     }
-  }
+  },
+
+  //EDUCHILDREN
+  {
+    id: "educhildren",
+    headerTitle:
+      "Women and the children they support in southwestern Uganda cannot work or do homework after the sun sets.",
+    headerBgFrom: "#585858",
+    headerBgTo: "#7A26D6",
+    imageAlt: "solar lights in Uganda",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    solutionTitle: "THE SOLUTION",
+    solutionSubtitle:
+      "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
+    solutionParagraphs: [
+      "The HIV/AIDS crisis has left thousands of children orphaned in southwestern Uganda. Grandmothers are the pillars of the community, taking care of not only their own grandchildren but other children orphaned as well. Yet, after dusk (before 7 pm due to Uganda’s location on the Equator), income-generating activities like weaving and students’ ability to do homework becomes impossible.",
+      "With our partner Nyaka Global, Ámaxa teams fundraise and conduct outreach to provide solar powered lights to grandmothers in Nyaka, which provide free electricity to them and the children they support. This initiative truly shows how social issues are oftentimes intricately interwoven with one another.",
+    ],
+    spotlightData: {
+      heading: "PARTNER SPOTLIGHT",
+      name: "Meet Nyaka Global.",
+      ageLocation: "NYAKAGYEZI, UGANDA",
+      paragraphs: [
+        "Our partner Nyaka Global provides community-based solutions to address the needs of orphaned and vulnerable children in rural southwestern Uganda. Founded in 2003 by Jackson Kaguri, who grew up in the village, Nyaka has built two primary schools, a secondary school, and a vocational school which provides education, uniforms, supplies, and meals, completely free for all its students.",
+        "More than building schools, however, Nyaka built a library, a clinic, and founded a program for grandmothers to earn income through weaving and more. Visit them at their website to learn more.",
+      ],
+      teammates: "",
+      videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
+    },
+  },
+
+  
 ];
