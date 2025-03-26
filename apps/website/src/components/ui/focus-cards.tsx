@@ -2,6 +2,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";  // Import Link from next/link
+
 
 export const Card = React.memo(
   ({
@@ -15,6 +17,7 @@ export const Card = React.memo(
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => (
+    <Link href={card.link} passHref>
     <div
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
@@ -41,6 +44,7 @@ export const Card = React.memo(
         </div>
       </div>
     </div>
+    </Link>
   )
 );
 
@@ -49,6 +53,7 @@ Card.displayName = "Card";
 type Card = {
   title: string;
   src: string;
+  link: string;
 };
 
 export function FocusCards({ cards }: { cards: Card[] }) {
