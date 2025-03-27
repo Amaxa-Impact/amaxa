@@ -14,13 +14,13 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0">
           <nav className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6 text-sm md:text-base">
             <Link
-              href="/explore-projects"
+              href="/project"
               className="text-gray-800 hover:text-gray-600"
             >
               Explore Projects
             </Link>
             <Link
-              href="/our-programs"
+              href="/program"
               className="text-gray-800 hover:text-gray-600"
             >
               Our Programs
@@ -31,36 +31,43 @@ const Footer = () => {
             >
               Who We Are
             </Link>
-            <Link
-              href="/support-us"
+            
+            {/* <Link
+              href="/contact-us"
               className="text-gray-800 hover:text-gray-600"
             >
+              Our Platform
+            </Link>  */} 
+
+            <Link
+              href="/support-us" className="text-gray-800 hover:text-gray-600">
               Support Us
             </Link>
             <Link href="/blog" className="text-gray-800 hover:text-gray-600">
               Our Blog
             </Link>
-            <Link
+
+            {/* <Link
               href="/contact-us"
               className="text-gray-800 hover:text-gray-600"
             >
               Contact Us
-            </Link>
-          </nav>
-
-          <div className="md:ml-auto flex gap-6 text-sm">
+            </Link>  */}
+          {/* <div className="md:ml-auto flex gap-6 text-sm">
             <Link href="/terms" className="text-gray-800 hover:text-gray-600">
               Terms of Use
             </Link>
             <Link href="/privacy" className="text-gray-800 hover:text-gray-600">
               Privacy Policy
             </Link>
-          </div>
+          </div> */}
+
+          </nav>
         </div>
       </div>
 
       <div className="container mx-auto mt-4 text-sm text-gray-600">
-        <p>Ámaxa is a 501(c)(3) nonprofit.</p>
+        <p>Ámaxa is a registered 501(c)(3) nonprofit.</p>
       </div>
     </footer>
   );

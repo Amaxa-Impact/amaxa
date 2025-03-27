@@ -21,7 +21,7 @@ export const Navbar = () => {
   const navItems = [
     { href: "/project", label: "Explore Projects" },
     { href: "/program", label: "Our Cohorts" },
-    { href: "/who-are-we", label: "Who We Are" },
+    { href: "/who-we-are", label: "Who We Are" },
   ];
 
   return (

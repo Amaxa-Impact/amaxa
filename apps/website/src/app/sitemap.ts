@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: "https://www.amaxaimpact.org/who-are-we",
+      url: "https://www.amaxaimpact.org/who-we-are",
       lastModified: new Date(),
     },
     {
