@@ -36,7 +36,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#278CD4",
     imageAlt: "mental health banner",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkX5KHvRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Mental Health First Aid: Research, Expert Opinions, & Peer-to-Peer Education",
@@ -68,7 +68,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#666666",
     imageAlt: "forest image",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYEdEXWwlUs9XMErKJv7Faw8TpfmyuG5lVHhq",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Plant trees & track carbon sequestration with ámaxa’s Global Forest initiative.",
@@ -112,7 +112,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#7A26D6",
     imageAlt: "karina miszori",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSbTnpOwdQt18rFgVynhG5ljvz0eRmMCYuOWw",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkD4GobRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Karina’s Library: Empowering Minds, Inspiring Equality",
@@ -142,7 +142,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#7A26D6",
     imageAlt: "lgbtq",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8el17ogjXRpn0dgo1l6KOV2DuqGLya94cMIf",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "The LGBTQ+ Artists Program: Promoting Voices, Empowering Creative Equality",
@@ -176,7 +176,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#7A26D6",
     imageAlt: "educhildren",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaifCsCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Unlocking potential: sponsoring Liberian students' education",
@@ -207,7 +207,7 @@ export const projects: HomePageData[] = [
     headerBgTo: "#006C35", // Green from Palestinian flag
     imageAlt: "Gaza humanitarian aid banner",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d", // Using the same image as ISNAD for now
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVSuAZzWL0MYRHUetxwcyzJn3h7alsSdIDAKf", // Using the same image as ISNAD for now
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Feeding Gaza: support for families during the ongoing genocide",
@@ -216,19 +216,19 @@ export const projects: HomePageData[] = [
       "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
       "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion."
     ],
-    spotlightData: {
-      heading: "TEAM SPOTLIGHT",
-      name: "Meet Isabella and Zobia.",
-      ageLocation: "16 & 17, USA",
-      paragraphs: [
-        "\"Change, in any capacity, can and should start with us.\" -Isabella",
-        `
+    spotlightData:      {
+            heading: "TEAM SPOTLIGHT",
+            name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
+            ageLocation: "16 & 17, USA",
+            paragraphs: [
+              "\"Change, in any capacity, can and should start with us.\" -Isabella",
+              `
 Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
 `
-      ],
-      teammates: "",
-      videoUrl: ""
-    }
+            ],
+            teammates: "",
+            videoUrl: "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          },
   },
 
   //ISNAD
@@ -239,7 +239,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     headerBgFrom: "#CE1126", // inspired by the red in the Palestinian flag
     headerBgTo: "#006C35", // inspired by green from the Palestinian flag
     imageAlt: "Palestinian education banner",
-    imageSrc: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
+    imageSrc: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Expanding learning and community: Opening the Window for Palestinian students",
@@ -282,7 +282,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     headerBgTo: "#7A26D6",
     imageAlt: "solar lights in Uganda",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXM5a2R0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Giving Light: Solar Lights for Grandmothers in Nyaka, Uganda",
@@ -312,7 +312,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     headerBgTo: "#FFD700", // Yellow (inspired by the Ukrainian flag)
     imageAlt: "Ukrainian medical aid banner",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFSqz9DhMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Frontline Support: Providing Urgent Medical Aid to Ukrainians Caught in the Crossfire",

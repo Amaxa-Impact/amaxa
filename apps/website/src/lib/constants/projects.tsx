@@ -9,7 +9,7 @@ export const projects = [
     id: "gaza",
     link: "/project/gaza",
     title: "Feeding Gaza: support for families in crisis",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOa56HTxIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVSuAZzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
     content: <Gaza />,
   },
   {
@@ -17,7 +17,7 @@ export const projects = [
     id: "nyaka",
     title: "Giving light: Solar solutions for Ugandan women",
     link: "/project/nyaka",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMuUN3gYQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXM5a2R0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
     content: (
       <ProjectContentShell
         content={[
@@ -32,7 +32,7 @@ export const projects = [
     category: "PARTNER: UKRAINIAN ACTION",
     title: "Frontline support: urgent medical aid to Ukrainians caught in the crossfire",
     id: "ukraine",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOMQ3852YQ8a9AhxfoFrcKlOZUmsICGX3Sqk0V",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFSqz9DhMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
     link: "/project/ukraine",
     content: (
       <ProjectContentShell
@@ -49,7 +49,7 @@ export const projects = [
    category: "ÁMAXA ORIGINAL INITIATIVE",
    id: "karinas-library",
    title: "Karina’s Library: Empowering Women, Fighting against Censorship",
-   src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSbTnpOwdQt18rFgVynhG5ljvz0eRmMCYuOWw",
+   src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkD4GobRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
    link: "/project/karinas-library",
    content: (
      <ProjectContentShell
@@ -68,7 +68,7 @@ export const projects = [
     link: "/project/global-forest",
     title:
       "Global Forest: Planting trees and tracking carbon sequestration",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmSb46sGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYEdEXWwlUs9XMErKJv7Faw8TpfmyuG5lVHhq",
     content: (
       <ProjectContentShell
         content={[
@@ -84,7 +84,7 @@ export const projects = [
     id: "isnad",
     title:
       "Expanding learning and community: comprehensive support for Palestinian students",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBGXc3oMfgbteu1vLlWOMACT9miBqyShdJ8jc",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
     link: "/project/isnad",
     content: (
       <ProjectContentShell
@@ -101,7 +101,7 @@ export const projects = [
     category: "ÁMAXA ORIGINAL INITIATIVE",
     id: "lgbtq",
     title: "The LGBTQ+ Artists Program: Promoting Voices, Empowering Creative Equality",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8el17ogjXRpn0dgo1l6KOV2DuqGLya94cMIf",
     link: "/project/lgbtq",
     content: (
       <ProjectContentShell
@@ -118,7 +118,7 @@ export const projects = [
     category: "ÁMAXA ORIGINAL INITIATIVE",
     title: "Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education",
     id: "mhfa",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkX5KHvRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
     link: "/project/mhfa",
     content: (
       <ProjectContentShell
@@ -135,7 +135,7 @@ export const projects = [
     category: "PARTNER: EDUCHILDREN",
     title: "Unlocking potential: sponsoring Liberian students' education",
     id: "educhildren",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOEftqdP9NYGn17FfRk38wqIh5UP6LM9TadAmy",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaifCsCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
     link: "/project/educhildren",
     content: (
       <ProjectContentShell
