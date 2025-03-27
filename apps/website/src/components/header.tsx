@@ -1,208 +1,119 @@
-
-
-// export const Navbar = () => {
-//   const cls = cn(
-//     "text-2xl",
-
-//     navigationMenuTriggerStyle(),
-//   );
-//   return (
-//     <header className="w-max-screen  relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
-//       <div>
-//         <Link href="/" className="text-3xl font-bold">ámaxa</Link>
-//       </div>
-
-//       <NavigationMenu>
-//         <NavigationMenuList className="text-xl">
-//           <NavigationMenuItem>
-//             <Link href="/project" legacyBehavior passHref>
-//               <NavigationMenuLink className={cls}>
-//                 Explore Projects
-//               </NavigationMenuLink>
-//             </Link>
-//           </NavigationMenuItem>
-//           <NavigationMenuItem>
-//             <Link href="/program" legacyBehavior passHref>
-//               <NavigationMenuLink className={cls}>
-//                 Our Cohorts
-//               </NavigationMenuLink>
-//             </Link>
-//           </NavigationMenuItem>
-//           <NavigationMenuItem>
-//             <Link href="/who-are-we" legacyBehavior passHref>
-//               <NavigationMenuLink className={cls}>
-//                 Who We Are
-//               </NavigationMenuLink>
-//             </Link>
-//           </NavigationMenuItem>
-//         </NavigationMenuList>
-//       </NavigationMenu>
-
-//       <div className="flex flex-row gap-[24px]">
-//         {/* <Button href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F" className="rounded-[3rem]">Apply Now</Button> */}
-//         <Link
-//           href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
-//           target="_blank"
-//           className={cn(
-//             buttonVariants({
-//               // variant: "outline"
-//             }),
-//             "rounded-[3rem]"
-//           )}>
-//           Apply Now
-//         </Link>
-//         <Link
-//           href="https://app.amaxaimpact.org"
-//           target="_blank"
-//           className={cn(
-//             buttonVariants({
-//               variant: "outline"
-//             }),
-//             "rounded-[3rem]"
-//           )}>
-//           Login
-//         </Link>
-//       </div>
-//     </header >
-//   );
-// };
-"use client";  // Marking the component as a client-side component
-
+"use client";
+import { cn } from "@amaxa/ui";
+import { buttonVariants } from "@amaxa/ui/button";
+import Link from "next/link";
 import {
+  navigationMenuTriggerStyle,
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import { Button, buttonVariants } from "@amaxa/ui/button";
-import { cn } from "@amaxa/ui";
+} from "@amaxa/ui/navigation-menu";
+import { ApplyButton } from "./apply";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@amaxa/ui/sheet";
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa"; // Importing icons for the hamburger and close icons
-import { useEffect } from 'react'; // Added import for useEffect
-
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to control mobile menu visibility
+  const [open, setOpen] = useState(false);
+  const cls = cn("text-2xl", navigationMenuTriggerStyle());
 
-  const cls = cn(
-    "text-2xl",
-    navigationMenuTriggerStyle(),
-  );
-
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add('hamburger-open');
-    } else {
-      document.body.classList.remove('hamburger-open');
-    }
-  }, [isOpen]);
+  const navItems = [
+    { href: "/project", label: "Explore Projects" },
+    { href: "/program", label: "Our Cohorts" },
+    { href: "/who-are-we", label: "Who We Are" },
+  ];
 
   return (
-    <header className="relative w-full h-[89px] flex justify-between items-center px-10 md:px-8">
-      {/* Logo on desktop only */}
-      <div className="hidden md:block">
-        <Link href="/" className="text-3xl font-bold">
+    <>
+      {/* Desktop Navbar */}
+      <header className="w-max-screen relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
+        <div>
+          <Link href="/" className="text-3xl font-bold">
+            ámaxa
+          </Link>
+        </div>
+
+        <NavigationMenu>
+          <NavigationMenuList className="text-xl">
+            {navItems.map((item) => (
+              <NavigationMenuItem key={item.href}>
+                <Link href={item.href} legacyBehavior passHref>
+                  <NavigationMenuLink className={cls}>
+                    {item.label}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <div className="flex flex-row gap-[24px]">
+          <ApplyButton variant="color">Apply Now</ApplyButton>
+          <Link
+            href="https://app.amaxaimpact.org"
+            target="_blank"
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+              }),
+              "rounded-[3rem]",
+            )}
+          >
+            Login
+          </Link>
+        </div>
+      </header>
+
+      {/* Mobile Navbar */}
+      <header className="flex h-[70px] items-center justify-between px-6 md:hidden">
+        <Link href="/" className="text-2xl font-bold">
           ámaxa
         </Link>
-      </div>
 
-      {/* Hamburger icon on mobile */}
-      <div className="md:hidden flex items-center">
-        <button onClick={toggleMenu} className="text-2xl">
-          {isOpen ? <FaTimes /> : <FaBars />}
-        </button>
-      </div>
-
-      {/* Mobile Navigation - It opens vertically below the hamburger icon */}
-      <div
-  className={`md:hidden ${isOpen ? "block" : "hidden"} absolute top-full left-0 w-full bg-white shadow-lg z-50`} 
-    // `absolute top-full` ensures it opens below the hamburger icon
-      >
-        <NavigationMenu className="w-full">
-          <NavigationMenuList className="text-xl flex flex-col justify-start items-start w-full px-4">
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={cls}>Home</NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/project" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>Explore Projects</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/program" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>
-                  Our Cohorts
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/who-are-we" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>
-                  Who We Are
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-
-      {/* Desktop Navigation - Stays Horizontal */}
-      <div className="hidden md:flex w-full justify-center">
-        <NavigationMenu>
-          <NavigationMenuList className="text-xl flex justify-center">
-            <NavigationMenuItem>
-              <Link href="/project" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>
-                  Explore Projects
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/program" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>
-                  Our Cohorts
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/who-are-we" legacyBehavior passHref>
-                <NavigationMenuLink className={cls}>
-                  Who We Are
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-
-      {/* Button Section */}
-      <div className="flex gap-[24px]">
-        <Link
-          href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
-          target="_blank"
-          className={cn(
-            buttonVariants(),
-            "rounded-[3rem]"
-          )}>
-          Apply Now
-        </Link>
-        <Link
-          href="https://app.amaxaimpact.org"
-          target="_blank"
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "rounded-[3rem]"
-          )}>
-          Login
-        </Link>
-      </div>
-    </header>
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <button className="p-2">
+              <Menu size={24} />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[80%] sm:w-[350px]">
+            <div className="mt-8 flex flex-col gap-6">
+              {navItems.map((item) => (
+                <SheetClose asChild key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-xl font-medium transition-colors hover:text-primary"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </SheetClose>
+              ))}
+              <div className="mt-4 flex flex-col gap-4">
+                <SheetClose asChild>
+                  <ApplyButton variant="color">Apply Now</ApplyButton>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="https://app.amaxaimpact.org"
+                    target="_blank"
+                    className={cn(
+                      buttonVariants({
+                        variant: "outline",
+                        size: "lg",
+                      }),
+                      "w-full rounded-[3rem]",
+                    )}
+                  >
+                    Login
+                  </Link>
+                </SheetClose>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </header>
+    </>
   );
 };
-

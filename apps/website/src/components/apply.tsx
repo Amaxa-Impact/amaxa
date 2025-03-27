@@ -1,15 +1,15 @@
-"use client"
-import { Button } from '@amaxa/ui/button'
-import { ArrowRight } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { usePostHog } from 'posthog-js/react'
-import React from 'react'
+"use client";
+import { Button } from "@amaxa/ui/button";
+import { ArrowRight } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
+import React, { Suspense } from "react";
 
-export const ApplyButton = (props: {
-  variant: "color" | "black" | "long" | "ghost"
-  children: React.ReactNode
+const ApplyButtonContent = (props: {
+  variant: "color" | "black" | "long" | "ghost";
+  children: React.ReactNode;
 }) => {
-  const { variant, children } = props
+  const { variant, children } = props;
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const posthog = usePostHog();
@@ -28,13 +28,14 @@ export const ApplyButton = (props: {
 
   if (variant === "color") {
     return (
-      <button
-        className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 rounded-full border-[1px] border-[#3B3B3B] bg-[#b9d66e] text-[#3B3B3B] font-light hover:bg-[#a8c55f] transition-colors text-sm md:text-base"
+      <Button
+        className="inline-flex items-center  rounded-full border-[1px] border-[#3B3B3B] bg-[#b9d66e] text-[#3B3B3B] font-light hover:bg-[#a8c55f] transition-colors text-sm md:text-base "
+        size={"lg"}
         onClick={onClick}
       >
         {children}
-      </button>
-    )
+      </Button>
+    );
   } else if (variant === "black") {
     return (
       <button
@@ -43,19 +44,16 @@ export const ApplyButton = (props: {
       >
         {children}
       </button>
-    )
+    );
   } else if (variant === "long") {
     return (
-      <button
-        className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 mr-4 rounded-full border-[1px] bg-white border-[#3B3B3B] text-[#3B3B3B] font-light hover:bg-gray-100 transition-colors text-sm md:text-base"
-      >
+      <button className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 mr-4 rounded-full border-[1px] bg-white border-[#3B3B3B] text-[#3B3B3B] font-light hover:bg-gray-100 transition-colors text-sm md:text-base">
         <span>{children}</span>
-        <div
-        >
+        <div>
           <ArrowRight className="w-5 h-5" />
         </div>
       </button>
-    )
+    );
   } else if (variant === "ghost") {
     return (
       <button
@@ -64,9 +62,17 @@ export const ApplyButton = (props: {
       >
         {children}
       </button>
-    )
+    );
   }
-}
+};
 
-
-
+export const ApplyButton = (props: {
+  variant: "color" | "black" | "long" | "ghost";
+  children: React.ReactNode;
+}) => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ApplyButtonContent {...props} />
+    </Suspense>
+  );
+};
