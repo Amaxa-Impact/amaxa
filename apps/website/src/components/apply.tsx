@@ -3,9 +3,9 @@ import { Button } from "@amaxa/ui/button";
 import { ArrowRight } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { usePostHog } from "posthog-js/react";
-import React from "react";
+import React, { Suspense } from "react";
 
-export const ApplyButton = (props: {
+const ApplyButtonContent = (props: {
   variant: "color" | "black" | "long" | "ghost";
   children: React.ReactNode;
 }) => {
@@ -64,4 +64,15 @@ export const ApplyButton = (props: {
       </button>
     );
   }
+};
+
+export const ApplyButton = (props: {
+  variant: "color" | "black" | "long" | "ghost";
+  children: React.ReactNode;
+}) => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ApplyButtonContent {...props} />
+    </Suspense>
+  );
 };
