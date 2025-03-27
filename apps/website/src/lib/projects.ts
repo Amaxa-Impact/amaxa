@@ -259,18 +259,18 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       teammates: "",
       videoUrl: "",
     },
-    spotlightData1: {
-      heading: "TEAM SPOTLIGHT",
-      name: "Meet Panshul, Jad, and Yueqi",
-      ageLocation: "UAE, LEBANON, & CHINA",
-      paragraphs: [
-        `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
-        `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
-        `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`
-      ],
-      teammates: "",
-      videoUrl: "",
-    }
+    // spotlightData: {
+    //   heading: "TEAM SPOTLIGHT",
+    //   name: "Meet Panshul, Jad, and Yueqi",
+    //   ageLocation: "UAE, LEBANON, & CHINA",
+    //   paragraphs: [
+    //     `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
+    //     `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
+    //     `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`
+    //   ],
+    //   teammates: "",
+    //   videoUrl: "",
+    // },
   },
 
   ///NYAKA

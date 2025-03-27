@@ -123,7 +123,7 @@ export default function Page() {
         [
           {
             heading: "Member Spotlight",
-            name: "Meet An Nhi.",
+            name: "How An Nhi Sequestered Carbon by Planting Trees",
             ageLocation: "16, Vietnam",
             paragraphs: [
               `
@@ -137,11 +137,11 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
 `,
             ],
             teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
-            videoUrl: "https://youtube.com/embed/1mNWMKv2xPU?si=7bEp8vcsKRu33eHQ",
+            videoUrl: "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
           },
           {
             heading: "TEAM SPOTLIGHT",
-            name: "Meet Isabella and Zobia.",
+            name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
             ageLocation: "16 & 17, USA",
             paragraphs: [
               "\"Change, in any capacity, can and should start with us.\" -Isabella",
@@ -150,7 +150,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
 `
             ],
             teammates: "",
-            videoUrl: "https://www.youtube.com/embed/4JvjjKaedOo?si=xGQEC2sNu_szlD8E"
+            videoUrl: "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           },
           {
             heading: "TEAM SPOTLIGHT",
@@ -185,7 +185,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           </button>
         </div>
       </section>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </main>
   );
 }

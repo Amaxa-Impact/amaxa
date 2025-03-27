@@ -32,11 +32,23 @@ export const Spotlight = (props: {
         </div>
       </div>
       {/* Right Section */}
-      <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
-        <div className="relative w-full h-full">
-          <iframe src={spotlightData.videoUrl} className="w-full h-full" />
-        </div>
-      </div>
+      <div className="flex justify-center items-center w-full">
+  <div className="relative w-full max-w-3xl">
+    <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+      <iframe
+        src={spotlightData.videoUrl}
+        className="absolute top-0 left-0 w-full h-full"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        allowFullScreen
+        
+      />
+    </div>
+  </div>
+</div>
+
+      
     </section>
+
+    
   )
 }
