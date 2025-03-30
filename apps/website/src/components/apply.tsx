@@ -28,13 +28,14 @@ const ApplyButtonContent = (props: {
 
   if (variant === "color") {
     return (
-      <Button
-        className="inline-flex items-center  rounded-full border-[1px] border-[#3B3B3B] bg-[#b9d66e] text-[#3B3B3B] font-light hover:bg-[#a8c55f] transition-colors text-sm md:text-base "
-        size={"lg"}
+      <button
+
+        className="inline-flex items-center px-5 rounded-[3rem] border-[1px] border-[#3B3B3B] bg-[#b9d66e] text-[#3B3B3B] font-light hover:bg-[#a8c55f] transition-colors text-sm md:text-base "
+     
         onClick={onClick}
       >
         {children}
-      </Button>
+      </button>
     );
   } else if (variant === "black") {
     return (
