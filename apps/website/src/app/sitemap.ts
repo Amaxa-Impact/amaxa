@@ -18,5 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://www.amaxaimpact.org/project",
       lastModified: new Date(),
     },
+
+    {
+      url: "https://www.amaxaimpact.org/newsletter",
+      lastModified: new Date(),
+    },
   ];
 }
