@@ -11,6 +11,7 @@ import Image from "next/image";
 import { FocusCards } from "@/components/ui/focus-cards";
 import { projects } from "~/lib/constants/projects";
 import { Projects } from "../_sections/projects";
+import { ApplyButton } from "~/components/apply";
 
 
 export default function Page() {
@@ -92,15 +93,38 @@ export default function Page() {
 
             <FocusCards cards={projects} />
 
+
+
           </div>
+
+          
 
           
      
       </section>
+
+      
        </div>
 
       
       </section>   
+      <section className="py-16 md:py-24 lg:py-32 bg-[#F5F2F2]">
+        <div className="px-6 md:px-16 lg:px-20">
+          {/* Main heading */}
+          <h2 className="font-normal text-3xl md:text-4xl lg:text-5xl leading-tight text-[#3B3B3B] mb-12 md:mb-16 max-w-5xl">
+            Join us to transform your passion into impact.
+          </h2>
+
+          {/* Button */}
+          <ApplyButton variant="black">Apply Today</ApplyButton>
+          {/* <button ="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F" className="box-border flex justify-center items-center py-3 px-6 bg-white border border-[#3B3B3B] rounded-full">
+            <span className="font-normal text-base md:text-lg text-[#3B3B3B]" >
+              Apply Today →
+            </span>
+          </button> */}
+        </div>
+      </section>
+
     
       {/* FOCUS CARDS */}
   
