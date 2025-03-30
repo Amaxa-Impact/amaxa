@@ -54,16 +54,10 @@ export default function Page() {
         </div>
       </section>
       </div>
-    
-      {/* FOCUS CARDS */}
-  
-      <FocusCards cards={projects} />
 
-
-
-     {/* <section className="container mx-auto flex flex-col">
+      <section className="container mx-auto flex flex-col">
         <div className="text-[#3B3B3B] flex flex-col gap-10 py-10">
-        <section className="w-full py-16 md:py-24 lg:py-32 px-6 md:px-16 lg:px-20">
+        <section className="w-full px-6 md:px-16 lg:px-20">
         <div className="max-w-7xl mx-auto">
       
        
@@ -77,15 +71,9 @@ export default function Page() {
                 <p className="text-lg mb-6 max-w-3xl">
                   We have partnered with nonprofits in
                   Palestine, Liberia, and Uganda whose <strong>community-founded
-                  solutions are innovative in their fields</strong>, such as ISNAD
-                  Community Center's approach to community-based learning, the
-                  first in its area, and the Nyaka School's holistic approach to
-                  supporting AIDS-affected communities.
-                </p>
-                <p className="text-lg mb-6 max-w-3xl">
-                 <strong> Where we spotted gaps in high-impact projects that our members
-                  wanted to work on, we created our own. </strong> Led by COO
-                  Alexi Jones, we have launched three new initiatives in 2024,
+                  solutions are innovative in their fields</strong>, and 
+                  where we spotted gaps in high-impact projects that our members
+                  wanted to work on, we launched original initiatives
                   focusing on <strong>mental health, feminism, and LBGTQ+
                   representation.</strong>
                 </p>
@@ -94,16 +82,32 @@ export default function Page() {
                   className="inline-flex items-center justify-center px-6 py-2 bg-[#BCD96C] rounded-full text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
                 >
                   Explore All Projects →
-                </a> 
+                </a>  */}
+                <p className="text-lg mb-6 max-w-3xl"> <strong>Hover or click</strong> below to discover each project.
+</p>
+                
+                
               </div>
             </div>
+
+            <FocusCards cards={projects} />
+
           </div>
+
+          
      
       </section>
        </div>
 
       
-      {/* </section>   */}
+      </section>   
+    
+      {/* FOCUS CARDS */}
+  
+
+
+
+
 
 
       
