@@ -5,6 +5,7 @@ export interface SpotlightData {
   paragraphs: string[];
   teammates: string;
   videoUrl: string;
+  imageUrl: string;
 }
 
 export interface HomePageData {
@@ -47,15 +48,15 @@ export const projects: HomePageData[] = [
     ],
     spotlightData: {
       heading: "MEMBER SPOTLIGHT",
-      name: "Meet Saachi.",
-      ageLocation: "16, USA",
+      name: '"It’s great to spread awareness, like mental health month, but not everybody that spreads awareness understands the underlying factors, how to recognize different symptoms."',
+      ageLocation: "Katelyn & Saachi, 16, USA",
       paragraphs: [
-        "“It’s great to spread awareness, like mental health month, but also not everybody that spreads awareness understands the true underlying factors that go with mental health issues, how to recognize different symptoms. I really like how this project is conveying that spreading awareness is just not enough in order for people to truly understand mental illness.”",
-        "Saachi led a workshop for 60 students and teachers at her school on a OneLove module about toxic relationships. To accomplish this, she got certified through the OneLove 18-hour intense training, successfully advertised her event at her school, and delivered the workshop and facilitated students’ journeys towards also getting certified.",
-        "Saachi is continuing her work as an Ámaxa Student Ambassador to build a mental health first aid organization in her commuinty.",
+        "Katelyn and Saachi each led Mental Health First Aid workshops at their school. Katelyn focused on mental health in teens and researched to create a presentation customized to her classmates. Saachi organized a presentation for 60 students and teachers on a OneLove module about toxic relationships. To accomplish this, she got certified through the OneLove 18-hour intense training, successfully advertised her event at her school, and delivered the workshop and facilitated students’ journeys towards also getting certified.",
+        "Katelyn and Saachi are both continuing their work as Ámaxa Student Ambassadors to build mental health first aid education in their communities and help with other ámaxa projects.",
       ],
       teammates: "Teammates: Katelyn (17, USA)",
       videoUrl: "", // optional if you don't have a video
+      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToObhdMb21GJYz53Zj29dWSqKCX7LVDQIvxtlcN",
     },
   },
   
@@ -71,7 +72,7 @@ export const projects: HomePageData[] = [
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYEdEXWwlUs9XMErKJv7Faw8TpfmyuG5lVHhq",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Plant trees & track carbon sequestration with ámaxa’s Global Forest initiative.",
+      "Ámaxa Global Forest: Planting Trees and Tracking Carbon Sequestration",
     solutionParagraphs: [
       `Trees sequester carbon dioxide. You probably know this. However, to
             fight the climate crisis, we need to know more. Each species of tree
@@ -96,7 +97,8 @@ export const projects: HomePageData[] = [
       paragraphs: [`Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.`,
         `Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.`,`By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.`],
       teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
-      videoUrl: "https://youtube.com/embed/1mNWMKv2xPU?si=7bEp8vcsKRu33eHQ",
+      videoUrl: "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+      imageUrl: "",
     },
   },
 
@@ -115,7 +117,7 @@ export const projects: HomePageData[] = [
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkD4GobRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Karina’s Library: Empowering Minds, Inspiring Equality",
+      "Karina’s Library: Empowering Women, Fighting against Censorship",
     solutionParagraphs: [
       "Feminism tends to mean different things to different people. For our late Chief Partnerships Officer, Karina Miszori, it represented a calling. Karina ardently believed in, and fought for, a world in which equality was the norm and women were educated, empowered, and equal in every facet of life. This project is in honor of Karina, and the world she envisioned.",
       "Karina’s Library is centered on representation and education and is one of ámaxa’s newest projects. ámaxa teams will begin by researching and creating a reading list to work with. The reading list will be comprehensive. For younger children, the goal is simply to find books that feature multifaceted girls in positions of empowerment, while also pushing back against some of the damaging narratives that girls are all too often introduced to at a young age. For example, Gertrude McFuzz by Dr. Seuss follows a bird who wishes she could look “more beautiful” by having more feathers. As the story progresses, she realizes that having more feathers infringes on some of her previous abilities and her interactions with others. It’s a great story to start dispelling negative beauty standards for younger readers. For older readers, the list may delve into works that are not only narratives, but also social commentary. The Handmaid’s Tale by Margaret Atwood is a well-known example that would be on this portion of the list.",
@@ -130,6 +132,7 @@ export const projects: HomePageData[] = [
       ],
       teammates: "",
       videoUrl: "",
+      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONo9rE8DesbBzAkMUD2VgJC8t15PQoqpLNrjf",
     },
   },
 
@@ -153,14 +156,16 @@ export const projects: HomePageData[] = [
     ],
     spotlightData: {
       heading: "PROJECT STORY",
-      name: "Hear from COO Lexi on why she founded this project.",
+      name: '"I am living proof that diverse storytelling and storytellers matter."',
       ageLocation: "",
       paragraphs: [
-        "I am living proof that diverse storytelling and storytellers matter. So often, we fear, and discriminate and hate out of lack of understanding and lack of exposure. In the divisive climate we exist in today, art is one of the best ways for all of us to look beyond our own hometowns, beliefs, cultures, and personal stories and absorb what may be different, new or foreign to us. Along the way, art also tends to show us that we are all connected, and that hope and frustration, joy and anger, longing, and most of all, love, are universal. The best art makes us feel deeply, and at times makes us see the world around us differently – I know that’s certainly what it has done for me.",
+        "So often, we fear, and discriminate and hate out of lack of understanding and lack of exposure. In the divisive climate we exist in today, art is one of the best ways for all of us to look beyond our own hometowns, beliefs, cultures, and personal stories, and it tends to show us that we are all connected, and that hope and frustration, joy and anger, longing, and most of all, love, are universal. The best art makes us feel deeply, and at times makes us see the world around us differently – I know that’s certainly what it has done for me.",
         "I believe in the power of art, and I also believe that that power cannot be unleashed fully until we reach an equality of opportunity in the arts and entertainment industry. This project is my love letter to the arts, and my small way of moving towards a world where every story and every creator gets a chance.",
+        "-- Alexi Jones, ámaxa COO"
       ],
       teammates: "",
       videoUrl: "",
+      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVjq7wWL0MYRHUetxwcyzJn3h7alsSdIDAKfq",
     },
   },
 
@@ -179,7 +184,7 @@ export const projects: HomePageData[] = [
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaifCsCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Unlocking potential: sponsoring Liberian students' education",
+      "Unlocking Potential: Sponsoring Liberian Students' Education",
     solutionParagraphs: 
     ["In Liberia, education is not something to be taken for granted. The long-lasting effects of a 14-year civil war, compounded by the 2014 school closure due to the Ebola outbreak, had a huge impact on the education system.” Many schools were damaged or destroyed, and many teachers fled the country or changed careers. As a result, many schools closed, and many of the schools that stayed open are concentrated in urban areas. Now take all of those damaging factors, and add in cost. According to Insights Liberia, “Poverty is a major barrier to education in Liberia. Many children are unable to attend school due to the costs associated with uniforms, books, and other supplies.",
       "Enter Educate Children. Educate Children works to improve access to and quality of education for primary-age children in Liberia’s slum communities. They develop programs to increase enrollment, enhance quality of instruction, and improve learning outcomes in primary schools. ámaxa teams work to raise funds to pay tuition costs for Liberian students within Educate Children’s communities of focus. One year of tuition is only $80, and we don’t want financial costs to be the reason any child does not receive an education.",
@@ -191,10 +196,11 @@ export const projects: HomePageData[] = [
       ageLocation: "MONROVIA, LIBERIA",
       paragraphs: [
         "Our partner Educhildren, founded by Monrovia native Sekou Jabateh, employs a community-based approach to ensuring students have the funds to attend school.",
-        "Enrollment Through Local Philanthropy (ETLP) is their primary program. It aims to increase primary school enrollment through local philanthropy within Liberia. Through a system of Volunteers Operation, we identify primary-age children (5-11years) in specific slum communities who are not enrolled in school, or have dropped out of school. We conduct assessment studies to identify cases where this is due to economic constraints.  Educate Children then identifies sponsors who support these children through school, and pair them with the children. Sponsors range from local donors to philanthropists, humanitarians, well-meaning individuals as well as corporate social responsibilities. Our pairing system emphasizes constant interaction between sponsors and their beneficiaries, allowing sponsors to track the progress of the children they are supporting in school.",
+        "Enrollment Through Local Philanthropy (ETLP) is their primary program. It aims to increase primary school enrollment through local philanthropy within Liberia. Through a system of Volunteers Operation, they identify primary-age children (5-11years) in specific slum communities who are not enrolled in school or have dropped out. They conduct assessment studies to identify cases where this is due to economic constraints, identifies sponsors who can support these children through school, and pairs them with the children. Sponsors range from local donors to philanthropists, humanitarians, or corporate donors. Our pairing system emphasizes constant interaction between sponsors and their beneficiaries, allowing sponsors to track the progress of the children they are supporting in school.",
       ],
       teammates: "",
       videoUrl: "",
+      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXz7Z5s0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
     },
   },
 
@@ -210,7 +216,7 @@ export const projects: HomePageData[] = [
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVSuAZzWL0MYRHUetxwcyzJn3h7alsSdIDAKf", // Using the same image as ISNAD for now
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Feeding Gaza: support for families during the ongoing genocide",
+      "Feeding Gaza: Support for Families Enduring Genocide",
     solutionParagraphs: [
       "ámaxa members on the Gaza project team are urgently raising funds to support families trapped in Gaza amidst the ongoing humanitarian crisis. For the Summer 2024 cohort, the team focused on raising money. The funds will go to two families we connected with through our partner: Gaza Champions. These funds are crucial for providing immediate essentials, such as food, to prevent starvation and meet basic needs. Once borders open again, funds can go towards paying the $5000 fee to Egypt required to flee across the border.",
       "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
@@ -227,7 +233,8 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
 `
             ],
             teammates: "",
-            videoUrl: "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            videoUrl: "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+            imageUrl: "",
           },
   },
 
@@ -242,7 +249,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     imageSrc: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
-      "Expanding learning and community: Opening the Window for Palestinian students",
+      "Expanding Learning and Community: Opening the Window for Palestinian Students",
     solutionParagraphs: [
       "Although ámaxa has been working with ISNAD from its very first cohort, we strongly believe that the partnership is more important today than ever. Due to the Israeli occupation, most Palestinians can’t travel outside of Palestine. This, in conjunction with the war currently going on, has made many Palestinian students feel more isolated than ever. It has also made consistent, high-quality education a struggle, as the unpredictability of war affects every aspect of students’ lives.",
       "Ámaxa teams work with ISNAD Community Education Center to connect Palestinian students with other students from around the globe. These connections not only help Palestinian students feel a bit less isolated, but also help ámaxa students get a clearer understanding of what Palestinians are going through, and the gravity of the situation there. Students in the past have helped teach English, increased the community center’s presence on social media, and worked to create Accesifyed: an interactive website to host custom English lessons for Palestinian students.",
@@ -254,10 +261,12 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       ageLocation: "DAHRIA, WEST BANK, PALESTINE",
       paragraphs: [
         "The ISNAD Community Education Center works to fill educational gaps in Dahria, a town south of Hebron in the West Bank. The center is the first of its kind in the area to combine in-class and community-based learning to promote both learning and community development using a variety of formal and informal approaches. The center aims at strengthening the educational capabilities and skills of students of different age categories through a variety of specialized training courses in fields like languages, social media, planning, and arts. It also aims to enhance youth engagement in their communities through organizing voluntary initiatives and interventions in different localities.",
-        "However, due to the Israeli crackdown in the West Bank during the ongoing war in Gaza, ISNAD has had to halt all education programming. They are now working to enable Palestinians to grow their own food in order to survive, as Israeli checkpoints and violence have kept families from working, unable to earn income to feed their families. Support their efforts today.",
+        "However, due to the Israeli crackdown in the West Bank during the ongoing war in Gaza, ISNAD has had to halt all education programming. They are now working to enable Palestinians to grow their own food in order to survive, as Israeli checkpoints and violence have kept families from working, unable to earn income to feed their families.",
+        "To donate to ISNAD's ongoing fundraiser, click here: https://www.gofundme.com/f/community-initiative-in-palestine"
       ],
       teammates: "",
-      videoUrl: "",
+      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F100069028646748%2Fvideos%2F690298715849152%2F&show_text=true&width=560&t=0",
+      imageUrl: "",
     },
     // spotlightData: {
     //   heading: "TEAM SPOTLIGHT",
@@ -270,6 +279,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     //   ],
     //   teammates: "",
     //   videoUrl: "",
+    //   imageUrl: "",
     // },
   },
 
@@ -300,6 +310,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       ],
       teammates: "",
       videoUrl: "https://www.youtube.com/embed/70DQMda5USs",
+      imageUrl: "",
     },
   },
 
@@ -328,7 +339,8 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
         "Ukrainian Action is a volunteer-run, US nonprofit and UK charity that is dedicated to supporting Ukraine. They regularly drive and donate vehicles filled with humanitarian and medical supplies to the country, and support local reconstruction and healthcare projects.",
       ],
       teammates: "",
-      videoUrl: "",
+      videoUrl: "https://www.youtube.com/embed/9tU1hwlqeZs?si=ANgdl4fKDwrkDN_f",
+      imageUrl: "",
     },
   },
 

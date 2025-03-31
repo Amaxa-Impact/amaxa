@@ -22,7 +22,7 @@ export const Navbar = () => {
     { href: "/project", label: "Explore Projects" },
     { href: "/program", label: "Our Cohorts" },
     { href: "/who-we-are", label: "Who We Are" },
-    { href: "/newsletter", label: "Our Awesome Newsletters" },
+    { href: "/newsletter", label: "Our Newsletter" },
   ];
 
   return (
@@ -51,18 +51,19 @@ export const Navbar = () => {
 
         <div className="flex flex-row gap-[24px]">
           <ApplyButton variant="color">Apply Now</ApplyButton>
-          <Link
+          {/* <Link
             href="https://app.amaxaimpact.org"
             target="_blank"
             className={cn(
               buttonVariants({
                 variant: "outline",
+                size: "lg",
               }),
               "rounded-[3rem]",
             )}
           >
             Login
-          </Link>
+          </Link> */}
         </div>
       </header>
 

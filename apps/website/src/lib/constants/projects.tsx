@@ -8,14 +8,14 @@ export const projects = [
     category: "PARTNER: GAZA CHAMPIONS",
     id: "gaza",
     link: "/project/gaza",
-    title: "Feeding Gaza: support for families in crisis",
+    title: "Feeding Gaza: Support for Families in Crisis",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVSuAZzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
     content: <Gaza />,
   },
   {
     category: "PARTNER: NYAKA GLOBAL",
     id: "nyaka",
-    title: "Giving light: Solar solutions for Ugandan women",
+    title: "Giving Light: Solar Solutions for Ugandan Grandmothers",
     link: "/project/nyaka",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXM5a2R0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
     content: (
@@ -30,7 +30,7 @@ export const projects = [
   },
   {
     category: "PARTNER: UKRAINIAN ACTION",
-    title: "Frontline support: urgent medical aid to Ukrainians caught in the crossfire",
+    title: "Frontline Support: Urgent Medical Aid to Ukrainians Caught in the Crossfire",
     id: "ukraine",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFSqz9DhMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
     link: "/project/ukraine",
@@ -67,7 +67,7 @@ export const projects = [
     id: "global-forest",
     link: "/project/global-forest",
     title:
-      "Global Forest: Planting trees and tracking carbon sequestration",
+      "Ámaxa Global Forest: Planting Trees and Tracking Carbon Sequestration",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYEdEXWwlUs9XMErKJv7Faw8TpfmyuG5lVHhq",
     content: (
       <ProjectContentShell
@@ -83,7 +83,7 @@ export const projects = [
     category: "PARTNER: ISNAD EDUCATION CENTER",
     id: "isnad",
     title:
-      "Expanding learning and community: comprehensive support for Palestinian students",
+      "Expanding Learning and Community: Opening the Window for Palestinian Students",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
     link: "/project/isnad",
     content: (
@@ -116,7 +116,7 @@ export const projects = [
 
   {
     category: "ÁMAXA ORIGINAL INITIATIVE",
-    title: "Mental Health First Aid: Mind matters, research, expert opinions, and peer to peer education",
+    title: "Mental Health First Aid: Research, Expert Opinions, & Peer-to-Peer Education",
     id: "mhfa",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOkX5KHvRePnYWC5xuvVyLTmQRSKBf6hsFkHJO",
     link: "/project/mhfa",
@@ -133,7 +133,7 @@ export const projects = [
 
   {
     category: "PARTNER: EDUCHILDREN",
-    title: "Unlocking potential: sponsoring Liberian students' education",
+    title: "Unlocking Potential: Sponsoring Liberian Students' Education",
     id: "educhildren",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaifCsCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
     link: "/project/educhildren",

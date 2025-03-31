@@ -81,11 +81,36 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
           </div>
         </div>
         {/* Right Section */}
-        <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+        {/* <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
           <div className="relative w-full h-full">
             <iframe src={spotlightData.videoUrl} className="w-full h-full" />
           </div>
+        </div> */}
+
+         {/* Right: Video or Image */}
+      <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+        <div className="relative w-full h-full">
+          {spotlightData.videoUrl ? (
+            <iframe
+              src={spotlightData.videoUrl}
+              className="relative w-full h-full"
+              allowFullScreen
+            />
+          ) : spotlightData.imageUrl ? (
+            <Image
+              src={spotlightData.imageUrl}
+              width= {1000}
+              height={1000}
+              alt={spotlightData.name}
+              className="w-full h-full rounded-lg shadow-md"
+            />
+          ) : (
+            <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
+              No media available
+            </div>
+          )}
         </div>
+      </div>
       </section>
       {
         spotlightData1 ?
@@ -116,11 +141,37 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
               </div>
             </div>
 
-            <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+            {/* <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
               <div className="relative w-full h-full">
                 <iframe src={spotlightData1.videoUrl} className="w-full h-full" />
               </div>
+            </div> */}
+
+                 {/* Right: Video or Image */}
+      <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+        <div className="relative w-full h-auto">
+          {spotlightData1.videoUrl ? (
+            <iframe
+              src={spotlightData1.videoUrl}
+              className="w-full h-full"
+              allowFullScreen
+            />
+          ) : spotlightData1.imageUrl ? (
+            <Image
+              src={spotlightData1.imageUrl}
+              alt={spotlightData1.name}
+              className="w-full h-full rounded-lg shadow-md"
+            />
+          ) : (
+            <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
+              No media available
             </div>
+          )}
+        </div>
+      </div>
+
+
+
           </section>
           : null
       }
