@@ -1,13 +1,15 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "extends": ["//"],
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "next-env.d.ts"]
+  "extends": "@amaxa/tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "dom", "dom.iterable"],
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
     },
-    "dev": {
-      "persistent": true
-    }
-  }
+    "plugins": [{ "name": "next" }],
+    "module": "esnext"
+  },
+  "include": [".", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
