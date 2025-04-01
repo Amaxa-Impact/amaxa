@@ -6,7 +6,6 @@ import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 import type { AppRouter } from "@amaxa/api";
 import { appRouter, createTRPCContext } from "@amaxa/api";
-import { auth } from "@amaxa/auth";
 
 import { createQueryClient } from "./query-client";
 
@@ -19,7 +18,6 @@ const createContext = cache(async () => {
   heads.set("x-trpc-source", "rsc");
 
   return createTRPCContext({
-    session: await auth(),
     headers: heads,
   });
 });

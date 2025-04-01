@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import type { TaskStatus } from "@amaxa/db/schema";
-import { auth } from "@amaxa/auth";
+import { getSession } from "@amaxa/auth";
 import { buildConflictUpdateColumns } from "@amaxa/db";
 import { db } from "@amaxa/db/client";
 import { edges, tasks } from "@amaxa/db/schema";
@@ -53,7 +53,7 @@ type InputProps = z.infer<typeof schema>;
 
 export async function saveTasks(data: InputProps) {
   try {
-    const session = await auth();
+    const session = await getSession();
     if (!session?.user) {
       throw new Error("User is not authenticated");
     }
