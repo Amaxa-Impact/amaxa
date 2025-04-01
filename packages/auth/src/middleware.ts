@@ -5,6 +5,14 @@ import { NextResponse } from "next/server";
 export const client = createAuthClient();
 
 export async function authMiddleware(request: NextRequest) {
+  // Check if the request is for a public route
+  const url = new URL(request.url);
+  const publicPaths = ["/sign-in", "/sign-up", "/api/auth"];
+  
+  if (publicPaths.some(path => url.pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+
   /**
    * This is an example of how you can use the client to get the session
    * from the request headers.
@@ -19,6 +27,7 @@ export async function authMiddleware(request: NextRequest) {
     },
   });
   if (!session || !session.user) {
-    NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL("/sign-in", request.url));
   }
+  return NextResponse.next();
 }
