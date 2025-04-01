@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { useState } from "react";
 import { api as trpc } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,13 +48,15 @@ export default function CreateActionGuide() {
   });
 
   const queryClient = useQueryClient();
-  const createGuide = useMutation(trpc.actionGuides.create.mutationOptions({
-    onSuccess: () => {
-      setOpen(false);
-      void queryClient.invalidateQueries(trpc.actionGuides.pathFilter());
-      form.reset();
-    },
-  }));
+  const createGuide = useMutation(
+    trpc.actionGuides.create.mutationOptions({
+      onSuccess: () => {
+        setOpen(false);
+        void queryClient.invalidateQueries(trpc.actionGuides.pathFilter());
+        form.reset();
+      },
+    }),
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     createGuide.mutate({

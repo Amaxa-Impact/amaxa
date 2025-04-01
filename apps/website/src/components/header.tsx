@@ -1,18 +1,21 @@
 "use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Menu } from "lucide-react";
+
 import { cn } from "@amaxa/ui";
 import { buttonVariants } from "@amaxa/ui/button";
-import Link from "next/link";
 import {
-  navigationMenuTriggerStyle,
   NavigationMenu,
-  NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
 } from "@amaxa/ui/navigation-menu";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@amaxa/ui/sheet";
+
 import { ApplyButton } from "./apply";
-import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@amaxa/ui/sheet";
-import { useState } from "react";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);

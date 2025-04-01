@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin"
+import plugin from "tailwindcss/plugin";
 
 import baseConfig from "@amaxa/tailwind-config/web";
 
@@ -92,7 +92,7 @@ export default {
           "scrollbar-width": "none" /* Firefox */,
           "-ms-overflow-style": "none" /* IE and Edge */,
         },
-      })
+      });
     }),
   ],
 } satisfies Config;

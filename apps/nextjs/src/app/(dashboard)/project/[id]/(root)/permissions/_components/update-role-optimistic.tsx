@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -26,15 +26,17 @@ export const UpdateRole = (props: {
   const utils = api.useUtils();
   const router = useRouter();
 
-  const { mutate: update } = useMutation(api.users.updateProjectStatus.mutationOptions({
-    onSuccess: () => {
-      void utils.users.findUsersForProject.invalidate();
-      router.refresh();
-    },
-    onError() {
-      toast.error("Error");
-    },
-  }));
+  const { mutate: update } = useMutation(
+    api.users.updateProjectStatus.mutationOptions({
+      onSuccess: () => {
+        void utils.users.findUsersForProject.invalidate();
+        router.refresh();
+      },
+      onError() {
+        toast.error("Error");
+      },
+    }),
+  );
 
   function onSubmit(e: string) {
     const permission = e as ProjectRoles;

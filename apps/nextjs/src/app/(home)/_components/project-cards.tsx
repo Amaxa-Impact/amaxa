@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,9 +10,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function ProjectCards() {
   const trpc = useTRPC();
-  const {
-    data: data
-  } = useSuspenseQuery(api.projects.findAll.queryOptions({}));
+  const { data: data } = useSuspenseQuery(
+    api.projects.findAll.queryOptions({}),
+  );
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">

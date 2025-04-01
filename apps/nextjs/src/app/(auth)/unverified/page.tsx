@@ -9,7 +9,7 @@ import { checkAuth } from "~/lib/auth";
 export default async function Component() {
   const auth = await checkAuth();
 
-  if (auth?.user.status === "Unverified" || auth?.user.status === "Pending") {
+  if (auth.user.status === "Unverified" || auth.user.status === "Pending") {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4 dark:bg-neutral-900">
         <div className="w-full max-w-md space-y-8 text-center">

@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { useState } from "react";
 
 import { Button } from "@amaxa/ui/button";
@@ -27,15 +27,15 @@ import { useMutation } from "@tanstack/react-query";
 export function UserManagement() {
   const trpc = useTRPC();
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
-  const {
-    data: users
-  } = useSuspenseQuery(api.users.getUsers.queryOptions());
+  const { data: users } = useSuspenseQuery(api.users.getUsers.queryOptions());
   const utils = api.useUtils();
-  const deleteUser = useMutation(api.users.deleteUser.mutationOptions({
-    onSuccess: () => {
-      utils.users.invalidate();
-    },
-  }));
+  const deleteUser = useMutation(
+    api.users.deleteUser.mutationOptions({
+      onSuccess: () => {
+        utils.users.invalidate();
+      },
+    }),
+  );
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this user?")) {

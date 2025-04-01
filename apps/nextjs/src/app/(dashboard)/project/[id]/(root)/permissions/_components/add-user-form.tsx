@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import React, { useState } from "react";
 import { revalidateTag } from "next/cache";
 import { useParams } from "next/navigation";
@@ -71,17 +71,19 @@ export default function AddUserForm({
     resolver: zodResolver(addUserSchema),
   });
 
-  const { mutate: create } = useMutation(api.users.joinProject.mutationOptions({
-    onSuccess: () => {
-      setOpen(false);
-      revalidateTag("getUserProjects");
-    },
-    onError: () => {
-      toast.error("error");
-      revalidateTag("getUserProjects");
-      setOpen(false);
-    },
-  }));
+  const { mutate: create } = useMutation(
+    api.users.joinProject.mutationOptions({
+      onSuccess: () => {
+        setOpen(false);
+        revalidateTag("getUserProjects");
+      },
+      onError: () => {
+        toast.error("error");
+        revalidateTag("getUserProjects");
+        setOpen(false);
+      },
+    }),
+  );
 
   function onSubmit(data: AddUserForm) {
     create({

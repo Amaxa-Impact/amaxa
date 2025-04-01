@@ -35,7 +35,7 @@ export const ProjectContentShell = (props: {
             {props.content.map((content) => (
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                  <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     {content}
                   </p>
                 </div>

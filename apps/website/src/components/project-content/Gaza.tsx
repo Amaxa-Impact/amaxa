@@ -8,7 +8,7 @@ export function Gaza() {
           <div className="grid w-full gap-8">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   ámaxa members on the Gaza project team are urgently raising
                   funds to support families trapped in Gaza amidst the ongoing
                   humanitarian crisis. For the Summer 2024 cohort, the team
@@ -21,7 +21,7 @@ export function Gaza() {
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   This initiative represents one of Ámaxa’s most critical and
                   urgent efforts, and is unique in its directness and ability to
                   make a difference quickly. This direct and personal approach
@@ -37,7 +37,7 @@ export function Gaza() {
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   At ámaxa, we believe in the power of direct action and the
                   importance of community-driven support. The Gaza fundraising
                   project is not just about providing financial assistance; it’s

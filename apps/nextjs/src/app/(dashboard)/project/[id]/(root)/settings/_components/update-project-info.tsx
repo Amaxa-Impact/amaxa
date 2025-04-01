@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -59,15 +59,17 @@ export function ProjectDetailsForm({
   });
 
   const utils = api.useUtils();
-  const { mutate, isPending } = useMutation(api.projects.update.mutationOptions({
-    onSuccess: async () => {
-      await utils.projects.invalidate();
-      toast("Success!");
-    },
-    onError: (err) => {
-      toast(err.message);
-    },
-  }));
+  const { mutate, isPending } = useMutation(
+    api.projects.update.mutationOptions({
+      onSuccess: async () => {
+        await utils.projects.invalidate();
+        toast("Success!");
+      },
+      onError: (err) => {
+        toast(err.message);
+      },
+    }),
+  );
 
   return (
     <Card>

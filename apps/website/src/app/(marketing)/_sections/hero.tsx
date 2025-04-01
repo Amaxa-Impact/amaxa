@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { ApplyButton } from "~/components/apply";
 
 interface ContentItem {
@@ -13,9 +15,9 @@ interface ContentItem {
 // Enhanced typewriter hook that supports manual navigation
 const useTypewriter = (
   texts: string[],
-  typingSpeed: number = 50,
-  deletingSpeed: number = 30,
-  delayAfterTyping: number = 1500
+  typingSpeed = 50,
+  deletingSpeed = 30,
+  delayAfterTyping = 1500,
 ) => {
   const [displayedText, setDisplayedText] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -44,7 +46,7 @@ const useTypewriter = (
         // Continue typing
         timeout = setTimeout(() => {
           setDisplayedText(
-            currentText?.substring(0, displayedText.length + 1) as string
+            currentText?.substring(0, displayedText.length + 1)!,
           );
         }, typingSpeed);
       }
@@ -62,7 +64,9 @@ const useTypewriter = (
       } else {
         // Continue deleting
         timeout = setTimeout(() => {
-          setDisplayedText(displayedText.substring(0, displayedText.length - 1));
+          setDisplayedText(
+            displayedText.substring(0, displayedText.length - 1),
+          );
         }, deletingSpeed);
       }
     }
@@ -97,8 +101,7 @@ const content: ContentItem[] = [
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFSqz9DhMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
-    statement:
-      "I provided medical supplies to Ukrainians.",
+    statement: "I provided medical supplies to Ukrainians.",
   },
   {
     image:
@@ -118,20 +121,17 @@ const content: ContentItem[] = [
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
-    statement:
-      "I helped students in the West Bank build community.",
+    statement: "I helped students in the West Bank build community.",
   },
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYEdEXWwlUs9XMErKJv7Faw8TpfmyuG5lVHhq",
-    statement:
-      "I planted a tree in my community to sequester CO2.",
+    statement: "I planted a tree in my community to sequester CO2.",
   },
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8el17ogjXRpn0dgo1l6KOV2DuqGLya94cMIf",
-    statement:
-      "I helped promote diverse storytelling & LGBTQ+ creatives.",
+    statement: "I helped promote diverse storytelling & LGBTQ+ creatives.",
   },
 ];
 
@@ -141,8 +141,11 @@ const ImpactSection: React.FC = () => {
   const [direction, setDirection] = useState<number>(1);
 
   // Use the enhanced typewriter hook
-  const { text: typedText, currentIndex: activeIndex, jumpToIndex } =
-    useTypewriter(statements, 40, 20, 2000);
+  const {
+    text: typedText,
+    currentIndex: activeIndex,
+    jumpToIndex,
+  } = useTypewriter(statements, 40, 20, 2000);
 
   // Calculate previous and next indices
   const prevIndex: number = (activeIndex - 1 + content.length) % content.length;
@@ -186,51 +189,45 @@ const ImpactSection: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-16 lg:py-24 flex flex-col lg:flex-row items-center justify-between">
-      <div className="w-full lg:w-1/2 mb-10 lg:mb-0 lg:pr-8">
-        <div className="max-w-xl mx-auto lg:mx-0">
-          <p className="text-gray-700 text-lg md:text-xl pb-4 md:pb-8">
-            Change{" "}
-            <span className="font-thin">"I wish I could help"</span> to
+    <div className="container mx-auto flex flex-col items-center justify-between px-4 py-12 md:py-16 lg:flex-row lg:py-24">
+      <div className="mb-10 w-full lg:mb-0 lg:w-1/2 lg:pr-8">
+        <div className="mx-auto max-w-xl lg:mx-0">
+          <p className="pb-4 text-lg text-gray-700 md:pb-8 md:text-xl">
+            Change <span className="font-thin">"I wish I could help"</span> to
           </p>
 
           {/* Rotating impact statement with typewriter effect */}
-          <div className="h-[120px] sm:h-[150px] md:h-[180px] flex items-center py-4 md:py-8">
-            <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 leading-tight">
+          <div className="flex h-[120px] items-center py-4 sm:h-[150px] md:h-[180px] md:py-8">
+            <h2 className="text-xl font-bold leading-tight text-gray-800 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl">
               {typedText}
               <span className="animate-blink">|</span>
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-3 md:gap-4 pt-4 md:pt-8">
+          <div className="flex flex-wrap gap-3 pt-4 md:gap-4 md:pt-8">
             <React.Suspense fallback={<div>Loading...</div>}>
-
-              <ApplyButton
-                variant="color"
-              >
+              <ApplyButton variant="color">
                 Join Us <span className="ml-2">→</span>
               </ApplyButton>
             </React.Suspense>
 
             <Link
               href="/project"
-              className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 md:py-3 rounded-full border-[1px] border-[#3B3B3B] text-[#] font-light hover:bg-gray-100 transition-colors text-sm md:text-base"
+              className="inline-flex items-center rounded-full border-[1px] border-[#3B3B3B] px-5 py-2 text-sm font-light text-[#] transition-colors hover:bg-gray-100 sm:px-6 md:px-8 md:py-3 md:text-base"
             >
               Explore All Projects <span className="ml-2">→</span>
             </Link>
           </div>
 
           {/* Carousel indicators */}
-          <div className="flex gap-2 mt-6 md:mt-8 justify-center lg:justify-start">
+          <div className="mt-6 flex justify-center gap-2 md:mt-8 lg:justify-start">
             {content.map((_, index) => (
               <button
                 key={index}
                 onClick={() => navigateTo(index)}
-                className={`w-2 md:w-2.5 h-2 md:h-2.5 rounded-full transition-colors duration-300
-                          ${index === activeIndex
-                    ? "bg-gray-800"
-                    : "bg-gray-300"
-                  }`}
+                className={`h-2 w-2 rounded-full transition-colors duration-300 md:h-2.5 md:w-2.5 ${
+                  index === activeIndex ? "bg-gray-800" : "bg-gray-300"
+                }`}
                 aria-label={`Slide ${index + 1}`}
               />
             ))}
@@ -238,7 +235,7 @@ const ImpactSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/2 relative">
+      <div className="relative w-full lg:w-1/2">
         <div className="relative mx-auto flex items-center justify-center">
           {/* Responsive image carousel */}
           <div className="flex items-center justify-center">
@@ -248,7 +245,7 @@ const ImpactSection: React.FC = () => {
               initial="initial"
               animate="animate"
               whileHover="hover"
-              className="hidden sm:block rounded-[16px] overflow-hidden cursor-pointer z-10 border-2 border-white shadow-md"
+              className="z-10 hidden cursor-pointer overflow-hidden rounded-[16px] border-2 border-white shadow-md sm:block"
               style={{
                 width: "min(120px, 20vw)",
                 height: "min(160px, 26vw)",
@@ -258,7 +255,7 @@ const ImpactSection: React.FC = () => {
               onClick={() => navigateTo(prevIndex)}
             >
               <Image
-                src={content[prevIndex]?.image as string}
+                src={content[prevIndex]?.image!}
                 alt="Previous"
                 fill
                 priority
@@ -277,7 +274,7 @@ const ImpactSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="rounded-[20px] overflow-hidden z-20 border-2 border-white shadow-lg"
+                className="z-20 overflow-hidden rounded-[20px] border-2 border-white shadow-lg"
                 style={{
                   width: "min(280px, 70vw)",
                   height: "min(350px, 90vw)",
@@ -286,8 +283,8 @@ const ImpactSection: React.FC = () => {
                 }}
               >
                 <Image
-                  src={content[activeIndex]?.image as string}
-                  alt={content[activeIndex]?.statement as string}
+                  src={content[activeIndex]?.image!}
+                  alt={content[activeIndex]?.statement!}
                   fill
                   priority
                   sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 280px"
@@ -303,7 +300,7 @@ const ImpactSection: React.FC = () => {
               initial="initial"
               animate="animate"
               whileHover="hover"
-              className="hidden sm:block rounded-[16px] overflow-hidden cursor-pointer z-10 border-2 border-white shadow-md"
+              className="z-10 hidden cursor-pointer overflow-hidden rounded-[16px] border-2 border-white shadow-md sm:block"
               style={{
                 width: "min(120px, 20vw)",
                 height: "min(160px, 26vw)",
@@ -313,7 +310,7 @@ const ImpactSection: React.FC = () => {
               onClick={() => navigateTo(nextIndex)}
             >
               <Image
-                src={content[nextIndex]?.image as string}
+                src={content[nextIndex]?.image!}
                 alt="Next"
                 priority
                 fill
@@ -325,10 +322,10 @@ const ImpactSection: React.FC = () => {
           </div>
 
           {/* Mobile navigation buttons - visible only on smallest screens */}
-          <div className="sm:hidden flex justify-between w-full absolute top-1/2 transform -translate-y-1/2 px-2">
+          <div className="absolute top-1/2 flex w-full -translate-y-1/2 transform justify-between px-2 sm:hidden">
             <button
               onClick={() => navigateTo(prevIndex)}
-              className="bg-white/80 rounded-full p-2 shadow-md"
+              className="rounded-full bg-white/80 p-2 shadow-md"
               aria-label="Previous image"
             >
               <svg
@@ -347,7 +344,7 @@ const ImpactSection: React.FC = () => {
             </button>
             <button
               onClick={() => navigateTo(nextIndex)}
-              className="bg-white/80 rounded-full p-2 shadow-md"
+              className="rounded-full bg-white/80 p-2 shadow-md"
               aria-label="Next image"
             >
               <svg
@@ -367,7 +364,7 @@ const ImpactSection: React.FC = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -19,20 +19,20 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@amaxa/auth": "workspace:*", 
-    "@amaxa/db": "workspace:*", 
-    "@amaxa/validators": "workspace:*", 
-    "@trpc/server": "catalog:", 
-    "superjson": "2.2.2", 
-    "zod": "catalog:" 
+    "@amaxa/auth": "workspace:*",
+    "@amaxa/db": "workspace:*",
+    "@amaxa/validators": "workspace:*",
+    "@trpc/server": "catalog:",
+    "superjson": "2.2.2",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@amaxa/eslint-config": "workspace:*",
     "@amaxa/prettier-config": "workspace:*",
     "@amaxa/tsconfig": "workspace:*",
-    "eslint": "catalog:", 
-    "prettier": "catalog:", 
-    "typescript": "catalog:" 
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
   },
   "prettier": "@amaxa/prettier-config"
 }

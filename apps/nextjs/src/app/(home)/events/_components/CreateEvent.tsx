@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import type { z } from "zod";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -49,17 +49,19 @@ export const CreateEvent = () => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
-  const { mutate: create, isPending } = useMutation(api.events.create.mutationOptions({
-    onSuccess: () => {
-      toast.success("Event created");
-      router.refresh();
-      form.reset();
-      toggleDialogState();
-    },
-    onError: (error) => {
-      showErrorToast(error);
-    },
-  }));
+  const { mutate: create, isPending } = useMutation(
+    api.events.create.mutationOptions({
+      onSuccess: () => {
+        toast.success("Event created");
+        router.refresh();
+        form.reset();
+        toggleDialogState();
+      },
+      onError: (error) => {
+        showErrorToast(error);
+      },
+    }),
+  );
 
   const form = useForm<CreateEventProps>({
     resolver: zodResolver(createEventSchema),
