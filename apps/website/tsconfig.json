@@ -10,7 +10,6 @@
       "content-collections": ["./.content-collections/generated"]
     },
     "plugins": [{ "name": "next" }],
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "module": "esnext"
   },
   "include": [".", ".next/types/**/*.ts"],

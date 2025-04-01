@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import Link from "next/link";
 
 import type { Session } from "@amaxa/auth";
-import { auth } from "@amaxa/auth";
+import { getSession } from "@amaxa/auth";
 import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 
 import SidebarItems from "./sidebar-items";
@@ -16,7 +16,7 @@ const poppins = Poppins({
 });
 
 const Sidebar = async () => {
-  const session = await auth();
+  const session = await getSession();
   if (session === null) return null;
 
   return (

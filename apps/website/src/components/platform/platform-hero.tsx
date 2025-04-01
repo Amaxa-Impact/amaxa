@@ -51,7 +51,7 @@ export default function PlatformHero() {
           <img
             src="/platform-dark.png"
             alt="Hero Image"
-            className="relative block h-full w-full  rounded-[inherit] border object-contain dark:hidden"
+            className="relative block h-full w-full rounded-[inherit] border object-contain dark:hidden"
           />
         </div>
       </div>

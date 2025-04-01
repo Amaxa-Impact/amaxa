@@ -79,7 +79,7 @@ const dayEventVariants = cva("rounded border-l-4 p-2 text-xs font-bold", {
 
 type View = "day" | "week" | "month" | "year";
 
-type ContextType = {
+interface ContextType {
   view: View;
   setView: (view: View) => void;
   date: Date;
@@ -93,19 +93,19 @@ type ContextType = {
   today: Date;
   timezone: string;
   setTimezone: (timezone: string) => void;
-};
+}
 
 const Context = createContext<ContextType>({} as ContextType);
 
-export type CalendarEvent = {
+export interface CalendarEvent {
   id: string;
   start: Date;
   end: Date;
   title: string;
   color?: VariantProps<typeof monthEventVariants>["variant"];
-};
+}
 
-type CalendarProps = {
+interface CalendarProps {
   children: ReactNode;
   defaultDate?: Date;
   events?: CalendarEvent[];
@@ -115,7 +115,7 @@ type CalendarProps = {
   onChangeView?: (view: View) => void;
   onEventClick?: (event: CalendarEvent) => void;
   defaultTimezone?: string;
-};
+}
 
 const Calendar = ({
   children,

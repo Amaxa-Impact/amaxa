@@ -1,5 +1,5 @@
-import { Skeleton } from "@amaxa/ui/skeleton"
-import { Card, CardContent, CardFooter } from "@amaxa/ui/card"
+import { Skeleton } from "@amaxa/ui/skeleton";
+import { Card, CardContent, CardFooter } from "@amaxa/ui/card";
 
 export default function LoadingSkeleton() {
   return (
@@ -12,7 +12,10 @@ export default function LoadingSkeleton() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, index) => (
-              <Card key={index} className="col-span-1 row-span-1 bg-secondary/10">
+              <Card
+                key={index}
+                className="col-span-1 row-span-1 bg-secondary/10"
+              >
                 <CardContent className="py-5">
                   <Skeleton className="h-40 w-full" />
                 </CardContent>
@@ -27,7 +30,10 @@ export default function LoadingSkeleton() {
           <Skeleton className="h-10 w-48" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, index) => (
-              <Card key={index} className="col-span-1 row-span-1 bg-secondary/10">
+              <Card
+                key={index}
+                className="col-span-1 row-span-1 bg-secondary/10"
+              >
                 <CardContent className="py-5">
                   <Skeleton className="h-40 w-full" />
                 </CardContent>
@@ -40,5 +46,5 @@ export default function LoadingSkeleton() {
         </div>
       </div>
     </div>
-  )
+  );
 }

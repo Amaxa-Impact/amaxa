@@ -1,15 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 "use client";
 
-import {
-  CSSProperties,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import type { CSSProperties, ReactElement, ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@amaxa/ui";
 
@@ -49,7 +42,7 @@ const MagicContainer = ({ children, className }: MagicContainerProps) => {
   const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const containerSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  const [boxes, setBoxes] = useState<Array<HTMLElement>>([]);
+  const [boxes, setBoxes] = useState<HTMLElement[]>([]);
 
   useEffect(() => {
     init();

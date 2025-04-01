@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { auth } from "@amaxa/auth";
+import { getSession } from "@amaxa/auth";
 import { Avatar, AvatarFallback } from "@amaxa/ui/avatar";
 import {
   DropdownMenu,
@@ -17,7 +17,7 @@ import { SignOut } from "./SignOut";
 import { ThemeSwitch } from "./theme-switch";
 
 export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
-  const session = await auth();
+  const session = await getSession();
   const user = session?.user;
 
   return (
@@ -25,16 +25,11 @@ export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
       <DropdownMenuTrigger asChild>
         <Avatar className="h-8 w-8 cursor-pointer rounded-full">
           {user?.image && (
-            <Image
-              src={user.image}
-              alt={user.name ?? ""}
-              width={32}
-              height={32}
-            />
+            <Image src={user.image} alt={user.name} width={32} height={32} />
           )}
           <AvatarFallback>
             <span className="text-xs">
-              {user?.name?.charAt(0).toUpperCase()}
+              {user?.name.charAt(0).toUpperCase()}
             </span>
           </AvatarFallback>
         </Avatar>

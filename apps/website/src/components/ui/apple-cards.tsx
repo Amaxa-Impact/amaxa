@@ -1,36 +1,32 @@
 "use client";
 
-import React, {
-  createContext,
-  useEffect,
-  useState,
-} from "react";
-import Image, { ImageProps } from "next/image";
+import type { ImageProps } from "next/image";
+import React, { createContext, useEffect, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { MoveLeft, MoveRight } from "lucide-react";
 
 import { cn } from "@amaxa/ui";
-
-import { useRouter } from "next/navigation";
 
 interface CarouselProps {
   items: JSX.Element[];
   initialScroll?: number;
 }
 
-type Card = {
+interface Card {
   src: string;
   title: string;
   link: string;
   category: string;
   content: React.ReactNode;
-};
+}
 
 export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
 }>({
-  onCardClose: () => { },
+  onCardClose: () => {},
   currentIndex: 0,
 });
 
@@ -96,7 +92,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         >
           <div
             className={cn(
-              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l",
+              "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l",
             )}
           ></div>
 
@@ -123,7 +119,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   },
                 }}
                 key={"card" + index}
-                className="rounded-3xl last:pr-[5%]  md:last:pr-[33%]"
+                className="rounded-3xl last:pr-[5%] md:last:pr-[33%]"
               >
                 {item}
               </motion.div>
@@ -159,12 +155,10 @@ export const Card = ({
   index: number;
   layout?: boolean;
 }) => {
-
-  const router = useRouter()
-
+  const router = useRouter();
 
   function onClick() {
-    router.push(card.link)
+    router.push(card.link);
   }
   return (
     <>

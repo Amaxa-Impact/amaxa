@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -27,6 +26,8 @@ import {
 
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 const formSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
@@ -37,24 +38,27 @@ const formSchema = z.object({
   image: z.string().optional(),
 });
 
-type UserEditFormProps = {
+interface UserEditFormProps {
   user: z.infer<typeof formSchema>;
   onSuccess: () => void;
-};
+}
 
 export function UserEditForm({ user, onSuccess }: UserEditFormProps) {
+  const trpc = useTRPC();
   const utils = api.useUtils();
-  const updateUser = api.users.updateUser.useMutation({
-    onSuccess: () => {
-      utils.users.invalidate();
-      toast.success("User updated");
-      onSuccess();
-    },
-    onError: () => {
-      utils.users.invalidate();
-      toast.error("Error updating user");
-    },
-  });
+  const updateUser = useMutation(
+    api.users.updateUser.mutationOptions({
+      onSuccess: () => {
+        utils.users.invalidate();
+        toast.success("User updated");
+        onSuccess();
+      },
+      onError: () => {
+        utils.users.invalidate();
+        toast.error("Error updating user");
+      },
+    }),
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

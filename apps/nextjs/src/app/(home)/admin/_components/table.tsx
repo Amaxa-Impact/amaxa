@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 import { Button } from "@amaxa/ui/button";
@@ -22,15 +21,21 @@ import {
 import { api } from "~/trpc/react";
 import { UserEditForm } from "./form";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+
 export function UserManagement() {
+  const trpc = useTRPC();
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
-  const [users] = api.users.getUsers.useSuspenseQuery();
+  const { data: users } = useSuspenseQuery(api.users.getUsers.queryOptions());
   const utils = api.useUtils();
-  const deleteUser = api.users.deleteUser.useMutation({
-    onSuccess: () => {
-      utils.users.invalidate();
-    },
-  });
+  const deleteUser = useMutation(
+    api.users.deleteUser.mutationOptions({
+      onSuccess: () => {
+        utils.users.invalidate();
+      },
+    }),
+  );
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this user?")) {

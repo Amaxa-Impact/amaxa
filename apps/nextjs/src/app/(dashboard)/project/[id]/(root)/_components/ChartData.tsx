@@ -1,5 +1,4 @@
 "use client";
-
 import { TrendingUp } from "lucide-react";
 import {
   Area,
@@ -30,6 +29,8 @@ import {
 
 import { api } from "~/trpc/react";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 const chartConfig = {
   tasksFinished: {
     label: "Tasks Finished",
@@ -38,15 +39,22 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ProjectDashboard({ id }: { id: string }) {
-  const [taskData] = api.tasks.getTasksOverTime.useSuspenseQuery({
-    projectId: id,
-  });
-  const [priorityData] = api.tasks.getTaskPriorities.useSuspenseQuery({
-    projectId: id,
-  });
-  const [statusData] = api.tasks.getTaskStatuses.useSuspenseQuery({
-    projectId: id,
-  });
+  const trpc = useTRPC();
+  const { data: taskData } = useSuspenseQuery(
+    api.tasks.getTasksOverTime.queryOptions({
+      projectId: id,
+    }),
+  );
+  const { data: priorityData } = useSuspenseQuery(
+    api.tasks.getTaskPriorities.queryOptions({
+      projectId: id,
+    }),
+  );
+  const { data: statusData } = useSuspenseQuery(
+    api.tasks.getTaskStatuses.queryOptions({
+      projectId: id,
+    }),
+  );
 
   return (
     <main className="max-h-screen px-10">

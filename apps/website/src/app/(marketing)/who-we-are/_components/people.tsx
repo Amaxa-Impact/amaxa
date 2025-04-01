@@ -19,17 +19,17 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`bg-white overflow-hidden ${className}`}>
+    <div className={`overflow-hidden bg-white ${className}`}>
       <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-          <h2 className="text-4xl font-semibold text-gray-800 mb-2">{name}</h2>
-          <p className="text-sm font-medium tracking-wider text-gray-600 uppercase mb-6">
+        <div className="flex flex-col justify-center p-8 md:w-1/2 md:p-12">
+          <h2 className="mb-2 text-4xl font-semibold text-gray-800">{name}</h2>
+          <p className="mb-6 text-sm font-medium uppercase tracking-wider text-gray-600">
             {title}
           </p>
-          <p className="text-gray-700 leading-relaxed">{bio}</p>
+          <p className="leading-relaxed text-gray-700">{bio}</p>
         </div>
-        <div className="md:w-1/2 relative">
-          <div className="aspect-[4/3] w-full h-full max-h-[600px] relative">
+        <div className="relative md:w-1/2">
+          <div className="relative aspect-[4/3] h-full max-h-[600px] w-full">
             <Image
               src={imageUrl}
               alt={imageAlt || `Photo of ${name}`}

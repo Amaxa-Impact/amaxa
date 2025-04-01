@@ -4,11 +4,11 @@ const config = {
   async redirects() {
     return [
       {
-        source: '/landing-page.html',
-        destination: '/',
+        source: "/landing-page.html",
+        destination: "/",
         permanent: true,
       },
-    ]
+    ];
   },
   images: {
     remotePatterns: [

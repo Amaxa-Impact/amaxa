@@ -1,23 +1,22 @@
-import React from 'react'
-import { SpotlightData } from '~/lib/projects'
+import React from "react";
 
-export const Spotlight = (props: {
-  spotlightData: SpotlightData
-}) => {
-  const { spotlightData } = props
+import type { SpotlightData } from "~/lib/projects";
+
+export const Spotlight = (props: { spotlightData: SpotlightData }) => {
+  const { spotlightData } = props;
   return (
-    <section className="flex flex-col md:flex-row py-10 container mx-auto">
+    <section className="container mx-auto flex flex-col py-10 md:flex-row">
       {/* Left Section */}
-      <div className="md:w-2/4 lg:w-3/4 p-4 flex flex-col gap-5">
-        <h2 className="text-sm uppercase font-bold text-gray-500 mb-2">
+      <div className="flex flex-col gap-5 p-4 md:w-2/4 lg:w-3/4">
+        <h2 className="mb-2 text-sm font-bold uppercase text-gray-500">
           {spotlightData.heading}
         </h2>
         <div>
           <div className="flex flex-col gap-0">
-            <h1 className="text-4xl font-semibold mb-1">
+            <h1 className="mb-1 text-4xl font-semibold">
               {spotlightData.name}
             </h1>
-            <p className="text-gray-600 text-sm mb-4">
+            <p className="mb-4 text-sm text-gray-600">
               {spotlightData.ageLocation}
             </p>
           </div>
@@ -26,29 +25,24 @@ export const Spotlight = (props: {
               {p}
             </p>
           ))}
-          <p className="font-semibold mt-4 text-gray-700">
+          <p className="mt-4 font-semibold text-gray-700">
             {spotlightData.teammates}
           </p>
         </div>
       </div>
       {/* Right Section */}
-      <div className="flex justify-center items-center w-full">
-  <div className="relative w-full max-w-3xl">
-    <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
-      <iframe
-        src={spotlightData.videoUrl}
-        className="absolute top-0 left-0 w-full h-full"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        allowFullScreen
-        
-      />
-    </div>
-  </div>
-</div>
-
-      
+      <div className="flex w-full items-center justify-center">
+        <div className="relative w-full max-w-3xl">
+          <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+            <iframe
+              src={spotlightData.videoUrl}
+              className="absolute left-0 top-0 h-full w-full"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
     </section>
-
-    
-  )
-}
+  );
+};

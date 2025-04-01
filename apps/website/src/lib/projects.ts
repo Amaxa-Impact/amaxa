@@ -23,8 +23,6 @@ export interface HomePageData {
 }
 
 export const projects: HomePageData[] = [
-
-
   //***ORIGINAL INITIATIVES***
   ///////////////////////////
 
@@ -56,10 +54,11 @@ export const projects: HomePageData[] = [
       ],
       teammates: "Teammates: Katelyn (17, USA)",
       videoUrl: "", // optional if you don't have a video
-      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToObhdMb21GJYz53Zj29dWSqKCX7LVDQIvxtlcN",
+      imageUrl:
+        "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToObhdMb21GJYz53Zj29dWSqKCX7LVDQIvxtlcN",
     },
   },
-  
+
   //GLOBAL FOREST
   {
     id: "global-forest",
@@ -85,25 +84,28 @@ export const projects: HomePageData[] = [
             then plant them in local communities around the world. Once trees
             are planted, ámaxa teams measure the carbon sequestration of each
             tree. This data helps us learn which trees are most beneficial to
-            the climate.`,`
+            the climate.`,
+      `
             Once enough data is gathered, we’ll share our findings and continue
             to grow the project strategically. Our goal is to create visual,
             data-backed resources that highlight a simple message: when you
-            nurture the Earth, it provides.`,],
+            nurture the Earth, it provides.`,
+    ],
     spotlightData: {
       heading: "Member Spotlight",
       name: "Meet An Nhi.",
       ageLocation: "16, Vietnam",
-      paragraphs: [`Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.`,
-        `Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.`,`By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.`],
+      paragraphs: [
+        `Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.`,
+        `Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.`,
+        `By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.`,
+      ],
       teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
-      videoUrl: "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+      videoUrl:
+        "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
       imageUrl: "",
     },
   },
-
-  
-  
 
   //KARINA'S LIBRARY
   {
@@ -121,18 +123,20 @@ export const projects: HomePageData[] = [
     solutionParagraphs: [
       "Feminism tends to mean different things to different people. For our late Chief Partnerships Officer, Karina Miszori, it represented a calling. Karina ardently believed in, and fought for, a world in which equality was the norm and women were educated, empowered, and equal in every facet of life. This project is in honor of Karina, and the world she envisioned.",
       "Karina’s Library is centered on representation and education and is one of ámaxa’s newest projects. ámaxa teams will begin by researching and creating a reading list to work with. The reading list will be comprehensive. For younger children, the goal is simply to find books that feature multifaceted girls in positions of empowerment, while also pushing back against some of the damaging narratives that girls are all too often introduced to at a young age. For example, Gertrude McFuzz by Dr. Seuss follows a bird who wishes she could look “more beautiful” by having more feathers. As the story progresses, she realizes that having more feathers infringes on some of her previous abilities and her interactions with others. It’s a great story to start dispelling negative beauty standards for younger readers. For older readers, the list may delve into works that are not only narratives, but also social commentary. The Handmaid’s Tale by Margaret Atwood is a well-known example that would be on this portion of the list.",
-"After the list has been created, edited, and finalized, ámaxa teams will engage in book collection. Teams may fundraise in order to purchase the books, organize book drives, or even venture out to thrift stores and libraries in their communities to find pre-loved books that can be reused for the project. Once the ámaxa feminist library is large enough in size, we will open up a signup form on the ámaxa website. There schools can sign up to receive a book box, with a curated selection of books for their school library.",
-"Ultimately, our goal is to empower students with knowledge. Reading not only fosters learning and understanding of the world but also broadens horizons, introducing diverse cultures, perspectives, and ideas. If the books we donate to schools inspire even one young girl to recognize her potential and see herself as the protagonist of her own story, then Karina’s Library will have achieved its purpose.",    ],
+      "After the list has been created, edited, and finalized, ámaxa teams will engage in book collection. Teams may fundraise in order to purchase the books, organize book drives, or even venture out to thrift stores and libraries in their communities to find pre-loved books that can be reused for the project. Once the ámaxa feminist library is large enough in size, we will open up a signup form on the ámaxa website. There schools can sign up to receive a book box, with a curated selection of books for their school library.",
+      "Ultimately, our goal is to empower students with knowledge. Reading not only fosters learning and understanding of the world but also broadens horizons, introducing diverse cultures, perspectives, and ideas. If the books we donate to schools inspire even one young girl to recognize her potential and see herself as the protagonist of her own story, then Karina’s Library will have achieved its purpose.",
+    ],
     spotlightData: {
       heading: "",
       name: "In Honor of Karina Miszori",
       ageLocation: "",
       paragraphs: [
-       "For those of us on the ámaxa team, we knew Karina as a beacon of light and passion. She was a force of nature in her commitment to our mission, as well as to her passion for feminism and womens’ rights, neurodivergence research, and LGBTQ+ rights. Karina joined ámaxa as a Blog Writer intern in 2022, but it quickly became clear that we needed her contagious passion on our leadership team. She then laid the foundations of our social media strategy - a huge project that was a top priority. In 2023, she transitioned to Chief Partnerships Officer, opening crucial doors for us by forging partnerships with NYUAD group Violet Ventures, education consultancies, and more. In addition to her amazing work on our team, Karina founded the Gender Studies Minor at NYUAD. Because of her dedication to gender issues, thousands of students will be empowered to deepen and refine their passion for feminism, womens’ rights, and LGBTQ+ rights.",
+        "For those of us on the ámaxa team, we knew Karina as a beacon of light and passion. She was a force of nature in her commitment to our mission, as well as to her passion for feminism and womens’ rights, neurodivergence research, and LGBTQ+ rights. Karina joined ámaxa as a Blog Writer intern in 2022, but it quickly became clear that we needed her contagious passion on our leadership team. She then laid the foundations of our social media strategy - a huge project that was a top priority. In 2023, she transitioned to Chief Partnerships Officer, opening crucial doors for us by forging partnerships with NYUAD group Violet Ventures, education consultancies, and more. In addition to her amazing work on our team, Karina founded the Gender Studies Minor at NYUAD. Because of her dedication to gender issues, thousands of students will be empowered to deepen and refine their passion for feminism, womens’ rights, and LGBTQ+ rights.",
       ],
       teammates: "",
       videoUrl: "",
-      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONo9rE8DesbBzAkMUD2VgJC8t15PQoqpLNrjf",
+      imageUrl:
+        "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONo9rE8DesbBzAkMUD2VgJC8t15PQoqpLNrjf",
     },
   },
 
@@ -161,11 +165,12 @@ export const projects: HomePageData[] = [
       paragraphs: [
         "So often, we fear, and discriminate and hate out of lack of understanding and lack of exposure. In the divisive climate we exist in today, art is one of the best ways for all of us to look beyond our own hometowns, beliefs, cultures, and personal stories, and it tends to show us that we are all connected, and that hope and frustration, joy and anger, longing, and most of all, love, are universal. The best art makes us feel deeply, and at times makes us see the world around us differently – I know that’s certainly what it has done for me.",
         "I believe in the power of art, and I also believe that that power cannot be unleashed fully until we reach an equality of opportunity in the arts and entertainment industry. This project is my love letter to the arts, and my small way of moving towards a world where every story and every creator gets a chance.",
-        "-- Alexi Jones, ámaxa COO"
+        "-- Alexi Jones, ámaxa COO",
       ],
       teammates: "",
       videoUrl: "",
-      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVjq7wWL0MYRHUetxwcyzJn3h7alsSdIDAKfq",
+      imageUrl:
+        "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVjq7wWL0MYRHUetxwcyzJn3h7alsSdIDAKfq",
     },
   },
 
@@ -176,7 +181,7 @@ export const projects: HomePageData[] = [
   {
     id: "educhildren",
     headerTitle:
-     "Students in Liberia don’t go to school if they cannot pay $80 for one year’s tuition.",
+      "Students in Liberia don’t go to school if they cannot pay $80 for one year’s tuition.",
     headerBgFrom: "#585858",
     headerBgTo: "#7A26D6",
     imageAlt: "educhildren",
@@ -185,8 +190,8 @@ export const projects: HomePageData[] = [
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Unlocking Potential: Sponsoring Liberian Students' Education",
-    solutionParagraphs: 
-    ["In Liberia, education is not something to be taken for granted. The long-lasting effects of a 14-year civil war, compounded by the 2014 school closure due to the Ebola outbreak, had a huge impact on the education system.” Many schools were damaged or destroyed, and many teachers fled the country or changed careers. As a result, many schools closed, and many of the schools that stayed open are concentrated in urban areas. Now take all of those damaging factors, and add in cost. According to Insights Liberia, “Poverty is a major barrier to education in Liberia. Many children are unable to attend school due to the costs associated with uniforms, books, and other supplies.",
+    solutionParagraphs: [
+      "In Liberia, education is not something to be taken for granted. The long-lasting effects of a 14-year civil war, compounded by the 2014 school closure due to the Ebola outbreak, had a huge impact on the education system.” Many schools were damaged or destroyed, and many teachers fled the country or changed careers. As a result, many schools closed, and many of the schools that stayed open are concentrated in urban areas. Now take all of those damaging factors, and add in cost. According to Insights Liberia, “Poverty is a major barrier to education in Liberia. Many children are unable to attend school due to the costs associated with uniforms, books, and other supplies.",
       "Enter Educate Children. Educate Children works to improve access to and quality of education for primary-age children in Liberia’s slum communities. They develop programs to increase enrollment, enhance quality of instruction, and improve learning outcomes in primary schools. ámaxa teams work to raise funds to pay tuition costs for Liberian students within Educate Children’s communities of focus. One year of tuition is only $80, and we don’t want financial costs to be the reason any child does not receive an education.",
       "Thus far, ámaxa teams have worked hard to help Educate Children further their mission. One team sponsored 7 students’ full tuition by organizing a bike race to raise funds. Other groups have contributed to digital marketing efforts by creating content and working on a newsletter. All ámaxa students that work with Educate Children come away from the experience with not only transferable skills, (marketing, content creation, teamwork, organization, event planning, etc.) but also a greater knowledge of the world around them, and an enhanced understanding of education issues around the globe.",
     ],
@@ -200,7 +205,8 @@ export const projects: HomePageData[] = [
       ],
       teammates: "",
       videoUrl: "",
-      imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXz7Z5s0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
+      imageUrl:
+        "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXz7Z5s0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
     },
   },
 
@@ -215,27 +221,27 @@ export const projects: HomePageData[] = [
     imageSrc:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVSuAZzWL0MYRHUetxwcyzJn3h7alsSdIDAKf", // Using the same image as ISNAD for now
     solutionTitle: "THE SOLUTION",
-    solutionSubtitle:
-      "Feeding Gaza: Support for Families Enduring Genocide",
+    solutionSubtitle: "Feeding Gaza: Support for Families Enduring Genocide",
     solutionParagraphs: [
       "ámaxa members on the Gaza project team are urgently raising funds to support families trapped in Gaza amidst the ongoing humanitarian crisis. For the Summer 2024 cohort, the team focused on raising money. The funds will go to two families we connected with through our partner: Gaza Champions. These funds are crucial for providing immediate essentials, such as food, to prevent starvation and meet basic needs. Once borders open again, funds can go towards paying the $5000 fee to Egypt required to flee across the border.",
       "This initiative represents one of Ámaxa's most critical and urgent efforts, and is unique in its directness and ability to make a difference quickly. This direct and personal approach ensures that the aid reaches those in desperate need without the delays that can occur due to bureaucracy or politics. The situation in Gaza is dire, with many families struggling to access basic necessities due to severe restrictions and ongoing conflict. By contributing to this project, students can provide direct relief and support to those facing unimaginable hardships.",
-      "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion."
+      "At ámaxa, we believe in the power of direct action and the importance of community-driven support. The Gaza fundraising project is not just about providing financial assistance; it's about standing in solidarity with those who are suffering and using our resources to make a tangible impact. This project embodies our commitment to humanitarian aid and our belief that everyone deserves access to basic necessities, especially in times of crisis. By supporting these families, we are not only addressing immediate needs but also affirming our dedication to human dignity and compassion.",
     ],
-    spotlightData:      {
-            heading: "TEAM SPOTLIGHT",
-            name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
-            ageLocation: "16 & 17, USA",
-            paragraphs: [
-              "\"Change, in any capacity, can and should start with us.\" -Isabella",
-              `
+    spotlightData: {
+      heading: "TEAM SPOTLIGHT",
+      name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
+      ageLocation: "16 & 17, USA",
+      paragraphs: [
+        '"Change, in any capacity, can and should start with us." -Isabella',
+        `
 Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
-`
-            ],
-            teammates: "",
-            videoUrl: "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
-            imageUrl: "",
-          },
+`,
+      ],
+      teammates: "",
+      videoUrl:
+        "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+      imageUrl: "",
+    },
   },
 
   //ISNAD
@@ -246,7 +252,8 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     headerBgFrom: "#CE1126", // inspired by the red in the Palestinian flag
     headerBgTo: "#006C35", // inspired by green from the Palestinian flag
     imageAlt: "Palestinian education banner",
-    imageSrc: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
+    imageSrc:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Expanding Learning and Community: Opening the Window for Palestinian Students",
@@ -262,10 +269,11 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       paragraphs: [
         "The ISNAD Community Education Center works to fill educational gaps in Dahria, a town south of Hebron in the West Bank. The center is the first of its kind in the area to combine in-class and community-based learning to promote both learning and community development using a variety of formal and informal approaches. The center aims at strengthening the educational capabilities and skills of students of different age categories through a variety of specialized training courses in fields like languages, social media, planning, and arts. It also aims to enhance youth engagement in their communities through organizing voluntary initiatives and interventions in different localities.",
         "However, due to the Israeli crackdown in the West Bank during the ongoing war in Gaza, ISNAD has had to halt all education programming. They are now working to enable Palestinians to grow their own food in order to survive, as Israeli checkpoints and violence have kept families from working, unable to earn income to feed their families.",
-        "To donate to ISNAD's ongoing fundraiser, click here: https://www.gofundme.com/f/community-initiative-in-palestine"
+        "To donate to ISNAD's ongoing fundraiser, click here: https://www.gofundme.com/f/community-initiative-in-palestine",
       ],
       teammates: "",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F100069028646748%2Fvideos%2F690298715849152%2F&show_text=true&width=560&t=0",
+      videoUrl:
+        "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F100069028646748%2Fvideos%2F690298715849152%2F&show_text=true&width=560&t=0",
       imageUrl: "",
     },
     // spotlightData: {
@@ -314,7 +322,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     },
   },
 
-///UKRAINIAN ACTION
+  ///UKRAINIAN ACTION
   {
     id: "ukraine",
     headerTitle:
@@ -343,10 +351,4 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       imageUrl: "",
     },
   },
-
-  
-  
-
-  
-  
 ];

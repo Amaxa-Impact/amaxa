@@ -28,7 +28,7 @@ export function BeamSection() {
 
       <div className="container mb-14 mt-4 flex items-center justify-center px-4 md:px-6">
         <div
-          className="relative flex w-full max-w-[1000px] items-center justify-center overflow-hidden rounded-lg bg-background  md:shadow-xl"
+          className="relative flex w-full max-w-[1000px] items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl"
           ref={containerRef}
         >
           <BentoSectionLanding />

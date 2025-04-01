@@ -6,7 +6,7 @@ export function Nyaka() {
           <div className="grid w-full gap-8">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Nyaka provides community-based solutions to address the needs
                   of orphaned and vulnerable children in rural southwestern
                   Uganda. They surround each child with a comprehensive support
@@ -17,7 +17,7 @@ export function Nyaka() {
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Amaxa’s initiative with Nyaka focuses on attaining solar
                   lights for “grannies” (female matriarchs, caretakers, and
                   leaders) in rural Uganda. Why grannies? “Effects from the
@@ -34,7 +34,7 @@ export function Nyaka() {
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+                <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our initiative with Nyaka helps to combat this issue, while
                   encouraging education, financial stability, and climate
                   protection. This initiative truly shows how social issues are
