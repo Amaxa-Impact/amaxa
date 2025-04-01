@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import type { z } from "zod";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -32,7 +31,10 @@ import { Textarea } from "@amaxa/ui/textarea";
 
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 export function CreateProject() {
+  const trpc = useTRPC();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -45,7 +47,7 @@ export function CreateProject() {
     },
   });
 
-  const createProject = api.projects.create.useMutation({
+  const createProject = useMutation(api.projects.create.mutationOptions({
     onSuccess: () => {
       toast.success("Project created");
       form.reset();
@@ -56,7 +58,7 @@ export function CreateProject() {
       console.error(error);
       toast.error("something went wrong");
     },
-  });
+  }));
 
   const onSubmit = (values: CreateProjectSchema) => {
     createProject.mutate(values);

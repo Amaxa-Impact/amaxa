@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import React, { useState } from "react";
 import { revalidateTag } from "next/cache";
 import { useParams } from "next/navigation";
@@ -48,6 +47,8 @@ import { toast } from "@amaxa/ui/toast";
 
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 const addUserSchema = z.object({
   userId: z.string(),
   permission: z.string(),
@@ -63,13 +64,14 @@ export default function AddUserForm({
     label: string;
   }[];
 }) {
+  const trpc = useTRPC();
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const form = useForm<AddUserForm>({
     resolver: zodResolver(addUserSchema),
   });
 
-  const { mutate: create } = api.users.joinProject.useMutation({
+  const { mutate: create } = useMutation(api.users.joinProject.mutationOptions({
     onSuccess: () => {
       setOpen(false);
       revalidateTag("getUserProjects");
@@ -79,7 +81,7 @@ export default function AddUserForm({
       revalidateTag("getUserProjects");
       setOpen(false);
     },
-  });
+  }));
 
   function onSubmit(data: AddUserForm) {
     create({

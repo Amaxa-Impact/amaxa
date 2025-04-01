@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
+"use client";;
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
@@ -17,8 +16,13 @@ import { Input } from "@amaxa/ui/input";
 import { api } from "~/trpc/react";
 import CreateActionGuide from "./create-action-guide";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 export default function Guides() {
-  const [actionGuides] = api.actionGuides.getActionGuides.useSuspenseQuery();
+  const trpc = useTRPC();
+  const {
+    data: actionGuides
+  } = useSuspenseQuery(api.actionGuides.getActionGuides.queryOptions());
 
   return (
     <div className="mx-auto px-4 py-8 md:px-6">

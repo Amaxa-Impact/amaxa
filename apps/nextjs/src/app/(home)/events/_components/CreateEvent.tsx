@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import type { z } from "zod";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -41,13 +40,16 @@ import { toast } from "@amaxa/ui/toast";
 import { showErrorToast } from "~/lib/handle-error";
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 type CreateEventProps = z.infer<typeof createEventSchema>;
 
 export const CreateEvent = () => {
+  const trpc = useTRPC();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
-  const { mutate: create, isPending } = api.events.create.useMutation({
+  const { mutate: create, isPending } = useMutation(api.events.create.mutationOptions({
     onSuccess: () => {
       toast.success("Event created");
       router.refresh();
@@ -57,7 +59,7 @@ export const CreateEvent = () => {
     onError: (error) => {
       showErrorToast(error);
     },
-  });
+  }));
 
   const form = useForm<CreateEventProps>({
     resolver: zodResolver(createEventSchema),
