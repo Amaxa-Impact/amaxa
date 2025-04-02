@@ -52,19 +52,22 @@ const Footer = () => {
               href="/project"
               className="text-gray-800 hover:text-gray-600"
             >
-              Explore Projects
+             Discover Projects
             </Link>
             <Link
               href="/program"
               className="text-gray-800 hover:text-gray-600"
             >
-              Our Programs
+             Explore Ámaxa Pathways
+            </Link>
+            <Link href="/project-stories" className="text-gray-800 hover:text-gray-600">
+              Read Ámaxa Stories
             </Link>
             <Link
               href="/who-we-are"
               className="text-gray-800 hover:text-gray-600"
             >
-              Who We Are
+              Meet Our Team
             </Link>
             
             {/* <Link
@@ -73,6 +76,12 @@ const Footer = () => {
             >
               Our Platform
             </Link>  */} 
+             <Link href="/contact-us" className="text-gray-800 hover:text-gray-600">
+              Contact Us
+            </Link>  
+            <Link href="/newsletter" className="text-gray-800 hover:text-gray-600">
+              Subscribe to Our Newsletter
+            </Link>
 
             <Link
               href="/support-us" className="text-gray-800 hover:text-gray-600">
@@ -81,15 +90,10 @@ const Footer = () => {
             <Link href="/blog" className="text-gray-800 hover:text-gray-600">
               Our Blog
             </Link>
-            <Link href="/newsletter" className="text-gray-800 hover:text-gray-600">
-              Our Newsletter
-            </Link>
-            <Link href="/project-stories" className="text-gray-800 hover:text-gray-600">
-              Project Stories
-            </Link>
-            <Link href="/contact-us" className="text-gray-800 hover:text-gray-600">
-              Contact Us
-            </Link>  
+            
+          
+           
+
           {/* <div className="md:ml-auto flex gap-6 text-sm">
             <Link href="/terms" className="text-gray-800 hover:text-gray-600">
               Terms of Use

@@ -306,10 +306,10 @@ export default function ProgramPage() {
 
           <div>
             <a
-              href="/project"
+              href="/project-stories"
               className="inline-flex items-center justify-center px-7 py-3 bg-white border border-[#3B3B3B] rounded-full text-base md:text-lg text-[#3B3B3B] hover:bg-gray-50 transition-colors"
             >
-              Read project stories →
+              Ámaxa Stories →
             </a>
           </div>
         </div>
@@ -424,7 +424,7 @@ export default function ProgramPage() {
                   connections that last well beyond the 3 month project.
                 </p>
                 <a
-                  href="/stories"
+                  href="/project-stories"
                   className="inline-flex items-center justify-center px-6 py-2 bg-[#BCD96C] rounded-full text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
                 >
                   Read stories of our members →
@@ -468,7 +468,7 @@ export default function ProgramPage() {
                   representation.
                 </p>
                 <a
-                  href="/projects"
+                  href="/project"
                   className="inline-flex items-center justify-center px-6 py-2 bg-[#BCD96C] rounded-full text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
                 >
                   Explore All Projects →
