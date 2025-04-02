@@ -31,7 +31,7 @@ export default function ProgramPage() {
               <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
                 Our newsletter rocks. {" "}
                 <span className="text-2xl text-[#3B3B3B]">
-                  (we promise.)
+                  (seriously.)
 
                 </span>
               </h1>
