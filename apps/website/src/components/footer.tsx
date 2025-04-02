@@ -84,13 +84,9 @@ const Footer = () => {
             <Link href="/newsletter" className="text-gray-800 hover:text-gray-600">
               Our Newsletter
             </Link>
-
-            {/* <Link
-              href="/contact-us"
-              className="text-gray-800 hover:text-gray-600"
-            >
+            <Link href="/contact-us" className="text-gray-800 hover:text-gray-600">
               Contact Us
-            </Link>  */}
+            </Link>  
           {/* <div className="md:ml-auto flex gap-6 text-sm">
             <Link href="/terms" className="text-gray-800 hover:text-gray-600">
               Terms of Use
