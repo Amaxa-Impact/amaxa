@@ -23,6 +23,7 @@ export const Navbar = () => {
     { href: "/program", label: "Our Cohorts" },
     { href: "/who-we-are", label: "Who We Are" },
     { href: "/newsletter", label: "Our Newsletter" },
+    { href: "/project-stories", label: "Project Stories" },
     { href: "/contact-us", label: "Contact Us" },
   ];
 
