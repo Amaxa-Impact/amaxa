@@ -29,9 +29,7 @@ export default function ProgramPage() {
             <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
               <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
                Contact Us {" "}
-                {/* <span className="font-normal text-[#3B3B3B]">
-                  Our Newsletter
-                </span> */}
+             
               </h1>
 
               {/* Green wavy line - SVG replacement for the image */}
@@ -105,57 +103,6 @@ export default function ProgramPage() {
     </div>
   </div>
 </div>
-{/* <div className="max-w-7xl mx-auto space-y-16 md:space-y-20">
-  <div className="space-y-8 md:space-y-10">
-    <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-      <div className="w-full md:w-1/2 space-y-6">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-[#3B3B3B]">
-      Culture & Cause
-      </h2>
-        <p className="text-lg md:text-xl lg:text-2xl font-normal text-[#3B3B3B] leading-relaxed">
-        Culture & Cause is ámaxa’s second newsletter written by Isabella Benice and Alexi Jones, members of ámaxa’s marketing and communications team. This newsletter was born out of our recognition that the pop culture and media we consume seeps into our consciousness and impacts how we see the world, even if we don’t always realize it. Pop culture has always been used to catalyze change, and since changemaking is what ámaxa is all about, it only makes sense that we pay attention to it. Each of these newsletters is sectioned off in the same way and lands in your inbox on the 15th of each month. 
-        </p>
-
-        <p className="text-lg md:text-xl lg:text-2xl font-normal text-[#3B3B3B] leading-relaxed">
-        We hope it makes you think, smile, and if nothing else, gives you some interesting things to listen to and read over your upcoming weeks. Enjoy!
-        </p>
-
-        <p className="text-sm md:text-sm lg:text-sm font-normal text-[#3B3B3B] leading-relaxed font-light">
-        P.S. Anyone can submit questions, essays, poems etc to Culture & Cause, so if you consider yourself a creative, shoot an email to lexi@amaxaimpact.org with a pitch/draft/piece!
-        </p>
-
-
-
-        <div>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ApplyButton variant="color">
-            Check out This Month's Edition →
-
-            </ApplyButton>
-          </React.Suspense>
-        </div>
-      </div>
-
-      
-      <div className="w-full md:w-1/2 mt-8 md:mt-0">
-        <div className="substack-post-embed bg-white p-6 rounded-xl shadow-md">
-            <p className="text-xl font-semibold">join the burnt out club!!❤️‍🔥 by Ámaxa</p>
-      <p className="text-gray-700 mt-2">
-        plus Valentino, Navy SEALS, grad school, and Mickey 17
-      </p>
-      <a
-        href="https://amaxaimpact.substack.com/p/join-the-burnt-out-club"
-        className="inline-block mt-4 text-blue-600 underline hover:text-blue-800"
-        data-post-link
-      >
-        Read on Substack
-      </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> */}
-
 
       </section>
 

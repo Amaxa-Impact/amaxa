@@ -3,6 +3,7 @@
 import React from "react";
 import { ApplyButton } from "~/components/apply";
 import { useEffect } from "react";
+import Link from "next/link";
 
 
 export default function ProgramPage() {
@@ -28,9 +29,10 @@ export default function ProgramPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
               <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
-               Stay in Touch: {" "}
-                <span className="font-normal text-[#3B3B3B]">
-                  Our Newsletter
+                Our newsletter rocks. {" "}
+                <span className="text-2xl text-[#3B3B3B]">
+                  (we promise.)
+
                 </span>
               </h1>
 
@@ -74,11 +76,11 @@ export default function ProgramPage() {
         </p>
 
         <div>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ApplyButton variant="color">
-            Check out This Month's Edition →
-            </ApplyButton>
-          </React.Suspense>
+            <Link 
+        href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email"   
+       >
+        Subscribe Now → 
+        </Link>
         </div>
       </div>
 
@@ -125,12 +127,11 @@ export default function ProgramPage() {
 
 
         <div>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ApplyButton variant="color">
-            Check out This Month's Edition →
-
-            </ApplyButton>
-          </React.Suspense>
+        <Link 
+        href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email"   
+       >
+        Subscribe Now → 
+        </Link>
         </div>
       </div>
 

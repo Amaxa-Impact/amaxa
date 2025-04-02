@@ -19,10 +19,10 @@ export default function WhoAreWePage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
               <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
-                  Who We Are{" "}
-                  <span className="font-normal text-[#3B3B3B]">
+                  Meet Our Team{" "}
+                  {/* <span className="font-normal text-[#3B3B3B]">
                     & Our Mission
-                  </span>
+                  </span> */}
                 </h1>
 
                 {/* Green wavy line - SVG replacement for the image */}
