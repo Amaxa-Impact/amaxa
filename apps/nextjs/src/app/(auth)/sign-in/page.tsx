@@ -1,25 +1,19 @@
 "use client";
 
+import { signIn } from "@amaxa/auth/client";
+import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardFooter,
 } from "@amaxa/ui/card";
-import { useState } from "react";
-import Link from "next/link";
-import { cn } from "@amaxa/ui";
-
-import { signIn } from "@amaxa/auth/client";
 
 export default function SignIn() {
-  const [loading, setLoading] = useState(false);
-
   return (
-    <main className="flex flex-col justify-center items-center h-screen">
+    <main className="flex h-screen flex-col items-center justify-center">
       <Card className="max-w-md">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
@@ -31,29 +25,18 @@ export default function SignIn() {
           <div className="grid gap-4">
             <div
               className={cn(
-                "w-full gap-2 flex items-center",
-                "justify-between flex-col",
+                "flex w-full items-center gap-2",
+                "flex-col justify-between",
               )}
             >
               <Button
                 variant="outline"
                 className={cn("w-full gap-2")}
-                disabled={loading}
                 onClick={async () => {
-                  await signIn.social(
-                    {
-                      provider: "google",
-                      callbackURL: "/",
-                    },
-                    {
-                      onRequest: () => {
-                        setLoading(true);
-                      },
-                      onResponse: () => {
-                        setLoading(false);
-                      },
-                    },
-                  );
+                  await signIn.social({
+                    provider: "google",
+                    callbackURL: "/",
+                  });
                 }}
               >
                 <svg
