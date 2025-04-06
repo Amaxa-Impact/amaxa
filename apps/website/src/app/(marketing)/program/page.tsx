@@ -1,5 +1,30 @@
+"use client"
 import React from "react";
 import { ApplyButton } from "~/components/apply";
+import { FocusCards } from "@/components/ui/focus-cards";
+
+export const cards = [
+    {
+      title: "Get Started",
+      src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXpUzmW0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
+      link: "/",
+    },
+    {
+      title: "Get Started",
+      src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSuhiFoUwdQt18rFgVynhG5ljvz0eRmMCYuOW",
+      link: "/",
+    },
+    {
+      title: "Get Started",
+      src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOrfpNVHQvsrdY6KUyulWLH1XBk7OqCf3F9gAQ",
+      link: "/",
+    },
+    {
+      title: "Get Started",
+      src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmhhtCmGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+      link: "/",
+    },
+];
 
 export default function ProgramPage() {
   return (
@@ -16,9 +41,9 @@ export default function ProgramPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
               <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
-               Join us: {" "}
+               Explore {" "}
                 <span className="font-normal text-[#3B3B3B]">
-                  Ámaxa Cohorts
+                  Ámaxa Pathways
                 </span>
               </h1>
 
@@ -44,50 +69,13 @@ export default function ProgramPage() {
       </section>
       </div>
 
-      
-      {/* <section className="w-full bg-white py-16 md:py-24">
-        <div className="container mx-auto px-6 md:px-16 lg:px-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
-              <h1 className="text-3xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
-                Effect change from anywhere with{" "}
-                <span className="font-normal text-[#3B3B3B]">
-                  Ámaxa Cohorts
-                </span>
-              </h1>
+     
 
-              <div className="relative h-6 w-48 md:w-64 lg:w-80 ml-auto -mt-2 md:-mt-4">
-                <svg
-                  viewBox="0 0 325 82"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full"
-                >
-                  <path
-                    d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
-                    stroke="#BCD96C"
-                    strokeWidth="8"
-                  />
-                  strokeLinecap="round"
-                </svg>
-              </div>
-            </div>
-
-            <div className="mt-8 md:mt-16 lg:mt-24 self-end md:self-center">
-              <React.Suspense fallback={<div>Loading...</div>}>
-
-                <ApplyButton
-                  variant="ghost"
-                >
-                  Apply now
-                </ApplyButton>
-              </React.Suspense>
-            </div>
-          </div>
-        </div>
-      </section> */}
+  
       <section className="w-full bg-[#F5F2F2] py-16 md:py-20 px-6 md:px-16 lg:px-20">
         <div className="max-w-7xl mx-auto">
+  
+
           <div className="space-y-12 md:space-y-16 lg:space-y-20">
             {/* What are cohorts? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
