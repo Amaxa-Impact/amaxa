@@ -1,23 +1,19 @@
-import { unstable_noStore as noStore } from "next/cache";
-import { z } from "zod";
+import { type } from "arktype";
 
-import { api } from "~/trpc/server";
 import { CreateEvent } from "./_components/CreateEvent";
 import { EventCard } from "./_components/EventCard";
 
-const searchParamsSchema = z.object({
-  name: z.string().optional(),
+const searchParamsSchema = type({
+  name: "string | undefined",
 });
 
-export default async function Home(props: {
+export default function Home(props: {
   searchParams: Record<string, string | string[] | undefined>;
 }) {
-  noStore();
-  const { name } = searchParamsSchema.parse(props.searchParams);
-
-  const data = await api.events.all({
-    name: name,
-  });
+  const data = searchParamsSchema(props.searchParams);
+  if (data instanceof type.errors) {
+    console.error(data);
+  }
 
   return (
     <div className="min-h-screen w-full p-4 sm:p-6 lg:p-8">
@@ -25,7 +21,7 @@ export default async function Home(props: {
         <h1 className="text-3xl font-bold">Events</h1>
         <CreateEvent />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {data.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}

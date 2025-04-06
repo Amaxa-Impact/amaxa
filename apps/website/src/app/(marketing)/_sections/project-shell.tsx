@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { TakeActionSection } from "./take-action";
+
 import type { HomePageData } from "~/lib/projects";
+import { TakeActionSection } from "./take-action";
 
 interface GenericHomeProps {
   data: HomePageData;
@@ -20,14 +21,14 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
   } = data;
 
   return (
-    <main className="w-full min-h-screen">
-      <header className={`py-20 px-10 `}>
+    <main className="min-h-screen w-full">
+      <header className={`px-10 py-20`}>
         <div className="container mx-auto">
-          <h1 className="text-5xl max-w-4xl text-[#3B3B3B]">{headerTitle}</h1>
+          <h1 className="max-w-4xl text-5xl text-[#3B3B3B]">{headerTitle}</h1>
         </div>
       </header>
 
-      <section className="relative w-full min-h-[200px] md:min-h-[300px] lg:min-h-[400px]">
+      <section className="relative min-h-[200px] w-full md:min-h-[300px] lg:min-h-[400px]">
         <Image
           alt={imageAlt ?? "no image"}
           src={imageSrc}
@@ -41,7 +42,7 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
 
       <section className="bg-[#3B3B3B] px-10 py-10">
         <div className="container mx-auto flex flex-col gap-[36px]">
-          <h2 className="text-xl font-mono text-white">{solutionTitle}</h2>
+          <h2 className="font-mono text-xl text-white">{solutionTitle}</h2>
           <h3 className="text-3xl text-white">{solutionSubtitle}</h3>
           {solutionParagraphs.map((paragraph, idx) => (
             <p key={idx} className="text-white">
@@ -55,18 +56,18 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
         <TakeActionSection />
       </section>
 
-      <section className="flex flex-col md:flex-row py-10 container mx-auto">
+      <section className="container mx-auto flex flex-col py-10 md:flex-row">
         {/* Left Section */}
-        <div className="md:w-2/4 lg:w-3/4 p-4 flex flex-col gap-5">
-          <h2 className="text-sm uppercase font-bold text-gray-500 mb-2">
+        <div className="flex flex-col gap-5 p-4 md:w-2/4 lg:w-3/4">
+          <h2 className="mb-2 text-sm font-bold uppercase text-gray-500">
             {spotlightData.heading}
           </h2>
           <div>
             <div className="flex flex-col gap-0">
-              <h1 className="text-4xl font-semibold mb-1">
+              <h1 className="mb-1 text-4xl font-semibold">
                 {spotlightData.name}
               </h1>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="mb-4 text-sm text-gray-600">
                 {spotlightData.ageLocation}
               </p>
             </div>
@@ -75,7 +76,7 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
                 {p}
               </p>
             ))}
-            <p className="font-semibold mt-4 text-gray-700">
+            <p className="mt-4 font-semibold text-gray-700">
               {spotlightData.teammates}
             </p>
           </div>
@@ -87,94 +88,87 @@ export const GenericHome: React.FC<GenericHomeProps> = ({ data }) => {
           </div>
         </div> */}
 
-         {/* Right: Video or Image */}
-      <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
-        <div className="relative w-full h-full">
-          {spotlightData.videoUrl ? (
-            <iframe
-              src={spotlightData.videoUrl}
-              className="relative w-full h-full"
-              allowFullScreen
-            />
-          ) : spotlightData.imageUrl ? (
-            <Image
-              src={spotlightData.imageUrl}
-              width= {1000}
-              height={1000}
-              alt={spotlightData.name}
-              className="w-full h-full rounded-lg shadow-md"
-            />
-          ) : (
-            <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
-              No media available
-            </div>
-          )}
+        {/* Right: Video or Image */}
+        <div className="flex items-center justify-center md:w-2/4 lg:w-3/4">
+          <div className="relative h-full w-full">
+            {spotlightData.videoUrl ? (
+              <iframe
+                src={spotlightData.videoUrl}
+                className="relative h-full w-full"
+                allowFullScreen
+              />
+            ) : spotlightData.imageUrl ? (
+              <Image
+                src={spotlightData.imageUrl}
+                width={1000}
+                height={1000}
+                alt={spotlightData.name}
+                className="h-full w-full rounded-lg shadow-md"
+              />
+            ) : (
+              <div className="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+                No media available
+              </div>
+            )}
+          </div>
         </div>
-      </div>
       </section>
-      {
-        spotlightData1 ?
-          <section>
-            <div className="md:w-2/4 lg:w-3/4 p-4 flex flex-col gap-5">
-              <h2 className="text-sm uppercase font-bold text-gray-500 mb-2">
-
-                {spotlightData1.heading}
-              </h2>
-              <div>
-
-                <div className="flex flex-col gap-0">
-                  <h1 className="text-4xl font-semibold mb-1">
-                    {spotlightData1.name}
-                  </h1>
-                  <p className="text-gray-600 text-sm mb-4">
-                    {spotlightData1.ageLocation}
-                  </p>
-                </div>
-                {spotlightData1.paragraphs.map((p, i) => (
-                  <p key={i} className="mb-4 text-gray-700">
-                    {p}
-                  </p>
-                ))}
-                <p className="font-semibold mt-4 text-gray-700">
-                  {spotlightData1.teammates}
+      {spotlightData1 ? (
+        <section>
+          <div className="flex flex-col gap-5 p-4 md:w-2/4 lg:w-3/4">
+            <h2 className="mb-2 text-sm font-bold uppercase text-gray-500">
+              {spotlightData1.heading}
+            </h2>
+            <div>
+              <div className="flex flex-col gap-0">
+                <h1 className="mb-1 text-4xl font-semibold">
+                  {spotlightData1.name}
+                </h1>
+                <p className="mb-4 text-sm text-gray-600">
+                  {spotlightData1.ageLocation}
                 </p>
               </div>
+              {spotlightData1.paragraphs.map((p, i) => (
+                <p key={i} className="mb-4 text-gray-700">
+                  {p}
+                </p>
+              ))}
+              <p className="mt-4 font-semibold text-gray-700">
+                {spotlightData1.teammates}
+              </p>
             </div>
+          </div>
 
-            {/* <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
+          {/* <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
               <div className="relative w-full h-full">
                 <iframe src={spotlightData1.videoUrl} className="w-full h-full" />
               </div>
             </div> */}
 
-                 {/* Right: Video or Image */}
-      <div className="md:w-2/4 lg:w-3/4 flex justify-center items-center">
-        <div className="relative w-full h-auto">
-          {spotlightData1.videoUrl ? (
-            <iframe
-              src={spotlightData1.videoUrl}
-              className="w-full h-full"
-              allowFullScreen
-            />
-          ) : spotlightData1.imageUrl ? (
-            <Image
-              src={spotlightData1.imageUrl}
-              alt={spotlightData1.name}
-              className="w-full h-full rounded-lg shadow-md"
-            />
-          ) : (
-            <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
-              No media available
+          {/* Right: Video or Image */}
+          <div className="flex items-center justify-center md:w-2/4 lg:w-3/4">
+            <div className="relative h-auto w-full">
+              {spotlightData1.videoUrl ? (
+                <iframe
+                  src={spotlightData1.videoUrl}
+                  className="h-full w-full"
+                  allowFullScreen
+                />
+              ) : spotlightData1.imageUrl ? (
+                <Image
+                  src={spotlightData1.imageUrl}
+                  alt={spotlightData1.name}
+                  className="h-full w-full rounded-lg shadow-md"
+                />
+              ) : (
+                <div className="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+                  No media available
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-
-
-
-          </section>
-          : null
-      }
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 };

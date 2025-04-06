@@ -1,24 +1,25 @@
-import Link from "next/link";
-import { ProfileCard } from "./_components/people";
 import React from "react";
+import Link from "next/link";
+
+import { ProfileCard } from "./_components/people";
 
 export default function WhoAreWePage() {
   return (
     <main>
-      <div className="relative w-full max-h-[320px] md:max-h-[320px] sm:max-h-[240px] bg-white flex flex-col px-6 md:px-12 lg:px-20">
+      <div className="relative flex max-h-[320px] w-full flex-col bg-white px-6 sm:max-h-[240px] md:max-h-[320px] md:px-12 lg:px-20">
         {/* Background container - hidden but preserved for reference */}
-        <div className="absolute inset-0 invisible">
+        <div className="invisible absolute inset-0">
           <div
-            className="w-full h-full"
+            className="h-full w-full"
             style={{ background: "url(/Untitled design.png)" }}
           />
         </div>
         {/* Content container with flex layout */}
         <section className="w-full py-16 md:py-24">
           <div className="container mx-auto px-6 md:px-16 lg:px-20">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-              <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
-                <h1 className="text-3xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
+            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+                <h1 className="text-3xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Meet Our Team{" "}
                   {/* <span className="font-normal text-[#3B3B3B]">
                     & Our Mission
@@ -26,7 +27,7 @@ export default function WhoAreWePage() {
                 </h1>
 
                 {/* Green wavy line - SVG replacement for the image */}
-                <div className="relative h-6 w-48 md:w-64 lg:w-200 ml-auto -mt-2 md:-mt-4">
+                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
                   <svg
                     viewBox="0 0 325 500"
                     fill="none"
@@ -78,15 +79,15 @@ export default function WhoAreWePage() {
         </h2>
       </section> */}
 
-      <section className="w-full bg-[#F5F2F2] py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:px-20">
+      <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
         <div className="flex flex-col">
           {/* Heading - left aligned */}
-          <h2 className="font-normal text-[40px] md:text-[50px] lg:text-[60px] leading-tight text-[#3B3B3B] mb-10 md:mb-14">
+          <h2 className="mb-10 text-[40px] font-normal leading-tight text-[#3B3B3B] md:mb-14 md:text-[50px] lg:text-[60px]">
             Our Vision
           </h2>
 
           {/* Vision text content - left aligned */}
-          <div className="font-normal text-[22px] md:text-[28px] lg:text-[32px] leading-snug text-[#3B3B3B] max-w-4xl space-y-8">
+          <div className="max-w-4xl space-y-8 text-[22px] font-normal leading-snug text-[#3B3B3B] md:text-[28px] lg:text-[32px]">
             <p>
               For the first time in history, we can see in crystal clear detail
               the challenges faced by others across the world. Also for the
@@ -147,10 +148,10 @@ Ani drives the development of the ámaxa platform, tackling key challenges and c
           />
         ))}
       </section>
-      <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative">
+      <section className="relative w-full bg-[#F5F2F2] px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-32">
         <div className="flex flex-col">
           {/* Main heading - large text */}
-          <h2 className="font-normal text-[36px] md:text-[48px] lg:text-[60px] leading-tight md:leading-[78px] text-[#3B3B3B] max-w-[90%] md:max-w-[1074px] mb-16 md:mb-24 lg:mb-32">
+          <h2 className="mb-16 max-w-[90%] text-[36px] font-normal leading-tight text-[#3B3B3B] md:mb-24 md:max-w-[1074px] md:text-[48px] md:leading-[78px] lg:mb-32 lg:text-[60px]">
             We want to build a world where anyone who wants to help the world
             can do it.
           </h2>
@@ -159,7 +160,7 @@ Ani drives the development of the ámaxa platform, tackling key challenges and c
           <div className="mt-auto">
             <Link
               href="/support"
-              className="inline-flex items-center justify-center px-7 py-3 border border-[#3B3B3B] rounded-full bg-white text-[#3B3B3B] text-[18px] md:text-[20px] hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-7 py-3 text-[18px] text-[#3B3B3B] transition-colors hover:bg-gray-50 md:text-[20px]"
             >
               Support Our Vision →
             </Link>

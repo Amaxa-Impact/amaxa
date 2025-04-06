@@ -1,5 +1,4 @@
 "use client";
-import { SessionProvider } from 'next-auth/react'
 
 import React from "react";
 import { ReactFlowProvider } from "@xyflow/react";
@@ -12,12 +11,7 @@ import "reactflow/dist/style.css";
 function FlowProvider({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
-      <ReactFlowProvider>
-        <SessionProvider>
-        {children}
-
-        </SessionProvider>
-        </ReactFlowProvider>
+      <ReactFlowProvider>{children}</ReactFlowProvider>
     </TooltipProvider>
   );
 }

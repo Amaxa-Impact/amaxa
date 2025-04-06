@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { api as trpc } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +26,9 @@ import { Textarea } from "@amaxa/ui/textarea";
 
 import { extractNotionId } from "~/lib/utils";
 
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
@@ -34,6 +36,7 @@ const formSchema = z.object({
 });
 
 export default function CreateActionGuide() {
+  const trpc = useTRPC();
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,14 +47,16 @@ export default function CreateActionGuide() {
     },
   });
 
-  const utils = trpc.useUtils();
-  const createGuide = trpc.actionGuides.create.useMutation({
-    onSuccess: () => {
-      setOpen(false);
-      void utils.actionGuides.invalidate();
-      form.reset();
-    },
-  });
+  const queryClient = useQueryClient();
+  const createGuide = useMutation(
+    trpc.actionGuides.create.mutationOptions({
+      onSuccess: () => {
+        setOpen(false);
+        void queryClient.invalidateQueries(trpc.actionGuides.pathFilter());
+        form.reset();
+      },
+    }),
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     createGuide.mutate({

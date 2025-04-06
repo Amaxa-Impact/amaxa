@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,24 +14,29 @@ import { toast } from "@amaxa/ui/toast";
 import type { ProjectRoles } from "~/lib/types";
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 export const UpdateRole = (props: {
   roles: ProjectRoles;
   projectId: string;
   userId: string;
 }) => {
+  const trpc = useTRPC();
   const { roles, projectId, userId } = props;
   const utils = api.useUtils();
   const router = useRouter();
 
-  const { mutate: update } = api.users.updateProjectStatus.useMutation({
-    onSuccess: () => {
-      void utils.users.findUsersForProject.invalidate();
-      router.refresh();
-    },
-    onError() {
-      toast.error("Error");
-    },
-  });
+  const { mutate: update } = useMutation(
+    api.users.updateProjectStatus.mutationOptions({
+      onSuccess: () => {
+        void utils.users.findUsersForProject.invalidate();
+        router.refresh();
+      },
+      onError() {
+        toast.error("Error");
+      },
+    }),
+  );
 
   function onSubmit(e: string) {
     const permission = e as ProjectRoles;

@@ -1,0 +1,617 @@
+
+> create-t3-turbo@ lint:fix /Users/anikethchenjeri/Production/amaxa
+> turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache
+
+• Packages in scope: @amaxa/api, @amaxa/auth, @amaxa/db, @amaxa/eslint-config, @amaxa/github, @amaxa/nextjs, @amaxa/prettier-config, @amaxa/tailwind-config, @amaxa/tsconfig, @amaxa/ui, @amaxa/validators, @amaxa/website
+• Running lint in 12 packages
+• Remote caching disabled
+@amaxa/validators:build: cache miss, executing 093cd011460edb9d
+@amaxa/db:build: cache miss, executing ce27fc16bc34d73b
+@amaxa/tailwind-config:lint: cache miss, executing 4a3610d7374f6f69
+@amaxa/db:lint: cache miss, executing faf922a0e1f4d676
+@amaxa/validators:lint: cache miss, executing cdacc5dc7ce7dcb2
+@amaxa/ui:lint: cache miss, executing 592f19a753ebe383
+@amaxa/validators:build: 
+@amaxa/validators:build: > @amaxa/validators@0.1.0 build /Users/anikethchenjeri/Production/amaxa/packages/validators
+@amaxa/validators:build: > tsc
+@amaxa/validators:build: 
+@amaxa/db:lint: 
+@amaxa/db:lint: > @amaxa/db@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/packages/db
+@amaxa/db:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/db:lint: 
+@amaxa/validators:lint: 
+@amaxa/validators:lint: > @amaxa/validators@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/packages/validators
+@amaxa/validators:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/validators:lint: 
+@amaxa/tailwind-config:lint: 
+@amaxa/tailwind-config:lint: > @amaxa/tailwind-config@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/tooling/tailwind
+@amaxa/tailwind-config:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/tailwind-config:lint: 
+@amaxa/ui:lint: 
+@amaxa/ui:lint: > @amaxa/ui@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/packages/ui
+@amaxa/ui:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/ui:lint: 
+@amaxa/db:build: 
+@amaxa/db:build: > @amaxa/db@0.1.0 build /Users/anikethchenjeri/Production/amaxa/packages/db
+@amaxa/db:build: > tsc
+@amaxa/db:build: 
+@amaxa/website:lint: cache miss, executing 1e3c55e7aa9feed4
+@amaxa/website:lint: 
+@amaxa/website:lint: > @amaxa/website@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/apps/website
+@amaxa/website:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/website:lint: 
+@amaxa/auth:lint: cache miss, executing a8122456dbe05f0c
+@amaxa/api:build: cache miss, executing 6b2785fdff34a615
+@amaxa/api:lint: cache miss, executing 77866e26b680ac96
+@amaxa/auth:lint: 
+@amaxa/auth:lint: > @amaxa/auth@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/packages/auth
+@amaxa/auth:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/auth:lint: 
+@amaxa/api:build: 
+@amaxa/api:build: > @amaxa/api@0.1.0 build /Users/anikethchenjeri/Production/amaxa/packages/api
+@amaxa/api:build: > tsc
+@amaxa/api:build: 
+@amaxa/api:lint: 
+@amaxa/api:lint: > @amaxa/api@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/packages/api
+@amaxa/api:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/api:lint: 
+@amaxa/validators:lint: 
+@amaxa/validators:lint: Oops! Something went wrong! :(
+@amaxa/validators:lint: 
+@amaxa/validators:lint: ESLint: 9.5.0
+@amaxa/validators:lint: 
+@amaxa/validators:lint: TypeError: Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit')
+@amaxa/validators:lint: Occurred while linting /Users/anikethchenjeri/Production/amaxa/packages/validators/src/index.ts
+@amaxa/validators:lint:     at Object.create (/Users/anikethchenjeri/Production/amaxa/node_modules/eslint/lib/rules/no-unused-expressions.js:79:5)
+@amaxa/validators:lint:     at create (/Users/anikethchenjeri/Production/amaxa/node_modules/@typescript-eslint/eslint-plugin/dist/rules/no-unused-expressions.js:30:32)
+@amaxa/validators:lint:     at Object.create (/Users/anikethchenjeri/Production/amaxa/node_modules/@typescript-eslint/utils/dist/eslint-utils/RuleCreator.js:31:20)
+@amaxa/validators:lint:     at createRuleListeners (/Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:945:21)
+@amaxa/validators:lint:     at /Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:1076:84
+@amaxa/validators:lint:     at Array.forEach (<anonymous>)
+@amaxa/validators:lint:     at runRules (/Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:1007:34)
+@amaxa/validators:lint:     at Linter._verifyWithFlatConfigArrayAndWithoutProcessors (/Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:1879:31)
+@amaxa/validators:lint:     at Linter._verifyWithFlatConfigArray (/Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:2017:21)
+@amaxa/validators:lint:     at Linter.verify (/Users/anikethchenjeri/Production/amaxa/packages/validators/node_modules/eslint/lib/linter/linter.js:1492:61)
+@amaxa/validators:lint:  ELIFECYCLE  Command failed with exit code 2.
+@amaxa/api:build: src/permissions.ts(1,15): error TS2305: Module '"@amaxa/auth"' has no exported member 'Session'.
+@amaxa/api:build: src/router/auth.ts(3,10): error TS2305: Module '"@amaxa/auth"' has no exported member 'invalidateSessionToken'.
+@amaxa/api:build: src/router/auth.ts(15,19): error TS2339: Property 'token' does not exist on type '{ session: { user: { id: string; name: string; email: string; emailVerified: boolean; createdAt: Date; updatedAt: Date; image?: string | null | undefined; status: string; role: string; }; session: { ...; }; }; db: VercelPgDatabase<...> & { ...; }; }'.
+@amaxa/api:build: src/router/auth.ts(18,43): error TS2339: Property 'token' does not exist on type '{ session: { user: { id: string; name: string; email: string; emailVerified: boolean; createdAt: Date; updatedAt: Date; image?: string | null | undefined; status: string; role: string; }; session: { ...; }; }; db: VercelPgDatabase<...> & { ...; }; }'.
+@amaxa/api:build: src/router/users.ts(6,27): error TS2724: '"@amaxa/db/schema"' has no exported member named 'User'. Did you mean 'user'?
+@amaxa/api:build: src/router/users.ts(33,28): error TS2339: Property 'project_permissions' does not exist on type '{ id: string; name: string; email: string; emailVerified: boolean; createdAt: Date; updatedAt: Date; image?: string | null | undefined; status: string; role: string; }'.
+@amaxa/api:build: src/router/users.ts(34,28): error TS2339: Property 'project_permissions' does not exist on type '{ id: string; name: string; email: string; emailVerified: boolean; createdAt: Date; updatedAt: Date; image?: string | null | undefined; status: string; role: string; }'.
+@amaxa/api:build: ../auth/env.ts(7,5): error TS2739: Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(8,5): error TS2739: Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(9,5): error TS2739: Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(10,5): error TS2322: Type 'ZodString | ZodOptional<ZodString>' is not assignable to type 'ZodType<any, ZodTypeDef, any> | undefined'.
+@amaxa/api:build:   Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(14,5): error TS2739: Type 'ZodOptional<ZodEnum<["development", "production"]>>' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(15,5): error TS2739: Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build: ../auth/env.ts(16,5): error TS2739: Type 'ZodString' is missing the following properties from type 'ZodType<any, ZodTypeDef, any>': "~standard", "~validate"
+@amaxa/api:build:  ELIFECYCLE  Command failed with exit code 2.
+@amaxa/nextjs:lint: cache miss, executing 6879886b20ac0bbe
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: > @amaxa/nextjs@0.1.0 lint /Users/anikethchenjeri/Production/amaxa/apps/nextjs
+@amaxa/nextjs:lint: > eslint "--fix" "--cache" "--cache-location" "node_modules/.cache/.eslintcache"
+@amaxa/nextjs:lint: 
+@amaxa/auth:lint: 
+@amaxa/auth:lint: Oops! Something went wrong! :(
+@amaxa/auth:lint: 
+@amaxa/auth:lint: ESLint: 9.5.0
+@amaxa/auth:lint: 
+@amaxa/auth:lint: TypeError: Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit')
+@amaxa/auth:lint: Occurred while linting /Users/anikethchenjeri/Production/amaxa/packages/auth/src/auth.ts
+@amaxa/auth:lint:     at Object.create (/Users/anikethchenjeri/Production/amaxa/node_modules/eslint/lib/rules/no-unused-expressions.js:79:5)
+@amaxa/auth:lint:     at create (/Users/anikethchenjeri/Production/amaxa/node_modules/@typescript-eslint/eslint-plugin/dist/rules/no-unused-expressions.js:30:32)
+@amaxa/auth:lint:     at Object.create (/Users/anikethchenjeri/Production/amaxa/node_modules/@typescript-eslint/utils/dist/eslint-utils/RuleCreator.js:31:20)
+@amaxa/auth:lint:     at createRuleListeners (/Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:945:21)
+@amaxa/auth:lint:     at /Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:1076:84
+@amaxa/auth:lint:     at Array.forEach (<anonymous>)
+@amaxa/auth:lint:     at runRules (/Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:1007:34)
+@amaxa/auth:lint:     at Linter._verifyWithFlatConfigArrayAndWithoutProcessors (/Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:1879:31)
+@amaxa/auth:lint:     at Linter._verifyWithFlatConfigArray (/Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:2017:21)
+@amaxa/auth:lint:     at Linter.verify (/Users/anikethchenjeri/Production/amaxa/packages/auth/node_modules/eslint/lib/linter/linter.js:1492:61)
+@amaxa/auth:lint:  ELIFECYCLE  Command failed with exit code 2.
+@amaxa/api:lint: 
+@amaxa/api:lint: /Users/anikethchenjeri/Production/amaxa/packages/api/src/permissions.ts
+@amaxa/api:lint:    3:62  error  'Session' is an 'error' type that acts as 'any' and overrides all other types in this union type  @typescript-eslint/no-redundant-type-constituents
+@amaxa/api:lint:    5:15  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    6:9   error  Unsafe assignment of an error typed value                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    6:38  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    9:24  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   10:24  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   11:24  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   24:12  error  'Session' is an 'error' type that acts as 'any' and overrides all other types in this union type  @typescript-eslint/no-redundant-type-constituents
+@amaxa/api:lint:   27:15  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   28:9   error  Unsafe assignment of an error typed value                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:   28:38  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   31:24  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   32:24  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   36:60  error  'Session' is an 'error' type that acts as 'any' and overrides all other types in this union type  @typescript-eslint/no-redundant-type-constituents
+@amaxa/api:lint:   38:15  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   39:9   error  Unsafe assignment of an error typed value                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:   39:38  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   41:29  error  Unsafe member access [projectId] on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   44:34  error  'Session' is an 'error' type that acts as 'any' and overrides all other types in this union type  @typescript-eslint/no-redundant-type-constituents
+@amaxa/api:lint:   46:15  error  Unsafe member access .user on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint: 
+@amaxa/api:lint: /Users/anikethchenjeri/Production/amaxa/packages/api/src/router/auth.ts
+@amaxa/api:lint:   18:11  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/api:lint: 
+@amaxa/api:lint: /Users/anikethchenjeri/Production/amaxa/packages/api/src/router/users.ts
+@amaxa/api:lint:    13:5   error  Unsafe return of a value of type `any[]`                          @typescript-eslint/no-unsafe-return
+@amaxa/api:lint:    15:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    15:18  error  Unsafe member access .id on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    16:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    16:20  error  Unsafe member access .name on an `error` typed value              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    33:50  error  Unsafe member access [input.projectId] on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    34:50  error  Unsafe member access [input.projectId] on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    60:7   error  Unsafe return of a value of type `any[]`                          @typescript-eslint/no-unsafe-return
+@amaxa/api:lint:    62:11  error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    62:20  error  Unsafe member access .id on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    63:11  error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    63:22  error  Unsafe member access .name on an `error` typed value              @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    64:11  error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    64:23  error  Unsafe member access .image on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    65:11  error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+@amaxa/api:lint:    65:23  error  Unsafe member access .email on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:    70:34  error  Unsafe member access .id on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   107:5   error  Unsafe return of a value of type `any[]`                          @typescript-eslint/no-unsafe-return
+@amaxa/api:lint:   124:7   error  Unsafe return of a value of type error                            @typescript-eslint/no-unsafe-return
+@amaxa/api:lint:   127:24  error  Unsafe member access .id on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint:   139:54  error  Unsafe member access .id on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+@amaxa/api:lint: 
+@amaxa/api:lint: ✖ 42 problems (42 errors, 0 warnings)
+@amaxa/api:lint: 
+@amaxa/api:lint:  ELIFECYCLE  Command failed with exit code 1.
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/(marketing)/_sections/hero.tsx
+@amaxa/website:lint:    47:13  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:    47:13  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+@amaxa/website:lint:   261:22  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:   261:22  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+@amaxa/website:lint:   289:24  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:   289:24  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+@amaxa/website:lint:   290:24  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:   290:24  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+@amaxa/website:lint:   316:22  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:   316:22  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/(marketing)/program/page.tsx
+@amaxa/website:lint:   308:13  error  Do not use an `<a>` element to navigate to `/project/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/_providers/posthog-provider.tsx
+@amaxa/website:lint:   17:18  warning  Forbidden non-null assertion                                                                                      @typescript-eslint/no-non-null-assertion
+@amaxa/website:lint:   17:18  error    'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/components/platform/platform-hero.tsx
+@amaxa/website:lint:   46:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+@amaxa/website:lint:   51:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/components/ui/apple-cards.tsx
+@amaxa/website:lint:   34:22  warning  Unexpected empty method 'onCardClose'  @typescript-eslint/no-empty-function
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/components/ui/infinite-moving-cards.tsx
+@amaxa/website:lint:   29:6  warning  React Hook useEffect has a missing dependency: 'addAnimation'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/components/ui/magic-card.tsx
+@amaxa/website:lint:   57:5  error    Expected an assignment or function call and instead saw an expression                                           @typescript-eslint/no-unused-expressions
+@amaxa/website:lint:   76:6  warning  React Hook useEffect has a missing dependency: 'onMouseMove'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+@amaxa/website:lint: 
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/components/ui/sticky-scroll-reveal.tsx
+@amaxa/website:lint:   14:33  error    'any' overrides all other types in this union type                                                                  @typescript-eslint/no-redundant-type-constituents
+@amaxa/website:lint:   60:6   warning  React Hook useEffect has a missing dependency: 'linearGradients'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+@amaxa/website:lint: 
+@amaxa/website:lint: ✖ 21 problems (4 errors, 17 warnings)
+@amaxa/website:lint: 
+@amaxa/website:lint:  ELIFECYCLE  Command failed with exit code 1.
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(auth)/sign-in/page.tsx
+@amaxa/nextjs:lint:   10:3  error  'CardFooter' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   13:8  error  'Link' is defined but never used. Allowed unused vars must match /^_/u        @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(auth)/sign-out/page.tsx
+@amaxa/nextjs:lint:   29:23  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(auth)/unverified/page.tsx
+@amaxa/nextjs:lint:    5:10  error    'Button' is defined but never used. Allowed unused vars must match /^_/u                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   16:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+@amaxa/nextjs:lint:   41:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/_components/ChartData.tsx
+@amaxa/nextjs:lint:    42:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    42:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                                             @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:    42:16  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    45:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:    45:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    45:28  error  Unsafe member access .tasks on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:    50:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:    50:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    50:28  error  Unsafe member access .tasks on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:    55:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:    55:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    55:28  error  Unsafe member access .tasks on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   101:33  error  Unsafe member access .month on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   101:74  error  Unsafe member access .month on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/calendar/_components/project-calendar.tsx
+@amaxa/nextjs:lint:    30:9   error  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+@amaxa/nextjs:lint:    31:9   error  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+@amaxa/nextjs:lint:   111:17  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   112:17  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   121:17  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   169:23  error  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+@amaxa/nextjs:lint:   178:21  error  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+@amaxa/nextjs:lint:   195:15  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   195:35  error  Unsafe member access .project on an `any` value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   197:11  error  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint:   197:20  error  Computed name [projectName] resolves to an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   198:17  error  Computed name [projectName] resolves to an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   201:15  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   201:31  error  Unsafe member access .project on an `any` value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   202:15  error  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   202:27  error  Unsafe member access .project on an `any` value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   205:31  error  Computed name [projectName] resolves to an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   206:37  error  Unsafe member access .duration on an `any` value                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   220:11  error  Unnecessary conditional, the types have no overlap                                                              @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint:   221:40  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator       @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint:   228:9   error  'dominantCurrency' is assigned a value but never used. Allowed unused vars must match /^_/u                     @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   391:16  error  Unnecessary conditional, comparison is always true, since `2 === 2` is true                                     @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint:   420:16  error  Unnecessary conditional, comparison is always true, since `2 > 0` is true                                       @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint:   453:16  error  Unnecessary conditional, comparison is always true, since `2 === 2` is true                                     @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/calendar/_components/tracker-events.tsx
+@amaxa/nextjs:lint:   13:9   error  Unexpected any. Specify a different type                                @typescript-eslint/no-explicit-any
+@amaxa/nextjs:lint:   18:21  error  Unsafe member access .length on an `any` value                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   24:16  error  Unsafe assignment of an `any` value                                     @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   24:21  error  Unsafe member access [0] on an `any` value                              @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   26:17  error  Unsafe member access [0] on an `any` value                              @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   26:61  error  Unsafe argument of type `any` assigned to a parameter of type `number`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   26:66  error  Unsafe member access [0] on an `any` value                              @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   29:21  error  Unsafe member access .length on an `any` value                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   31:18  error  Unsafe member access .length on an `any` value                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/calendar/_components/tracker-settings.tsx
+@amaxa/nextjs:lint:   13:3   error  'DropdownMenuRadioGroup' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   14:3   error  'DropdownMenuRadioItem' is defined but never used. Allowed unused vars must match /^_/u   @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   16:3   error  'DropdownMenuSubContent' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   26:35  error  'timeFormat' is defined but never used. Allowed unused args must match /^_/u              @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   26:47  error  'weekStartsOnMonday' is defined but never used. Allowed unused args must match /^_/u      @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/calendar/page.tsx
+@amaxa/nextjs:lint:   13:20  error  'endOfMonth' is defined but never used. Allowed unused vars must match /^_/u    @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   13:32  error  'formatISO' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   13:43  error  'startOfMonth' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   30:32  error  'params' is defined but never used. Allowed unused args must match /^_/u        @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   30:40  error  'searchParams' is defined but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/layout.tsx
+@amaxa/nextjs:lint:   59:19  error  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/page.tsx
+@amaxa/nextjs:lint:   15:8   error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   15:12  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   19:8   error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   19:12  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   23:8   error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   23:12  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/_components/add-user-form.tsx
+@amaxa/nextjs:lint:   67:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   67:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   67:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   74:42  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   74:42  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   74:46  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/_components/add-user.tsx
+@amaxa/nextjs:lint:    5:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    5:22  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    5:26  error  Unsafe member access .users on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:    7:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    7:19  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    7:24  error  Unsafe member access .map on an `error` typed value    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:    9:7   error  Unsafe assignment of an `any` value                    @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    9:19  error  Unsafe member access .id on an `any` value             @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   10:7   error  Unsafe assignment of an `any` value                    @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   10:19  error  Unsafe member access .name on an `any` value           @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   16:29  error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/_components/table.tsx
+@amaxa/nextjs:lint:   11:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   11:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                                             @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   11:16  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   14:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   14:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   14:28  error  Unsafe member access .users on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   26:8   error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   27:24  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   27:29  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   32:39  error  Unsafe member access .name on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   35:52  error  Unsafe member access .name on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   37:25  error  Unsafe member access .email on an `any` value                                                                                               @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   43:33  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   43:38  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   43:64  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   43:69  error  Unsafe member access .role on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/_components/update-role-optimistic.tsx
+@amaxa/nextjs:lint:   24:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   24:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   24:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   26:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   26:17  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   26:21  error  Unsafe member access .useUtils on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   29:42  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   29:42  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   29:46  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   31:12  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   31:18  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/_skeleton/index.tsx
+@amaxa/nextjs:lint:   7:9  error  Unsafe spread of an `any` value in an array  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/permissions/page.tsx
+@amaxa/nextjs:lint:   32:8   error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   32:12  error  Unsafe member access .users on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(root)/settings/_components/update-project-info.tsx
+@amaxa/nextjs:lint:   52:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   52:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   52:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   61:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   61:17  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   61:21  error  Unsafe member access .useUtils on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   62:45  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   62:45  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   62:49  error  Unsafe member access .projects on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   64:13  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   64:19  error  Unsafe member access .projects on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   68:13  error  Unsafe argument of type `any` assigned to a parameter of type `ReactNode`                                                @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   68:17  error  Unsafe member access .message on an `any` value                                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/(tasks)/tasks/page.tsx
+@amaxa/nextjs:lint:    7:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    7:22  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    7:26  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   11:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   11:22  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   11:60  error  Unsafe member access .tasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   12:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   12:22  error  Unsafe member access .edges on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   12:60  error  Unsafe member access .edges on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   16:29  error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   16:47  error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(dashboard)/project/[id]/layout.tsx
+@amaxa/nextjs:lint:   14:22  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   14:54  error  Unsafe member access .value on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/_components/create-project-dialog.tsx
+@amaxa/nextjs:lint:   37:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   37:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   37:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   50:37  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   50:37  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   50:41  error  Unsafe member access .projects on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/_components/project-cards.tsx
+@amaxa/nextjs:lint:   12:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   12:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                                             @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   12:16  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   15:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   15:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   15:28  error  Unsafe member access .projects on an `error` typed value                                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   19:8   error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   21:22  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   21:30  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   21:60  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   25:24  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   25:32  error  Unsafe member access .image on an `any` value                                                                                               @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   28:39  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   32:26  error  Unsafe member access .name on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/_components/sidebar.tsx
+@amaxa/nextjs:lint:   41:9   error  Unsafe assignment of an error typed value              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   41:24  error  Unsafe member access .user on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   43:13  error  Unsafe member access .name on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   43:26  error  Unsafe member access .name on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   49:40  error  Unsafe member access .name on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   51:19  error  Unsafe member access .email on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   56:19  error  Unsafe member access .name on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   57:17  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   57:17  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   57:17  error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   57:22  error  Unsafe member access .name on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   59:20  error  Unsafe member access .map on an `error` typed value    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   59:34  error  Unsafe return of a value of type `any`                 @typescript-eslint/no-unsafe-return
+@amaxa/nextjs:lint:   59:34  error  Unsafe call of a(n) `any` typed value                  @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   59:39  error  Unsafe member access [0] on an `any` value             @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   60:20  error  Unsafe member access .join on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/admin/_components/form.tsx
+@amaxa/nextjs:lint:   47:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   47:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   47:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   48:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   48:17  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   48:21  error  Unsafe member access .useUtils on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   49:34  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   49:34  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   49:38  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   51:7   error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   51:13  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   56:7   error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   56:13  error  Unsafe member access .users on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   65:23  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint:   70:25  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/admin/_components/table.tsx
+@amaxa/nextjs:lint:   28:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   28:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                                             @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   28:16  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   32:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   32:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   32:28  error  Unsafe member access .users on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   33:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   33:17  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   33:21  error  Unsafe member access .useUtils on an `error` typed value                                                                                    @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   34:34  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`                     @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   34:34  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   34:38  error  Unsafe member access .users on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   36:7   error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   36:13  error  Unsafe member access .users on an `error` typed value                                                                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   60:12  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   61:28  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   61:33  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   62:32  error  Unsafe member access .name on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   63:32  error  Unsafe member access .email on an `any` value                                                                                               @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   64:32  error  Unsafe member access .isPublic on an `any` value                                                                                            @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   65:32  error  Unsafe member access .status on an `any` value                                                                                              @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   66:32  error  Unsafe member access .role on an `any` value                                                                                                @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   69:48  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   71:38  error  Unsafe argument of type `any` assigned to a parameter of type `SetStateAction<string | null>`                                               @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   71:50  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   82:29  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   92:47  error  Unsafe argument of type `any` assigned to a parameter of type `string`                                                                      @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   92:52  error  Unsafe member access .id on an `any` value                                                                                                  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/admin/loading.tsx
+@amaxa/nextjs:lint:   26:13  error  Unsafe spread of an `any` value in an array  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/admin/page.tsx
+@amaxa/nextjs:lint:   16:8   error  Unsafe call of a(n) `error` type typed value           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   16:12  error  Unsafe member access .users on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/events/_components/CreateEvent.tsx
+@amaxa/nextjs:lint:   48:9   error  Unsafe assignment of an error typed value                                                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   48:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                          @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   48:16  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   52:53  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   52:53  error  Unsafe call of a(n) `error` type typed value                                                                             @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   52:57  error  Unsafe member access .events on an `error` typed value                                                                   @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/events/page.tsx
+@amaxa/nextjs:lint:   18:9   error  Unsafe assignment of an error typed value               @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   18:22  error  Unsafe call of a(n) `error` type typed value            @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   18:26  error  Unsafe member access .events on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   29:10  error  Unsafe call of a(n) `error` type typed value            @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   29:15  error  Unsafe member access .map on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   30:27  error  Unsafe assignment of an `any` value                     @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   30:33  error  Unsafe member access .id on an `any` value              @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   30:44  error  Unsafe assignment of an `any` value                     @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/guides/action-guides/_components/GuideCard.tsx
+@amaxa/nextjs:lint:    4:10  error  'useMemo' is defined but never used. Allowed unused vars must match /^_/u                                                                   @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:    4:19  error  'useState' is defined but never used. Allowed unused vars must match /^_/u                                                                  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   14:10  error  'Input' is defined but never used. Allowed unused vars must match /^_/u                                                                     @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   22:9   error  Unsafe assignment of an error typed value                                                                                                   @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   22:9   error  'trpc' is assigned a value but never used. Allowed unused vars must match /^_/u                                                             @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   22:16  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   25:24  error  Unsafe argument of type error typed assigned to a parameter of type `UseSuspenseQueryOptions<unknown, Error, unknown, readonly unknown[]>`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   25:24  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   35:10  error  Unsafe call of a(n) `error` type typed value                                                                                                @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   36:55  error  Unsafe assignment of an `any` value                                                                                                         @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/guides/action-guides/_components/GuideCardSkeleton.tsx
+@amaxa/nextjs:lint:   26:11  error  Unsafe spread of an `any` value in an array  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/guides/action-guides/_components/create-action-guide.tsx
+@amaxa/nextjs:lint:     3:17  error  'trpc' is defined but never used. Allowed unused vars must match /^_/u                                                                                 @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:    39:9   error  Unsafe assignment of an error typed value                                                                                                              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:    39:16  error  Unsafe call of a(n) `error` type typed value                                                                                                           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    51:35  error  Unsafe argument of type error typed assigned to a parameter of type `UseMutationOptions<unknown, Error, void, unknown>`                                @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:    51:35  error  Unsafe call of a(n) `error` type typed value                                                                                                           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    51:40  error  Unsafe member access .actionGuides on an `error` typed value                                                                                           @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:    54:42  error  Unsafe argument of type error typed assigned to a parameter of type `InvalidateQueryFilters<unknown, Error, unknown, readonly unknown[]> | undefined`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:    54:42  error  Unsafe call of a(n) `error` type typed value                                                                                                           @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:    54:47  error  Unsafe member access .actionGuides on an `error` typed value                                                                                           @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   125:47  error  Unsafe assignment of an error typed value                                                                                                              @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/guides/action-guides/page.tsx
+@amaxa/nextjs:lint:   10:8   error  Unsafe call of a(n) `error` type typed value                  @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   10:12  error  Unsafe member access .actionGuides on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/layout.tsx
+@amaxa/nextjs:lint:   3:10  error  'isAdmin' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(home)/loading.tsx
+@amaxa/nextjs:lint:   14:15  error  Unsafe spread of an `any` value in an array  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   29:15  error  Unsafe spread of an `any` value in an array  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(scheduling)/schedule/[coachId]/_components/date-time-picker.tsx
+@amaxa/nextjs:lint:     7:3   error  'addDays' is defined but never used. Allowed unused vars must match /^_/u                                  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   112:9   error  'formatTime' is assigned a value but never used. Allowed unused vars must match /^_/u                      @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   125:9   error  Unsafe argument of type `any` assigned to a parameter of type `number`                                     @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   125:9   error  Unsafe call of a(n) `any` typed value                                                                      @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   125:22  error  Unsafe member access .getFullYear on an `any` value                                                        @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   126:9   error  Unsafe argument of type `any` assigned to a parameter of type `number | undefined`                         @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   126:9   error  Unsafe call of a(n) `any` typed value                                                                      @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   126:22  error  Unsafe member access .getMonth on an `any` value                                                           @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   127:9   error  Unsafe argument of type `any` assigned to a parameter of type `number | undefined`                         @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   127:9   error  Unsafe call of a(n) `any` typed value                                                                      @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint:   127:22  error  Unsafe member access .getDate on an `any` value                                                            @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   133:41  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   139:22  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   141:22  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   173:31  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   198:64  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint:   218:22  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   218:31  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/(scheduling)/schedule/[coachId]/page.tsx
+@amaxa/nextjs:lint:     2:1   error  Do not use "@ts-nocheck" because it alters compilation errors                                       @typescript-eslint/ban-ts-comment
+@amaxa/nextjs:lint:   104:9   error  'formatTime' is assigned a value but never used. Allowed unused vars must match /^_/u               @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint:   110:27  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined  @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/app/api/project/[id]/route.ts
+@amaxa/nextjs:lint:   32:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   32:20  error  Unsafe member access .id on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   33:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   33:22  error  Unsafe member access .name on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   34:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   34:22  error  Unsafe member access .role on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   35:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   35:23  error  Unsafe member access .image on an `error` typed value                                      @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   39:53  error  Unsafe argument of type error typed assigned to a parameter of type `string | SQLWrapper`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   39:58  error  Unsafe member access .id on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   44:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   44:20  error  Unsafe member access .id on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   45:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   45:22  error  Unsafe member access .name on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   46:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   46:22  error  Unsafe member access .role on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   47:11  error  Unsafe assignment of an error typed value                                                  @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   47:23  error  Unsafe member access .image on an `error` typed value                                      @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint:   51:53  error  Unsafe argument of type error typed assigned to a parameter of type `string | SQLWrapper`  @typescript-eslint/no-unsafe-argument
+@amaxa/nextjs:lint:   51:58  error  Unsafe member access .id on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/components/calendar-full.tsx
+@amaxa/nextjs:lint:   260:18  error  Unsafe spread of an `any` value in an array                                            @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   283:22  error  Unsafe spread of an `any` value in an array                                            @typescript-eslint/no-unsafe-assignment
+@amaxa/nextjs:lint:   433:9   error  Unnecessary conditional, value is always falsy                                         @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint:   505:16  error  Unnecessary conditional, comparison is always true, since `"year" === "year"` is true  @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint:   548:16  error  Unnecessary conditional, comparison is always true, since `"year" === "year"` is true  @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/components/layout-tabs.tsx
+@amaxa/nextjs:lint:   24:7  error  Unnecessary conditional, value is always falsy  @typescript-eslint/no-unnecessary-condition
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/components/navbar/app-sidebar.tsx
+@amaxa/nextjs:lint:   91:9  error  'searchResults' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/components/navbar/root-sidebar.tsx
+@amaxa/nextjs:lint:   10:3  error  'SidebarHeader' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: /Users/anikethchenjeri/Production/amaxa/apps/nextjs/src/lib/handle-error.ts
+@amaxa/nextjs:lint:   15:14  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint: ✖ 315 problems (313 errors, 2 warnings)
+@amaxa/nextjs:lint: 
+@amaxa/nextjs:lint:  ELIFECYCLE  Command failed with exit code 1.
+
+ Tasks:    5 successful, 11 total
+Cached:    0 cached, 11 total
+  Time:    11.212s 
+Failed:    @amaxa/api#build, @amaxa/api#lint, @amaxa/auth#lint, @amaxa/nextjs#lint, @amaxa/validators#lint, @amaxa/website#lint
+
+ ELIFECYCLE  Command failed with exit code 2.

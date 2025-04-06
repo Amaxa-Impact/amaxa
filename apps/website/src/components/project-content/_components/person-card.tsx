@@ -14,7 +14,7 @@ export function PersonCard({ name, image, role }: PersonCardProps) {
       <div
         style={{ backgroundImage: `url(${image})` }}
         className={cn(
-          " card backgroundImage relative mx-auto flex h-96 max-w-sm  cursor-pointer flex-col justify-between overflow-hidden rounded-md p-4 shadow-xl",
+          "card backgroundImage relative mx-auto flex h-96 max-w-sm cursor-pointer flex-col justify-between overflow-hidden rounded-md p-4 shadow-xl",
           "bg-cover",
         )}
       >

@@ -1,6 +1,7 @@
 import React from "react";
-import { GenericHome } from "../../_sections/project-shell";
+
 import { projects } from "~/lib/projects";
+import { GenericHome } from "../../_sections/project-shell";
 
 export default async function Page({
   params,

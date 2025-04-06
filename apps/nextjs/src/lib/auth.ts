@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { auth } from "@amaxa/auth";
+import { getSession } from "@amaxa/auth";
 
 export const checkAuth = async () => {
-  const session = await auth();
+  const session = await getSession();
 
   if (!session) {
     redirect("/sign-in");

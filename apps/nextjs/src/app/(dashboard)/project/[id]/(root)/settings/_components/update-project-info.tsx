@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,6 +27,8 @@ import { Textarea } from "@amaxa/ui/textarea";
 
 import { api } from "~/trpc/react";
 
+import { useMutation } from "@tanstack/react-query";
+
 const schema = z.object({
   id: z.string(),
   name: z.string().min(1, "Project name is required"),
@@ -48,6 +49,7 @@ export function ProjectDetailsForm({
   projectId,
   initialData,
 }: ProjectDetailsFormProps) {
+  const trpc = useTRPC();
   const form = useForm<FormSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -57,15 +59,17 @@ export function ProjectDetailsForm({
   });
 
   const utils = api.useUtils();
-  const { mutate, isPending } = api.projects.update.useMutation({
-    onSuccess: async () => {
-      await utils.projects.invalidate();
-      toast("Success!");
-    },
-    onError: (err) => {
-      toast(err.message);
-    },
-  });
+  const { mutate, isPending } = useMutation(
+    api.projects.update.mutationOptions({
+      onSuccess: async () => {
+        await utils.projects.invalidate();
+        toast("Success!");
+      },
+      onError: (err) => {
+        toast(err.message);
+      },
+    }),
+  );
 
   return (
     <Card>

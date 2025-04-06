@@ -54,8 +54,8 @@ export default async function Layout({
       <AppSidebar
         id={data.id}
         user={{
-          name: auth.user.name!,
-          email: auth.user.email!,
+          name: auth.user.name,
+          email: auth.user.email,
           avatar: auth.user.image!,
         }}
         teamSwitcher={<TeamSwitcher />}

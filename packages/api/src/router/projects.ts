@@ -5,7 +5,8 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { eq } from "@amaxa/db";
-import { createProjectSchema, Projects } from "@amaxa/db/schema";
+import { Projects } from "@amaxa/db/schema";
+import { projectsInsertSchema } from "@amaxa/validators";
 
 import { isAdmin, isProjectPrivileged } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -21,7 +22,7 @@ export const projectsRouter = createTRPCRouter({
       return await ctx.db.query.Projects.findMany({});
     }),
   create: protectedProcedure
-    .input(createProjectSchema)
+    .input(projectsInsertSchema)
     .mutation(async ({ ctx, input }) => {
       if (!isAdmin(ctx.session))
         throw new TRPCError({

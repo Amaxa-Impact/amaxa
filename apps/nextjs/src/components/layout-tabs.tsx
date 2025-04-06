@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 
 import { cn } from "@amaxa/ui";
 
@@ -15,21 +14,11 @@ interface VercelTabsProps {
 
 export function AppNav({ className }: VercelTabsProps) {
   const pathname = usePathname();
-  const session = useSession();
 
   const links = [
     { href: "/", label: "Projects" },
     { href: "/events", label: "Events" },
     { href: "/guides/action-guides", label: "Guides" },
-  session?.data?.user.role === "Admin"
-      ? {
-          href: "/admin",
-          label: "Admin",
-        }
-      : {
-          href: "/",
-          label: "",
-        },
   ];
 
   if (!links || links.length === 0) {
