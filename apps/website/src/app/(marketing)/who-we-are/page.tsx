@@ -134,7 +134,8 @@ Lexi grew up in central Illinois, where cornfields stretch to the horizon and Fr
             bio: `
 Ani drives the development of the ámaxa platform, tackling key challenges and creating innovative software solutions. A junior in high school, he has invested thousands of hours in programming and problem-solving. His skills have earned national recognition, with multiple state and national titles in programming and cybersecurity.
             `,
-            imageUrl: "",
+            imageUrl:
+              "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYnvGR8lUs9XMErKJv7Faw8TpfmyuG5lVHhqx",
           },
         ].map((person, idx) => (
           <ProfileCard
