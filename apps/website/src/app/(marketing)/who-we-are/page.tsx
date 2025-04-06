@@ -20,10 +20,10 @@ export default function WhoAreWePage() {
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
                 <h1 className="text-3xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Who We Are{" "}
-                  <span className="font-normal text-[#3B3B3B]">
+                  Meet Our Team{" "}
+                  {/* <span className="font-normal text-[#3B3B3B]">
                     & Our Mission
-                  </span>
+                  </span> */}
                 </h1>
 
                 {/* Green wavy line - SVG replacement for the image */}
@@ -135,7 +135,8 @@ Lexi grew up in central Illinois, where cornfields stretch to the horizon and Fr
             bio: `
 Ani drives the development of the ámaxa platform, tackling key challenges and creating innovative software solutions. A junior in high school, he has invested thousands of hours in programming and problem-solving. His skills have earned national recognition, with multiple state and national titles in programming and cybersecurity.
             `,
-            imageUrl: "",
+            imageUrl:
+              "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOYnvGR8lUs9XMErKJv7Faw8TpfmyuG5lVHhqx",
           },
         ].map((person, idx) => (
           <ProfileCard

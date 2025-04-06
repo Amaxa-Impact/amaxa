@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link"; // Assuming you're using Next.js, otherwise use React Router
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -41,16 +40,22 @@ const Footer = () => {
         <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0">
           <nav className="flex flex-wrap justify-center gap-4 text-sm md:justify-start md:gap-6 md:text-base">
             <Link href="/project" className="text-gray-800 hover:text-gray-600">
-              Explore Projects
+              Discover Projects
             </Link>
             <Link href="/program" className="text-gray-800 hover:text-gray-600">
-              Our Programs
+              Explore Ámaxa Pathways
+            </Link>
+            <Link
+              href="/project-stories"
+              className="text-gray-800 hover:text-gray-600"
+            >
+              Read Ámaxa Stories
             </Link>
             <Link
               href="/who-we-are"
               className="text-gray-800 hover:text-gray-600"
             >
-              Who We Are
+              Meet Our Team
             </Link>
 
             {/* <Link
@@ -59,6 +64,18 @@ const Footer = () => {
             >
               Our Platform
             </Link>  */}
+            <Link
+              href="/contact-us"
+              className="text-gray-800 hover:text-gray-600"
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/newsletter"
+              className="text-gray-800 hover:text-gray-600"
+            >
+              Subscribe to Our Newsletter
+            </Link>
 
             <Link
               href="/support-us"
@@ -69,31 +86,15 @@ const Footer = () => {
             <Link href="/blog" className="text-gray-800 hover:text-gray-600">
               Our Blog
             </Link>
-            <Link
-              href="/newsletter"
-              className="text-gray-800 hover:text-gray-600"
-            >
-              Our Newsletter
-            </Link>
-
-            {/* <Link
-              href="/contact-us"
-              className="text-gray-800 hover:text-gray-600"
-            >
-              Contact Us
-            </Link>  */}
-            {/* <div className="md:ml-auto flex gap-6 text-sm">
             <Link href="/terms" className="text-gray-800 hover:text-gray-600">
               Terms of Use
             </Link>
             <Link href="/privacy" className="text-gray-800 hover:text-gray-600">
               Privacy Policy
             </Link>
-          </div> */}
           </nav>
         </div>
       </div>
-
       {/* <div className="container mx-auto mt-4 text-sm text-gray-600">
         <p>Ámaxa is a registered 501(c)(3) nonprofit.</p>
       </div> */}

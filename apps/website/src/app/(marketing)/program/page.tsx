@@ -1,6 +1,32 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 
 import { ApplyButton } from "~/components/apply";
+
+export const cards = [
+  {
+    title: "Get Started",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOXpUzmW0BrawSs24LUuYDb5IoTiA7Feh0fPKW",
+    link: "/",
+  },
+  {
+    title: "Get Started",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOSuhiFoUwdQt18rFgVynhG5ljvz0eRmMCYuOW",
+    link: "/",
+  },
+  {
+    title: "Get Started",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOrfpNVHQvsrdY6KUyulWLH1XBk7OqCf3F9gAQ",
+    link: "/",
+  },
+  {
+    title: "Get Started",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOmhhtCmGZ8BkVU4SJgWfYiHpwKRujOh50EtyM",
+    link: "/",
+  },
+];
 
 export default function ProgramPage() {
   return (
@@ -18,28 +44,32 @@ export default function ProgramPage() {
           <div className="container mx-auto px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+                {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Join us:{" "}
+                  Explore{" "}
                   <span className="font-normal text-[#3B3B3B]">
-                    Ámaxa Cohorts
+                    Ámaxa Pathways
                   </span>
                 </h1>
+                {/* --- End of resolved conflict block --- */}
 
                 {/* Green wavy line - SVG replacement for the image */}
                 <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
+                  {/* --- Start of resolved conflict block (SVG fixed) --- */}
                   <svg
-                    viewBox="0 0 325 500"
+                    viewBox="0 0 325 50" // Adjusted viewBox height
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className=""
+                    className="h-full w-full" // Ensure SVG scales
                   >
                     <path
                       d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
                       stroke="#BCD96C"
                       strokeWidth="8"
+                      strokeLinecap="round" // Moved inside path tag
                     />
-                    strokeLinecap="round"
                   </svg>
+                  {/* --- End of resolved conflict block --- */}
                 </div>
               </div>
             </div>
@@ -47,49 +77,11 @@ export default function ProgramPage() {
         </section>
       </div>
 
-      {/* <section className="w-full bg-white py-16 md:py-24">
-        <div className="container mx-auto px-6 md:px-16 lg:px-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="max-w-full md:max-w-3xl lg:max-w-4xl mb-12 md:mb-0">
-              <h1 className="text-3xl md:text-4xl lg:text-6xl font-light leading-tight text-[#3B3B3B]">
-                Effect change from anywhere with{" "}
-                <span className="font-normal text-[#3B3B3B]">
-                  Ámaxa Cohorts
-                </span>
-              </h1>
-
-              <div className="relative h-6 w-48 md:w-64 lg:w-80 ml-auto -mt-2 md:-mt-4">
-                <svg
-                  viewBox="0 0 325 82"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full"
-                >
-                  <path
-                    d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
-                    stroke="#BCD96C"
-                    strokeWidth="8"
-                  />
-                  strokeLinecap="round"
-                </svg>
-              </div>
-            </div>
-
-            <div className="mt-8 md:mt-16 lg:mt-24 self-end md:self-center">
-              <React.Suspense fallback={<div>Loading...</div>}>
-
-                <ApplyButton
-                  variant="ghost"
-                >
-                  Apply now
-                </ApplyButton>
-              </React.Suspense>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
       <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
         <div className="mx-auto max-w-7xl">
+          {/* --- End of resolved conflict block --- */}
+
           <div className="space-y-12 md:space-y-16 lg:space-y-20">
             {/* What are cohorts? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
@@ -303,12 +295,14 @@ export default function ProgramPage() {
           </div>
 
           <div>
+            {/* --- Start of resolved conflict block (main version kept) --- */}
             <a
-              href="/project"
+              href="/project-stories"
               className="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-7 py-3 text-base text-[#3B3B3B] transition-colors hover:bg-gray-50 md:text-lg"
             >
-              Read project stories →
+              Ámaxa Stories →
             </a>
+            {/* --- End of resolved conflict block --- */}
           </div>
         </div>
       </section>
@@ -421,12 +415,14 @@ export default function ProgramPage() {
                   others through our remote events, ámaxa aims to forge
                   connections that last well beyond the 3 month project.
                 </p>
+                {/* --- Start of resolved conflict block (main version kept) --- */}
                 <a
-                  href="/stories"
+                  href="/project-stories"
                   className="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
                 >
                   Read stories of our members →
                 </a>
+                {/* --- End of resolved conflict block --- */}
               </div>
             </div>
 
@@ -465,12 +461,14 @@ export default function ProgramPage() {
                   focusing on mental health, feminism, and LBGTQ+
                   representation.
                 </p>
-                <a
-                  href="/projects"
+                {/* --- Start of resolved conflict block (main version kept) --- */}
+                <Link
+                  href="/project"
                   className="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
                 >
                   Explore All Projects →
-                </a>
+                </Link>
+                {/* --- End of resolved conflict block --- */}
               </div>
             </div>
           </div>

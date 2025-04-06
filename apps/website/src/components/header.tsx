@@ -22,10 +22,12 @@ export const Navbar = () => {
   const cls = cn("text-2xl", navigationMenuTriggerStyle());
 
   const navItems = [
-    { href: "/project", label: "Explore Projects" },
-    { href: "/program", label: "Our Cohorts" },
-    { href: "/who-we-are", label: "Who We Are" },
-    { href: "/newsletter", label: "Our Newsletter" },
+    { href: "/project", label: "Discover Projects" },
+    { href: "/program", label: "Explore Our Pathways" },
+    { href: "/project-stories", label: "Read Ámaxa Stories" },
+    { href: "/who-we-are", label: "Meet Our Team" },
+    { href: "/contact-us", label: "Contact Us" },
+    { href: "/newsletter", label: "Subscribe to Our Newsletter" },
   ];
 
   return (
