@@ -50,7 +50,7 @@ export default async function Layout({
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col ">
+    <div className="flex min-h-screen w-full flex-col">
       <AppSidebar
         id={data.id}
         user={{
@@ -60,7 +60,7 @@ export default async function Layout({
         }}
         teamSwitcher={<TeamSwitcher />}
       />
-      <div className="flex flex-col sm:gap-4 sm:py-4 ">
+      <div className="flex flex-col sm:gap-4 sm:py-4">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <SidebarTrigger />
           <Breadcrumb className="hidden md:flex">

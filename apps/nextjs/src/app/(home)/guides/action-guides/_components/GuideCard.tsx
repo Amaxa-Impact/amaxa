@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 "use client";
+
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import {
   Card,
@@ -15,8 +17,6 @@ import { Input } from "@amaxa/ui/input";
 
 import { api } from "~/trpc/react";
 import CreateActionGuide from "./create-action-guide";
-
-import { useSuspenseQuery } from "@tanstack/react-query";
 
 export default function Guides() {
   const trpc = useTRPC();

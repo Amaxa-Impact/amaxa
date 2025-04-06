@@ -1,6 +1,8 @@
 "use client";
+
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import {
   Select,
@@ -13,8 +15,6 @@ import { toast } from "@amaxa/ui/toast";
 
 import type { ProjectRoles } from "~/lib/types";
 import { api } from "~/trpc/react";
-
-import { useMutation } from "@tanstack/react-query";
 
 export const UpdateRole = (props: {
   roles: ProjectRoles;

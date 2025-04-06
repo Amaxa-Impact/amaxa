@@ -1,8 +1,10 @@
 "use client";
+
 import type { z } from "zod";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -30,8 +32,6 @@ import { Input } from "@amaxa/ui/input";
 import { Textarea } from "@amaxa/ui/textarea";
 
 import { api } from "~/trpc/react";
-
-import { useMutation } from "@tanstack/react-query";
 
 export function CreateProject() {
   const trpc = useTRPC();

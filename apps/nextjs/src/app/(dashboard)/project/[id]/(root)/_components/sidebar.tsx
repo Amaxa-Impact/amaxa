@@ -29,13 +29,11 @@ export const Sidebar = memo(({ id, name }: { id: string; name: string }) => {
             <TooltipTrigger asChild>
               <Link
                 href={`/project/${id}/`}
-                className={`flex h-9 w-9 items-center justify-center rounded-lg
-${
-  pathname === `/project/${id}`
-    ? "text-accent-foreground"
-    : "text-muted-foreground"
-}
-transition-colors hover:text-foreground md:h-8 md:w-8`}
+                className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+                  pathname === `/project/${id}`
+                    ? "text-accent-foreground"
+                    : "text-muted-foreground"
+                } transition-colors hover:text-foreground md:h-8 md:w-8`}
               >
                 <ChartArea className="h-5 w-5" />
                 <span className="sr-only">Dashboard</span>
@@ -70,7 +68,7 @@ transition-colors hover:text-foreground md:h-8 md:w-8`}
                     : "text-muted-foreground"
                 } rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`}
               >
-                <User className="h-5 w-5 " />
+                <User className="h-5 w-5" />
                 <span className="sr-only">Users</span>
               </Link>
             </TooltipTrigger>
@@ -82,13 +80,11 @@ transition-colors hover:text-foreground md:h-8 md:w-8`}
             <TooltipTrigger asChild>
               <Link
                 href={`/project/${id}/settings`}
-                className={`flex h-9 w-9 items-center justify-center rounded-lg 
-                ${
+                className={`flex h-9 w-9 items-center justify-center rounded-lg ${
                   pathname.includes("settings")
                     ? "text-accent-foreground"
                     : "text-muted-foreground"
-                }
-                transition-colors hover:text-foreground md:h-8 md:w-8`}
+                } transition-colors hover:text-foreground md:h-8 md:w-8`}
               >
                 <Settings className="h-5 w-5" />
                 <span className="sr-only">Settings</span>

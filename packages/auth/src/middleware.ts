@@ -1,6 +1,6 @@
-import { createAuthClient } from "better-auth/client";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { createAuthClient } from "better-auth/client";
 
 export const client = createAuthClient();
 
@@ -8,8 +8,8 @@ export async function authMiddleware(request: NextRequest) {
   // Check if the request is for a public route
   const url = new URL(request.url);
   const publicPaths = ["/sign-in", "/sign-up", "/api/auth"];
-  
-  if (publicPaths.some(path => url.pathname.startsWith(path))) {
+
+  if (publicPaths.some((path) => url.pathname.startsWith(path))) {
     return NextResponse.next();
   }
 

@@ -235,7 +235,7 @@ function CalendarHeader({
   return (
     <div className="mb-6 flex items-center justify-between">
       <div className="select-text space-y-2">
-        <h1 className="text-4xl ">Upcoming Meetings, Events and Tasks</h1>
+        <h1 className="text-4xl">Upcoming Meetings, Events and Tasks</h1>
       </div>
       <div className="flex space-x-2">
         <TrackerMonthSelect dateFormat="MMMM" />
@@ -281,7 +281,7 @@ function CalendarGrid({
       {firstWeek.map((day) => (
         <div
           key={day.toString()}
-          className="bg-background px-3 py-4 text-xs font-medium "
+          className="bg-background px-3 py-4 text-xs font-medium"
         >
           {format(day, "EEE").toUpperCase()}
         </div>

@@ -1,8 +1,10 @@
 "use client";
+
 import type { z } from "zod";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -39,8 +41,6 @@ import { toast } from "@amaxa/ui/toast";
 
 import { showErrorToast } from "~/lib/handle-error";
 import { api } from "~/trpc/react";
-
-import { useMutation } from "@tanstack/react-query";
 
 type CreateEventProps = z.infer<typeof createEventSchema>;
 

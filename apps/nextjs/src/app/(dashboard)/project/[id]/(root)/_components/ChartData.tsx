@@ -1,4 +1,6 @@
 "use client";
+
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { TrendingUp } from "lucide-react";
 import {
   Area,
@@ -28,8 +30,6 @@ import {
 } from "@amaxa/ui/chart";
 
 import { api } from "~/trpc/react";
-
-import { useSuspenseQuery } from "@tanstack/react-query";
 
 const chartConfig = {
   tasksFinished: {

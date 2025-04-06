@@ -1,8 +1,10 @@
 "use client";
+
 import React, { useState } from "react";
 import { revalidateTag } from "next/cache";
 import { useParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -46,8 +48,6 @@ import {
 import { toast } from "@amaxa/ui/toast";
 
 import { api } from "~/trpc/react";
-
-import { useMutation } from "@tanstack/react-query";
 
 const addUserSchema = z.object({
   userId: z.string(),

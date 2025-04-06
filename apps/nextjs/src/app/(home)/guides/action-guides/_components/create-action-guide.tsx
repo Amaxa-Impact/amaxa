@@ -1,7 +1,9 @@
 "use client";
+
 import { useState } from "react";
 import { api as trpc } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,9 +27,6 @@ import { Input } from "@amaxa/ui/input";
 import { Textarea } from "@amaxa/ui/textarea";
 
 import { extractNotionId } from "~/lib/utils";
-
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),

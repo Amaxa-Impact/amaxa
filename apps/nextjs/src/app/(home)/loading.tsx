@@ -1,5 +1,5 @@
-import { Skeleton } from "@amaxa/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@amaxa/ui/card";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 export default function LoadingSkeleton() {
   return (

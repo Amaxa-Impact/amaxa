@@ -46,7 +46,7 @@ export default async function Component() {
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
           Your account is approved!
         </h1>
-        <p className="text-lg  text-gray-600 dark:text-gray-100">
+        <p className="text-lg text-gray-600 dark:text-gray-100">
           Your account is now approved and you can start using Amaxa.
         </p>
         <div className="pt-4">

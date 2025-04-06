@@ -1,12 +1,12 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { Card, CardContent, CardFooter } from "@amaxa/ui/card";
 
 import { api } from "~/trpc/react";
-
-import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function ProjectCards() {
   const trpc = useTRPC();
@@ -15,7 +15,7 @@ export function ProjectCards() {
   );
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {data.map((project) => {
         return (
           <Link key={project.id} href={`/project/${project.id}`}>

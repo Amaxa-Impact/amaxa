@@ -1,5 +1,7 @@
 "use client";
+
 import { useState } from "react";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 
 import { Button } from "@amaxa/ui/button";
 import {
@@ -20,9 +22,6 @@ import {
 
 import { api } from "~/trpc/react";
 import { UserEditForm } from "./form";
-
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
 
 export function UserManagement() {
   const trpc = useTRPC();
