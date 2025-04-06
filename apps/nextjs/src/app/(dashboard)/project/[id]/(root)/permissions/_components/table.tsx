@@ -2,15 +2,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@amaxa/ui/avatar";
 import { TableCell, TableRow } from "@amaxa/ui/table";
 
-import { api } from "~/trpc/react";
 import { UpdateRole } from "./update-role-optimistic";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useTRPC } from "~/trpc/react";
 
 export const PermissionsRows = ({ id }: { id: string }) => {
   const trpc = useTRPC();
   const { data: users } = useSuspenseQuery(
-    api.users.findUsersForProject.queryOptions({
+    trpc.users.findUsersForProject.queryOptions({
       projectId: id,
     }),
   );

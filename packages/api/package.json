@@ -23,6 +23,8 @@
     "@amaxa/db": "workspace:*",
     "@amaxa/validators": "workspace:*",
     "@trpc/server": "catalog:",
+    "arktype": "catalog:",
+    "drizzle-zod": "^0.7.1",
     "superjson": "2.2.2",
     "zod": "catalog:"
   },

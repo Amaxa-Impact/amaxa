@@ -215,7 +215,7 @@ export function DateTimePicker() {
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-lg font-semibold">Avaliable Time Slots</h3>
             <Select
-              value={timezone || ""} // Added a fallback empty string
+              value={timezone ?? ""} // Added a fallback empty string
               onValueChange={(value) => setQueryStates({ timezone: value })}
             >
               <SelectTrigger className="w-[180px]">

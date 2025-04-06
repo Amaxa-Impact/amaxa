@@ -1,7 +1,5 @@
 import React, { Suspense } from "react";
 
-import { isAdmin } from "@amaxa/api";
-
 import { AppHeader } from "~/components/app-header";
 import { AppNav } from "~/components/layout-tabs";
 
@@ -18,7 +16,7 @@ export default function Layout({
         <div className="">
           <Suspense fallback={<div>loading..</div>}>
             <AppHeader />
-            <AppNav className="bg-secondary/40 " />
+            <AppNav className="bg-secondary/40" />
           </Suspense>
         </div>
         <main className="">{children}</main>

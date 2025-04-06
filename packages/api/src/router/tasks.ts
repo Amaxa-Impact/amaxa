@@ -1,19 +1,21 @@
 import { TRPCError } from "@trpc/server";
-import { z } from "zod";
+import { type } from "arktype";
 
 import { and, buildConflictUpdateColumns, eq, sql } from "@amaxa/db";
-import { edges, statusValues, tasks } from "@amaxa/db/schema";
+import { edges, tasks } from "@amaxa/db/schema";
+import {
+  flowDataSchema,
+  tasksInsertSchema,
+  tasksSelectSchema,
+  tasksUpdateSchema,
+} from "@amaxa/validators";
 
 import { isProjectStudent } from "../permissions";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const tasksRouter = createTRPCRouter({
   getProjectTasks: protectedProcedure
-    .input(
-      z.object({
-        projectId: z.string(),
-      }),
-    )
+    .input(tasksSelectSchema)
     .query(async ({ ctx, input }) => {
       const { projectId } = input;
       const { tasks, edges } = await ctx.db.transaction(async (tx) => {
@@ -73,47 +75,7 @@ export const tasksRouter = createTRPCRouter({
     }),
 
   save: protectedProcedure
-    .input(
-      z.object({
-        tasks: z.array(
-          z.object({
-            id: z.string(),
-            type: z.string().optional(),
-            parentId: z.string(),
-            position: z.object({
-              x: z.number(),
-              y: z.number(),
-            }),
-            data: z.object({
-              title: z.string(),
-              status: z.string(),
-              description: z.string(),
-              assigne: z.object({
-                id: z.string(),
-                name: z.string().nullable(),
-                image: z.string().nullable(),
-              }),
-              assigneName: z.string().nullable(),
-              projectId: z.string(),
-              parent: z.object({
-                id: z.string(),
-              }),
-              doneBy: z.date(),
-            }),
-          }),
-        ),
-        projectId: z.string(),
-
-        edges: z.array(
-          z.object({
-            id: z.string(),
-            projectId: z.string(),
-            source: z.string(),
-            target: z.string(),
-          }),
-        ),
-      }),
-    )
+    .input(flowDataSchema)
     .mutation(async ({ ctx, input }) => {
       if (!isProjectStudent(input.projectId, ctx.session))
         throw new TRPCError({
@@ -162,20 +124,7 @@ export const tasksRouter = createTRPCRouter({
         });
     }),
   create: protectedProcedure
-    .input(
-      z.object({
-        title: z.string(),
-        projectId: z.string(),
-        parentId: z.string(),
-        description: z.string(),
-        position: z.object({
-          x: z.number(),
-          y: z.number(),
-        }),
-        assigneeId: z.string(),
-        doneBy: z.date(),
-      }),
-    )
+    .input(tasksInsertSchema)
     .mutation(async ({ ctx, input }) => {
       if (!isProjectStudent(input.projectId, ctx.session))
         throw new TRPCError({
@@ -185,28 +134,14 @@ export const tasksRouter = createTRPCRouter({
       await ctx.db.insert(tasks).values(input);
     }),
   update: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        title: z.string().optional(),
-        position: z
-          .object({
-            x: z.number(),
-            y: z.number(),
-          })
-          .optional(),
-        assigneeId: z.string().optional(),
-        status: z.enum(statusValues).optional(),
-        doneBy: z.date().optional(),
-      }),
-    )
+    .input(tasksUpdateSchema)
     .mutation(async ({ ctx, input }) => {
       await ctx.db.update(tasks).set(input).where(eq(tasks.id, input.id));
     }),
   getTaskData: protectedProcedure
     .input(
-      z.object({
-        id: z.string(),
+      type({
+        projectId: "string",
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -223,7 +158,7 @@ export const tasksRouter = createTRPCRouter({
           and(
             eq(tasks.status, "done"),
             sql`${tasks.createdAt} >= ${sixMonthsAgo}`,
-            eq(tasks.projectId, input.id),
+            eq(tasks.projectId, input.projectId),
           ),
         )
         .groupBy(sql`to_char(${tasks.createdAt}, 'Month')`)
@@ -233,8 +168,8 @@ export const tasksRouter = createTRPCRouter({
     }),
   getPriorityData: protectedProcedure
     .input(
-      z.object({
-        id: z.string(),
+      type({
+        projectId: "string",
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -244,14 +179,14 @@ export const tasksRouter = createTRPCRouter({
           count: sql<number>`count(*)`,
         })
         .from(tasks)
-        .where(eq(tasks.projectId, input.id))
+        .where(eq(tasks.projectId, input.projectId))
         .groupBy(tasks.priority);
       return result;
     }),
   getPositionData: protectedProcedure
     .input(
-      z.object({
-        id: z.string(),
+      type({
+        projectId: "string",
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -261,13 +196,13 @@ export const tasksRouter = createTRPCRouter({
           count: sql<number>`count(*)`,
         })
         .from(tasks)
-        .where(eq(tasks.projectId, input.id))
+        .where(eq(tasks.projectId, input.projectId))
         .groupBy(tasks.position);
       return result;
     }),
 
   getTasksOverTime: protectedProcedure
-    .input(z.object({ projectId: z.string() }))
+    .input(type({ projectId: "string" }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
@@ -283,7 +218,7 @@ export const tasksRouter = createTRPCRouter({
     }),
 
   getTaskPriorities: protectedProcedure
-    .input(z.object({ projectId: z.string() }))
+    .input(type({ projectId: "string" }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({
@@ -298,7 +233,7 @@ export const tasksRouter = createTRPCRouter({
     }),
 
   getTaskStatuses: protectedProcedure
-    .input(z.object({ projectId: z.string() }))
+    .input(type({ projectId: "string" }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select({

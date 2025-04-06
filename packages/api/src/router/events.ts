@@ -1,7 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { createEventSchema, events } from "@amaxa/db/schema";
+import { events } from "@amaxa/db/schema";
+import { eventsInsertSchema } from "@amaxa/validators";
 
 import { isAdmin } from "../permissions";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -21,7 +22,7 @@ export const eventsRouter = createTRPCRouter({
       });
     }),
   create: protectedProcedure
-    .input(createEventSchema)
+    .input(eventsInsertSchema)
     .mutation(async ({ ctx, input }) => {
       if (!isAdmin(ctx.session))
         throw new TRPCError({

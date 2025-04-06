@@ -1,4 +1,3 @@
-import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { relations, sql } from "drizzle-orm";
 import {
@@ -10,7 +9,6 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -65,6 +63,12 @@ export const account = pgTable("account", {
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
+}));
 
 export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
@@ -159,17 +163,6 @@ export const edgesRelations = relations(edges, ({ one }) => ({
 
 export type Edge = typeof edges.$inferSelect;
 
-export const createTaskSchema = createInsertSchema(tasks).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const selectTaskSchema = createSelectSchema(tasks);
-
-export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
-export type TaskSchema = z.infer<typeof selectTaskSchema>;
-
 export const Projects = pgTable("projects", {
   id: text("id")
     .$defaultFn(() => createId())
@@ -184,14 +177,6 @@ export const Projects = pgTable("projects", {
 });
 
 export type Project = typeof Projects.$inferSelect;
-
-export const createProjectSchema = createInsertSchema(Projects).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
 
 export const statusValues = tasks.status.enumValues;
 
@@ -305,10 +290,4 @@ export const events = pgTable("events", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updatedAt"),
-});
-
-export const createEventSchema = createInsertSchema(events).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
 });
