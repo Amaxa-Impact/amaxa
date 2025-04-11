@@ -25,9 +25,9 @@ export default function ProgramPage() {
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
                 {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Ámaxa{" "}
+                  Ámaxa Network:{" "}
                   <span className="font-normal text-[#3B3B3B]">
-                    Research
+                    Colorado
                   </span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
@@ -60,29 +60,155 @@ export default function ProgramPage() {
         </section>
         </div>
 
+
+      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+        <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
+          {/* High School Program */}
+          <div className="space-y-8 md:space-y-10">
+          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+          This is an open invitation for individuals in Colorado who are doing great things to effect change.
+          </h2>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+            The Ámaxa Network provides a space to congregate both digitally & in-person, celebrate both big wins and small victories, and foster a sense of collective achievement. 
+            Here, accomplishments are not just noted; they're elevated, fueling inspiration and collaborative growth. 
+            </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+            Our core philosophy: every achievement, no matter how seemingly modest, contributes to a larger tapestry of social impact. In essence, the ámaxa network isn’t just about connectivity—it’s about building a legacy of excellence through shared efforts.
+            </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> Any Colorado-based applicant can apply today through our link below, and we will be in touch with next steps.</p>
+           
+          </div>
+          <React.Suspense fallback={<div>Loading...</div>}>
+                <ApplyButton variant="color">
+                  Apply Today →
+                </ApplyButton>
+              </React.Suspense>
+
+        </div>
+      </section>
+
         <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
           <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-            We are launching a new pathway to build a grassroots research capacity that will support and amplify the work our partner nonprofits do.
-            </h2>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              This pathway is designed for intellectually curious undergraduate students eager to finetune their research skills and for Masters or PhD students who are eager to utilise their research skills to effect tangible social change.
+          As part of the network, you have access to opportunities to grow your skills and scale your personal project. 
+          </h2>
+         
+
+            <p className="text-lg font-light text-[#3B3B3B]  md:text-xl lg:text-2xl">
+            <strong>Feature Your Project on our Socials and Newsletters:</strong> <br></br> As part of the network, we will amplify the reach and visibility of your personal projects through our marketing channels.
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-          Our mission is to conduct, write, and publish original research on questions crtical to the work of our partner nonprofits and initiatives. Short-term objectives are to identify gaps in research pertaining to our 9 projects and their related topics and conduct research over 3-6 months. At a minimum, your work will be published on the ámaxa site, as we aim for our site to grow as a resource for robust non-academic research. However, we have already begun work to partner with academics who can offer mentorship in publishing ámaxa research pieces on think tanks, media outlets, and peer-reviewed journals. A long-term objective of this pathway is to conduct field research at the sites of our partners in Uganda, Liberia, Poland/Ukraine, and Palestine. </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> As this is a new pathway, we will accept applications on a rolling basis and reach out to applicants if we believe it will be a good fit. </p>
-            <div>
-              <React.Suspense fallback={<div>Loading...</div>}>
+
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <strong>Write for our Newsletter as a Contributor:</strong> <br></br> Get a piece of your original writing published and 'placed' in media. This is great for Linkedin!
+            </p>
+
+
+            <p className="text-lg font-light text-[#3B3B3B]  md:text-xl lg:text-2xl">
+            <strong>Internships in Computer Science:</strong> <br></br>We take a select number of students from the pool of our applicants who are exceptional at Computer Science and invite them to a 2-3 month internship where they work alongside our development team to gain real world experience building the ámaxa platform.
+            </p>
+
+
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <strong>Free Social Media Consulting</strong> <br></br> If you have a page for your project/initiative and would like an audit, the ámaxa PR and digital marketing team will do it for you for free (usually costs thousands).
+            </p>
+
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <strong>Awards</strong> <br></br> Once a year, we will review the network project prorfiles and select the most impactful or innovative. In addition to yearly awards, we will highlight projects on a quarterly basis.
+            </p>
+         
+
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <strong>Events in the Denver Metro Area</strong> <br></br> Meet in-person with other passionate individuals in Colorado at meetups and larger events as the network grows.
+
+            </p>
+         
+
+
+
+          </div>
+          <React.Suspense fallback={<div>Loading...</div>}>
                 <ApplyButton variant="color">
                   Apply Today →
                 </ApplyButton>
               </React.Suspense>
-            </div>
-          </div>
 
-       
+        </div>
+      </section>
+
+
+
+
+      {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
+      <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
+        
+        <div className="mx-auto max-w-7xl">
+          {/* --- End of resolved conflict block --- */}
+
+          <div className="space-y-12 md:space-y-16 lg:space-y-20">
+            {/* What are cohorts? */}
+            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
+              <div className="mb-4 md:mb-0 md:w-1/3">
+                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
+                  What is the network?
+                </h2>
+              </div>
+              <div className="md:w-2/3">
+                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+               A community of passionate individuals in Colorado actively pursuring social impact projects or activities in their own lives. As a part of the network, you have access to ámaxa's digital platform & in-person events in Colorado.
+                </p>
+              </div>
+            </div>
+
+      
+
+            {/* Who can join? */}
+            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
+              <div className="mb-4 md:mb-0 md:w-1/3">
+                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
+                  Who can join?
+                </h2>
+              </div>
+              <div className="md:w-2/3">
+                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                  Anyone aged 14+ based in Colorado
+                </p>
+              </div>
+            </div>
+
+            {/* Is it remote? */}
+            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
+              <div className="mb-4 md:mb-0 md:w-1/3">
+                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
+                  Is it remote or in-person?
+                </h2>
+              </div>
+              <div className="md:w-2/3">
+                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                  You can take part in the network both remotely via our online platform and by attending in-person events and meetups.
+                </p>
+              </div>
+            </div>
+
+            {/* Is there a cost? */}
+            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
+              <div className="mb-4 md:mb-0 md:w-1/3">
+                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
+                  Is there a cost?
+                </h2>
+              </div>
+              <div className="md:w-2/3">
+                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                  There is no cost to join.
+                </p>
+              </div>
+            </div>
+
+        
+
+          </div>
+          
         </div>
       </section>
 
