@@ -37,7 +37,7 @@ export const cards = [
 export default function ProgramPage() {
   return (
     <main>
-      <div className="relative flex max-h-[320px] w-full flex-col bg-white px-6 sm:max-h-[240px] md:max-h-[320px] md:px-12 lg:px-20">
+      <div className="relative flex max-h-[360px] w-full flex-col bg-white px-6 sm:max-h-[240px] md:max-h-[320px] md:px-12 lg:px-20">
         {/* Background container - hidden but preserved for reference */}
         <div className="invisible absolute inset-0">
           <div
@@ -52,9 +52,9 @@ export default function ProgramPage() {
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
                 {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Explore{" "}
+                  Ámaxa{" "}
                   <span className="font-normal text-[#3B3B3B]">
-                    Our Pathways
+                    Cohorts
                   </span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
@@ -63,10 +63,10 @@ export default function ProgramPage() {
                 <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
                   {/* --- Start of resolved conflict block (SVG fixed) --- */}
                   <svg
-                    viewBox="0 0 325 50" // Adjusted viewBox height
+                    viewBox="0 6 325 120s" // Adjusted viewBox height
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full" // Ensure SVG scales
+                    className="w-full" // Ensure SVG scales
                   >
                     <path
                       d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
@@ -87,37 +87,40 @@ export default function ProgramPage() {
         </section>
         </div>
 
-              <section className="container mx-auto flex flex-col">
-                <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
-                  <section className="w-full px-6 md:px-16 lg:px-20">
-                    <div className="mx-auto max-w-7xl">
-                      <div className="space-y-16 md:space-y-24">
-                        <div>
-                          <h3 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
-                            Our community provides ways for people of all ages and interests to effect real change.
-                          </h3>
-                         
-                          {/* <a
-                            href="/projects"
-                            className="inline-flex items-center justify-center px-6 py-2 bg-[#BCD96C] rounded-full text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
-                          >
-                            Explore All Projects →
-                          </a>  */}
-                          <p className="mb-6 max-w-3xl text-lg">
-                            {" "}
-                            <strong>Hover or click</strong> below to explore the pathway right for you.
-                          </p>
-                        </div>
-                      </div>
-        
-                      {/* Ensure 'projects' data is correctly passed */}
-                      <FocusCards cards={cards} />
-                    </div>
-                  </section>
-                </div>
-              </section>
+        <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+        <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
+          {/* High School Program */}
+          <div className="space-y-8 md:space-y-10">
+          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            We believe high school students are capable of effecting change at
+            a large scale.
+            </h2>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+              We match you to a team of
+              students from across the world ages 14-18 , guided by a
+              trained undergraduate coach. More than 240 students have applied
+              from <strong>48 countries and counting.</strong>
+            </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"><strong> Our 100% remote program is accessible across income and location.</strong> The ability to effect change should never be limited by your home or your income. </p>
+
+
+            <div>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <ApplyButton variant="color">
+                  Apply Today →
+                </ApplyButton>
+              </React.Suspense>
+            </div>
+          </div>
+
+       
+        </div>
+      </section>
 
       
+
+      
+
             
    
 
@@ -143,7 +146,7 @@ export default function ProgramPage() {
                 <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
                   Through our 3-month remote program, you work in a remote team
                   of your peers, guided by a coach, to effect measurable change
-                  through one of our 10 partner nonprofits or ámaxa original
+                  through one of our 9 partner nonprofits or original
                   initiatives.
                 </p>
               </div>
@@ -158,7 +161,7 @@ export default function ProgramPage() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  High school students, college students, and anyone beyond!
+                  High school students aged 14-18, from anywhere in the world!
                 </p>
               </div>
             </div>
@@ -196,54 +199,7 @@ export default function ProgramPage() {
         </div>
       </section>
 
-      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
-        <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
-          {/* High School Program */}
-          <div className="space-y-8 md:space-y-10">
-            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-              Ámaxa High School
-            </h2>
-
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              We believe high school students are capable of effecting change at
-              a large scale. Our high school cohorts match you to a team of
-              students from ages 14-18 from across the world, guided by a
-              trained undergraduate coach. More than 180 students have applied
-              from 48 countries and counting.
-            </p>
-
-            <div>
-              <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply to Ámaxa High School →
-                </ApplyButton>
-              </React.Suspense>
-            </div>
-          </div>
-
-          {/* College & Professionals Program */}
-          <div className="space-y-8 md:space-y-10">
-            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-              Ámaxa College & Professionals
-            </h2>
-
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              We believe our model of effecting change through remote project
-              meetings with peers and a coach, aided by fine-tuned project
-              management methodologies and custom-built online tools, allows
-              anyone to effect change. Apply to our 2025 cohort today.
-            </p>
-
-            <div>
-              <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="black">
-                  Apply to Ámaxa College & Professionals →
-                </ApplyButton>
-              </React.Suspense>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <section className="w-full bg-[#F5F2F2] py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
@@ -269,8 +225,7 @@ export default function ProgramPage() {
                 </h3>
 
                 <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  We offer cohorts for high school students, college students,
-                  and professionals.
+                  Click on the application link to view the next cohort deadline.
                 </p>
               </div>
 
@@ -286,7 +241,7 @@ export default function ProgramPage() {
                 </h3>
 
                 <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  Tell us more about your interests, time availability, and
+                  Tell us more about your interests, time availability, &
                   projects or initiatives you're most interested in.
                 </p>
               </div>
@@ -338,7 +293,7 @@ export default function ProgramPage() {
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">
             <h2 className="text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl xl:text-6xl">
-              Read stories of past members to learn about the diverse types of
+              Read stories of past students to learn about the diverse types of
               projects cohorts undertake.
             </h2>
           </div>
