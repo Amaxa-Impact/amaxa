@@ -6,6 +6,7 @@ import { FocusCards } from "@/components/ui/focus-cards-text";
 import { ApplyButton } from "~/components/apply";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
+
 export default function ProgramPage() {
   return (
     <main>
@@ -26,7 +27,7 @@ export default function ProgramPage() {
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa{" "}
                   <span className="font-normal text-[#3B3B3B]">
-                    Cohorts
+                    Research
                   </span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
@@ -35,7 +36,7 @@ export default function ProgramPage() {
                 <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
                   {/* --- Start of resolved conflict block (SVG fixed) --- */}
                   <svg
-                    viewBox="0 6 325 120s" // Adjusted viewBox height
+                    viewBox="0 6 325 120" // Adjusted viewBox height
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-full" // Ensure SVG scales
@@ -64,18 +65,14 @@ export default function ProgramPage() {
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
           <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-            We believe high school students are capable of effecting change at
-            a large scale.
+            We are launching a new pathway to build a grassroots research capacity that will support and amplify the work our partner nonprofits do.
             </h2>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              We match you to a team of
-              students from across the world ages 14-18 , guided by a
-              trained undergraduate coach. More than 240 students have applied
-              from <strong>48 countries and counting.</strong>
+              This pathway is designed for intellectually curious undergraduate students eager to finetune their research skills and for Masters or PhD students who are eager to utilise their research skills to effect tangible social change.
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"><strong> Our 100% remote program is accessible across income and location.</strong> The ability to effect change should never be limited by your home or your income. </p>
-
-
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+          Our mission is to conduct, write, and publish original research on questions crtical to the work of our partner nonprofits and initiatives. Short-term objectives are to identify gaps in research pertaining to our 9 projects and their related topics and conduct research over 3-6 months. At a minimum, your work will be published on the ámaxa site, as we aim for our site to grow as a resource for robust non-academic research. However, we have already begun work to partner with academics who can offer mentorship in publishing ámaxa research pieces on think tanks, media outlets, and peer-reviewed journals. A long-term objective of this pathway is to conduct field research at the sites of our partners in Uganda, Liberia, Poland/Ukraine, and Palestine. </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> As this is a new pathway, we will accept applications on a rolling basis and reach out to applicants if we believe it will be a good fit. </p>
             <div>
               <React.Suspense fallback={<div>Loading...</div>}>
                 <ApplyButton variant="color">
@@ -100,167 +97,9 @@ export default function ProgramPage() {
 
 
 
-      {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
-      <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
-        
-        <div className="mx-auto max-w-7xl">
-          {/* --- End of resolved conflict block --- */}
-
-          <div className="space-y-12 md:space-y-16 lg:space-y-20">
-            {/* What are cohorts? */}
-            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
-              <div className="mb-4 md:mb-0 md:w-1/3">
-                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
-                  What are cohorts?
-                </h2>
-              </div>
-              <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  Through our 3-month remote program, you work in a remote team
-                  of your peers, guided by a coach, to effect measurable change
-                  through one of our 9 partner nonprofits or original
-                  initiatives.
-                </p>
-              </div>
-            </div>
-
-            {/* Who can join? */}
-            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
-              <div className="mb-4 md:mb-0 md:w-1/3">
-                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
-                  Who can join?
-                </h2>
-              </div>
-              <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  High school students aged 14-18, from anywhere in the world!
-                </p>
-              </div>
-            </div>
-
-            {/* Is it remote? */}
-            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
-              <div className="mb-4 md:mb-0 md:w-1/3">
-                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
-                  Is it remote?
-                </h2>
-              </div>
-              <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  Cohorts are 100% remote.
-                </p>
-              </div>
-            </div>
-
-            {/* Is there a cost? */}
-            <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
-              <div className="mb-4 md:mb-0 md:w-1/3">
-                <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
-                  Is there a cost?
-                </h2>
-              </div>
-              <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  Members pay an annual fee of $150. We provide full and partial
-                  scholarships to anyone in-need. After we receive funding, we
-                  hope to lower or remove this fee altogether.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       
 
-      <section className="w-full bg-[#F5F2F2] py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
-          <h2 className="mb-12 text-3xl font-normal text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
-            How Cohorts Work
-          </h2>
-
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute bottom-0 left-4 top-0 w-px bg-black md:left-6"></div>
-
-            {/* Timeline steps */}
-            <div className="space-y-16 md:space-y-20">
-              {/* Step 1 */}
-              <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
-                <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#F4FFD6]">
-                  <span className="sr-only">Step 1</span>
-                </div>
-
-                <h3 className="mb-4 text-xl font-normal text-black md:text-2xl lg:text-3xl">
-                  Apply to the next cohort.
-                </h3>
-
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  Click on the application link to view the next cohort deadline.
-                </p>
-              </div>
-
-              {/* Step 2 */}
-              <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
-                <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#C8D998]">
-                  <span className="sr-only">Step 2</span>
-                </div>
-
-                <h3 className="mb-4 text-xl font-normal text-black md:text-2xl lg:text-3xl">
-                  Attend an interview.
-                </h3>
-
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  Tell us more about your interests, time availability, &
-                  projects or initiatives you're most interested in.
-                </p>
-              </div>
-
-              {/* Step 3 */}
-              <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
-                <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#BCD96C]">
-                  <span className="sr-only">Step 3</span>
-                </div>
-
-                <h3 className="mb-4 text-xl font-normal text-black md:text-2xl lg:text-3xl">
-                  We match you to a project, team, and coach!
-                </h3>
-
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  We aim to match you to a project you are passionate about with
-                  a team that meets in a time that you indicated works for you
-                  consistently.
-                </p>
-              </div>
-
-              {/* Step 4 */}
-              <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
-                <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#94AB55]">
-                  <span className="sr-only">Step 4</span>
-                </div>
-
-                <h3 className="mb-4 text-xl font-normal text-black md:text-2xl lg:text-3xl">
-                  Meet remotely with your team{" "}
-                  <span className="font-semibold">weekly</span> for{" "}
-                  <span className="font-semibold">3 months</span>.
-                </h3>
-
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  Meetings last about one hour each week. Your coach will guide
-                  you in the project management methodologies designed
-                  specifically for our cohorts. Each meeting, coaches will lead
-                  you in planning, brainstorming, status checks, problem
-                  solving, and more.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+ 
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">
