@@ -10,25 +10,25 @@ export const cards = [
   {
     title: "Ámaxa Cohorts",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
-    link: "/cohorts",
+    link: "/pathways/cohorts",
     description: "for high school students",
   },
   {
     title: "Ámaxa Research",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
-    link: "/research",
+    link: "/pathways/research",
     description: "for undergrad & postgrad students",
   },
   {
     title: "Ámaxa Partnerships",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
-    link: "/partnerships",
+    link: "/pathways/partnerships",
     description: "for professionals",
   },
   {
     title: "Ámaxa Network",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
-    link: "/network",
+    link: "/pathways/network",
     description: "for students & professionals in Colorado",
   },
  
