@@ -55,7 +55,7 @@ const Footer = () => {
               href="/who-we-are"
               className="text-gray-800 hover:text-gray-600"
             >
-              Meet Our Team
+              Who We Are
             </Link>
 
             {/* <Link
