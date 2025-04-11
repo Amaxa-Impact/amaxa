@@ -85,23 +85,7 @@ export default function ProgramPage() {
               </div>
 
               {/* Right: Substack Embed */}
-              <div className="mt-8 w-full md:mt-0 md:w-1/2">
-                <div className="substack-post-embed rounded-xl bg-white p-6 shadow-md">
-                  <p className="text-xl font-semibold">
-                    March Preview... by Ámaxa
-                  </p>
-                  <p className="mt-2 text-gray-700">
-                    popcorn, new funding team, ambassadors in action
-                  </p>
-                  <a
-                    href="https://amaxaimpact.substack.com/p/march-preview"
-                    className="mt-4 inline-block text-blue-600 underline hover:text-blue-800"
-                    data-post-link
-                  >
-                    Read on Substack
-                  </a>
-                </div>
-              </div>
+           
             </div>
           </div>
         </div>

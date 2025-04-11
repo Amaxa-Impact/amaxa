@@ -2,6 +2,64 @@ import React from "react";
 import Link from "next/link";
 
 import { ProfileCard } from "./_components/people";
+import { FocusCards } from "@/components/ui/focus-cards-many";
+import { ApplyButton } from "~/components/apply";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
+
+
+export const cards = [
+  {
+    title: "Created Accessifyed educational platform for the ISNAD Center in Palestine",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Planted trees across Turkey, US, and the UAE",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Raised $700 for Gazans through student concert in USA and basketball tournament in Qatar",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Paid full year tuition for 7 students in Liberia through martial arts tournament and bake sale",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Raised $500 for medical supplies for Ukrainian civilians",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Launched Student Ambassador group for cohort students who showed exceptional committment and passion",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Launched our first in-person pathway, the Colorado Ámaxa network",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    link: "",
+    description: "",
+  },
+  {
+    title: "Ongoing: providing artist Piera van de Wiel with a trained PR team to promote her documentary on LGBTQ+ refugees",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    link: "",
+    description: "",
+  },
+
+
+ 
+];
 
 export default function WhoAreWePage() {
   return (
@@ -20,10 +78,10 @@ export default function WhoAreWePage() {
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
                 <h1 className="text-3xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Meet Our Team{" "}
-                  {/* <span className="font-normal text-[#3B3B3B]">
-                    & Our Mission
-                  </span> */}
+                  Meet ámaxa: {" "}
+                  <span className="font-normal text-[#3B3B3B]">
+                  Mission & Team
+                  </span> 
                 </h1>
 
                 {/* Green wavy line - SVG replacement for the image */}
@@ -47,70 +105,174 @@ export default function WhoAreWePage() {
           </div>
         </section>
       </div>
-
-      {/* <section className="py-16 md:py-24 bg-[#F5F2F2] flex flex-col justify-center items-start px-6 md:px-16 lg:px-20">
-        <div className="relative mb-8 w-full">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-[#3B3B3B] leading-tight">
-            ámaxa (άμαξα): Greek for vehicle
-          </h2>
-          <div className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2">
-            <svg
-              width="200"
-              height="40"
-              viewBox="0 0 200 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-32 md:w-48 lg:w-56"
-            >
-              <path
-                d="M1 20C1 20 40 5 60 20C80 35 120 5 140 20C160 35 199 20 199 20"
-                stroke="#BCD96C"
-                strokeWidth="6"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-[#3B3B3B] leading-tight max-w-5xl">
-          We aim to be a{" "}
-          <span className="font-semibold">vehicle for impact</span> for
-          thousands of people globally.
-        </h2>
-      </section> */}
-
-      <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
-        <div className="flex flex-col">
-          {/* Heading - left aligned */}
-          <h2 className="mb-10 text-[40px] font-normal leading-tight text-[#3B3B3B] md:mb-14 md:text-[50px] lg:text-[60px]">
-            Our Vision
-          </h2>
-
-          {/* Vision text content - left aligned */}
-          <div className="max-w-4xl space-y-8 text-[22px] font-normal leading-snug text-[#3B3B3B] md:text-[28px] lg:text-[32px]">
-            <p>
+         <section className="container mx-auto flex flex-col">
+              <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+                <section className="w-full px-6 md:px-16 lg:px-20">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="space-y-16 md:space-y-24">
+                      <div>
+                        <h3 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+                          Our vision is a world where anyone who wants to make a
+                          difference can do it.
+                        </h3>
+                        <p className="mb-6 max-w-3xl text-lg">
+                   
               For the first time in history, we can see in crystal clear detail
               the challenges faced by others across the world. Also for the
               first time in history, we can change that person's life across the
               world easier than ever before.
-            </p>
-
-            <p>
+       
               But, it's not quite that easy. Who do you help? What's the best
               way to help? How do I raise the money or spread the word? How do I
               find others who want to do it with me?
-            </p>
-
-            <p>
+       
               We want to build a world where anyone who wants to make a
               difference can do it. That's why we set out to build the only
               place where we take you from start to finish of what's needed to
               truly effect change.
-            </p>
+        
+                        </p>  
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <section className="container mx-auto flex flex-col">
+              <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+                <section className="w-full px-6 md:px-16 lg:px-20">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="space-y-16 md:space-y-24">
+                      <div>
+                        <h2 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+                          To accomplish this, we take our members from start to finish of what's needed to
+              truly effect change. 
+                        </h2>
+                        <p className="mb-6 max-w-3xl text-lg">
+                   
+                        We provide end-to-end support for every step needed to actually effect change, while alternatives often focus on just one. We match you with a high-impact nonprofit or ámaxa initiative, connect you to a team, and provide a coach to guide you with 1-1 support. We train you in proven project management methods and build features in our web app to solve the problems, however minute, you identify. You drive the impact, and we ensure the tools and support are in place to make it happen. 
+                        </p>  
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+
+            <section className="container mx-auto flex flex-col">
+              <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+                <section className="w-full px-6 md:px-16 lg:px-20">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="space-y-16 md:space-y-24">
+                      <div>
+                        <h2 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+Here's (some) of we've done, all while operating as a volunteer-led organization:                        
+</h2>
+                      <FocusCards cards={cards} />
+
+                       
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+
+
+
+            <section className="container mx-auto flex flex-col">
+              <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+                <section className="w-full px-6 md:px-16 lg:px-20">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="space-y-16 md:space-y-24">
+                      <div>
+                        <h2 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+                        Our work is vital because it democratizes social impact, empowering individuals of any background or location to become active agents of change. 
+                        </h2>
+                        <p className="mb-6 max-w-3xl text-lg">
+                   
+                       Over 240 students have applied to our Cohort Program from 48 countries and counting. Fundamental to our mission is that our $150 program fee for the high school Cohorts pathway is accessible, with scholarships available for any student in need, closing the extracurricular gap for low-income students. Upon securing funding, we aim to get rid of the program fee entirely.
+
+        
+                        </p>  
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+
+            <section className="container mx-auto flex flex-col">
+              <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+                <section className="w-full px-6 md:px-16 lg:px-20">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="space-y-16 md:space-y-24">
+                      <div>
+                        <h2 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+                Supporting teen mental health is also an innate part of our mission.
+                        </h2>
+                        <p className="mb-6 max-w-3xl text-lg">
+                        According to new research, such as this article in Scientific American, teens who help others experience reductions in depression and anxiety. One of the most <a className="underline" href="https://www.scientificamerican.com/article/teens-mental-health-may-improve-when-they-help-others/">striking findings</a>, for example, is that, in one study, after 30 hours of volunteer work, de­pressive symptoms [for teens aged 14-20] reduced an average of 19%. Our high school Cohort program averages 50 hours over the 3 month period and offers the opportunity to contribute to meaningful causes while connecting with peers and mentors globally which in turn fosters self-esteem and emotional well-being.
+        
+                        </p>  
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+            <section className="w-full py-16 md:py-24">
+          <div className="container mx-auto px-6 md:px-16 lg:px-20">
+            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+                <h1 className="text-3xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
+                  Meet the team {" "}
+                  {/* <span className="font-normal text-[#3B3B3B]">
+                  Mission & Team
+                  </span>  */}
+                </h1>
+
+                {/* Green wavy line - SVG replacement for the image */}
+                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
+                  <svg
+                    viewBox="0 0 325 500"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className=""
+                  >
+                    <path
+                      d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
+                      stroke="#BCD96C"
+                      strokeWidth="8"
+                    />
+                    strokeLinecap="round"
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+
+
+
       <section className="w-full">
+        
         {[
           {
             name: "Lauren McMillen",
