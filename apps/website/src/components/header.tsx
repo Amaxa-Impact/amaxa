@@ -23,7 +23,7 @@ export const Navbar = () => {
 
   const navItems = [
     { href: "/project", label: "Discover Projects" },
-    { href: "/program", label: "Explore Our Pathways" },
+    { href: "/pathways", label: "Explore Our Pathways" },
     { href: "/project-stories", label: "Read Ámaxa Stories" },
     { href: "/who-we-are", label: "Meet Our Team" },
     { href: "/contact-us", label: "Contact Us" },

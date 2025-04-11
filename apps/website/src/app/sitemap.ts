@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: "https://www.amaxaimpact.org/program",
+      url: "https://www.amaxaimpact.org/pathways",
       lastModified: new Date(),
     },
     {

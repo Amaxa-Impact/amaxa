@@ -177,7 +177,7 @@
 @amaxa/website:lint:   316:22  warning  Forbidden non-null assertion                                                                                @typescript-eslint/no-non-null-assertion
 @amaxa/website:lint:   316:22  warning  Optional chain expressions can return undefined by design - using a non-null assertion is unsafe and wrong  @typescript-eslint/no-non-null-asserted-optional-chain
 @amaxa/website:lint: 
-@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/(marketing)/program/page.tsx
+@amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/(marketing)/pathways/page.tsx
 @amaxa/website:lint:   308:13  error  Do not use an `<a>` element to navigate to `/project/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
 @amaxa/website:lint: 
 @amaxa/website:lint: /Users/anikethchenjeri/Production/amaxa/apps/website/src/app/_providers/posthog-provider.tsx

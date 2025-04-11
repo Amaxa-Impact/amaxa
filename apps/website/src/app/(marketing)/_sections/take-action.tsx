@@ -57,7 +57,7 @@ export function TakeActionSection() {
           Not ready to apply yet? Learn more about{" "}
           <strong className="font-semibold">
             <a
-              href="/program"
+              href="/pathways"
               className="text-[#3B3B3B] underline transition-colors duration-200"
             >
               our cohorts.
