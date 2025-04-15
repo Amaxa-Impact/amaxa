@@ -131,6 +131,12 @@ export default function Page() {
           thousands of people globally.
         </h2>
       </section> */}
+      <section className="py-16 md:py-24 lg:py-32">
+      <div className="">
+<h2 className="px-16 font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 md:text-5xl ">
+        Ámaxa Stories
+      </h2>
+   
 
       {[
         {
@@ -166,21 +172,31 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           videoUrl:
             "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
         },
-        {
-          heading: "TEAM SPOTLIGHT",
-          name: "Meet Panshul, Jad, and Yueqi.",
-          ageLocation: "UAE, LEBANON, & CHINA",
-          paragraphs: [
-            `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
-            `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
-            `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`,
-          ],
-          teammates: "",
-          videoUrl: "",
-        },
+        // {
+        //   heading: "TEAM SPOTLIGHT",
+        //   name: "Meet Panshul, Jad, and Yueqi.",
+        //   ageLocation: "UAE, LEBANON, & CHINA",
+        //   paragraphs: [
+        //     `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
+        //     `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
+        //     `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`,
+        //   ],
+        //   teammates: "",
+        //   videoUrl: "",
+        // },
       ].map((spotlight, idx) => (
         <Spotlight key={idx} spotlightData={spotlight} />
       ))}
+
+<button className="box-border flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-6 py-3 mx-16" >
+            <a href="/project-stories">
+             <span className="text-base font-normal text-[#3B3B3B] md:text-lg">
+              View All Stories →
+            </span>
+            </a>
+          </button>
+          </div>
+          </section>
 
       <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="px-6 md:px-16 lg:px-20">
