@@ -189,7 +189,7 @@ const ImpactSection: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-between px-16 py-12 md:py-16 lg:flex-row lg:py-24">
+    <div className="container mx-auto flex flex-col items-center justify-between px-16 py-12 md:py-16 lg:flex-row lg:py-24 shadow-sm">
       <div className="mb-10 w-full lg:mb-0 lg:w-1/2 lg:pr-8">
         <div className="mx-auto max-w-xl lg:mx-0">
           <p className="pb-8 text-lg text-gray-700 md:pb-8 md:text-xl">

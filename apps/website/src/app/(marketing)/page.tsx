@@ -42,36 +42,39 @@ export default function Page() {
   return (
     <main>
       <SynchronizedCarousel />
-      <section className="relative flex w-full flex-col bg-[#F5F2F2] py-16 md:py-24">
-        {/* Background graphics */}
+  
+  
 
-        {/* Content */}
-        <div className="relative z-10 px-6 md:px-16 lg:px-20">
-          <h1 className="mb-8 text-3xl font-semibold leading-tight text-black md:mb-16 md:text-4xl lg:text-5xl">
-            Welcome to ámaxa.
-          </h1>
+       <section className="w-full py-16 md:py-24 bg-[#F5F2F2]">
+          <div className="container mx-auto px-6 md:px-16 lg:px-20">
+            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+              <p className="mb-8 max-w-3xl text-2xl font-strong">
+                OUR MISSION
+                </p>
+          
+              <p className="mb-8 max-w-3xl text-2xl font-light">
+                   
+                   For the first time in history, we can see in crystal clear detail
+                   the challenges faced by others across the world, and we can change that person's life across the
+                   world easier than ever before. <span className="italic">Yet, it's still too hard for people who want to make a difference to actually do it.</span>
 
-          <h2 className="mb-4 text-xl font-normal leading-tight text-[#3B3B3B] md:mb-10 md:text-2xl">
-            THE PROBLEM
-          </h2>
 
-          <p className="mb-8 max-w-4xl text-2xl font-normal leading-tight text-black md:mb-10 md:text-3xl lg:text-4xl">
-            It's too hard for people who want to make a difference to actually
-            do it.
-          </p>
+             
+                  </p>  
+            
+                <h1 className="text-4xl leading-tight text-[black] md:text-4xl lg:text-6xl ">
+              We are changing that.
+                </h1>
 
-          <h2 className="mb-4 text-xl font-normal leading-tight text-[#3B3B3B] md:mb-10 md:text-2xl">
-            WHY DOES IT MATTER?
-          </h2>
+              
+              </div>
+            </div>
+          </div>
+          
+        </section>
+  
 
-          <p className="max-w-4xl text-2xl font-normal leading-tight text-black md:text-3xl lg:text-4xl">
-            People facing poverty, conflict, health challenges, and more could
-            be
-            <span className="font-bold"> profoundly impacted </span>
-            if more of us knew how to turn our passion into meaningful change.
-          </p>
-        </div>
-      </section>
 
       <section className="lg:px-30 relative bg-white py-16">
         <div className="px-6 md:px-16 lg:px-20 py-16">
@@ -93,11 +96,12 @@ export default function Page() {
 
 
 
-      <section className="relative w-full px-16">
+      <section className="relative w-full px-16 ">
         <Projects />
       </section>
+      
 
-      <section className="flex flex-col items-start justify-center bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-24 lg:px-20">
+      {/* <section className="flex flex-col items-start justify-center bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-24 lg:px-20">
         <div className="relative mb-8 w-full">
           <h2 className="text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
             ámaxa (άμαξα): Greek for vehicle
@@ -126,7 +130,8 @@ export default function Page() {
           <span className="font-semibold">vehicle for impact</span> for
           thousands of people globally.
         </h2>
-      </section>
+      </section> */}
+
       {[
         {
           heading: "Member Spotlight",
