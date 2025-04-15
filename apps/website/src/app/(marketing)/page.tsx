@@ -157,6 +157,8 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
           teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
           videoUrl:
             "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+            imageUrl:"",
+            
         },
         {
           heading: "TEAM SPOTLIGHT",
@@ -171,6 +173,8 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           teammates: "",
           videoUrl:
             "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+          imageUrl:"",
+          
         },
         // {
         //   heading: "TEAM SPOTLIGHT",
