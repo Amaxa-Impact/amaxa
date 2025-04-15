@@ -39,6 +39,12 @@ const Footer = () => {
 
         <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0">
           <nav className="flex flex-wrap justify-center gap-4 text-sm md:justify-start md:gap-6 md:text-base">
+            <Link
+              href="/who-we-are"
+              className="text-gray-800 hover:text-gray-600"
+            >
+              Meet Ámaxa
+            </Link>
             <Link href="/project" className="text-gray-800 hover:text-gray-600">
               Discover Projects
             </Link>
@@ -51,12 +57,7 @@ const Footer = () => {
             >
               Read Ámaxa Stories
             </Link>
-            <Link
-              href="/who-we-are"
-              className="text-gray-800 hover:text-gray-600"
-            >
-              Who We Are
-            </Link>
+          
 
             {/* <Link
               href="/contact-us"

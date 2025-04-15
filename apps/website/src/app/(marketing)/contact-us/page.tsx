@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 
 import { ApplyButton } from "~/components/apply";
 
@@ -84,7 +85,17 @@ export default function ProgramPage() {
         </div> */}
               </div>
 
-              {/* Right: Substack Embed */}
+              {/* Right: Image instead of Substack Embed */}
+              <div className="mt-8 w-full md:mt-0 md:w-1/2 flex justify-center items-center">
+                <div className="w-auto h-auto">
+                  <Image
+                    src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI" // replace with your image path
+                    alt="mail"
+                    width="300"
+                    height="300"
+                  />
+                </div>
+              </div>
            
             </div>
           </div>
