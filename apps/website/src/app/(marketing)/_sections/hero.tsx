@@ -131,7 +131,7 @@ const content: ContentItem[] = [
   {
     image:
       "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8el17ogjXRpn0dgo1l6KOV2DuqGLya94cMIf",
-    statement: "I helped promote diverse storytelling & LGBTQ+ creatives.",
+    statement: "I helped promote LGBTQ+ creatives.",
   },
 ];
 
@@ -189,22 +189,22 @@ const ImpactSection: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-between px-4 py-12 md:py-16 lg:flex-row lg:py-24">
+    <div className="container mx-auto flex flex-col items-center justify-between px-16 py-12 md:py-16 lg:flex-row lg:py-24">
       <div className="mb-10 w-full lg:mb-0 lg:w-1/2 lg:pr-8">
         <div className="mx-auto max-w-xl lg:mx-0">
-          <p className="pb-4 text-lg text-gray-700 md:pb-8 md:text-xl">
+          <p className="pb-8 text-lg text-gray-700 md:pb-8 md:text-xl">
             Change <span className="font-thin">"I wish I could help"</span> to
           </p>
 
           {/* Rotating impact statement with typewriter effect */}
           <div className="flex h-[120px] items-center py-4 sm:h-[150px] md:h-[180px] md:py-8">
-            <h2 className="text-xl font-bold leading-tight text-gray-800 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl">
+            <h2 className="pb-8 text-xl font-bold leading-tight text-gray-800 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
               {typedText}
               <span className="animate-blink">|</span>
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-3 pt-4 md:gap-4 md:pt-8">
+          <div className="flex flex-wrap gap-3 pt-4 md:gap-4 md:pt-8 pb-4">
             <React.Suspense fallback={<div>Loading...</div>}>
               <ApplyButton variant="color">
                 Join Us <span className="ml-2">→</span>
@@ -220,7 +220,7 @@ const ImpactSection: React.FC = () => {
           </div>
 
           {/* Carousel indicators */}
-          <div className="mt-6 flex justify-center gap-2 md:mt-8 lg:justify-start">
+          {/* <div className="mt-6 flex justify-center gap-2 md:mt-8 lg:justify-start pb-4">
             {content.map((_, index) => (
               <button
                 key={index}
@@ -231,7 +231,7 @@ const ImpactSection: React.FC = () => {
                 aria-label={`Slide ${index + 1}`}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -245,12 +245,12 @@ const ImpactSection: React.FC = () => {
               initial="initial"
               animate="animate"
               whileHover="hover"
-              className="z-10 hidden cursor-pointer overflow-hidden rounded-[16px] border-2 border-white shadow-md sm:block"
+              className="z-10 hidden cursor-pointer overflow-hidden rounded-[24px] shadow-lg sm:block"
               style={{
-                width: "min(120px, 20vw)",
-                height: "min(160px, 26vw)",
+                width: "min(160px, 70vw)",
+                height: "min(200px, 90vw)",
                 position: "relative",
-                margin: "0 5px",
+                margin: "0 4px",
               }}
               onClick={() => navigateTo(prevIndex)}
             >
@@ -274,12 +274,12 @@ const ImpactSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="z-20 overflow-hidden rounded-[20px] border-2 border-white shadow-lg"
+                className="z-20 overflow-hidden rounded-[24px] shadow-lg border-2 border-white cursor-pointer"
                 style={{
-                  width: "min(280px, 70vw)",
-                  height: "min(350px, 90vw)",
+                  width: "min(320px, 70vw)",
+                  height: "min(400px, 90vw)",
                   position: "relative",
-                  margin: "0 5px",
+                  margin: "0 8px",
                 }}
               >
                 <Image
@@ -300,12 +300,12 @@ const ImpactSection: React.FC = () => {
               initial="initial"
               animate="animate"
               whileHover="hover"
-              className="z-10 hidden cursor-pointer overflow-hidden rounded-[16px] border-2 border-white shadow-md sm:block"
+              className="z-10 hidden cursor-pointer overflow-hidden rounded-[24px] shadow-md sm:block"
               style={{
-                width: "min(120px, 20vw)",
-                height: "min(160px, 26vw)",
+                width: "min(160px, 70vw)",
+                height: "min(200px, 90vw)",
                 position: "relative",
-                margin: "0 5px",
+                margin: "0 4px",
               }}
               onClick={() => navigateTo(nextIndex)}
             >

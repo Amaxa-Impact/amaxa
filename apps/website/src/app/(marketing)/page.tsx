@@ -7,6 +7,36 @@ import Footer from "~/components/footer";
 import SynchronizedCarousel from "./_sections/hero";
 import { Projects } from "./_sections/projects";
 import { Spotlight } from "./_sections/spotlight";
+import { FocusCards } from "@/components/ui/focus-cards-text";
+
+export const cards = [
+  {
+    title: "Ámaxa Cohorts",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    link: "/pathways/cohorts",
+    description: "for high school students",
+  },
+  {
+    title: "Ámaxa Research",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    link: "/pathways/research",
+    description: "for undergrad & postgrad students",
+  },
+  {
+    title: "Ámaxa Partnerships",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    link: "/pathways/partnerships",
+    description: "for professionals",
+  },
+  {
+    title: "Ámaxa Network",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    link: "/pathways/network",
+    description: "for students & professionals in Colorado",
+  },
+ 
+];
+
 
 export default function Page() {
   return (
@@ -43,47 +73,27 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="lg:px-30 relative bg-white py-16 md:py-24">
-        <div className="px-6 md:px-16 lg:px-20">
+      <section className="lg:px-30 relative bg-white py-16">
+        <div className="px-6 md:px-16 lg:px-20 py-16">
           {/* Main heading */}
-          <h1 className="mb-12 text-3xl font-semibold leading-tight text-black md:mb-16 md:text-4xl lg:text-5xl">
-            The Ámaxa Cohort Program takes you from start to finish of what's
+          <h1 className="text-3xl font-semibold leading-tight text-black mb-8 md:text-4xl lg:text-5xl">
+            Ámaxa Pathways takes you from start to finish of what's
             needed to truly effect change.
           </h1>
+          <p className="mb-6 max-w-3xl text-lg">
+             <strong>Hover or click</strong> below to explore the pathway right for you.
+                          </p>
 
-          {/* Description text */}
-          <div className="mb-12 max-w-5xl text-xl font-normal leading-relaxed text-[#3B3B3B] md:mb-16 md:text-2xl">
-            <p className="mb-10">
-              Through our 3-month 100% remote program, you meet weekly with a
-              team from across the globe, guided by an ámaxa coach, to effect
-              measurable change through one of our 10 partner nonprofits or
-              initiatives.
-            </p>
-            <p>
-              The program is open to{" "}
-              <span className="font-semibold">
-                high school students, college students, and professionals.
-              </span>
-            </p>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex flex-col gap-4 sm:flex-row md:gap-10">
-            {/* High school button */}
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <ApplyButton variant="color">
-                I'm a high school student →
-              </ApplyButton>
-
-              {/* College button */}
-              <ApplyButton variant="black">
-                I'm in college or beyond →
-              </ApplyButton>
-            </React.Suspense>
-          </div>
+  
+           <FocusCards cards={cards} />
+        
+       
         </div>
       </section>
-      <section className="relative w-full p-16 md:p-24">
+
+
+
+      <section className="relative w-full px-16">
         <Projects />
       </section>
 
