@@ -50,5 +50,3 @@ dist/
 
 # turbo
 .turbo
-
-packages/api
