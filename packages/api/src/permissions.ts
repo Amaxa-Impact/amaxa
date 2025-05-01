@@ -1,3 +1,4 @@
+//@ts-nocheck - this file needs to be migrated
 import type { Session } from "@amaxa/auth";
 
 export function isProjectStudent(projectId: string, session: Session | null) {
