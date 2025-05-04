@@ -4,6 +4,8 @@ packages:
   - tooling/*
 
 catalog:
+  #Next
+  next: ^15.2.4
   # Auth
   "@auth/core": 0.37.2
   "@auth/drizzle-adapter": ~1.7.4
