@@ -27,6 +27,9 @@ catalogs:
     eslint:
       specifier: ^9.23.0
       version: 9.23.0
+    next:
+      specifier: ^15.2.4
+      version: 15.2.4
     prettier:
       specifier: ^3.5.3
       version: 3.5.3
@@ -142,7 +145,7 @@ importers:
         specifier: ^0.1.7
         version: 0.1.7(framer-motion@11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next:
-        specifier: ^15.2.3
+        specifier: 'catalog:'
         version: 15.2.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       nuqs:
         specifier: ^1.19.3
@@ -242,7 +245,7 @@ importers:
         specifier: ^0.416.0
         version: 0.416.0(react@19.0.0)
       next:
-        specifier: ^15.2.3
+        specifier: 'catalog:'
         version: 15.2.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       posthog-js:
         specifier: ^1.188.0
@@ -379,7 +382,7 @@ importers:
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.8.2)(zod@3.24.2)
       next:
-        specifier: ^15.2.4
+        specifier: 'catalog:'
         version: 15.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
         specifier: 5.0.0-beta.19
