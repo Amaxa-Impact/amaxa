@@ -18,6 +18,8 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       api_host: "/ingest",
       ui_host: "https://us.posthog.com",
       capture_pageview: false, // Disable automatic pageview capture, as we capture manually
+      person_profiles: "always", // or 'always' to create profiles for anonymous users as well
+      enable_heatmaps: true,
     });
   }, []);
 
