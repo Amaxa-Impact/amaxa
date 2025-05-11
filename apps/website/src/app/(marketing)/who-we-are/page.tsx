@@ -279,7 +279,7 @@ Here's (some) of we've done, all while operating as a volunteer-led organization
             title: "Founder & CEO",
             bio: `Lauren, a New York University Abu Dhabi graduate in Computer Science and Arabic, is now pursuing a Master's in Middle Eastern Studies at the University of Edinburgh. With a strong foundation in technology and experience in over a dozen non-profits, she's driven by a powerful mission: empowering others to recognize their potential to make a real difference in the world.`,
             imageUrl:
-              "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOTtH94SrPvV4ygRa57DXtJwU9SfhC1qxONmlA",
+              "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOGaFjkWeg7L6FfmZ4uwBVQ3KyU9YADROxr5lc",
           },
           {
             name: "Alexi Jones",
