@@ -253,7 +253,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     headerBgTo: "#006C35", // inspired by green from the Palestinian flag
     imageAlt: "Palestinian education banner",
     imageSrc:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOrjP9hatQvsrdY6KUyulWLH1XBk7OqCf3F9gA",
     solutionTitle: "THE SOLUTION",
     solutionSubtitle:
       "Expanding Learning and Community: Opening the Window for Palestinian Students",
