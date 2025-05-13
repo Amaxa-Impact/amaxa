@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   },
   description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
   openGraph: {
-    title: "amaxa",
+    title: "àmaxa: where anyone can effect real change",
     description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
     url: "https://www.amaxaimpact.org",
     siteName: "amaxa",
     images: [
       {
-        url: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBlleUiqMfgbteu1vLlWOMACT9miBqyShdJ8j",
+        url: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
         width: 1200,
         height: 630,
         alt: "amaxa",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
     images: [
       {
-        url: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOBlleUiqMfgbteu1vLlWOMACT9miBqyShdJ8j",
+        url: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
         width: 1200,
         height: 630,
         alt: "amaxa",
