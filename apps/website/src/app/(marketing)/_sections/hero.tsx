@@ -120,7 +120,7 @@ const content: ContentItem[] = [
   },
   {
     image:
-      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFHSjHghMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
     statement: "I helped students in the West Bank build community.",
   },
   {

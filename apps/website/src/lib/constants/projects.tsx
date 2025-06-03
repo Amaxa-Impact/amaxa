@@ -85,7 +85,7 @@ export const projects = [
     id: "isnad",
     title:
       "Expanding Learning and Community: Opening the Window for Palestinian Students",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOPVOKa8tbiBxuzCnJ3tPEWTUSA1N95dOkFZyr",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOFHSjHghMgGqJpRmLFNh4KsQWVrkiIwAYnPaz",
     link: "/project/isnad",
     content: (
       <ProjectContentShell
