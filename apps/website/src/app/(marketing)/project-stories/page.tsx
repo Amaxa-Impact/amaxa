@@ -62,7 +62,7 @@ export default function ProgramPage() {
         {
           heading: "Member Spotlight",
           name: "How An Nhi Sequestered Carbon by Planting Trees",
-          ageLocation: "16, Vietnam",
+          ageLocation: "Vietnam",
           paragraphs: [
             `
 Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
@@ -82,7 +82,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
         {
           heading: "TEAM SPOTLIGHT",
           name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
-          ageLocation: "16 & 17, USA",
+          ageLocation: "USA",
           paragraphs: [
             '"Change, in any capacity, can and should start with us." -Isabella',
             `
@@ -109,14 +109,14 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
         {
           heading: "MEMBER SPOTLIGHT",
           name: "How Maitha Organized a Remote Cultural Exchange between Palestine & the UAE ",
-          ageLocation: "17, UAE",
+          ageLocation: "UAE",
           paragraphs: [
             '"The greatest lesson ámaxa taught me is that no matter how new you are at something, you still have potential to make a positive impact."',
             "Maitha, living in Abu Dhabi in the United Arab Emirates, supported the ISNAD Community Education Center in two crucial ways. First, she created the foundations of its growing social media by setting up an Instagram page along with marketing guidelines and initial posts to help them get started.",
             "In addition, she created ISNAD's first cultural exchange. She organized a remote event with UAE and Palestinian students where they each discussed their cultures and educational experiences, both similarities and differences. ISNAD's founder emphasizes that, because of the severe restrictions of movement on Palestinians by Israel, it is a huge opportunity for Palestinian students to meet those from outside the country.",
           ],
           teammates: "",
-          videoUrl: "https://player.vimeo.com/video/1075624389?h=cf896f672d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+          videoUrl: "",
         },
         // {
         //   heading: "TEAM SPOTLIGHT",

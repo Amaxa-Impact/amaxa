@@ -142,7 +142,7 @@ export default function Page() {
         {
           heading: "Member Spotlight",
           name: "How An Nhi Sequestered Carbon by Planting Trees",
-          ageLocation: "16, Vietnam",
+          ageLocation: "Vietnam",
           paragraphs: [
             `
 Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
@@ -154,7 +154,7 @@ Guided by their coach, they implemented the project management techniques ámaxa
 By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.
 `,
           ],
-          teammates: "Teammates: Mohamed (17, Turkey) & Lauryn (16, USA)",
+          teammates: "Teammates: Mohamed (Turkey) & Lauryn (USA)",
           videoUrl:
             "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
             imageUrl:"",
@@ -163,7 +163,7 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
         {
           heading: "TEAM SPOTLIGHT",
           name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
-          ageLocation: "16 & 17, USA",
+          ageLocation: "USA",
           paragraphs: [
             '"Change, in any capacity, can and should start with us." -Isabella',
             `
