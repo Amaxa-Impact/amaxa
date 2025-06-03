@@ -26,8 +26,9 @@ export const Navbar = () => {
     { href: "/project", label: "Discover Projects" },
     { href: "/pathways", label: "Explore Our Pathways" },
     { href: "/project-stories", label: "Read Ámaxa Stories" },
-    { href: "/newsletter", label: "Subscribe to Our Newsletter" },
+    // { href: "/newsletter", label: "Keep in Touch" },
     { href: "/contact-us", label: "Contact Us" },
+    { href: "https://ballet-mild-64061755.figma.site/", label: "🎊 2025 Denver Gala" },
   ];
 
   return (
@@ -52,12 +53,27 @@ export const Navbar = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
+      
         </NavigationMenu>
 
-        <div className="flex flex-row gap-[24px]">
-          <ApplyButton variant="color">Apply Now</ApplyButton>
-          {/* <Link
-            href="https://app.amaxaimpact.org"
+           <div className="flex flex-row">
+          
+           
+           <Link
+            href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
+            target="_blank"
+            className={cn(
+              buttonVariants({
+                variant: "link",
+                size: "lg",
+              }),
+              "rounded-[3rem]",
+            )}
+          >
+            Support Us
+          </Link>
+          <Link
+            href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
             target="_blank"
             className={cn(
               buttonVariants({
@@ -67,9 +83,12 @@ export const Navbar = () => {
               "rounded-[3rem]",
             )}
           >
-            Login
-          </Link> */}
+            Apply Now
+          </Link>
         </div>
+
+        
+        
       </header>
 
       {/* Mobile Navbar */}
