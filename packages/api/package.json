@@ -24,6 +24,7 @@
     "@amaxa/validators": "workspace:*",
     "@trpc/server": "catalog:",
     "arktype": "catalog:",
+    "better-auth": "catalog:",
     "drizzle-zod": "^0.7.1",
     "superjson": "2.2.2",
     "zod": "catalog:"
