@@ -3,17 +3,19 @@ import "~/app/globals.css";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 
-import { PostHogProvider } from "./_providers/posthog-provider";
+import { PostHogProvider } from "./_providers/posthog.client";
 
 export const metadata: Metadata = {
   title: {
     default: "amaxa",
     template: "amaxa | %s",
   },
-  description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
+  description:
+    "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
   openGraph: {
     title: "àmaxa: where anyone can effect real change",
-    description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
+    description:
+      "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
     url: "https://www.amaxaimpact.org",
     siteName: "amaxa",
     images: [
@@ -30,7 +32,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "amaxa",
-    description: "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
+    description:
+      "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
     images: [
       {
         url: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
