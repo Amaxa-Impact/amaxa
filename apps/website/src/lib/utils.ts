@@ -42,3 +42,4 @@ export const timeAgo = (
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
