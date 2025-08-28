@@ -3,8 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { FocusCards } from "@/components/ui/focus-cards-text";
-import { ApplyButton } from "~/components/apply";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
+
+import { ApplyButton } from "~/components/apply";
 
 export const cards = [
   {
@@ -31,7 +33,6 @@ export const cards = [
     link: "/pathways/network",
     description: "for students & professionals in Colorado",
   },
- 
 ];
 
 export default function ProgramPage() {
@@ -77,56 +78,45 @@ export default function ProgramPage() {
                   </svg>
                   {/* --- End of resolved conflict block --- */}
                 </div>
-               
-                     
-              
               </div>
             </div>
           </div>
-        
         </section>
-        </div>
+      </div>
 
-              <section className="container mx-auto flex flex-col">
-                <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
-                  <section className="w-full px-6 md:px-16 lg:px-20">
-                    <div className="mx-auto max-w-7xl">
-                      <div className="space-y-16 md:space-y-24">
-                        <div>
-                          <h3 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
-                            Our community provides ways for people of all ages and interests to effect real change.
-                          </h3>
-                         
-                          {/* <a
+      <section className="container mx-auto flex flex-col">
+        <div className="flex flex-col gap-10 py-10 text-[#3B3B3B]">
+          <section className="w-full px-6 md:px-16 lg:px-20">
+            <div className="mx-auto max-w-7xl">
+              <div className="space-y-16 md:space-y-24">
+                <div>
+                  <h3 className="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+                    Our community provides ways for people of all ages and
+                    interests to effect real change.
+                  </h3>
+
+                  {/* <a
                             href="/projects"
                             className="inline-flex items-center justify-center px-6 py-2 bg-[#BCD96C] rounded-full text-[#3B3B3B] hover:bg-[#a9c55a] transition-colors"
                           >
                             Explore All Projects →
                           </a>  */}
-                          <p className="mb-6 max-w-3xl text-lg">
-                            {" "}
-                            <strong>Hover or click</strong> below to explore the pathway right for you.
-                          </p>
-                        </div>
-                      </div>
-        
-                      {/* Ensure 'projects' data is correctly passed */}
-                      <FocusCards cards={cards} />
-                    </div>
-                  </section>
+                  <p className="mb-6 max-w-3xl text-lg">
+                    {" "}
+                    <strong>Hover or click</strong> below to explore the pathway
+                    right for you.
+                  </p>
                 </div>
-              </section>
+              </div>
 
-      
-            
-   
-
-      
-
-
+              {/* Ensure 'projects' data is correctly passed */}
+              <FocusCards cards={cards} />
+            </div>
+          </section>
+        </div>
+      </section>
 
       {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
-     
     </main>
   );
 }

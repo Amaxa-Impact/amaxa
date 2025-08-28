@@ -16,6 +16,7 @@
   "dependencies": {
     "@amaxa/ui": "workspace:*",
     "@amaxa/validators": "workspace:*",
+    "@radix-ui/react-hover-card": "^1.1.1",
     "framer-motion": "^11.2.11",
     "fumadocs-core": "^13.3.2",
     "fumadocs-ui": "^13.3.2",
@@ -23,6 +24,7 @@
     "lucide-react": "^0.416.0",
     "next": "catalog:",
     "posthog-js": "^1.188.0",
+    "qss": "^3.0.0",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-syntax-highlighter": "^15.5.0",

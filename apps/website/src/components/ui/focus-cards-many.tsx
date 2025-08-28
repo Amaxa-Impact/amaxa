@@ -33,21 +33,16 @@ export const Card = React.memo(
           className="absolute inset-0 object-cover"
         />
 
-<div
-  className="absolute inset-0 flex items-end bg-black/50 px-4 py-8 transition-all duration-300"
->
-  <div
-    className={cn(
-      "bg-gradient-to-b from-neutral-50 to-neutral-200 bg-clip-text text-xl font-medium text-transparent transition-all duration-300 md:text-md",
-      hovered === index && "text-black bg-none", // or whatever hover effect you want
-    )}
-  >
-
-    <p className="font-light text-xl">     {card.title}</p>
-    
-  </div>
-</div>
-
+        <div className="absolute inset-0 flex items-end bg-black/50 px-4 py-8 transition-all duration-300">
+          <div
+            className={cn(
+              "md:text-md bg-gradient-to-b from-neutral-50 to-neutral-200 bg-clip-text text-xl font-medium text-transparent transition-all duration-300",
+              hovered === index && "bg-none text-black", // or whatever hover effect you want
+            )}
+          >
+            <p className="text-xl font-light"> {card.title}</p>
+          </div>
+        </div>
       </div>
     </Link>
   ),

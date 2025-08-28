@@ -86,8 +86,8 @@ export default function ProgramPage() {
               </div>
 
               {/* Right: Image instead of Substack Embed */}
-              <div className="mt-8 w-full md:mt-0 md:w-1/2 flex justify-center items-center">
-                <div className="w-auto h-auto">
+              <div className="mt-8 flex w-full items-center justify-center md:mt-0 md:w-1/2">
+                <div className="h-auto w-auto">
                   <Image
                     src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI" // replace with your image path
                     alt="mail"
@@ -96,7 +96,6 @@ export default function ProgramPage() {
                   />
                 </div>
               </div>
-           
             </div>
           </div>
         </div>
