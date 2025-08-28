@@ -1,11 +1,9 @@
 "use client";
 
 // import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { ArrowRight, ArrowLeft} from "lucide-react";
-
-import { motion, AnimatePresence } from "motion/react";
-
 import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 type Testimonial = {
   quote: string;

@@ -51,6 +51,4 @@ const config = {
   skipTrailingSlashRedirect: true,
 };
 
-
-
 export default config;

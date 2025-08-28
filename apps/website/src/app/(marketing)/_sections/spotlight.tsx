@@ -1,7 +1,7 @@
 import React from "react";
+import Image from "next/image";
 
 import type { SpotlightData } from "~/lib/projects";
-import Image from "next/image";
 
 export const Spotlight = (props: { spotlightData: SpotlightData }) => {
   const { spotlightData } = props;
@@ -33,27 +33,27 @@ export const Spotlight = (props: { spotlightData: SpotlightData }) => {
       </div>
       {/* Right Section */}
       <div className="flex w-full items-center justify-center">
-      <div className="relative h-full w-full">
-                  {spotlightData.videoUrl ? (
-                    <iframe
-                      src={spotlightData.videoUrl}
-                      className="relative h-full w-full"
-                      allowFullScreen
-                    />
-                  ) : spotlightData.imageUrl ? (
-                    <Image
-                      src={spotlightData.imageUrl}
-                      width={500}
-                      height={500}
-                      alt={spotlightData.name}
-                      className="w-[500px] h-[700px] rounded-lg shadow-md flex flex-col items-center justify-center mx-24"
-                    />
-                  ) : (
-                    <div className="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
-                      No media available
-                    </div>
-                  )}
-                </div>
+        <div className="relative h-full w-full">
+          {spotlightData.videoUrl ? (
+            <iframe
+              src={spotlightData.videoUrl}
+              className="relative h-full w-full"
+              allowFullScreen
+            />
+          ) : spotlightData.imageUrl ? (
+            <Image
+              src={spotlightData.imageUrl}
+              width={500}
+              height={500}
+              alt={spotlightData.name}
+              className="mx-24 flex h-[700px] w-[500px] flex-col items-center justify-center rounded-lg shadow-md"
+            />
+          ) : (
+            <div className="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+              No media available
+            </div>
+          )}
+        </div>
         {/* <div className="relative w-full max-w-3xl">
           <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
             <iframe
@@ -65,9 +65,6 @@ export const Spotlight = (props: { spotlightData: SpotlightData }) => {
           </div>
         </div> */}
       </div>
-
-        
-
     </section>
   );
 };

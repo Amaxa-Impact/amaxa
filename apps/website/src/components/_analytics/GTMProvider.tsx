@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 declare global {
   interface Window {
@@ -17,7 +17,9 @@ export default function GTMProvider() {
     if (typeof window !== "undefined" && window.dataLayer) {
       window.dataLayer.push({
         event: "pageview",
-        page: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ""),
+        page:
+          pathname +
+          (searchParams?.toString() ? `?${searchParams.toString()}` : ""),
       });
     }
   }, [pathname, searchParams]);

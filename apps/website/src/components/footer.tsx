@@ -48,7 +48,10 @@ const Footer = () => {
             <Link href="/project" className="text-gray-800 hover:text-gray-600">
               Discover Projects
             </Link>
-            <Link href="/pathways" className="text-gray-800 hover:text-gray-600">
+            <Link
+              href="/pathways"
+              className="text-gray-800 hover:text-gray-600"
+            >
               Explore Ámaxa Pathways
             </Link>
             <Link
@@ -57,7 +60,6 @@ const Footer = () => {
             >
               Read Ámaxa Stories
             </Link>
-          
 
             {/* <Link
               href="/contact-us"

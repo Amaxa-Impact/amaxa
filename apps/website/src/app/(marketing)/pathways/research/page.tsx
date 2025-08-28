@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { FocusCards } from "@/components/ui/focus-cards-text";
-import { ApplyButton } from "~/components/apply";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
+import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   return (
@@ -26,9 +27,7 @@ export default function ProgramPage() {
                 {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa{" "}
-                  <span className="font-normal text-[#3B3B3B]">
-                    Research
-                  </span>
+                  <span className="font-normal text-[#3B3B3B]">Research</span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
 
@@ -50,56 +49,56 @@ export default function ProgramPage() {
                   </svg>
                   {/* --- End of resolved conflict block --- */}
                 </div>
-               
-                     
-              
               </div>
             </div>
           </div>
-        
         </section>
-        </div>
+      </div>
 
-        <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-            We are launching a new pathway to build a grassroots research capacity that will support and amplify the work of our partner nonprofits.
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+              We are launching a new pathway to build a grassroots research
+              capacity that will support and amplify the work of our partner
+              nonprofits.
             </h2>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              This pathway is designed for intellectually curious undergraduate students eager to finetune their research skills and for Masters or PhD students who are eager to utilise their research skills to effect tangible social change.
+              This pathway is designed for intellectually curious undergraduate
+              students eager to finetune their research skills and for Masters
+              or PhD students who are eager to utilise their research skills to
+              effect tangible social change.
             </p>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-          Our mission is to conduct, write, and publish original research on questions critical to the work of our partner nonprofits and initiatives. Short-term objectives are to identify gaps in research pertaining to our 9 projects and their related topics and conduct research over 3-6 months. At a minimum, your work will be published on the ámaxa site, as we aim for our site to grow as a resource for robust non-academic research. However, we have already begun work to partner with academics who can offer mentorship in publishing ámaxa research pieces on think tanks, media outlets, and peer-reviewed journals. A long-term objective of this pathway is to conduct field research at the sites of our partners in Uganda, Liberia, Poland/Ukraine, and Palestine. </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> As this is a new pathway, we will accept applications on a rolling basis and reach out to applicants if we believe it will be a good fit. </p>
+              Our mission is to conduct, write, and publish original research on
+              questions critical to the work of our partner nonprofits and
+              initiatives. Short-term objectives are to identify gaps in
+              research pertaining to our 9 projects and their related topics and
+              conduct research over 3-6 months. At a minimum, your work will be
+              published on the ámaxa site, as we aim for our site to grow as a
+              resource for robust non-academic research. However, we have
+              already begun work to partner with academics who can offer
+              mentorship in publishing ámaxa research pieces on think tanks,
+              media outlets, and peer-reviewed journals. A long-term objective
+              of this pathway is to conduct field research at the sites of our
+              partners in Uganda, Liberia, Poland/Ukraine, and Palestine.{" "}
+            </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+              {" "}
+              As this is a new pathway, we will accept applications on a rolling
+              basis and reach out to applicants if we believe it will be a good
+              fit.{" "}
+            </p>
             <div>
               <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply Today →
-                </ApplyButton>
+                <ApplyButton variant="color">Apply Today →</ApplyButton>
               </React.Suspense>
             </div>
           </div>
-
-       
         </div>
       </section>
 
-      
-
-      
-
-            
-   
-
-      
-
-
-
-      
-
- 
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">

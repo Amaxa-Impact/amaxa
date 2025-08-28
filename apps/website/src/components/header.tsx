@@ -28,7 +28,10 @@ export const Navbar = () => {
     { href: "/project-stories", label: "Read Ámaxa Stories" },
     // { href: "/newsletter", label: "Keep in Touch" },
     { href: "/contact-us", label: "Contact Us" },
-    { href: "https://ballet-mild-64061755.figma.site/", label: "✨ 2025 Denver Gala" },
+    {
+      href: "https://ballet-mild-64061755.figma.site/",
+      label: "✨ 2025 Denver Gala",
+    },
   ];
 
   return (
@@ -53,13 +56,10 @@ export const Navbar = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
-      
         </NavigationMenu>
 
-           <div className="flex flex-row">
-          
-           
-           <Link
+        <div className="flex flex-row">
+          <Link
             href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
             target="_blank"
             className={cn(
@@ -86,9 +86,6 @@ export const Navbar = () => {
             Apply Now
           </Link>
         </div>
-
-        
-        
       </header>
 
       {/* Mobile Navbar */}
@@ -117,36 +114,35 @@ export const Navbar = () => {
                 </SheetClose>
               ))}
               <div className="mt-4 flex flex-col gap-4">
-            
                 <SheetClose asChild>
-                 <Link
-            href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
-            target="_blank"
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                size: "lg",
-              }),
-              "w-full rounded-[3rem]",
-            )}
-          >
-            Apply Now
-          </Link>
+                  <Link
+                    href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
+                    target="_blank"
+                    className={cn(
+                      buttonVariants({
+                        variant: "outline",
+                        size: "lg",
+                      }),
+                      "w-full rounded-[3rem]",
+                    )}
+                  >
+                    Apply Now
+                  </Link>
                 </SheetClose>
-                 <SheetClose asChild>
-                 <Link
-            href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
-            target="_blank"
-            className={cn(
-              buttonVariants({
-                variant: "link",
-                size: "lg",
-              }),
-              "w-full rounded-[3rem]",
-            )}
-          >
-            Support Us
-          </Link>
+                <SheetClose asChild>
+                  <Link
+                    href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
+                    target="_blank"
+                    className={cn(
+                      buttonVariants({
+                        variant: "link",
+                        size: "lg",
+                      }),
+                      "w-full rounded-[3rem]",
+                    )}
+                  >
+                    Support Us
+                  </Link>
                 </SheetClose>
               </div>
             </div>
