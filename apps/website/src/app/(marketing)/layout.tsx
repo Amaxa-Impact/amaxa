@@ -2,7 +2,7 @@ import React from "react";
 import Script from "next/script";
 import Footer from "~/components/footer";
 import { Navbar } from "~/components/header";
-import GTMProvider from "~/components/GTMProvider"; // 👈 import it
+import GTMProvider from "~/components/_analytics/GTMProvider"; // 👈 import it
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
