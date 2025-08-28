@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@amaxa/prettier-config": "workspace:*",
-    "@turbo/gen": "^2.4.4",
+    "@turbo/gen": "^2.5.4",
     "prettier": "catalog:",
-    "turbo": "^2.4.4",
+    "turbo": "^2.5.4",
     "typescript": "catalog:"
   },
   "prettier": "@amaxa/prettier-config",
