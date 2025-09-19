@@ -171,21 +171,22 @@ export default function WhoAreWePage() {
             containerClassName="col-span-2 lg:col-span-1 max-h-[320px]"
             className=""
           >
-            <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
-              Ámaxa Cohorts, for high school students{" "}
-            </h2>
-            <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-              Through our 3-month remote program, students work in a remote team
-              of your peers, guided by a coach, to effect measurable change
-              through one of our 9 partner nonprofits or original initiatives.
-            </p>
+         
             <img
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVJDCilWL0MYRHUetxwcyzJn3h7alsSdIDAKf"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[30%]"
+              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[30%] -z-10 filter brightness-75"
             />
+            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
+               <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              Ámaxa Cohorts, for high school students{" "}
+            </h2>
+            <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+              End-to-end support to turn ideas into change
+            </p>
+
           </WobbleCard>
         </Link>
 
@@ -194,22 +195,25 @@ export default function WhoAreWePage() {
           target=""
           className="col-span-1 lg:col-span-1"
         >
-          <WobbleCard containerClassName="col-span-2 lg:col-span-1 min-h-[320px]">
-            <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
-              Ámaxa Research for: undergrad & postgrad students
-            </h2>
-            <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-              Ámaxa Research’s mission is to conduct, write, and publish
-              original research on questions critical to the work of our partner
-              nonprofits and initiatives.{" "}
-            </p>
+          <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
+          
             <img
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOjxcCpDmYZFtMKdGCwhkEePg27zV39qyDB0mr"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
-            />
+              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%] -z-10  filter brightness-75"
+            />  
+            
+            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
+              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              Ámaxa Research for: undergrad & postgrad students
+            </h2>
+            <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+              Real research for real change. {" "}
+            </p>
+
+
           </WobbleCard>
         </Link>
 
@@ -219,22 +223,22 @@ export default function WhoAreWePage() {
           className="col-span-1 lg:col-span-1"
         >
           <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-            <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+           
+            <img
+              src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaLemsuIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
+              width={600}
+              height={600}
+              alt="linear demo image"
+              className="absolute -top-[30%] -z-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[-0%] -z-10 filter brightness-75"
+            />
+            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
+             <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
               Ámaxa Partnerships, for professionals
             </h2>
             <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-              The model of Ámaxa Partnerships recognizes that the greatest
-              capacity for tangible change professionals possess is the ability
-              to raise funds through corporate partnerships and donations via
-              each of our networks.
+              Unlock your capacity to change lives through networks.
             </p>
-            <img
-              src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaLemsuIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
-              width={450}
-              height={450}
-              alt="linear demo image"
-              className="absolute -right-20 -top-[20%] -z-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[2%]"
-            />
+
           </WobbleCard>
         </Link>
 
@@ -244,23 +248,26 @@ export default function WhoAreWePage() {
           className="col-span-1 lg:col-span-1"
         >
           <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-            <div className="max-w-sm">
-              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
-                Ámaxa Network, for Coloradans
-              </h2>
-              <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-                An open invitation for individuals in Colorado who are doing
-                great things to effect change and space to congregate both
-                digitally & in-person
-              </p>
-            </div>
+           
+     
             <img
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONU0PJlDesbBzAkMUD2VgJC8t15PQoqpLNrjf"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-20 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
+              className="absolute -bottom-20 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%] filter brightness-75"
             />
+          <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
+                      <div className="max-w-sm">
+
+             <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+                Ámaxa Network, for Coloradans
+              </h2>
+              <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+                Connect with changemakers in Colorado
+              </p>
+                     </div>
+
           </WobbleCard>
         </Link>
       </div>
