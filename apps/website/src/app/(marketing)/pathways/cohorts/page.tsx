@@ -3,8 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { FocusCards } from "@/components/ui/focus-cards-text";
-import { ApplyButton } from "~/components/apply";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
+
+import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   return (
@@ -25,9 +27,7 @@ export default function ProgramPage() {
                 {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa{" "}
-                  <span className="font-normal text-[#3B3B3B]">
-                    Cohorts
-                  </span>
+                  <span className="font-normal text-[#3B3B3B]">Cohorts</span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
 
@@ -49,60 +49,47 @@ export default function ProgramPage() {
                   </svg>
                   {/* --- End of resolved conflict block --- */}
                 </div>
-               
-                     
-              
               </div>
             </div>
           </div>
-        
         </section>
-        </div>
+      </div>
 
-        <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-            We believe high school students are capable of effecting change at
-            a large scale.
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+              We believe high school students are capable of effecting change at
+              a large scale.
             </h2>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              We match you to a team of
-              students from across the world ages 14-18 , guided by a
-              trained undergraduate coach. More than 240 students have applied
-              from <strong>48 countries and counting.</strong>
+              We match you to a team of students from across the world ages
+              14-18 , guided by a trained undergraduate coach. More than 240
+              students have applied from{" "}
+              <strong>48 countries and counting.</strong>
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"><strong> Our 100% remote program is accessible across income and location.</strong> The ability to effect change should never be limited by your home or your income. </p>
-
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+              <strong>
+                {" "}
+                Our 100% remote program is accessible across income and
+                location.
+              </strong>{" "}
+              The ability to effect change should never be limited by your home
+              or your income.{" "}
+            </p>
 
             <div>
               <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply Today →
-                </ApplyButton>
+                <ApplyButton variant="color">Apply Today →</ApplyButton>
               </React.Suspense>
             </div>
           </div>
-
-       
         </div>
       </section>
 
-      
-
-      
-
-            
-   
-
-      
-
-
-
       {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
       <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
-        
         <div className="mx-auto max-w-7xl">
           {/* --- End of resolved conflict block --- */}
 
@@ -171,8 +158,6 @@ export default function ProgramPage() {
         </div>
       </section>
 
-      
-
       <section className="w-full bg-[#F5F2F2] py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <h2 className="mb-12 text-3xl font-normal text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
@@ -197,7 +182,8 @@ export default function ProgramPage() {
                 </h3>
 
                 <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-                  Click on the application link to view the next cohort deadline.
+                  Click on the application link to view the next cohort
+                  deadline.
                 </p>
               </div>
 

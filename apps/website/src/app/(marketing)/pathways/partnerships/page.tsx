@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { FocusCards } from "@/components/ui/focus-cards-text";
-import { ApplyButton } from "~/components/apply";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
+import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   return (
@@ -50,60 +51,48 @@ export default function ProgramPage() {
                   </svg>
                   {/* --- End of resolved conflict block --- */}
                 </div>
-               
-                     
-              
               </div>
             </div>
           </div>
-        
         </section>
-        </div>
+      </div>
 
-        <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-         This pathway provides a new model for effecting large-scale change for those with the tools, skills, and network of years in the professional world.
-                          </h2>
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+              This pathway provides a new model for effecting large-scale change
+              for those with the tools, skills, and network of years in the
+              professional world.
+            </h2>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-              The core idea in Ámaxa Partnerships is recognzing that the greatest capacity for tangible change professionals possess is the ability to raise funds through corporate partnerships and donations via each of our professional networks.
+              The core idea in Ámaxa Partnerships is recognzing that the
+              greatest capacity for tangible change professionals possess is the
+              ability to raise funds through corporate partnerships and
+              donations via each of our professional networks.
             </p>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-          Ámaxa Partnerships relies on the evidence-based model we have iterated on for 2 years: effecting change through remote project
+              Ámaxa Partnerships relies on the evidence-based model we have
+              iterated on for 2 years: effecting change through remote project
               meetings with peers and a coach, aided by fine-tuned project
-              management methodologies and custom-built online tools. 
-              
-               </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> As this is a new pathway, we will accept applications on a rolling basis and reach out to applicants if we believe it will be a good fit. </p>
+              management methodologies and custom-built online tools.
+            </p>
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+              {" "}
+              As this is a new pathway, we will accept applications on a rolling
+              basis and reach out to applicants if we believe it will be a good
+              fit.{" "}
+            </p>
             <div>
               <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply Today →
-                </ApplyButton>
+                <ApplyButton variant="color">Apply Today →</ApplyButton>
               </React.Suspense>
             </div>
           </div>
-
-       
         </div>
       </section>
 
-      
-
-      
-
-            
-   
-
-      
-
-
-
-      
-
- 
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">

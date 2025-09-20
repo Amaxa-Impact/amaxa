@@ -189,7 +189,7 @@ const ImpactSection: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-between px-16 py-12 md:py-16 lg:flex-row lg:py-24 shadow-sm">
+    <div className="container mx-auto flex flex-col items-center justify-between px-16 py-12 shadow-sm md:py-16 lg:flex-row lg:py-24">
       <div className="mb-10 w-full lg:mb-0 lg:w-1/2 lg:pr-8">
         <div className="mx-auto max-w-xl lg:mx-0">
           <p className="pb-8 text-lg text-gray-700 md:pb-8 md:text-xl">
@@ -204,7 +204,7 @@ const ImpactSection: React.FC = () => {
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-3 pt-4 md:gap-4 md:pt-8 pb-4">
+          <div className="flex flex-wrap gap-3 pb-4 pt-4 md:gap-4 md:pt-8">
             <React.Suspense fallback={<div>Loading...</div>}>
               <ApplyButton variant="color">
                 Join Us <span className="ml-2">→</span>
@@ -274,7 +274,7 @@ const ImpactSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="z-20 overflow-hidden rounded-[24px] shadow-lg border-2 border-white cursor-pointer"
+                className="z-20 cursor-pointer overflow-hidden rounded-[24px] border-2 border-white shadow-lg"
                 style={{
                   width: "min(320px, 70vw)",
                   height: "min(400px, 90vw)",

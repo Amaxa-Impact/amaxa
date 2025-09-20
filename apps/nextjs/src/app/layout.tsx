@@ -12,7 +12,9 @@ import "~/app/globals.css";
 
 import { env } from "~/env";
 import FlowProvider from "./_components/flow-provider";
-import { CSPostHogProvider } from "./providers";
+import { CSPostHogProvider } from "../../../website/src/app/_providers/providers";
+
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(

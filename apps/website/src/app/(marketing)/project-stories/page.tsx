@@ -104,7 +104,8 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           ],
           teammates: "",
           videoUrl: "",
-          imageUrl:"https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOrTVqceQvsrdY6KUyulWLH1XBk7OqCf3F9gAQ",
+          imageUrl:
+            "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOrTVqceQvsrdY6KUyulWLH1XBk7OqCf3F9gAQ",
         },
         {
           heading: "MEMBER SPOTLIGHT",
@@ -136,10 +137,11 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           ageLocation: "Doha, Qatar",
           paragraphs: [
             "Damira and Aamna lead the Doha Youth Network, a student-led initiative dedicated to offering young people volunteering opportunities in Doha, Qatar. Through dedication and committment, and aided by their coach Sreeramya, Damira and Aamna organized a large-scale basketball tournament at their school.",
-            "While they only had a short time to put it together, it was a success: they raised an amazing $700 sent directly to Gazans in dire need of aid. Their project exemplifies ámaxa's belief that any passion can be transformed into impact."
+            "While they only had a short time to put it together, it was a success: they raised an amazing $700 sent directly to Gazans in dire need of aid. Their project exemplifies ámaxa's belief that any passion can be transformed into impact.",
           ],
           teammates: "",
-          imageUrl: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToON8mn5FDesbBzAkMUD2VgJC8t15PQoqpLNrjf",
+          imageUrl:
+            "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToON8mn5FDesbBzAkMUD2VgJC8t15PQoqpLNrjf",
           videoUrl: "",
         },
         // {
@@ -157,11 +159,11 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       ].map((spotlight, idx) => (
         <Spotlight key={idx} spotlightData={spotlight} />
       ))}
-         <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
+      <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="px-6 md:px-16 lg:px-20">
           {/* Main heading */}
           <h2 className="mb-12 max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
-           More stories coming soon!
+            More stories coming soon!
           </h2>
 
           {/* Button */}

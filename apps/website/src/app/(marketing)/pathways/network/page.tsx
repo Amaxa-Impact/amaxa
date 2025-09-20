@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { FocusCards } from "@/components/ui/focus-cards-text";
-import { ApplyButton } from "~/components/apply";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
+import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   return (
@@ -26,9 +27,7 @@ export default function ProgramPage() {
                 {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa Network:{" "}
-                  <span className="font-normal text-[#3B3B3B]">
-                    Colorado
-                  </span>
+                  <span className="font-normal text-[#3B3B3B]">Colorado</span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
 
@@ -50,99 +49,105 @@ export default function ProgramPage() {
                   </svg>
                   {/* --- End of resolved conflict block --- */}
                 </div>
-               
-                     
-              
               </div>
             </div>
           </div>
-        
         </section>
-        </div>
-
+      </div>
 
       <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-          This is an open invitation for individuals in Colorado who are doing great things to effect change.
-          </h2>
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+              This is an open invitation for individuals in Colorado who are
+              doing great things to effect change.
+            </h2>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-            The Ámaxa Network provides a space to congregate both digitally & in-person, celebrate both big wins and small victories, and foster a sense of collective achievement. 
-            Here, accomplishments are not just noted; they're elevated, fueling inspiration and collaborative growth. 
+              The Ámaxa Network provides a space to congregate both digitally &
+              in-person, celebrate both big wins and small victories, and foster
+              a sense of collective achievement. Here, accomplishments are not
+              just noted; they're elevated, fueling inspiration and
+              collaborative growth.
             </p>
             <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
-            Our core philosophy: every achievement, no matter how seemingly modest, contributes to a larger tapestry of social impact. In essence, the ámaxa network isn’t just about connectivity—it’s about building a legacy of excellence through shared efforts.
+              Our core philosophy: every achievement, no matter how seemingly
+              modest, contributes to a larger tapestry of social impact. In
+              essence, the ámaxa network isn’t just about connectivity—it’s
+              about building a legacy of excellence through shared efforts.
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl"> Any Colorado-based applicant can apply today through our link below, and we will be in touch with next steps.</p>
-           
+            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+              {" "}
+              Any Colorado-based applicant can apply today through our link
+              below, and we will be in touch with next steps.
+            </p>
           </div>
           <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply Today →
-                </ApplyButton>
-              </React.Suspense>
-
+            <ApplyButton variant="color">Apply Today →</ApplyButton>
+          </React.Suspense>
         </div>
       </section>
 
-        <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+      <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-          <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-          As part of the network, you have access to opportunities to grow your skills and scale your personal project. 
-          </h2>
-         
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+              As part of the network, you have access to opportunities to grow
+              your skills and scale your personal project.
+            </h2>
 
-            <p className="text-lg font-light text-[#3B3B3B]  md:text-xl lg:text-2xl">
-            <strong>Feature Your Project on our Socials and Newsletters:</strong> <br></br> As part of the network, we will amplify the reach and visibility of your personal projects through our marketing channels.
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+              <strong>
+                Feature Your Project on our Socials and Newsletters:
+              </strong>{" "}
+              <br></br> As part of the network, we will amplify the reach and
+              visibility of your personal projects through our marketing
+              channels.
             </p>
 
             <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
-            <strong>Write for our Newsletter as a Contributor:</strong> <br></br> Get a piece of your original writing published and 'placed' in media. This is great for Linkedin!
-            </p>
-
-
-            <p className="text-lg font-light text-[#3B3B3B]  md:text-xl lg:text-2xl">
-            <strong>Internships in Computer Science:</strong> <br></br>We take a select number of students from the pool of our applicants who are exceptional at Computer Science and invite them to a 2-3 month internship where they work alongside our development team to gain real world experience building the ámaxa platform.
-            </p>
-
-
-            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
-            <strong>Free Social Media Consulting</strong> <br></br> If you have a page for your project/initiative and would like an audit, the ámaxa PR and digital marketing team will do it for you for free (usually costs thousands).
+              <strong>Write for our Newsletter as a Contributor:</strong>{" "}
+              <br></br> Get a piece of your original writing published and
+              'placed' in media. This is great for Linkedin!
             </p>
 
             <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
-            <strong>Awards</strong> <br></br> Once a year, we will review the network project prorfiles and select the most impactful or innovative. In addition to yearly awards, we will highlight projects on a quarterly basis.
+              <strong>Internships in Computer Science:</strong> <br></br>We take
+              a select number of students from the pool of our applicants who
+              are exceptional at Computer Science and invite them to a 2-3 month
+              internship where they work alongside our development team to gain
+              real world experience building the ámaxa platform.
             </p>
-         
 
             <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
-            <strong>Events in the Denver Metro Area</strong> <br></br> Meet in-person with other passionate individuals in Colorado at meetups and larger events as the network grows.
-
+              <strong>Free Social Media Consulting</strong> <br></br> If you
+              have a page for your project/initiative and would like an audit,
+              the ámaxa PR and digital marketing team will do it for you for
+              free (usually costs thousands).
             </p>
-         
 
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+              <strong>Awards</strong> <br></br> Once a year, we will review the
+              network project prorfiles and select the most impactful or
+              innovative. In addition to yearly awards, we will highlight
+              projects on a quarterly basis.
+            </p>
 
-
+            <p className="text-lg font-light text-[#3B3B3B] md:text-xl lg:text-2xl">
+              <strong>Events in the Denver Metro Area</strong> <br></br> Meet
+              in-person with other passionate individuals in Colorado at meetups
+              and larger events as the network grows.
+            </p>
           </div>
           <React.Suspense fallback={<div>Loading...</div>}>
-                <ApplyButton variant="color">
-                  Apply Today →
-                </ApplyButton>
-              </React.Suspense>
-
+            <ApplyButton variant="color">Apply Today →</ApplyButton>
+          </React.Suspense>
         </div>
       </section>
 
-
-
-
       {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
       <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
-        
         <div className="mx-auto max-w-7xl">
           {/* --- End of resolved conflict block --- */}
 
@@ -156,12 +161,13 @@ export default function ProgramPage() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-               A community of passionate individuals in Colorado actively pursuring social impact projects or activities in their own lives. As a part of the network, you have access to ámaxa's digital platform & in-person events in Colorado.
+                  A community of passionate individuals in Colorado actively
+                  pursuring social impact projects or activities in their own
+                  lives. As a part of the network, you have access to ámaxa's
+                  digital platform & in-person events in Colorado.
                 </p>
               </div>
             </div>
-
-      
 
             {/* Who can join? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
@@ -186,7 +192,8 @@ export default function ProgramPage() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
-                  You can take part in the network both remotely via our online platform and by attending in-person events and meetups.
+                  You can take part in the network both remotely via our online
+                  platform and by attending in-person events and meetups.
                 </p>
               </div>
             </div>
@@ -204,28 +211,10 @@ export default function ProgramPage() {
                 </p>
               </div>
             </div>
-
-        
-
           </div>
-          
         </div>
       </section>
 
-      
-
-      
-
-            
-   
-
-      
-
-
-
-      
-
- 
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">
