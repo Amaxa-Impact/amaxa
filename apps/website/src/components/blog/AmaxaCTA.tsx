@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 
@@ -7,7 +8,7 @@ interface AmaxaCTAProps {
   variant?: 'start-solving' | 'blog' | 'explore' | 'apply';
 }
 
-export default function AmaxaCTA({ 
+export function AmaxaCTA({ 
   text = "Learn more about ámaxa and start solving problems with global nonprofits!",
   link = "/start-solving",
   variant = "start-solving"

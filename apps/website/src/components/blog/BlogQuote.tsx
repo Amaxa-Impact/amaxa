@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 interface BlogQuoteProps {
@@ -6,7 +7,7 @@ interface BlogQuoteProps {
   className?: string;
 }
 
-export default function BlogQuote({ children, author, className = "" }: BlogQuoteProps) {
+export function BlogQuote({ children, author, className = "" }: BlogQuoteProps) {
   return (
     <blockquote className={`border-l-4 border-blue-500 bg-blue-50 p-6 my-8 italic text-lg text-gray-800 ${className}`}>
       <div className="text-gray-700">

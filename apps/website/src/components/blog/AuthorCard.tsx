@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 interface AuthorCardProps {
@@ -7,7 +8,7 @@ interface AuthorCardProps {
   bio?: string;
 }
 
-export default function AuthorCard({ name, avatar, date, bio }: AuthorCardProps) {
+export function AuthorCard({ name, avatar, date, bio }: AuthorCardProps) {
   return (
     <div className="flex items-center space-x-4 py-6 border-t border-b border-gray-200 my-8">
       {avatar && (

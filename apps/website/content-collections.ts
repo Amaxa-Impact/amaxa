@@ -1,9 +1,8 @@
-import { defineCollection, defineConfig } from "@content-collections/core";
-import { compileMDX } from "@content-collections/mdx";
-import { z } from "zod";
+import {
+  defineCollection,
+  defineConfig,
+} from "@content-collections/core";
 
-// for more information on configuration, visit:
-// https://www.content-collections.dev/docs/configuration
 
 const posts = defineCollection({
   name: "posts",
@@ -27,12 +26,9 @@ const posts = defineCollection({
     category: z.string().optional(),
     draft: z.boolean().optional().default(false),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document);
-    return {
-      ...document,
-      mdx,
-    };
+  parser: "frontmatter",
+  transform: ({ content: _, ...post }) => {
+    return post;
   },
 });
 

@@ -1,6 +1,18 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import { VolunteerOpportunity } from '../content/volunteer-opportunities/bridgeport';
+
+export interface VolunteerOpportunity {
+  name: string;
+  link: string;
+  description: string;
+  images: {
+    src: string;
+    alt: string;
+    credit: string;
+    creditLink: string;
+  }[];
+}
 
 interface VolunteerOpportunityListProps {
   opportunities: VolunteerOpportunity[];

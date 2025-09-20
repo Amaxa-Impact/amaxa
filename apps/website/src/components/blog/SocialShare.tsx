@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 interface SocialShareProps {
@@ -6,7 +7,7 @@ interface SocialShareProps {
   className?: string;
 }
 
-export default function SocialShare({ url, title, className = "" }: SocialShareProps) {
+export function SocialShare({ url, title, className = "" }: SocialShareProps) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 

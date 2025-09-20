@@ -1,8 +1,13 @@
 /** @type {import("next").NextConfig} */
+import createMDX from '@next/mdx'
 import { withContentCollections } from "@content-collections/next";
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+
 
 const config = {
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   async redirects() {
     return [
       {
@@ -53,5 +58,11 @@ const config = {
   skipTrailingSlashRedirect: true,
 };
 
-//@ts-ignore
-export default withContentCollections(config);
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+    rehypePlugins: [],
+  },
+
+})
+export default withContentCollections(withMDX(config));

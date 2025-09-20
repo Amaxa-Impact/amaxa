@@ -1,16 +1,14 @@
-import { allPosts } from "@/.content-collections/generated";
-import { MDXContent } from "@content-collections/mdx/react";
+import Link from "next/link";
+import { allPosts } from "content-collections";
 
 export default function ServerPage() {
   return (
-    <>
-      <h1>Posts (RSC)</h1>
+    <ul>
       {allPosts.map((post) => (
-        <article key={post._meta.path}>
-          <h2>{post.title}</h2>
-          <MDXContent code={post.content} />
-        </article>
+        <li key={post.slug}>
+          <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+        </li>
       ))}
-    </>
+    </ul>
   );
 }

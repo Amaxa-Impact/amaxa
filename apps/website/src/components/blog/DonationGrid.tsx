@@ -13,7 +13,7 @@ interface DonationGridProps {
   description?: string;
 }
 
-export default function DonationGrid({ title, organizations, description }: DonationGridProps) {
+export function DonationGrid({ title, organizations, description }: DonationGridProps) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 my-6">
       <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>

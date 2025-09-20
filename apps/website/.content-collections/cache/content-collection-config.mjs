@@ -1,6 +1,8 @@
 // content-collections.ts
-import { defineCollection, defineConfig } from "@content-collections/core";
-import { compileMDX } from "@content-collections/mdx";
+import {
+  defineCollection,
+  defineConfig
+} from "@content-collections/core";
 var posts = defineCollection({
   name: "posts",
   directory: "content/posts",
@@ -23,12 +25,9 @@ var posts = defineCollection({
     category: z.string().optional(),
     draft: z.boolean().optional().default(false)
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document);
-    return {
-      ...document,
-      mdx
-    };
+  parser: "frontmatter",
+  transform: ({ content: _, ...post }) => {
+    return post;
   }
 });
 var content_collections_default = defineConfig({
