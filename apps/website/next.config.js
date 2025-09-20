@@ -1,4 +1,6 @@
 /** @type {import("next").NextConfig} */
+import { withContentCollections } from "@content-collections/next";
+
 const config = {
   reactStrictMode: true,
   async redirects() {
@@ -51,4 +53,5 @@ const config = {
   skipTrailingSlashRedirect: true,
 };
 
-export default config;
+//@ts-ignore
+export default withContentCollections(config);
