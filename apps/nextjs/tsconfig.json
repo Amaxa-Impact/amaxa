@@ -14,6 +14,6 @@
     ],
     "module": "esnext"
   },
-  "include": [".", ".next/types/**/*.ts", "../website/src/app/_providers/providers.tsx"],
+  "include": [".", ".next/types/**/*.ts", "../website/src/app/_providers/providers.tsx", "../website/src/lib/sanity.ts"],
   "exclude": ["node_modules"]
 }
