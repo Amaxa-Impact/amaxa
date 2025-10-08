@@ -263,8 +263,11 @@ importers:
       '@sanity/client':
         specifier: '4'
         version: 4.0.1
+      '@sanity/image-url':
+        specifier: ^1.2.0
+        version: 1.2.0
       framer-motion:
-        specifier: ^11.2.11
+        specifier: ^11.18.2
         version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       fumadocs-core:
         specifier: ^13.3.2
@@ -2378,6 +2381,10 @@ packages:
 
   '@sanity/eventsource@4.1.1':
     resolution: {integrity: sha512-4RpexVqD+hbIXDgFLgWq/vSJWHNEBbc9eGa96ear/3ADFhMQx+QG4Q7r3QmQkB2t7LfUrrJfMQn9sMwaBTlurg==}
+
+  '@sanity/image-url@1.2.0':
+    resolution: {integrity: sha512-pYRhti+lDi22it+npWXkEGuYyzbXJLF+d0TYLiyWbKu46JHhYhTDKkp6zmGu4YKF5cXUjT6pnUjFsaf2vlB9nQ==}
+    engines: {node: '>=10.0.0'}
 
   '@sanity/timed-out@4.0.2':
     resolution: {integrity: sha512-NBDKGj14g9Z+bopIvZcQKWCzJq5JSrdmzRR1CS+iyA3Gm8SnIWBfZa7I3mTg2X6Nu8LQXG0EPKXdOGozLS4i3w==}
@@ -8338,6 +8345,8 @@ snapshots:
     dependencies:
       event-source-polyfill: 1.0.31
       eventsource: 2.0.2
+
+  '@sanity/image-url@1.2.0': {}
 
   '@sanity/timed-out@4.0.2': {}
 
