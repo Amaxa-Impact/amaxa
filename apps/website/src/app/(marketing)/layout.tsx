@@ -2,6 +2,9 @@ import React from "react";
 import Script from "next/script";
 
 import GTMProvider from "~/components/_analytics/GTMProvider"; // 👈 import it
+import GoogleTagManager from "~/components/_analytics/GoogleTagManager";
+import AnalyticsRouteListener from "~/components/_analytics/AnalyticsRouteListener";
+
 import Footer from "~/components/footer";
 import { Navbar } from "~/components/header";
 
@@ -10,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         {/* Google Tag Manager */}
-        <Script id="gtm-script" strategy="afterInteractive">
+        {/* <Script id="gtm-script" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -18,23 +21,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-M6W47B7Q');
           `}
-        </Script>
+        </Script> */}
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-M6W47B7Q"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           />
-        </noscript>
+        </noscript> */}
 
         {/* Route change tracking */}
-        <GTMProvider />
+        {/* <GTMProvider /> */}
 
         <Navbar />
+       <GoogleTagManager />
+         <AnalyticsRouteListener />
+
+
         {children}
         <Footer />
       </body>
