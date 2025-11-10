@@ -4,6 +4,30 @@ import { sanityClient } from '@/lib/sanity'
 import type { PortableTextComponents } from '@portabletext/react'
 import { PortableText } from '@portabletext/react'
 import imageUrlBuilder from '@sanity/image-url'
+import type { Metadata } from 'next'
+import { BlogHeader } from './BlogHeader'
+
+export const metadata: Metadata = {
+  title: 'Ámaxa Blog - Youth-Led Change & Global Impact Stories',
+  description: 'Explore expert perspectives, success stories, and valuable insights on youth-led change, global issues, and projects making a real impact. Discover how young leaders are creating meaningful change worldwide.',
+  keywords: [
+    'youth-led change',
+    'global issues',
+    'projects making real impact',
+    'social impact',
+    'youth leadership',
+    'international development',
+    'community projects',
+    'student initiatives',
+    'global change makers',
+    'youth empowerment'
+  ],
+  openGraph: {
+    title: 'Ámaxa Blog - Youth-Led Change & Global Impact',
+    description: 'Expert perspectives on youth-led change, global issues, and projects making a real impact.',
+    type: 'website',
+  },
+}
 
 const builder = imageUrlBuilder(sanityClient)
 const urlFor = (source: any) => builder.image(source)
@@ -21,7 +45,7 @@ type PostPreview = {
 
 const portableTextComponents: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-gray-700">{children}</p>,
+    normal: ({ children }) => <p className="text-[#3B3B3B]/70">{children}</p>,
   },
 }
 
@@ -45,91 +69,97 @@ export default async function BlogPage() {
   const otherPosts = posts.filter((post) => post._id !== featuredPost?._id)
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      {/* Page Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-5xl font-bold mb-4">Ámaxa Blog</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Explore articles on youth-led change, global issues, and projects making a real impact.
-        </p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-20 py-16 md:py-24">
+        {/* Page Header */}
+        <BlogHeader />
 
-      {/* Featured Post */}
-      {featuredPost && (
-        <Link
-          href={`/blog/${featuredPost.slug.current}`}
-          className="group mb-16 block overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
-        >
-          <div className="flex flex-col md:flex-row bg-white">
-            {featuredPost.mainImage?.asset && (
-              <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-                <Image
-                  src={urlFor(featuredPost.mainImage.asset).width(1200).url()}
-                  alt={featuredPost.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-            )}
-            <div className="p-8 md:w-1/2 flex flex-col justify-center">
-              <h2 className="text-4xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                {featuredPost.title}
-              </h2>
-              {featuredPost.author && (
-                <p className="text-gray-500 text-sm mb-4">
-                  By {featuredPost.author.name} •{' '}
-                  {new Date(featuredPost.publishedAt).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}
-                </p>
-              )}
-              <div className="text-gray-700 text-lg line-clamp-4">
-                <PortableText value={featuredPost.body.slice(0, 2)} components={portableTextComponents} />
-              </div>
-            </div>
-          </div>
-        </Link>
-      )}
-
-      {/* Other Posts Grid */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {otherPosts.map((post) => (
-          <Link key={post.slug.current} href={`/blog/${post.slug.current}`} className="group">
-            <div className="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
-              {post.mainImage?.asset && (
-                <div className="relative w-full h-48 md:h-56 lg:h-64">
+        {/* Featured Post */}
+        {featuredPost && (
+          <Link
+            href={`/blog/${featuredPost.slug.current}`}
+            className="group mb-12 block"
+          >
+            <div className="flex flex-col md:flex-row bg-white border border-[#3B3B3B]/10 rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+              {featuredPost.mainImage?.asset && (
+                <div className="relative w-full md:w-1/2 h-64 md:h-96 overflow-hidden">
                   <Image
-                    src={urlFor(post.mainImage.asset).width(800).url()}
-                    alt={post.title}
+                    src={urlFor(featuredPost.mainImage.asset).width(1200).url()}
+                    alt={featuredPost.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
                 </div>
               )}
-              <div className="p-6">
-                <h2 className="text-2xl font-semibold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                  {post.title}
+              <div className="p-8 md:p-10 md:w-1/2 flex flex-col justify-center">
+                <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-[#3B3B3B] transition-colors duration-300 group-hover:text-[#3B3B3B]/80">
+                  {featuredPost.title}
                 </h2>
-                {post.author && (
-                  <p className="text-gray-500 text-sm mb-2">
-                    By {post.author.name} •{' '}
-                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                {featuredPost.author && (
+                  <p className="text-[#3B3B3B]/60 text-sm mb-4">
+                    By {featuredPost.author.name} •{' '}
+                    {new Date(featuredPost.publishedAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric',
                     })}
                   </p>
                 )}
-                <div className="text-gray-700 text-sm line-clamp-3">
-                  <PortableText value={post.body.slice(0, 1)} components={portableTextComponents} />
+                <div className="text-[#3B3B3B]/80 line-clamp-4">
+                  <PortableText value={featuredPost.body.slice(0, 2)} components={portableTextComponents} />
                 </div>
               </div>
             </div>
           </Link>
-        ))}
+        )}
+
+        {/* Other Posts Grid */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {otherPosts.map((post) => (
+            <Link key={post.slug.current} href={`/blog/${post.slug.current}`} className="group block">
+              <div className="bg-white border border-[#3B3B3B]/10 rounded-2xl overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-lg">
+                {post.mainImage?.asset ? (
+                  <div className="relative w-full h-64 overflow-hidden">
+                    <Image
+                      src={urlFor(post.mainImage.asset).width(800).url()}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full h-64 bg-gradient-to-br from-[#F5F2F2] to-white flex items-center justify-center">
+                    <Image
+                      src="/icon.png"
+                      alt="Ámaxa logo"
+                      width={150}
+                      height={50}
+                      className="opacity-40"
+                    />
+                  </div>
+                )}
+                <div className="p-8 flex-1 flex flex-col">
+                  <h2 className="text-2xl font-semibold mb-4 text-[#3B3B3B] leading-tight transition-colors duration-300 group-hover:text-[#3B3B3B]/80">
+                    {post.title}
+                  </h2>
+                  {post.author && (
+                    <p className="text-[#3B3B3B]/60 text-sm mb-4">
+                      By {post.author.name}
+                    </p>
+                  )}
+                  <div className="mt-auto">
+                    <span className="text-[#3B3B3B] text-sm font-medium inline-flex items-center gap-2">
+                      Read more
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-x-1">
+                        <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )
