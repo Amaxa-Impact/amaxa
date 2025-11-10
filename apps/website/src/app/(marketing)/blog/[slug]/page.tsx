@@ -1,5 +1,6 @@
 import { sanityClient } from '@/lib/sanity'
-import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { PortableText } from '@portabletext/react'
+import type { PortableTextComponents } from '@portabletext/react'
 import Image from 'next/image'
 import imageUrlBuilder from '@sanity/image-url'
 

@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanityClient } from '@/lib/sanity'
-import type { PortableTextComponents } from '@portabletext/react'
 import { PortableText } from '@portabletext/react'
+import type { PortableTextComponents } from '@portabletext/react'
 import imageUrlBuilder from '@sanity/image-url'
 import type { Metadata } from 'next'
 import { BlogHeader } from './BlogHeader'
+import { BlogSearch } from './BlogSearch'
 
 export const metadata: Metadata = {
   title: 'Ámaxa Blog - Youth-Led Change & Global Impact Stories',
@@ -113,6 +114,11 @@ export default async function BlogPage() {
           </Link>
         )}
 
+        {/* Search Bar */}
+        <div className="mb-12">
+          <BlogSearch posts={posts} />
+        </div>
+
         {/* Other Posts Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {otherPosts.map((post) => (
@@ -139,14 +145,22 @@ export default async function BlogPage() {
                   </div>
                 )}
                 <div className="p-8 flex-1 flex flex-col">
-                  <h2 className="text-2xl font-semibold mb-4 text-[#3B3B3B] leading-tight transition-colors duration-300 group-hover:text-[#3B3B3B]/80">
+                  <h2 className="text-2xl font-semibold mb-3 text-[#3B3B3B] leading-tight transition-colors duration-300 group-hover:text-[#3B3B3B]/80">
                     {post.title}
                   </h2>
                   {post.author && (
-                    <p className="text-[#3B3B3B]/60 text-sm mb-4">
-                      By {post.author.name}
+                    <p className="text-[#3B3B3B]/60 text-sm mb-3">
+                      By {post.author.name} •{' '}
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
                     </p>
                   )}
+                  <div className="text-[#3B3B3B]/70 text-sm mb-4 line-clamp-3 flex-1">
+                    <PortableText value={post.body.slice(0, 2)} components={portableTextComponents} />
+                  </div>
                   <div className="mt-auto">
                     <span className="text-[#3B3B3B] text-sm font-medium inline-flex items-center gap-2">
                       Read more

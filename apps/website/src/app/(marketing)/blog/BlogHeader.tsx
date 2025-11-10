@@ -7,7 +7,7 @@ export function BlogHeader() {
     <div className="mb-16 text-center">
    
       <div className="inline-block mb-8">
-        <span className="inline-block px-8 py-3 bg-white/60 rounded-full text-sm font-medium text-[#3B3B3B] tracking-wider">
+        <span className="inline-block px-6 py-2 bg-white border-2 border-[#3B3B3B]/15 rounded-xl text-sm font-semibold text-[#3B3B3B] tracking-wider shadow-sm">
           BLOGS
         </span>
       </div>
