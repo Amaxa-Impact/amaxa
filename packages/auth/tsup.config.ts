@@ -2,11 +2,11 @@ import { defineConfig } from "tsup";
 
 export default defineConfig((env) => {
   return {
-    entry: ["src/client.ts"],
+    entry: ["src/**/*.ts", "env.ts"],
     format: ["esm", "cjs"],
     bundle: true,
     splitting: false,
     noExternal: ["better-auth"],
-    dts: true,
+    dts: false,
   };
 });

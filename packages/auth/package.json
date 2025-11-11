@@ -8,11 +8,15 @@
       "react-server": "./src/index.rsc.ts",
       "default": "./src/index.ts"
     },
-    "./env": "./env.ts"
+    "./env": "./env.ts",
+    "./middleware": "./src/middleware.ts",
+    "./client": "./src/client.ts",
+    "./auth": "./src/auth.ts"
   },
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
+    "build": "tsup",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
@@ -35,6 +39,7 @@
     "@amaxa/tsconfig": "workspace:*",
     "eslint": "^9.4.0",
     "prettier": "^3.3.1",
+    "tsup": "^8.5.0",
     "typescript": "^5.4.5"
   },
   "prettier": "@amaxa/prettier-config"
