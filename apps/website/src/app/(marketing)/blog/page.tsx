@@ -1,9 +1,7 @@
-import type { PortableTextComponents } from "@portabletext/react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { sanityClient } from "@/lib/sanity";
-import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 
 import { Card, CardContent } from "@amaxa/ui/card";
@@ -49,11 +47,24 @@ interface PostPreview {
   featured?: boolean;
 }
 
-const portableTextComponents: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => <p className="text-[#3B3B3B]/70">{children}</p>,
-  },
-};
+// Extract plain text from Portable Text blocks (avoids nested <a> tags)
+function extractPlainText(body: any, maxLength = 200): string {
+  if (!body || !Array.isArray(body)) return "";
+
+  const text = body
+    .filter((block: any) => block._type === "block")
+    .map((block: any) =>
+      block.children
+        ?.filter((child: any) => child._type === "span")
+        .map((span: any) => span.text)
+        .join("") || ""
+    )
+    .join(" ")
+    .trim();
+
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + "...";
+}
 
 export default async function BlogPage() {
   // Fetch posts, featured first
@@ -114,12 +125,9 @@ export default async function BlogPage() {
                     )}
                   </p>
                 )}
-                <div className="line-clamp-4 text-[#3B3B3B]/80">
-                  <PortableText
-                    value={featuredPost.body.slice(0, 2)}
-                    components={portableTextComponents}
-                  />
-                </div>
+                <p className="line-clamp-4 text-[#3B3B3B]/80">
+                  {extractPlainText(featuredPost.body, 300)}
+                </p>
               </CardContent>
             </Card>
           </Link>
@@ -173,12 +181,9 @@ export default async function BlogPage() {
                       })}
                     </p>
                   )}
-                  <div className="mb-4 line-clamp-3 flex-1 text-sm text-[#3B3B3B]/70">
-                    <PortableText
-                      value={post.body.slice(0, 2)}
-                      components={portableTextComponents}
-                    />
-                  </div>
+                  <p className="mb-4 line-clamp-3 flex-1 text-sm text-[#3B3B3B]/70">
+                    {extractPlainText(post.body, 150)}
+                  </p>
                   <div className="mt-auto">
                     <span className="inline-flex items-center gap-2 text-sm font-medium text-[#3B3B3B]">
                       Read more
