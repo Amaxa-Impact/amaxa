@@ -13,36 +13,18 @@ interface BlogSearchProps {
   posts: SearchResult[];
 }
 
-/**
- * BlogSearch Component
- *
- * A searchable modal component that allows users to find and navigate to blog posts.
- * Features:
- * - Click-to-open search modal
- * - Real-time search filtering by post title
- * - Clickable results that navigate to blog posts
- * - Click outside to close functionality
- */
 export function BlogSearch({ posts }: BlogSearchProps) {
-  // Is the search popup open?
   const [isOpen, setIsOpen] = useState(false);
-
-  // What the user is typing
   const [searchText, setSearchText] = useState("");
-
-  // The search results
   const [results, setResults] = useState<SearchResult[]>([]);
-
   const router = useRouter();
 
-  // Search whenever user types
   useEffect(() => {
     if (searchText.trim() === "") {
       setResults([]);
       return;
     }
 
-    // Filter posts by title
     const filtered = posts.filter((post) =>
       post.title.toLowerCase().includes(searchText.toLowerCase()),
     );
@@ -50,14 +32,12 @@ export function BlogSearch({ posts }: BlogSearchProps) {
     setResults(filtered);
   }, [searchText, posts]);
 
-  // When user clicks a result
   function handleResultClick(slug: string) {
     router.push(`/blog/${slug}`);
     setIsOpen(false);
     setSearchText("");
   }
 
-  // Close popup when clicking outside
   function handleBackdropClick() {
     setIsOpen(false);
     setSearchText("");
@@ -65,19 +45,20 @@ export function BlogSearch({ posts }: BlogSearchProps) {
 
   return (
     <>
-      {/* Search Input */}
       <div className="mx-auto max-w-4xl">
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex w-full items-center justify-between border-b border-[#3B3B3B]/20 py-4 transition-colors duration-200 hover:border-[#3B3B3B]/40"
+          className="group flex w-full items-center justify-between border-b border-border py-4 transition-colors duration-200 hover:border-foreground/40"
         >
-          <span className="text-lg text-[#3B3B3B]/50">Search for blogs...</span>
+          <span className="text-lg text-muted-foreground">
+            Search for blogs...
+          </span>
           <svg
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            className="text-[#3B3B3B]/40 transition-colors group-hover:text-[#3B3B3B]/60"
+            className="text-muted-foreground transition-colors group-hover:text-foreground"
           >
             <circle
               cx="10"
@@ -96,19 +77,17 @@ export function BlogSearch({ posts }: BlogSearchProps) {
         </button>
       </div>
 
-      {/* Search Popup Modal */}
       {isOpen && (
         <div
           className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 px-4 pt-20"
           onClick={handleBackdropClick}
         >
           <div
-            className={`w-full max-w-2xl overflow-hidden bg-white shadow-2xl ${
+            className={`w-full max-w-2xl overflow-hidden bg-card shadow-2xl ${
               searchText ? "rounded-3xl" : "rounded-full"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Search Input Inside Modal */}
             <div className="px-6 py-4">
               <div className="flex items-center gap-3">
                 <svg
@@ -116,7 +95,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
-                  className="flex-shrink-0 text-[#3B3B3B]/40"
+                  className="flex-shrink-0 text-muted-foreground"
                 >
                   <circle
                     cx="8"
@@ -137,17 +116,16 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                   placeholder="Search..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  className="flex-1 bg-transparent text-base text-[#3B3B3B] outline-none placeholder:text-[#3B3B3B]/40"
+                  className="flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
                   autoFocus
                 />
               </div>
             </div>
 
-            {/* Results */}
             {searchText && (
-              <div className="max-h-[400px] overflow-y-auto rounded-b-3xl border-t border-[#3B3B3B]/10">
+              <div className="max-h-[400px] overflow-y-auto rounded-b-3xl border-t border-border">
                 {results.length === 0 ? (
-                  <div className="p-8 text-center text-[#3B3B3B]/60">
+                  <div className="p-8 text-center text-muted-foreground">
                     No blogs found for "{searchText}"
                   </div>
                 ) : (
@@ -155,13 +133,13 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                     <button
                       key={result._id}
                       onClick={() => handleResultClick(result.slug.current)}
-                      className="w-full border-b border-[#3B3B3B]/5 p-6 text-left transition-colors last:border-b-0 hover:bg-[#3B3B3B]/5"
+                      className="w-full border-b border-border/50 p-6 text-left transition-colors last:border-b-0 hover:bg-muted"
                     >
-                      <h3 className="mb-1 text-lg font-semibold text-[#3B3B3B]">
+                      <h3 className="mb-1 text-lg font-semibold text-foreground">
                         {result.title}
                       </h3>
-                      <p className="text-sm text-[#3B3B3B]/60">
-                        /blogs/{result.slug.current}
+                      <p className="text-sm text-muted-foreground">
+                        /blog/{result.slug.current}
                       </p>
                     </button>
                   ))

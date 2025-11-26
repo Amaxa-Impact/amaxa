@@ -17,21 +17,13 @@ interface LinkPreviewProps {
 }
 
 const linkClassName =
-  "font-bold text-neutral-700 underline decoration-neutral-400 decoration-2 underline-offset-2 transition-all hover:text-neutral-900 hover:decoration-neutral-600";
+  "font-bold text-card-foreground underline decoration-muted-foreground decoration-2 underline-offset-2 transition-all hover:text-foreground hover:decoration-foreground";
 
-/**
- * LinkPreview Component
- *
- * Renders links in blog posts with hover previews for external URLs.
- * - Internal links: Simple anchor tag
- * - External links: Anchor tag wrapped in HoverCard that fetches preview data via Microlink API
- */
 export const LinkPreview = ({
   href,
   children,
   isExternal,
 }: LinkPreviewProps) => {
-  // Store preview metadata (title, description, image) fetched from Microlink API
   const [previewData, setPreviewData] = useState<{
     title?: string;
     description?: string;
@@ -39,14 +31,12 @@ export const LinkPreview = ({
   } | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch preview data for external links using Microlink API
   useEffect(() => {
     if (!isExternal || !href.startsWith("http")) return;
 
     const fetchPreview = async () => {
       setLoading(true);
       try {
-        // Microlink API handles all the hard work - fetching and parsing
         const response = await fetch(
           `https://api.microlink.io/?url=${encodeURIComponent(href)}`,
         );
@@ -60,7 +50,7 @@ export const LinkPreview = ({
           });
         }
       } catch (error) {
-        // If fetch fails, just continue without preview data
+        console.error("Error fetching link preview:", error);
       } finally {
         setLoading(false);
       }
@@ -69,7 +59,6 @@ export const LinkPreview = ({
     void fetchPreview();
   }, [href, isExternal]);
 
-  // For internal links (our own site), just show a regular link
   if (!isExternal || !href.startsWith("http")) {
     return (
       <a href={href} className={linkClassName}>
@@ -78,7 +67,6 @@ export const LinkPreview = ({
     );
   }
 
-  // For external links, show hover card with preview
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -91,21 +79,19 @@ export const LinkPreview = ({
           {children}
         </a>
       </HoverCardTrigger>
-      {/* @ts-expect-error - Type definition issue with HoverCardContent children */}
-      <HoverCardContent className="w-80 overflow-hidden border-neutral-200 bg-white p-0">
+      <HoverCardContent>
         {loading ? (
-          // Show skeleton loader while fetching preview data
-          <div className="space-y-2 p-4">
-            <div className="h-40 w-full animate-pulse rounded-t bg-neutral-200" />
-            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200" />
-            <div className="h-3 w-full animate-pulse rounded bg-neutral-200" />
-          </div>
+          <>
+            <span className="block h-40 w-full animate-pulse rounded-t bg-muted" />
+            <span className="block space-y-2 p-4">
+              <span className="block h-4 w-3/4 animate-pulse rounded bg-muted" />
+              <span className="block h-3 w-full animate-pulse rounded bg-muted" />
+            </span>
+          </>
         ) : (
-          // Show preview data if available, otherwise just show URL
-          <div className="overflow-hidden">
-            {/* Preview image */}
+          <>
             {previewData?.image && (
-              <div className="relative h-40 w-full bg-neutral-100">
+              <span className="relative block h-40 w-full bg-muted">
                 <Image
                   src={previewData.image}
                   alt={previewData.title || "Preview"}
@@ -116,23 +102,24 @@ export const LinkPreview = ({
                     e.currentTarget.style.display = "none";
                   }}
                 />
-              </div>
+              </span>
             )}
-            {/* Preview content */}
-            <div className="space-y-2 p-4">
+            <span className="block space-y-2 p-4">
               {previewData?.title && (
-                <h4 className="line-clamp-2 text-sm font-semibold text-neutral-900">
+                <span className="line-clamp-2 block text-sm font-semibold text-foreground">
                   {previewData.title}
-                </h4>
+                </span>
               )}
               {previewData?.description && (
-                <p className="line-clamp-2 text-xs text-neutral-600">
+                <span className="line-clamp-2 block text-xs text-muted-foreground">
                   {previewData.description}
-                </p>
+                </span>
               )}
-              <p className="break-all text-xs text-neutral-400">{href}</p>
-            </div>
-          </div>
+              <span className="block break-all text-xs text-muted-foreground/60">
+                {href}
+              </span>
+            </span>
+          </>
         )}
       </HoverCardContent>
     </HoverCard>

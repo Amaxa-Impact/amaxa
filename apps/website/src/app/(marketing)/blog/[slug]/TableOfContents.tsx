@@ -17,19 +17,16 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Find which heading is currently at the top of the viewport
       const headingElements = headings.map((h) => ({
         id: h.id,
         element: document.getElementById(h.id),
       }));
 
-      // Check each heading from top to bottom
       for (let i = headingElements.length - 1; i >= 0; i--) {
         const { element } = headingElements[i]!;
         if (element) {
           const rect = element.getBoundingClientRect();
           if (rect.top <= 100) {
-            // 100px offset from top
             setActiveId(headingElements[i]!.id);
             return;
           }
@@ -38,7 +35,7 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check on mount
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [headings]);
@@ -54,8 +51,8 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
 
   return (
     <div className="sticky top-24 hidden lg:block">
-      <div className="rounded-lg border border-neutral-200 bg-white p-4">
-        <h3 className="mb-3 text-sm font-semibold text-neutral-900">
+      <div className="rounded-lg border border-border bg-card p-4">
+        <h3 className="mb-3 text-sm font-semibold text-foreground">
           Table of Contents
         </h3>
         <ul className="space-y-2">
@@ -63,10 +60,10 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
             <li key={heading.id}>
               <button
                 onClick={() => handleClick(heading.id)}
-                className={`text-left text-sm transition-colors hover:text-neutral-900 ${
+                className={`text-left text-sm transition-colors hover:text-foreground ${
                   activeId === heading.id
-                    ? "font-semibold text-neutral-900"
-                    : "text-neutral-600"
+                    ? "font-semibold text-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 {heading.text}

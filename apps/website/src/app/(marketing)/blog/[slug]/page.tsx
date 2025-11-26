@@ -13,7 +13,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@amaxa/ui/breadcrumb";
-import { Card, CardContent, CardHeader } from "@amaxa/ui/card";
 
 import { LinkPreview } from "./LinkPreview";
 import { TableOfContents } from "./TableOfContents";
@@ -21,7 +20,6 @@ import { TableOfContents } from "./TableOfContents";
 const builder = imageUrlBuilder(sanityClient);
 const urlFor = (source: any) => builder.image(source).width(1200).url();
 
-// Helper function to create ID from text
 const createId = (text: string): string => {
   return text
     .toLowerCase()
@@ -29,7 +27,6 @@ const createId = (text: string): string => {
     .replace(/^-|-$/g, "");
 };
 
-// Extract headings from PortableText body
 const extractHeadings = (
   body: any[],
 ): { id: string; text: string; level: number }[] => {
@@ -73,28 +70,8 @@ interface PageProps {
 
 export const revalidate = 60;
 
-/**
- * PORTABLETEXT EXPLANATION:
- *
- * Sanity CMS stores blog content as structured JSON (not HTML).
- * PortableText converts that JSON into React components.
- *
- * Think of it like this:
- * - Sanity stores: { type: "h2", children: [{ text: "My Heading" }] }
- * - PortableText renders: <h2>My Heading</h2>
- *
- * This object defines HOW each content type should be styled.
- * You customize the look by changing the className props below.
- */
-
-// ============================================
-// CUSTOM COMPONENTS FOR PORTABLETEXT
-// ============================================
-// These components define how each piece of content from Sanity is rendered
-
 const portableTextComponents: PortableTextComponents = {
   types: {
-    // When Sanity has an image in the content
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;
       return (
@@ -109,15 +86,12 @@ const portableTextComponents: PortableTextComponents = {
         </div>
       );
     },
-    // When Sanity has a code block
     code: ({ value }) => (
-      <pre className="my-6 overflow-x-auto rounded bg-gray-100 p-4 text-gray-900">
+      <pre className="my-6 overflow-x-auto rounded bg-muted p-4 text-foreground">
         <code>{value.code}</code>
       </pre>
     ),
   },
-
-  // Text blocks (headings, paragraphs, quotes)
   block: {
     h1: ({ children, value }) => {
       const text =
@@ -126,7 +100,7 @@ const portableTextComponents: PortableTextComponents = {
       return (
         <h1
           id={id}
-          className="mb-8 mt-12 scroll-mt-24 text-4xl font-bold leading-tight tracking-tight text-neutral-900 first:mt-0"
+          className="mb-8 mt-12 scroll-mt-24 text-4xl font-bold leading-tight tracking-tight text-foreground first:mt-0"
         >
           {children}
         </h1>
@@ -139,7 +113,7 @@ const portableTextComponents: PortableTextComponents = {
       return (
         <h2
           id={id}
-          className="mb-6 mt-10 scroll-mt-24 text-3xl font-semibold leading-tight tracking-tight text-neutral-900"
+          className="mb-6 mt-10 scroll-mt-24 text-3xl font-semibold leading-tight tracking-tight text-foreground"
         >
           {children}
         </h2>
@@ -152,7 +126,7 @@ const portableTextComponents: PortableTextComponents = {
       return (
         <h3
           id={id}
-          className="mb-5 mt-8 scroll-mt-24 text-2xl font-semibold leading-snug text-neutral-900"
+          className="mb-5 mt-8 scroll-mt-24 text-2xl font-semibold leading-snug text-foreground"
         >
           {children}
         </h3>
@@ -165,66 +139,65 @@ const portableTextComponents: PortableTextComponents = {
       return (
         <h4
           id={id}
-          className="mb-4 mt-6 scroll-mt-24 text-xl font-semibold leading-snug text-neutral-900"
+          className="mb-4 mt-6 scroll-mt-24 text-xl font-semibold leading-snug text-foreground"
         >
           {children}
         </h4>
       );
     },
     normal: ({ children }) => (
-      <p className="mb-6 text-lg leading-relaxed text-neutral-700">
+      <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-8 rounded-r-lg border-l-4 border-blue-500 bg-blue-50/50 py-6 pl-8 pr-6 text-lg italic leading-relaxed text-neutral-800">
+      <blockquote className="my-8 rounded-r-lg border-l-4 border-primary bg-primary/5 py-6 pl-8 pr-6 text-lg italic leading-relaxed text-card-foreground">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-neutral-700">
+      <ul className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-muted-foreground">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-neutral-700">
+      <ol className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-muted-foreground">
         {children}
       </ol>
     ),
   },
   listItem: {
     bullet: ({ children }) => (
-      <li className="pl-2 marker:text-neutral-400">{children}</li>
+      <li className="pl-2 marker:text-muted">{children}</li>
     ),
     number: ({ children }) => (
-      <li className="pl-2 marker:font-semibold marker:text-neutral-500">
+      <li className="pl-2 marker:font-semibold marker:text-muted-foreground">
         {children}
       </li>
     ),
   },
-
-  // Text formatting (links, bold, italic)
   marks: {
     link: ({ value, children }) => {
-      const isExternal = value?.href?.startsWith("http");
+      const href = typeof value?.href === "string" ? value.href : "#";
+      const isExternal = href.startsWith("http");
+
       return (
-        <LinkPreview href={value.href} isExternal={isExternal}>
+        <LinkPreview href={href} isExternal={isExternal}>
           {children}
         </LinkPreview>
       );
     },
     strong: ({ children }) => (
-      <strong className="font-semibold text-neutral-900">{children}</strong>
+      <strong className="font-semibold text-foreground">{children}</strong>
     ),
     em: ({ children }) => (
-      <em className="italic text-neutral-700">{children}</em>
+      <em className="italic text-muted-foreground">{children}</em>
     ),
   },
 };
 
-// --- Page component ---
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
 
@@ -241,20 +214,18 @@ export default async function PostPage({ params }: PageProps) {
 
   if (!post) return <p>Post not found.</p>;
 
-  // Extract headings from the post body
   const headings = extractHeadings(post.body);
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-background">
       <div className="mx-auto w-full max-w-[1600px] px-4 py-8 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        {/* Breadcrumb Navigation */}
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link
                   href="/blog"
-                  className="text-neutral-500 transition-colors hover:text-neutral-900"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Back to Blogs
                 </Link>
@@ -262,20 +233,17 @@ export default async function PostPage({ params }: PageProps) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-neutral-900">
+              <BreadcrumbPage className="text-foreground">
                 {post.title}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* Main Content Layout */}
         <div className="flex gap-8">
-          {/* Article Content */}
-          <article className="flex-1 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl">
-            {/* Hero Image */}
+          <article className="flex-1 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
             {post.mainImage?.asset && (
-              <div className="relative h-[300px] w-full overflow-hidden bg-neutral-100 sm:h-[400px] md:h-[450px]">
+              <div className="relative h-[300px] w-full overflow-hidden bg-muted sm:h-[400px] md:h-[450px]">
                 <Image
                   src={urlFor(post.mainImage.asset)}
                   alt={post.mainImage.alt || post.title}
@@ -287,20 +255,19 @@ export default async function PostPage({ params }: PageProps) {
               </div>
             )}
 
-            {/* Article Header */}
-            <header className="border-b border-neutral-100 bg-white px-6 py-8 sm:px-8 sm:py-10">
-              <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-4xl md:text-5xl">
+            <header className="border-b border-border bg-card px-6 py-8 sm:px-8 sm:py-10">
+              <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
                 {post.title}
               </h1>
               {post.author && (
-                <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
-                  <span className="font-medium text-neutral-700">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                  <span className="font-medium text-card-foreground">
                     {post.author.name}
                   </span>
-                  <span className="text-neutral-300">•</span>
+                  <span className="text-border">•</span>
                   <time
                     dateTime={post.publishedAt}
-                    className="text-neutral-500"
+                    className="text-muted-foreground"
                   >
                     {new Date(post.publishedAt).toLocaleDateString("en-US", {
                       month: "long",
@@ -312,9 +279,7 @@ export default async function PostPage({ params }: PageProps) {
               )}
             </header>
 
-            {/* Article Content */}
-            <div className="bg-white px-6 py-8 sm:px-8 sm:py-12">
-              {/* Content wrapper - ensures consistent spacing and clean layout */}
+            <div className="bg-card px-6 py-8 sm:px-8 sm:py-12">
               <div className="article-content">
                 <PortableText
                   value={post.body}
@@ -324,7 +289,6 @@ export default async function PostPage({ params }: PageProps) {
             </div>
           </article>
 
-          {/* Table of Contents */}
           <aside className="hidden lg:block lg:w-64">
             <TableOfContents headings={headings} />
           </aside>
