@@ -4,30 +4,26 @@ packages:
   - tooling/*
 
 catalog:
-  #Next
+  # Next
   next: ^15.2.4
-  # Auth
-  "@auth/core": 0.37.2
-  "@auth/drizzle-adapter": ~1.7.4
-  "next-auth": 5.0.0-beta.25
-  "better-auth": ^1.2.5
-
   # Dev tooling
   eslint: ^9.23.0
   prettier: ^3.5.3
   tailwindcss: ^3.4.15
   typescript: ^5.8.2
+  convex: ^1.27.0
+  "@types/node": ^22.13.11
+  
+  # Shared UI dependencies
+  class-variance-authority: ^0.7.1
+  cmdk: ^1.1.1
+  lucide-react: ^0.553.0
+  next-themes: ^0.4.6
+  sonner: ^2.0.7
+  tailwind-merge: ^3.4.0
+  clsx: ^2.1.1
 
-  # Misc
   zod: ^3.24.2
-  "arktype": ^2.1.16
-  "drizzle-arktype": ^0.1.2
-
-  # Tanstack & tRPC
-  "@tanstack/react-query": ^5.69.0
-  "@trpc/client": ^11.0.0
-  "@trpc/tanstack-react-query": ^11.0.0
-  "@trpc/server": ^11.0.0
 
 catalogs:
   react19:

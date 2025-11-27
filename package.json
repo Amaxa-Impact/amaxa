@@ -14,6 +14,9 @@
     "db:studio": "turbo -F @amaxa/db studio",
     "dev": "turbo watch dev",
     "dev:next": "turbo watch dev -F @amaxa/nextjs...",
+    "dev:website": "turbo watch dev -F @amaxa/website...",
+		"dev:setup": "turbo -F @amaxa/backend dev:setup",
+		"dev:server": "turbo -F @amaxa/backend dev",
     "format": "turbo run format --continue -- --cache --cache-location node_modules/.cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location node_modules/.cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
@@ -31,10 +34,5 @@
     "turbo": "^2.5.4",
     "typescript": "catalog:"
   },
-  "prettier": "@amaxa/prettier-config",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "motion": "^12.16.0",
-    "tailwind-merge": "^2.5.2"
-  }
+  "prettier": "@amaxa/prettier-config"
 }
