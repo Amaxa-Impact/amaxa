@@ -1,6 +1,7 @@
 import type { PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { sanityClient } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
@@ -212,7 +213,7 @@ export default async function PostPage({ params }: PageProps) {
     { slug },
   );
 
-  if (!post) return <p>Post not found.</p>;
+  if (!post) notFound();
 
   const headings = extractHeadings(post.body);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import {
@@ -30,15 +30,25 @@ export const LinkPreview = ({
     image?: string;
   } | null>(null);
   const [loading, setLoading] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const hasFetchedRef = useRef(false);
 
-  useEffect(() => {
-    if (!isExternal || !href.startsWith("http")) return;
+  const handleMouseEnter = () => {
+
+    if (hasFetchedRef.current || !isExternal || !href.startsWith("http")) {
+      return;
+    }
+
+    hasFetchedRef.current = true;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     const fetchPreview = async () => {
       setLoading(true);
       try {
         const response = await fetch(
           `https://api.microlink.io/?url=${encodeURIComponent(href)}`,
+          { signal: controller.signal },
         );
         const data = await response.json();
 
@@ -50,14 +60,25 @@ export const LinkPreview = ({
           });
         }
       } catch (error) {
-        console.error("Error fetching link preview:", error);
+        if (error instanceof Error && error.name !== "AbortError") {
+          console.error("Error fetching link preview:", error);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     void fetchPreview();
-  }, [href, isExternal]);
+  };
+
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   if (!isExternal || !href.startsWith("http")) {
     return (
@@ -68,13 +89,14 @@ export const LinkPreview = ({
   }
 
   return (
-    <HoverCard>
+    <HoverCard openDelay={200}>
       <HoverCardTrigger asChild>
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           className={linkClassName}
+          onMouseEnter={handleMouseEnter}
         >
           {children}
         </a>
