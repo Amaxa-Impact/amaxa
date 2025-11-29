@@ -6,7 +6,7 @@ import { Facebook, Globe, Instagram, Linkedin, Music2, BookOpen, Mail } from "lu
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
 
-// Typewriter hook for animated text
+// Typewriter hook for animated text in the footer (This imitates the one from beginning of the page but does loops same message)
 const useTypewriter = (
   texts: string[],
   typingSpeed = 50,
@@ -62,15 +62,53 @@ const useTypewriter = (
 
 const Footer = () => {
   const newsletterTexts = [
-    "Stay updated with our newsletter!",
+    "Stay updated with our newsletter.",
   ];
 
   const typedText = useTypewriter(newsletterTexts, 50, 30, 2000);
+  const [email, setEmail] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Add Airtable integration
-    console.log("Newsletter signup submitted");
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: "success",
+          message: data.message || "Successfully subscribed!",
+        });
+        setEmail(""); // Clear the input
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: data.error || "Something went wrong. Please try again.",
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Failed to subscribe. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,20 +124,37 @@ const Footer = () => {
             onSubmit={handleNewsletterSubmit}
             className="mx-auto flex max-w-lg flex-col gap-4 sm:flex-row sm:gap-3"
           >
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 rounded-full border border-[#3B3B3B] bg-white px-6 py-3 text-base text-[#3B3B3B] transition-colors focus:border-[#b9d66e] focus:outline-none focus:ring-2 focus:ring-[#b9d66e]/20"
-              required
-              aria-label="Email address for newsletter subscription"
-            />
+            <div className="flex-1">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+                className="flex-1 rounded-full border border-[#3B3B3B] bg-white px-6 py-3 text-base text-[#3B3B3B] transition-colors focus:border-[#b9d66e] focus:outline-none focus:ring-2 focus:ring-[#b9d66e]/20 disabled:opacity-50"
+                required
+                aria-label="Email address for newsletter subscription"
+              />
+            </div>
             <Button
               type="submit"
-              className="box-border flex shrink-0 items-center justify-center rounded-full border border-[#3B3B3B] bg-[#b9d66e] px-6 py-3 text-base font-normal text-[#3B3B3B] transition-all hover:bg-[#a8c55f] hover:shadow-md md:px-8 md:text-lg"
+              disabled={isSubmitting}
+              className="box-border flex shrink-0 items-center justify-center rounded-full border border-[#3B3B3B] bg-[#b9d66e] px-6 py-3 text-base font-normal text-[#3B3B3B] transition-all hover:bg-[#a8c55f] hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed md:px-8 md:text-lg"
             >
-              Subscribe →
+              {isSubmitting ? "Subscribing..." : "Subscribe →"}
             </Button>
           </form>
+          {submitStatus.type && (
+            <div
+              className={`mx-auto mt-4 max-w-lg rounded-lg px-4 py-2 text-center text-sm ${
+                submitStatus.type === "success"
+                  ? "bg-green-50 text-green-800"
+                  : "bg-red-50 text-red-800"
+              }`}
+            >
+              {submitStatus.message}
+            </div>
+          )}
         </div>
       </div>
 
@@ -167,10 +222,10 @@ const Footer = () => {
               Our Blog
             </Link>
             <Link
-              href="/terms"
+              href="/careers"
               className="text-center text-gray-300 transition-colors hover:text-white md:text-left"
             >
-              Terms of Use
+              Careers
             </Link>
             <Link
               href="/privacy"

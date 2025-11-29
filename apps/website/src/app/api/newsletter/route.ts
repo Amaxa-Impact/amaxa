@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-
+import { env } from "~/env";
 
 export async function POST(request: Request) {
   try {
@@ -14,22 +14,27 @@ export async function POST(request: Request) {
     }
 
     // Get Airtable credentials from environment variables
-    const airtableApiKey = process.env.AIRTABLE_API_KEY;
-    const airtableBaseId = process.env.AIRTABLE_BASE_ID;
-    const airtableTableName = process.env.AIRTABLE_TABLE_NAME || "Newsletter Subscribers";
-
-    if (!airtableApiKey || !airtableBaseId) {
-      console.error("Missing Airtable configuration");
+    const airtableApiKey = env.AIRTABLE_API_KEY;
+    const airtableBaseId = env.AIRTABLE_BASE_ID;
+    const airtableTableId = env.AIRTABLE_TABLE_ID;
+    const airtableTableName = env.AIRTABLE_TABLE_NAME;
+    
+    // Use table ID if available, otherwise use table name
+    const tableIdentifier = airtableTableId || airtableTableName;
+    
+    // Validate we have required values
+    if (!airtableApiKey || !airtableBaseId || !tableIdentifier) {
+      console.error("Missing required Airtable configuration");
       return NextResponse.json(
         { error: "Server configuration error" },
         { status: 500 }
       );
     }
 
+    const apiUrl = `https://api.airtable.com/v0/${airtableBaseId}/${encodeURIComponent(tableIdentifier)}`;
+
     // Create record in Airtable
-    const airtableResponse = await fetch(
-      `https://api.airtable.com/v0/${airtableBaseId}/${encodeURIComponent(airtableTableName)}`,
-      {
+    const airtableResponse = await fetch(apiUrl, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${airtableApiKey}`,
@@ -38,7 +43,6 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           fields: {
             Email: email,
-            "Subscribed At": new Date().toISOString(),
           },
         }),
       }
@@ -46,9 +50,15 @@ export async function POST(request: Request) {
 
     if (!airtableResponse.ok) {
       const errorData = await airtableResponse.json().catch(() => ({}));
-      console.error("Airtable API error:", errorData);
+      console.error("Airtable API error:", {
+        status: airtableResponse.status,
+        message: errorData?.error?.message,
+      });
+      
+      // Return user-friendly error message without exposing sensitive details
+      const errorMessage = errorData?.error?.message || "Failed to subscribe. Please try again later.";
       return NextResponse.json(
-        { error: "Failed to subscribe. Please try again later." },
+        { error: errorMessage },
         { status: 500 }
       );
     }
