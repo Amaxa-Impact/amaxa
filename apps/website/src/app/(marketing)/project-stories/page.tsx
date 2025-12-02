@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 
+import { AnimatedTitle } from "~/components/animated-underline";
 import { ApplyButton } from "~/components/apply";
 import { Spotlight } from "../_sections/spotlight";
 
@@ -25,33 +26,11 @@ export default function ProgramPage() {
           />
         </div>
         {/* Content container with flex layout */}
-        <section className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-6 md:px-16 lg:px-20">
-            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
-              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
-                <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Ámaxa Stories{" "}
-                  {/* <span className="font-normal text-[#3B3B3B]">
-                  Meet Our Members
-                </span> */}
-                </h1>
-
-                {/* Green wavy line - SVG replacement for the image */}
-                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
-                  <svg
-                    viewBox="0 0 325 500"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className=""
-                  >
-                    <path
-                      d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
-                      stroke="#BCD96C"
-                      strokeWidth="8"
-                    />
-                    strokeLinecap="round"
-                  </svg>
-                </div>
+        <section className="w-full py-16 md:py-24 overflow-visible mb-16 md:mb-24">
+          <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+            <div className="flex flex-col items-start justify-between md:flex-row md:items-center overflow-visible">
+              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl overflow-visible">
+                <AnimatedTitle underlinedText="Ámaxa Stories" variant="hand-drawn-2" color="#4A90E2" />
               </div>
             </div>
           </div>
@@ -86,12 +65,13 @@ By meeting remotely every week for 3 months, they raised the funds to purchase t
           paragraphs: [
             '"Change, in any capacity, can and should start with us." -Isabella',
             `
-Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
+Through ámaxa's student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy's first "Melody of Alliance Fall Charity Concert". After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they'd met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event's raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
 `,
           ],
           teammates: "",
           videoUrl:
             "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+          imageUrl: "",
         },
         {
           heading: "TEAM SPOTLIGHT",
@@ -118,6 +98,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
           ],
           teammates: "",
           videoUrl: "",
+          imageUrl: "",
         },
         // {
         //   heading: "TEAM SPOTLIGHT",
