@@ -2,6 +2,7 @@ import "~/app/globals.css";
 
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
+import { Toaster } from "@amaxa/ui/toast";
 
 // import { CSPostHogProvider } from "./_providers/providers";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         {children}
+        <Toaster />
       </body>
     </html>
   );
