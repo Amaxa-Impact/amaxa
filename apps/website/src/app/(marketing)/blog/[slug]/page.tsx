@@ -1,81 +1,207 @@
-import { sanityClient } from '@/lib/sanity'
-import { PortableText, type PortableTextComponents } from '@portabletext/react'
-import Image from 'next/image'
-import imageUrlBuilder from '@sanity/image-url'
+import type { PortableTextComponents } from "@portabletext/react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { sanityClient } from "@/lib/sanity";
+import { PortableText } from "@portabletext/react";
+import imageUrlBuilder from "@sanity/image-url";
 
-const builder = imageUrlBuilder(sanityClient)
-const urlFor = (source: any) => builder.image(source).width(1200).url()
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@amaxa/ui/breadcrumb";
 
-type Post = {
-  title: string
-  mainImage?: { asset: { _ref: string }; alt?: string }
-  body: any
-  publishedAt: string
-  author?: { name: string }
+import { LinkPreview } from "./LinkPreview";
+import { TableOfContents } from "./TableOfContents";
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source).width(1200).url();
+
+const createId = (text: string): string => {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+};
+
+const extractHeadings = (
+  body: any[],
+): { id: string; text: string; level: number }[] => {
+  const headings: { id: string; text: string; level: number }[] = [];
+
+  if (!Array.isArray(body)) return headings;
+
+  for (const block of body) {
+    if (block._type === "block" && block.style) {
+      const level =
+        block.style === "h2"
+          ? 2
+          : block.style === "h3"
+            ? 3
+            : block.style === "h4"
+              ? 4
+              : 0;
+      if (level > 0 && Array.isArray(block.children)) {
+        const text = block.children.map((c: any) => c.text || "").join("");
+        if (text) {
+          headings.push({ id: createId(text), text, level });
+        }
+      }
+    }
+  }
+
+  return headings;
+};
+
+interface Post {
+  title: string;
+  mainImage?: { asset: { _ref: string }; alt?: string };
+  body: any;
+  publishedAt: string;
+  author?: { name: string };
 }
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>;
 }
 
-export const revalidate = 60
+export const revalidate = 60;
 
-// --- PortableText components for rich content ---
 const portableTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
-      if (!value?.asset?._ref) return null
+      if (!value?.asset?._ref) return null;
       return (
         <div className="my-8">
           <Image
             src={urlFor(value.asset)}
-            alt={value.alt || 'Image'}
+            alt={value.alt || "Image"}
             width={1200}
             height={700}
-            className="rounded-xl shadow-md object-cover w-full"
+            className="w-full rounded-xl object-cover shadow-md"
           />
         </div>
-      )
+      );
     },
     code: ({ value }) => (
-      <pre className="bg-gray-100 text-gray-900 p-4 rounded my-6 overflow-x-auto">
+      <pre className="my-6 overflow-x-auto rounded bg-muted p-4 text-foreground">
         <code>{value.code}</code>
       </pre>
     ),
   },
   block: {
-    h1: ({ children }) => <h1 className="text-5xl font-bold my-8">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-4xl font-semibold my-6">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-3xl font-semibold my-5">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-2xl font-semibold my-4">{children}</h4>,
-    normal: ({ children }) => <p className="my-4 leading-8 text-gray-700">{children}</p>,
+    h1: ({ children, value }) => {
+      const text =
+        value?.children?.map((c: any) => c.text || "").join("") || "";
+      const id = createId(text);
+      return (
+        <h1
+          id={id}
+          className="mb-8 mt-12 scroll-mt-24 text-4xl font-bold leading-tight tracking-tight text-foreground first:mt-0"
+        >
+          {children}
+        </h1>
+      );
+    },
+    h2: ({ children, value }) => {
+      const text =
+        value?.children?.map((c: any) => c.text || "").join("") || "";
+      const id = createId(text);
+      return (
+        <h2
+          id={id}
+          className="mb-6 mt-10 scroll-mt-24 text-3xl font-semibold leading-tight tracking-tight text-foreground"
+        >
+          {children}
+        </h2>
+      );
+    },
+    h3: ({ children, value }) => {
+      const text =
+        value?.children?.map((c: any) => c.text || "").join("") || "";
+      const id = createId(text);
+      return (
+        <h3
+          id={id}
+          className="mb-5 mt-8 scroll-mt-24 text-2xl font-semibold leading-snug text-foreground"
+        >
+          {children}
+        </h3>
+      );
+    },
+    h4: ({ children, value }) => {
+      const text =
+        value?.children?.map((c: any) => c.text || "").join("") || "";
+      const id = createId(text);
+      return (
+        <h4
+          id={id}
+          className="mb-4 mt-6 scroll-mt-24 text-xl font-semibold leading-snug text-foreground"
+        >
+          {children}
+        </h4>
+      );
+    },
+    normal: ({ children }) => (
+      <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
+        {children}
+      </p>
+    ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-gray-300 pl-6 italic my-6 text-gray-700">
+      <blockquote className="my-8 rounded-r-lg border-l-4 border-primary bg-primary/5 py-6 pl-8 pr-6 text-lg italic leading-relaxed text-card-foreground">
         {children}
       </blockquote>
     ),
   },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-muted-foreground">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="my-6 ml-6 space-y-3 text-lg leading-relaxed text-muted-foreground">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => (
+      <li className="pl-2 marker:text-muted">{children}</li>
+    ),
+    number: ({ children }) => (
+      <li className="pl-2 marker:font-semibold marker:text-muted-foreground">
+        {children}
+      </li>
+    ),
+  },
   marks: {
     link: ({ value, children }) => {
-      const target = value?.href?.startsWith('http') ? '_blank' : undefined
-      return (
-        <a
-          href={value.href}
-          target={target}
-          rel={target ? 'noopener noreferrer' : undefined}
-          className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200"
-        >
-          {children}
-        </a>
-      )
-    },
-    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-    em: ({ children }) => <em className="italic">{children}</em>,
-  },
-}
+      const href = typeof value?.href === "string" ? value.href : "#";
+      const isExternal = href.startsWith("http");
 
-// --- Page component ---
+      return (
+        <LinkPreview href={href} isExternal={isExternal}>
+          {children}
+        </LinkPreview>
+      );
+    },
+    strong: ({ children }) => (
+      <strong className="font-semibold text-foreground">{children}</strong>
+    ),
+    em: ({ children }) => (
+      <em className="italic text-muted-foreground">{children}</em>
+    ),
+  },
+};
+
 export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params;
+
   const post: Post = await sanityClient.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -84,39 +210,91 @@ export default async function PostPage({ params }: PageProps) {
       publishedAt,
       author->{name}
     }`,
-    { slug: params.slug }
-  )
+    { slug },
+  );
 
-  if (!post) return <p>Post not found.</p>
+  if (!post) notFound();
+
+  const headings = extractHeadings(post.body);
 
   return (
-    <article className="max-w-5xl mx-auto px-6 py-12">
-      {post.mainImage?.asset && (
-        <div className="relative w-full h-[500px] mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <Image
-            src={urlFor(post.mainImage.asset)}
-            alt={post.mainImage.alt || post.title}
-            fill
-            className="object-cover transition-transform duration-500 hover:scale-105"
-          />
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto w-full max-w-[1600px] px-4 py-8 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
+        <Breadcrumb className="mb-8">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link
+                  href="/blog"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Back to Blogs
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-foreground">
+                {post.title}
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div className="flex gap-8">
+          <article className="flex-1 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+            {post.mainImage?.asset && (
+              <div className="relative h-[300px] w-full overflow-hidden bg-muted sm:h-[400px] md:h-[450px]">
+                <Image
+                  src={urlFor(post.mainImage.asset)}
+                  alt={post.mainImage.alt || post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 800px"
+                />
+              </div>
+            )}
+
+            <header className="border-b border-border bg-card px-6 py-8 sm:px-8 sm:py-10">
+              <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                {post.title}
+              </h1>
+              {post.author && (
+                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                  <span className="font-medium text-card-foreground">
+                    {post.author.name}
+                  </span>
+                  <span className="text-border">•</span>
+                  <time
+                    dateTime={post.publishedAt}
+                    className="text-muted-foreground"
+                  >
+                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </time>
+                </div>
+              )}
+            </header>
+
+            <div className="bg-card px-6 py-8 sm:px-8 sm:py-12">
+              <div className="article-content">
+                <PortableText
+                  value={post.body}
+                  components={portableTextComponents}
+                />
+              </div>
+            </div>
+          </article>
+
+          <aside className="hidden lg:block lg:w-64">
+            <TableOfContents headings={headings} />
+          </aside>
         </div>
-      )}
-
-      <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
-      {post.author && (
-        <p className="text-gray-500 mb-6">
-          By {post.author.name} •{' '}
-          {new Date(post.publishedAt).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </p>
-      )}
-
-      <div className="max-w-none">
-        <PortableText value={post.body} components={portableTextComponents} />
       </div>
-    </article>
-  )
+    </div>
+  );
 }
