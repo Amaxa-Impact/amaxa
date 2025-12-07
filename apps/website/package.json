@@ -23,6 +23,7 @@
     "@sanity/image-url": "^1.2.0",
     "framer-motion": "^11.18.2",
     "fumadocs-core": "^13.3.2",
+    "geist": "^1.5.1",
     "github-slugger": "^2.0.0",
     "lucide-react": "^0.416.0",
     "next": "catalog:",

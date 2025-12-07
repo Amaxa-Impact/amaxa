@@ -25,10 +25,10 @@
   },
   "devDependencies": {
     "@amaxa/prettier-config": "workspace:*",
-    "@turbo/gen": "^2.5.4",
+    "@turbo/gen": "^2.6.3",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "turbo": "^2.5.4",
+    "turbo": "^2.6.3",
     "typescript": "catalog:"
   },
   "prettier": "@amaxa/prettier-config"
