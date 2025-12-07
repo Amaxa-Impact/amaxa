@@ -7,42 +7,34 @@ export default function ProgramPage() {
   return (
     <main>
       <div className="relative flex max-h-[360px] w-full flex-col bg-white px-6 sm:max-h-[240px] md:max-h-[320px] md:px-12 lg:px-20">
-        {/* Background container - hidden but preserved for reference */}
         <div className="invisible absolute inset-0">
           <div
             className="h-full w-full"
             style={{ background: "url(/Untitled design.png)" }}
           />
         </div>
-        {/* Content container with flex layout */}
         <section className="w-full py-16 md:py-24">
           <div className="container mx-auto px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
-                {/* --- Start of resolved conflict block (main version kept) --- */}
                 <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa{" "}
                   <span className="font-normal text-[#3B3B3B]">Cohorts</span>
                 </h1>
-                {/* --- End of resolved conflict block --- */}
-
-                {/* Green wavy line - SVG replacement for the image */}
                 <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
-                  {/* --- Start of resolved conflict block (SVG fixed) --- */}
                   <svg
-                    viewBox="0 6 325 120s" // Adjusted viewBox height
+                    viewBox="0 6 325 120s" 
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-full" // Ensure SVG scales
+                    className="w-full" 
                   >
                     <path
                       d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
                       stroke="#BCD96C"
                       strokeWidth="8"
-                      strokeLinecap="round" // Moved inside path tag
+                      strokeLinecap="round" 
                     />
                   </svg>
-                  {/* --- End of resolved conflict block --- */}
                 </div>
               </div>
             </div>
@@ -52,7 +44,6 @@ export default function ProgramPage() {
 
       <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
-          {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
             <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               We believe high school students are capable of effecting change at
@@ -83,13 +74,9 @@ export default function ProgramPage() {
         </div>
       </section>
 
-      {/* --- Start of resolved conflict block (main version kept - no commented section) --- */}
       <section className="w-full bg-[#F5F2F2] px-6 py-16 md:px-16 md:py-20 lg:px-20">
         <div className="mx-auto max-w-7xl">
-          {/* --- End of resolved conflict block --- */}
-
           <div className="space-y-12 md:space-y-16 lg:space-y-20">
-            {/* What are cohorts? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
@@ -106,7 +93,6 @@ export default function ProgramPage() {
               </div>
             </div>
 
-            {/* Who can join? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
@@ -120,7 +106,6 @@ export default function ProgramPage() {
               </div>
             </div>
 
-            {/* Is it remote? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
@@ -134,7 +119,6 @@ export default function ProgramPage() {
               </div>
             </div>
 
-            {/* Is there a cost? */}
             <div className="flex flex-col md:flex-row md:gap-8 lg:gap-16">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <h2 className="text-3xl font-normal text-black md:text-4xl lg:text-5xl">
@@ -160,14 +144,10 @@ export default function ProgramPage() {
           </h2>
 
           <div className="relative">
-            {/* Vertical line */}
             <div className="absolute bottom-0 left-4 top-0 w-px bg-black md:left-6"></div>
 
-            {/* Timeline steps */}
             <div className="space-y-16 md:space-y-20">
-              {/* Step 1 */}
               <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
                 <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#F4FFD6]">
                   <span className="sr-only">Step 1</span>
                 </div>
@@ -182,9 +162,7 @@ export default function ProgramPage() {
                 </p>
               </div>
 
-              {/* Step 2 */}
               <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
                 <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#C8D998]">
                   <span className="sr-only">Step 2</span>
                 </div>
@@ -199,9 +177,7 @@ export default function ProgramPage() {
                 </p>
               </div>
 
-              {/* Step 3 */}
               <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
                 <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#BCD96C]">
                   <span className="sr-only">Step 3</span>
                 </div>
@@ -217,9 +193,7 @@ export default function ProgramPage() {
                 </p>
               </div>
 
-              {/* Step 4 */}
               <div className="relative pl-16 md:pl-20">
-                {/* Circle */}
                 <div className="absolute left-0 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-black bg-[#94AB55]">
                   <span className="sr-only">Step 4</span>
                 </div>
@@ -252,14 +226,12 @@ export default function ProgramPage() {
           </div>
 
           <div>
-            {/* --- Start of resolved conflict block (main version kept) --- */}
             <a
               href="/project-stories"
               className="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-7 py-3 text-base text-[#3B3B3B] transition-colors hover:bg-gray-50 md:text-lg"
             >
               Ámaxa Stories →
             </a>
-            {/* --- End of resolved conflict block --- */}
           </div>
         </div>
       </section>
@@ -276,7 +248,6 @@ export default function ProgramPage() {
           </p>
 
           <div className="space-y-16 md:space-y-24">
-            {/* Feature 1 */}
             <div className="flex flex-col gap-4 md:flex-row md:gap-8">
               <div className="flex-shrink-0">
                 <svg
@@ -310,7 +281,6 @@ export default function ProgramPage() {
               </div>
             </div>
 
-            {/* Feature 2 */}
             <div className="flex flex-col gap-4 md:flex-row md:gap-8">
               <div className="flex-shrink-0">
                 <svg
@@ -347,7 +317,6 @@ export default function ProgramPage() {
               </div>
             </div>
 
-            {/* Feature 3 */}
             <div className="flex flex-col gap-4 md:flex-row md:gap-8">
               <div className="flex-shrink-0">
                 <svg
@@ -372,18 +341,15 @@ export default function ProgramPage() {
                   others through our remote events, ámaxa aims to forge
                   connections that last well beyond the 3 month project.
                 </p>
-                {/* --- Start of resolved conflict block (main version kept) --- */}
                 <a
                   href="/project-stories"
                   className="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
                 >
                   Read stories of our members →
                 </a>
-                {/* --- End of resolved conflict block --- */}
               </div>
             </div>
 
-            {/* Feature 4 */}
             <div className="flex flex-col gap-4 md:flex-row md:gap-8">
               <div className="flex-shrink-0">
                 <svg
@@ -418,14 +384,12 @@ export default function ProgramPage() {
                   focusing on mental health, feminism, and LBGTQ+
                   representation.
                 </p>
-                {/* --- Start of resolved conflict block (main version kept) --- */}
                 <Link
                   href="/project"
                   className="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
                 >
                   Explore All Projects →
                 </Link>
-                {/* --- End of resolved conflict block --- */}
               </div>
             </div>
           </div>

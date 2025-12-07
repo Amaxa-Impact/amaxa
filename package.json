@@ -31,10 +31,5 @@
     "turbo": "^2.5.4",
     "typescript": "catalog:"
   },
-  "prettier": "@amaxa/prettier-config",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "motion": "^12.16.0",
-    "tailwind-merge": "^2.5.2"
-  }
+  "prettier": "@amaxa/prettier-config"
 }
