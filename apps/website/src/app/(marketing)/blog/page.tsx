@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import { sanityFetch, urlFor } from "@/lib/sanity";
 
 import { Card, CardContent } from "@amaxa/ui/card";
 
@@ -32,9 +31,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-const builder = imageUrlBuilder(sanityClient);
-const urlFor = (source: any) => builder.image(source);
 
 interface PostPreview {
   _id: string;
@@ -67,8 +63,8 @@ function extractPlainText(body: any, maxLength = 200): string {
 }
 
 export default async function BlogPage() {
-  const posts: PostPreview[] = await sanityClient.fetch(
-    `*[_type == "post"] | order(featured desc, publishedAt desc){
+  const posts = await sanityFetch<PostPreview[]>({
+    query: `*[_type == "post"] | order(featured desc, publishedAt desc){
       _id,
       title,
       slug,
@@ -78,7 +74,9 @@ export default async function BlogPage() {
       author->{name},
       featured
     }`,
-  );
+    revalidate: 300,
+    tags: ["post"],
+  });
 
   const featuredPost = posts.find((post) => post.featured);
   const otherPosts = posts.filter((post) => post._id !== featuredPost?._id);

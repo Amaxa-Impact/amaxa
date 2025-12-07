@@ -2,9 +2,8 @@ import type { PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { sanityClient } from "@/lib/sanity";
+import { sanityFetch, urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
-import imageUrlBuilder from "@sanity/image-url";
 
 import {
   Breadcrumb,
@@ -17,9 +16,7 @@ import {
 
 import { LinkPreview } from "./LinkPreview";
 import { TableOfContents } from "./TableOfContents";
-
-const builder = imageUrlBuilder(sanityClient);
-const urlFor = (source: any) => builder.image(source).width(1200).url();
+const urlForWidth = (source: any) => urlFor(source).width(1200).url();
 
 const createId = (text: string): string => {
   return text
@@ -202,16 +199,18 @@ const portableTextComponents: PortableTextComponents = {
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const post: Post = await sanityClient.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{
+  const post = await sanityFetch<Post | null>({
+    query: `*[_type == "post" && slug.current == $slug][0]{
       title,
       mainImage,
       body,
       publishedAt,
       author->{name}
     }`,
-    { slug },
-  );
+    params: { slug },
+    revalidate,
+    tags: ["post"],
+  });
 
   if (!post) notFound();
 
@@ -246,7 +245,7 @@ export default async function PostPage({ params }: PageProps) {
             {post.mainImage?.asset && (
               <div className="relative h-[300px] w-full overflow-hidden bg-muted sm:h-[400px] md:h-[450px]">
                 <Image
-                  src={urlFor(post.mainImage.asset)}
+                  src={urlForWidth(post.mainImage.asset)}
                   alt={post.mainImage.alt || post.title}
                   fill
                   className="object-cover"
