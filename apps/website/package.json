@@ -26,12 +26,12 @@
     "geist": "^1.5.1",
     "github-slugger": "^2.0.0",
     "lucide-react": "^0.416.0",
-    "next": "catalog:",
+    "next": "16.0.7",
     "next-sanity": "^9.4.2",
-    "posthog-js": "^1.188.0",
+    "posthog-js": "^1.302.2",
     "qss": "^3.0.0",
-    "react": "catalog:react19",
-    "react-dom": "catalog:react19",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
@@ -46,8 +46,8 @@
     "@amaxa/tsconfig": "workspace:*",
     "@tailwindcss/typography": "^0.5.14",
     "@types/node": "^22.13.11",
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "dotenv-cli": "^8.0.0",
     "eslint": "catalog:",
     "jiti": "^1.21.0",
@@ -55,5 +55,11 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@amaxa/prettier-config"
+  "prettier": "@amaxa/prettier-config",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.7",
+      "@types/react-dom": "19.2.3"
+    }
+  }
 }
