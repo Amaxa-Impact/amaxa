@@ -108,7 +108,7 @@ importers:
         specifier: 19.2.1
         version: 19.2.1(react@19.2.1)
       react-hook-form:
-        specifier: ^7.51.4
+        specifier: ^7.52.1
         version: 7.55.0(react@19.2.1)
       react-syntax-highlighter:
         specifier: ^15.5.0
@@ -259,7 +259,7 @@ importers:
         specifier: 8.10.1
         version: 8.10.1(date-fns@3.6.0)(react@19.0.0)
       react-hook-form:
-        specifier: ^7.51.4
+        specifier: ^7.52.1
         version: 7.55.0(react@19.0.0)
       recharts:
         specifier: ^2.12.7
