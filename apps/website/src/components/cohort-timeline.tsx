@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, Users, Handshake, Video } from "lucide-react";
+import { FileText, Handshake, Users, Video } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -61,7 +62,7 @@ export function CohortTimeline() {
             {step.text}
           </CardDescription>
         </CardContent>
-      </Card>
+      </Card>,
     );
   }
 

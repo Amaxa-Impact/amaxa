@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+
 import { Card, CardContent } from "@amaxa/ui/card";
+
 import { ApplyButton } from "~/components/apply";
-import { DownloadBrochure } from "~/components/download-brochure";
 import { CohortTimeline } from "~/components/cohort-timeline";
+import { DownloadBrochure } from "~/components/download-brochure";
 
 export default function ProgramPage() {
   return (
@@ -33,7 +35,8 @@ export default function ProgramPage() {
           </div>
 
           <p className="mx-auto mt-8 max-w-3xl text-xl font-normal leading-relaxed text-muted-foreground md:mt-10 md:text-2xl lg:text-3xl">
-            We believe high school students are capable of effecting change at a large scale.
+            We believe high school students are capable of effecting change at a
+            large scale.
           </p>
 
           <div className="mt-12 md:mt-16">
@@ -341,17 +344,16 @@ export default function ProgramPage() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-lg font-normal leading-relaxed text-muted-foreground md:text-xl lg:text-2xl">
-                  Cohorts meet remotely for about one hour each week for 3 months.
-                  You'll also spend time working on your project between meetings.
-                  We estimate a total commitment of 3-5 hours per week, flexible to
-                  fit your schedule.
+                  Cohorts meet remotely for about one hour each week for 3
+                  months. You'll also spend time working on your project between
+                  meetings. We estimate a total commitment of 3-5 hours per
+                  week, flexible to fit your schedule.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
 
       <DownloadBrochure />
 

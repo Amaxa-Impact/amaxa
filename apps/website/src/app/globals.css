@@ -24,7 +24,8 @@
     --input: 234 30% 50%;
     --ring: 234 56.3% 59.6%;
     --radius: 0.75rem;
-    --font-geist-sans: "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+    --font-geist-sans:
+      "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
     --font-geist-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
     --brand-green: 76 54% 64%;
     --brand-green-hover: 76 54% 54%;
@@ -77,5 +78,3 @@
     -ms-overflow-style: none; /* IE and Edge */
   }
 }
-
-

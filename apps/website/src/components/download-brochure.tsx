@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle, Download, Globe, Star } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Download, Globe, CheckCircle, Star } from "lucide-react";
-import { toast } from "@amaxa/ui/toast";
+
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent } from "@amaxa/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -13,10 +15,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@amaxa/ui/dialog";
-import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
 import { Label } from "@amaxa/ui/label";
-import { Card, CardContent } from "@amaxa/ui/card";
+import { toast } from "@amaxa/ui/toast";
 
 interface FormData {
   schoolName: string;
@@ -35,7 +36,7 @@ export function DownloadBrochure() {
 
   const onSubmit = () => {
     toast.success(
-      "Thank you for your interest! We'll send the brochure to your email shortly."
+      "Thank you for your interest! We'll send the brochure to your email shortly.",
     );
     setIsModalOpen(false);
     reset();
