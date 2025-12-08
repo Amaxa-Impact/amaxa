@@ -11,6 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-[#3B3B3B] text-white shadow hover:bg-[#3B3B3B]/90",
+        brand: "bg-brand-green text-foreground shadow hover:bg-brand-green-hover",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
@@ -24,6 +25,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
         md: "h-9 px-4 py-2",
         lg: "h-10 rounded-md px-8",
+        xl: "h-14 rounded-full px-10 text-lg md:px-12 md:text-xl",
         icon: "size-9",
       },
     },
