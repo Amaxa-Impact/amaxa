@@ -66,6 +66,20 @@ interface ContactFormProps {
   showInquiryTypeSelector?: boolean;
 }
 
+// Format phone number as (XXX) XXX-XXXX
+function formatPhoneNumber(value: string): string {
+  // Remove all non-digit characters
+  const phoneNumber = value.replace(/\D/g, "");
+  
+  // Limit to 10 digits
+  const phoneNumberLength = phoneNumber.length;
+  if (phoneNumberLength < 4) return phoneNumber;
+  if (phoneNumberLength < 7) {
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+  }
+  return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+}
+
 function ContactForm({ formType, title, description, schema, showInquiryTypeSelector = false }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -79,10 +93,22 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
   });
 
   const onSubmit = async (values: any) => {
+    // Very visible debugging
+    console.log("📤 ========== FORM SUBMISSION STARTED ==========");
+    console.log("📤 Form submitted with values:", values);
+    console.log("📤 Current URL:", window.location.href);
+    
+    // Check browser console - if you see this, the form is submitting
+    if (typeof window !== 'undefined') {
+      console.log("✅ Browser window exists, form submission handler is running");
+    }
+    
     setIsSubmitting(true);
     try {
       // For unified form, use the inquiryType from values, otherwise use formType
       const finalFormType = showInquiryTypeSelector ? values.inquiryType : formType;
+      console.log("📤 Sending request to /api/contact with formType:", finalFormType);
+      console.log("📤 Request payload:", JSON.stringify({ ...values, formType: finalFormType }, null, 2));
       
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -95,8 +121,12 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
         }),
       });
 
+      console.log("📥 Response status:", response.status, response.statusText);
+      console.log("📥 Response ok:", response.ok);
+
       // Check if response is ok before parsing JSON
       if (!response.ok) {
+        console.error("❌ Response not OK:", response.status);
         // Try to parse error response
         let errorData;
         try {
@@ -109,12 +139,12 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
         let errorMessage = errorData.error || "Failed to send message";
         let errorDescription = errorData.message || "Please try again later.";
 
-        if (errorData.code === "INVALID_EMAIL_RECIPIENT") {
-          errorMessage = "Invalid Email Address";
-          errorDescription = "You cannot use the recipient email address. Please use your own email address.";
-        } else if (response.status === 400) {
+        if (response.status === 400) {
           errorMessage = "Validation Error";
           errorDescription = errorData.message || "Please check your form and try again.";
+        } else if (response.status === 403) {
+          errorMessage = "Email Service Error";
+          errorDescription = "There was an issue with the email service. Please check your email address and try again, or contact us directly.";
         } else if (response.status === 500) {
           errorMessage = "Server Error";
           errorDescription = "Something went wrong on our end. Please try again in a few moments.";
@@ -122,7 +152,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
 
         toast.error(errorMessage, {
           description: errorDescription,
-          duration: 8000,
+          duration: Infinity,
         });
         
         return; // Exit early on error
@@ -138,15 +168,15 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
           description: referenceId 
             ? `Your message has been received. Reference ID: ${referenceId}`
             : "Your message has been received and will be reviewed by our team.",
-          duration: 8000,
+          duration: Infinity,
         });
         
         // Show reference ID prominently if available
         if (referenceId) {
           setTimeout(() => {
             toast.info("Save Your Reference ID", {
-              description: `Reference ID: ${referenceId}. Please save this number for your records. You can use it when following up with us.`,
-              duration: 10000,
+              description: `Reference ID: ${referenceId}. Please save this ID for your records. You can use it when following up with us.`,
+              duration: Infinity,
             });
           }, 1500);
         }
@@ -159,17 +189,21 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
 
         toast.error(errorMessage, {
           description: errorDescription,
-          duration: 8000,
+          duration: Infinity,
         });
       }
     } catch (error) {
       // Handle network errors or other exceptions
-      console.error("Form submission error:", error);
+      console.error("❌ ========== FORM SUBMISSION ERROR ==========");
+      console.error("❌ Error type:", error instanceof Error ? error.constructor.name : typeof error);
+      console.error("❌ Error message:", error instanceof Error ? error.message : String(error));
+      console.error("❌ Full error:", error);
+      console.error("❌ ============================================");
       toast.error("Failed to send message", {
         description: error instanceof Error 
           ? error.message 
           : "Network error. Please check your connection and try again.",
-        duration: 8000,
+        duration: Infinity,
       });
     } finally {
       setIsSubmitting(false);
@@ -250,7 +284,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     <FormItem>
                       <FormLabel {...({} as any)}>Organization Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your School or Company" {...field} />
+                        <Input placeholder="Personal, School Name, or Company Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -265,7 +299,16 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                       <FormItem>
                         <FormLabel {...({} as any)}>Phone Number (Optional)</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="(555) 123-4567" {...field} />
+                          <Input
+                            type="tel"
+                            placeholder="(555) 123-4567"
+                            {...field}
+                            value={field.value || ""}
+                            onChange={(e) => {
+                              const formatted = formatPhoneNumber(e.target.value);
+                              field.onChange(formatted);
+                            }}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -328,7 +371,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                             <SelectItem value="America/Anchorage">Alaska Time (AKT)</SelectItem>
                             <SelectItem value="Pacific/Honolulu">Hawaii Time (HST)</SelectItem>
                             <SelectItem value="UTC">UTC</SelectItem>
-                            <SelectItem value="Europe/London">London (GMT)</SelectItem>
+                            <SelectItem value="Europe/London" label="London (GMT)" />
                             <SelectItem value="Europe/Paris">Paris (CET)</SelectItem>
                             <SelectItem value="Asia/Tokyo">Tokyo (JST)</SelectItem>
                             <SelectItem value="Asia/Shanghai">Shanghai (CST)</SelectItem>
@@ -356,7 +399,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     <Textarea
                       placeholder={
                         formType === "demo"
-                          ? "Tell us about your organization and what you'd like to learn about Ámaxa..."
+                          ? "Tell us about your organization and what you'd like to learn about ámaxa..."
                           : "Tell us how we can help you..."
                       }
                       className="min-h-[120px]"
@@ -387,19 +430,19 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
               )}
             </Button>
             
-            <div className="mt-4 rounded-lg bg-[#BCD96C]/10 border border-[#BCD96C]/30 p-4">
-              <div className="flex items-start gap-3">
-                <Info className="h-5 w-5 text-[#3B3B3B] mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-[#3B3B3B]/80">
-                  <p className="font-medium mb-1">Where does this message go?</p>
-                  <p>
-                    Your message will be sent directly to <strong>jyang.scholar@gmail.com</strong> (TESTING). 
-                    {formType === "demo" && " We'll review your request and get back to you within 1-2 business days to schedule your demo or intro call."}
-                    {formType !== "demo" && " We typically respond within 1-2 business days."}
-                  </p>
+            {formType !== "demo" && (
+              <div className="mt-4 rounded-lg bg-[#BCD96C]/10 border border-[#BCD96C]/30 p-4">
+                <div className="flex items-start gap-3">
+                  <Info className="h-5 w-5 text-[#3B3B3B] mt-0.5 flex-shrink-0" />
+                  <div className="text-sm text-[#3B3B3B]/80">
+                    <p className="font-medium mb-1">Where does this message go?</p>
+                    <p>
+                      Your message will be sent directly to <strong>lauren@amaxaimpact.org</strong>. A team member will reply directly to your email address. We typically respond within 1-2 business days.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </form>
         </Form>
       </CardContent>
@@ -445,7 +488,7 @@ export default function ContactUsPage() {
           {/* Introduction Section */}
           <div className="text-center">
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-              Get in Touch with Ámaxa
+              Get in touch with ámaxa.
                 </h2>
             <p className="mt-4 text-lg text-[#3B3B3B]/80 md:text-xl">
               We're here to help. Choose the form that best fits your inquiry, or reach out directly.
@@ -522,7 +565,7 @@ export default function ContactUsPage() {
                 Send Us a Message
               </h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Fill out the form below that matches your inquiry type. All messages are sent directly to <strong>jyang.scholar@gmail.com</strong> (TESTING).
+                Fill out the form below that matches your inquiry type. A team member will reply to your email address, or for demo requests with a preferred date and time, you'll receive a Google Calendar invite.
               </p>
             </div>
 
@@ -548,11 +591,11 @@ export default function ContactUsPage() {
                 <Calendar className="h-8 w-8 text-[#3B3B3B]" />
               </div>
               <h3 className="text-3xl font-semibold text-[#3B3B3B] md:text-4xl">
-                Schedule a Demo or Intro Call
+                Schedule a Demo or Call
               </h3>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Are you a school or company interested in learning more about Ámaxa? 
-                Request a personalized demo or introduction call with our team.
+                Are you an orgainzation interested in learning more about ámaxa? 
+                Request an introduction call with our team.
               </p>
               
               {/* Information Card */}
@@ -568,7 +611,7 @@ export default function ContactUsPage() {
                     <ul className="space-y-2 text-sm text-[#3B3B3B]/80">
                       <li className="flex items-start gap-2">
                         <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>Your request is sent to <strong>jyang.scholar@gmail.com</strong> (TESTING)</span>
+                        <span>Your request is sent to an ámaxa team member</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[#BCD96C] mt-1">•</span>
@@ -576,11 +619,11 @@ export default function ContactUsPage() {
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>Our team will contact you within 1-2 business days to confirm the call</span>
+                        <span>The team member will reply to your email address, or if you've provided a preferred date and time, you'll receive a Google Calendar invite</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>We'll send you a calendar invite with the confirmed date and time</span>
+                        <span>We typically respond within 1-2 business days</span>
                       </li>
                     </ul>
                   </div>

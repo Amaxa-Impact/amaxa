@@ -33,27 +33,17 @@ export async function POST(request: NextRequest) {
     const validatedData = contactFormSchema.parse(body);
 
     // Get email recipient based on form type
-    // TESTING: Changed to jyang.scholar@gmail.com for testing
+    // All form submissions go to jyang.scholar@gmail.com
     const recipientEmail = "jyang.scholar@gmail.com";
     
     // Email configuration
-    // TODO: Once you verify a domain in Resend, change this to your verified domain
-    // Example: "Ámaxa Contact Form <contact@amaxaimpact.org>"
-    // For now, using Resend's testing domain (only works for verified email addresses)
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "Ámaxa Contact Form <onboarding@resend.dev>";
+    // Using Resend's testing domain (onboarding@resend.dev)
+    // Domain amaxaimpact.org is not verified yet, so using testing domain
+    // Once domain is verified, can switch to: "ámaxa Contact Form <contact@amaxaimpact.org>"
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "ámaxa Contact Form <onboarding@resend.dev>";
 
-    // Validate that user's email is different from recipient email
-    if (validatedData.email.toLowerCase().trim() === recipientEmail.toLowerCase().trim()) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: "Invalid email address",
-          message: "You cannot use the recipient email address. Please use your own email address to receive confirmation.",
-          code: "INVALID_EMAIL_RECIPIENT"
-        },
-        { status: 400 }
-      );
-    }
+    // Removed validation - users can submit even if their email matches recipient
+    // This allows testing and doesn't block legitimate use cases
 
     // Generate unique reference ID for this submission
     const referenceId = generateReferenceId();
@@ -69,7 +59,7 @@ export async function POST(request: NextRequest) {
     const subject = `${formTypeLabels[validatedData.formType]} - ${validatedData.name}`;
 
     // Format plain text email body (fallback)
-    let emailBodyText = `New ${formTypeLabels[validatedData.formType]} from Ámaxa Contact Form\n\n`;
+    let emailBodyText = `New ${formTypeLabels[validatedData.formType]} from ámaxa Contact Form\n\n`;
     emailBodyText += `Reference ID: ${referenceId}\n\n`;
     emailBodyText += `Name: ${validatedData.name}\n`;
     emailBodyText += `Email: ${validatedData.email}\n`;
@@ -100,7 +90,10 @@ export async function POST(request: NextRequest) {
     const formatDate = (dateString: string) => {
       if (!dateString) return "";
       try {
-        const date = new Date(dateString);
+        // Parse date string (format: YYYY-MM-DD) as local date to avoid timezone issues
+        const [year, month, day] = dateString.split("-").map(Number);
+        // month is 0-indexed in Date constructor, so subtract 1
+        const date = new Date(year, month - 1, day);
         return date.toLocaleDateString("en-US", { 
           weekday: "long", 
           year: "numeric", 
@@ -156,61 +149,167 @@ export async function POST(request: NextRequest) {
         // Parse date and time - handle timezone if provided
         const dateStr = validatedData.preferredDate; // Format: YYYY-MM-DD
         const timeStr = validatedData.preferredTime; // Format: HH:MM
+        const userTimezone = validatedData.timezone || "America/New_York"; // Default to EST if not provided
         
-        // Create date object in local timezone
-        const date = new Date(`${dateStr}T${timeStr}:00`);
+        // Convert user's selected time (in their timezone) to UTC for Google Calendar
+        // User selects 7pm in their timezone, we need to find what UTC time that is
+        const [year, month, day] = dateStr.split("-").map(Number);
+        const [hours, minutes] = timeStr.split(":").map(Number);
         
-        // If timezone is provided, adjust accordingly (for now, use local time)
-        // Note: Google Calendar will use the user's timezone when they open the link
+        // Create a date representing the user's selected time
+        // We'll interpret this as being in the user's timezone
+        const userLocalDate = new Date(`${dateStr}T${timeStr}:00`);
         
-        // Create end time (1 hour later)
-        const endDate = new Date(date);
-        endDate.setHours(endDate.getHours() + 1);
+        // Get what this time is in UTC by comparing with timezone-aware formatting
+        // Format the same moment in both UTC and user's timezone to find the offset
+        const utcFormatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: "UTC",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+        
+        const userTzFormatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: userTimezone,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+        
+        // Find a UTC time that, when displayed in user's timezone, equals their selected time
+        // We'll use binary search or approximation
+        // Simpler: calculate offset at this date
+        if (
+          typeof year !== "number" ||
+          typeof month !== "number" ||
+          typeof day !== "number" ||
+          typeof hours !== "number" ||
+          typeof minutes !== "number"
+        ) {
+          throw new Error("Invalid date or time components");
+        }
 
-        // Format for Google Calendar (YYYYMMDDTHHMMSSZ for UTC, or without Z for local)
-        // Using UTC format for better compatibility
-        const formatGoogleDate = (d: Date) => {
-          const year = d.getFullYear();
-          const month = String(d.getMonth() + 1).padStart(2, "0");
-          const day = String(d.getDate()).padStart(2, "0");
-          const hour = String(d.getHours()).padStart(2, "0");
-          const min = String(d.getMinutes()).padStart(2, "0");
-          const sec = "00";
-          // Use UTC format for better compatibility across timezones
-          return `${year}${month}${day}T${hour}${min}${sec}`;
+        const testUtc = new Date(Date.UTC(year, month - 1, day, hours, minutes));
+        const userDisplay = userTzFormatter.format(testUtc);
+        const utcDisplay = utcFormatter.format(testUtc);
+
+        // Parse the formatted strings to get actual values
+        const userParts = userTzFormatter.formatToParts(testUtc);
+        const userMonth = parseInt(userParts.find(p => p.type === "month")?.value || "1");
+        const userDay = parseInt(userParts.find(p => p.type === "day")?.value || "1");
+        const userHour = parseInt(userParts.find(p => p.type === "hour")?.value || "0");
+        const userMin = parseInt(userParts.find(p => p.type === "minute")?.value || "0");
+        
+        // Calculate the difference
+        const targetMonth = month;
+        const targetDay = day;
+        const targetHour = hours;
+        const targetMin = minutes;
+        
+        // Calculate offset in hours
+        const hourDiff = targetHour - userHour;
+        const dayDiff = targetDay - userDay;
+        const totalHourDiff = hourDiff + (dayDiff * 24);
+        
+        // Adjust UTC time
+        const adjustedUtc = new Date(testUtc.getTime() + totalHourDiff * 60 * 60 * 1000);
+        const endUtc = new Date(adjustedUtc.getTime() + 60 * 60 * 1000); // Add 1 hour
+        
+        // Format for Google Calendar in UTC (YYYYMMDDTHHMMSSZ)
+        const formatGoogleDateUTC = (date: Date) => {
+          const y = date.getUTCFullYear();
+          const m = String(date.getUTCMonth() + 1).padStart(2, "0");
+          const d = String(date.getUTCDate()).padStart(2, "0");
+          const h = String(date.getUTCHours()).padStart(2, "0");
+          const min = String(date.getUTCMinutes()).padStart(2, "0");
+          return `${y}${m}${d}T${h}${min}00Z`;
         };
 
-        const startTime = formatGoogleDate(date);
-        const endTime = formatGoogleDate(endDate);
+        const startTime = formatGoogleDateUTC(adjustedUtc);
+        const endTime = formatGoogleDateUTC(endUtc);
 
-        // Build event details
-        const eventTitle = `Ámaxa Demo/Intro Call - ${validatedData.name}`;
+        // Convert time to Eastern Time (EST/EDT) for Lauren
+        // User selects time in their timezone, we convert to EST
+        const convertToEasternTime = (dateStr: string, timeStr: string, userTimezone: string | undefined) => {
+          try {
+            if (!userTimezone) return null;
+            
+            // Parse the date and time
+            const [year, month, day] = dateStr.split("-").map(Number);
+            const [hours, minutes] = timeStr.split(":").map(Number);
+            
+            // Create a date representing the user's selected time in their timezone
+            // We need to find what UTC time corresponds to this local time in user's TZ
+            const userLocalDateStr = `${dateStr}T${timeStr}:00`;
+            
+            // Create a date object - this will be interpreted in server's local time
+            // We need to convert it properly
+            const tempDate = new Date(userLocalDateStr);
+            
+            // Get the UTC time that represents this moment
+            // Then format it in Eastern Time
+            const utcTime = tempDate.getTime();
+            
+            // Format in Eastern Time (America/New_York handles EST/EDT automatically)
+            const easternTime = new Intl.DateTimeFormat("en-US", {
+              timeZone: "America/New_York",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            }).formatToParts(new Date(utcTime));
+            
+            const monthET = easternTime.find(p => p.type === "month")?.value;
+            const dayET = easternTime.find(p => p.type === "day")?.value;
+            const hourET = easternTime.find(p => p.type === "hour")?.value;
+            const minuteET = easternTime.find(p => p.type === "minute")?.value;
+            const ampmET = easternTime.find(p => p.type === "dayPeriod")?.value?.toUpperCase();
+            
+            return `${monthET}/${dayET} at ${hourET}:${minuteET} ${ampmET} ET`;
+          } catch {
+            return null;
+          }
+        };
+
+        // Build event details with improved formatting
+        const eventTitle = `ámaxa Demo/Intro Call - ${validatedData.name}`;
         
-        let eventDetails = `Demo/Intro Call Request\n\n`;
-        eventDetails += `Contact Information:\n`;
-        eventDetails += `Name: ${validatedData.name}\n`;
-        eventDetails += `Email: ${validatedData.email}\n`;
+        let eventDetails = `Reference ID: ${referenceId}\n\n`;
+        eventDetails += `Demo/Intro Call Request\n\n`;
+        eventDetails += `${validatedData.name}\n`;
+        eventDetails += `${validatedData.email}\n`;
         if (validatedData.phone) {
-          eventDetails += `Phone: ${validatedData.phone}\n`;
+          eventDetails += `${validatedData.phone}\n`;
         }
         if (validatedData.organization) {
           eventDetails += `Organization: ${validatedData.organization}\n`;
         }
-        if (validatedData.timezone) {
-          eventDetails += `Timezone: ${formatTimezone(validatedData.timezone)}\n`;
+        if (validatedData.preferredDate && validatedData.preferredTime) {
+          const userTimeStr = `${formatDate(validatedData.preferredDate)} at ${formatTime(validatedData.preferredTime)}`;
+          const easternTimeStr = convertToEasternTime(validatedData.preferredDate, validatedData.preferredTime, validatedData.timezone);
+          if (easternTimeStr) {
+            eventDetails += `\nPreferred Time:\n${userTimeStr} (${formatTimezone(validatedData.timezone || "")})\n${easternTimeStr}\n`;
+          } else {
+            eventDetails += `\nPreferred Time: ${userTimeStr} (${formatTimezone(validatedData.timezone || "")})\n`;
+          }
         }
-        eventDetails += `\nMessage:\n${validatedData.message}\n`;
-        eventDetails += `\nReference ID: ${referenceId}`;
+        eventDetails += `\n${validatedData.name.split(' ')[0]}'s Message:\n\n${validatedData.message}\n`;
 
-        const location = validatedData.organization || "TBD";
-        
         // Properly encode all URL parameters
         const params = new URLSearchParams({
           action: 'TEMPLATE',
           text: eventTitle,
           dates: `${startTime}/${endTime}`,
           details: eventDetails,
-          location: location,
+          add: validatedData.email, // Add user's email as guest
         });
         
         const calendarUrl = `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -240,7 +339,7 @@ export async function POST(request: NextRequest) {
           <!-- Header -->
           <tr>
             <td style="padding: 40px 40px 30px; background-color: #000000; border-radius: 8px 8px 0 0;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 300; letter-spacing: 1px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">ámaxa</h1>
+              <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 300; letter-spacing: 2px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">ámaxa</h1>
               <div style="margin-top: 8px; height: 4px; width: 120px; background-color: #ffffff; border-radius: 2px;"></div>
             </td>
           </tr>
@@ -249,110 +348,108 @@ export async function POST(request: NextRequest) {
           <tr>
             <td style="padding: 40px;">
               <!-- Inquiry Type Badge -->
-              <div style="display: inline-block; background-color: #ffffff; color: #000000; padding: 6px 16px; border-radius: 20px; border: 1px solid #000000; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+              <div style="display: inline-block; background-color: #ffffff; color: #000000; padding: 8px 18px; border-radius: 20px; border: 1px solid #000000; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
                 ${formTypeLabels[validatedData.formType]}
               </div>
               
               <!-- Reference ID -->
-              <div style="margin-bottom: 24px; padding: 12px 16px; background-color: #f0f0f0; border-radius: 4px; border-left: 3px solid #000000;">
-                <strong style="color: #000000; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Reference ID</strong>
-                <span style="color: #000000; font-size: 16px; font-weight: 600; font-family: monospace;">${referenceId}</span>
+              <div style="margin-bottom: 32px; padding: 16px 20px; background-color: #f0f0f0; border-radius: 4px; border-left: 3px solid #000000;">
+                <strong style="color: #000000; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Reference ID</strong>
+                <span style="color: #000000; font-size: 18px; font-weight: 600; font-family: 'Courier New', 'Monaco', monospace; letter-spacing: 0.5px;">${referenceId}</span>
               </div>
               
-              <h2 style="margin: 0 0 30px; color: #000000; font-size: 24px; font-weight: 400; line-height: 1.4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+              <h2 style="margin: 0 0 32px; color: #000000; font-size: 26px; font-weight: 400; line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; letter-spacing: 0.3px;">
                 New Contact Form Submission
               </h2>
               
               ${calendarLink ? `
               <!-- Google Calendar Link for Demo Requests -->
               <div style="margin-bottom: 30px; padding: 20px; background-color: #ffffff; border: 1px solid #000000; border-radius: 8px; text-align: center;">
-                <h3 style="margin: 0 0 12px; color: #000000; font-size: 18px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Schedule This Call</h3>
-                <p style="margin: 0 0 16px; color: #000000; font-size: 14px; line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                <h3 style="margin: 0 0 14px; color: #000000; font-size: 20px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; letter-spacing: 0.4px;">Schedule This Call</h3>
+                <p style="margin: 0 0 18px; color: #000000; font-size: 15px; line-height: 1.7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
                   Click below to add this demo/intro call to your Google Calendar with all contact information included.
                 </p>
-                <a href="${calendarLink}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 12px 32px; border-radius: 4px; border: 1px solid #000000; font-size: 14px; font-weight: 600; margin-top: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                <a href="${calendarLink}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 14px 36px; border-radius: 4px; border: 1px solid #000000; font-size: 15px; font-weight: 600; margin-top: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; letter-spacing: 0.3px;">
                   Add to Google Calendar
                 </a>
-                <p style="margin: 12px 0 0; color: #666666; font-size: 11px; line-height: 1.4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-                  If the button doesn't work, copy and paste this link into your browser:<br>
-                  <span style="color: #000000; word-break: break-all; font-family: monospace; font-size: 10px;">${calendarLink}</span>
-                </p>
               </div>
               ` : ""}
               
               <!-- Contact Information -->
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 16px; background-color: #f9f9f9; border-left: 3px solid #000000; border-radius: 4px;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Name</strong>
-                          <span style="color: #000000; font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.name}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Email</strong>
-                          <a href="mailto:${validatedData.email}" style="color: #000000; font-size: 16px; text-decoration: none; border-bottom: 1px solid #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.email}</a>
-                        </td>
-                      </tr>
-                      ${validatedData.phone ? `
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Phone</strong>
-                          <a href="tel:${validatedData.phone}" style="color: #000000; font-size: 16px; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.phone}</a>
-                        </td>
-                      </tr>
-                      ` : ""}
-                      ${validatedData.organization ? `
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Organization</strong>
-                          <span style="color: #000000; font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.organization}</span>
-                        </td>
-                      </tr>
-                      ` : ""}
-                      ${validatedData.preferredDate ? `
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Preferred Date</strong>
-                          <span style="color: #000000; font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${formatDate(validatedData.preferredDate)}</span>
-                        </td>
-                      </tr>
-                      ` : ""}
-                      ${validatedData.preferredTime ? `
-                      <tr>
-                        <td>
-                          <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Preferred Time</strong>
-                          <span style="color: #000000; font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-                            ${formatTime(validatedData.preferredTime)}
-                            ${validatedData.timezone ? ` (${formatTimezone(validatedData.timezone)})` : ""}
-                          </span>
-                        </td>
-                      </tr>
-                      ` : ""}
-                    </table>
-                  </td>
-                </tr>
-              </table>
+              <div style="margin-bottom: 32px; padding: 20px; background-color: #f9f9f9; border-left: 3px solid #000000; border-radius: 4px;">
+                <div style="color: #000000; font-size: 18px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; margin-bottom: 16px;">
+                  ${validatedData.name}
+                </div>
+                <div style="margin-bottom: 12px;">
+                  <a href="mailto:${validatedData.email}" style="color: #000000; font-size: 17px; text-decoration: none; border-bottom: 1px solid #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">${validatedData.email}</a>
+                </div>
+                ${validatedData.phone ? `
+                <div style="margin-bottom: 12px;">
+                  <a href="tel:${validatedData.phone}" style="color: #000000; font-size: 17px; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">${validatedData.phone}</a>
+                </div>
+                ` : ""}
+                ${validatedData.organization ? `
+                <div style="margin-bottom: 12px;">
+                  <strong style="color: #000000; font-size: 12px; display: block; margin-bottom: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Organization</strong>
+                  <span style="color: #000000; font-size: 17px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">${validatedData.organization}</span>
+                </div>
+                ` : ""}
+                ${validatedData.preferredDate && validatedData.preferredTime ? (() => {
+                  const userTimeStr = `${formatDate(validatedData.preferredDate)} at ${formatTime(validatedData.preferredTime)}`;
+                  try {
+                    const [year, month, day] = validatedData.preferredDate.split("-").map(Number);
+                    const [hours, minutes] = validatedData.preferredTime.split(":").map(Number);
+                    const dateInUserTz = new Date(`${validatedData.preferredDate}T${validatedData.preferredTime}:00`);
+                    const easternTime = new Intl.DateTimeFormat("en-US", {
+                      timeZone: "America/New_York",
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    }).formatToParts(dateInUserTz);
+                    const monthET = easternTime.find(p => p.type === "month")?.value;
+                    const dayET = easternTime.find(p => p.type === "day")?.value;
+                    const hourET = easternTime.find(p => p.type === "hour")?.value;
+                    const minuteET = easternTime.find(p => p.type === "minute")?.value;
+                    const ampmET = easternTime.find(p => p.type === "dayPeriod")?.value?.toUpperCase();
+                    const easternTimeStr = `${monthET}/${dayET} at ${hourET}:${minuteET} ${ampmET} ET`;
+                    return `
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e0e0e0;">
+                  <div style="color: #000000; font-size: 17px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; margin-bottom: 4px;">
+                    ${userTimeStr} (${formatTimezone(validatedData.timezone || "")})
+                  </div>
+                  <div style="color: #666666; font-size: 15px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.5;">
+                    ${easternTimeStr}
+                  </div>
+                </div>
+                    `;
+                  } catch {
+                    return `
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e0e0e0;">
+                  <div style="color: #000000; font-size: 17px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">
+                    ${userTimeStr} (${formatTimezone(validatedData.timezone || "")})
+                  </div>
+                </div>
+                    `;
+                  }
+                })() : ""}
+              </div>
               
               <!-- Message -->
-              <div style="margin-top: 30px;">
-                <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Message</strong>
-                <div style="background-color: #f9f9f9; padding: 20px; border-radius: 4px; border-left: 3px solid #000000; color: #000000; font-size: 15px; line-height: 1.6; white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.message.replace(/\n/g, "<br>")}</div>
+              <div style="margin-top: 0;">
+                <strong style="color: #000000; font-size: 14px; display: block; margin-bottom: 16px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; letter-spacing: 0.2px;">${validatedData.name.split(' ')[0]}'s Message:</strong>
+                <div style="background-color: #f9f9f9; padding: 24px; border-radius: 4px; border-left: 3px solid #000000; color: #000000; font-size: 16px; line-height: 1.8; white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">${validatedData.message.replace(/\n/g, "<br>")}</div>
               </div>
               
               <!-- Reply Button -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 30px;">
                 <tr>
                   <td align="center">
-                    <a href="mailto:${validatedData.email}?subject=${encodeURIComponent(`Re: ${subject}`)}&body=${encodeURIComponent(`Hi ${validatedData.name.split(' ')[0]},\n\nThank you for your inquiry. I'll get back to you soon.\n\nBest regards,\nLauren`)}" style="display: inline-block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 14px 36px; border-radius: 4px; border: 1px solid #000000; font-size: 15px; font-weight: 600; margin-top: 20px; letter-spacing: 0.3px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                    <a href="mailto:${validatedData.email}?subject=${encodeURIComponent(`Re: ${subject}`)}" style="display: inline-block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 15px 38px; border-radius: 4px; border: 1px solid #000000; font-size: 15px; font-weight: 600; margin-top: 24px; letter-spacing: 0.4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
                       Reply to ${validatedData.name.split(' ')[0]}
                     </a>
-                    <p style="margin: 12px 0 0; color: #666666; font-size: 11px; line-height: 1.4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-                      If the button doesn't work, you can reply directly to: <a href="mailto:${validatedData.email}" style="color: #000000; text-decoration: underline;">${validatedData.email}</a>
-                    </p>
                   </td>
                 </tr>
               </table>
@@ -362,12 +459,11 @@ export async function POST(request: NextRequest) {
           <!-- Footer -->
           <tr>
             <td style="padding: 30px 40px; background-color: #f9f9f9; border-radius: 0 0 8px 8px; border-top: 1px solid #e5e5e5;">
-              <p style="margin: 0; color: #000000; font-size: 12px; text-align: center; line-height: 1.6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-                This email was sent from the Ámaxa Contact Form.<br>
-                Visit our <a href="https://www.amaxaimpact.org/" style="color: #000000; text-decoration: underline;">website</a>: <a href="https://www.amaxaimpact.org/" style="color: #000000; text-decoration: underline;">https://www.amaxaimpact.org/</a>
+              <p style="margin: 0; color: #000000; font-size: 13px; text-align: center; line-height: 1.7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                This email was sent from the ámaxa Contact Form.
               </p>
-              <p style="margin: 12px 0 0; color: #666666; font-size: 10px; text-align: center; line-height: 1.4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-                Note: If links appear blocked by your email provider, this is a temporary security measure. All links are safe. Copy and paste the URLs directly into your browser if needed.
+              <p style="margin: 14px 0 0; color: #666666; font-size: 12px; text-align: center; line-height: 1.6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                If any links appear blocked by your email provider, this is a temporary security measure. All links are safe and verified. As a nonprofit organization, we take your security and privacy seriously. If needed, you can copy and paste URLs directly into your browser.
               </p>
             </td>
           </tr>
@@ -408,6 +504,10 @@ export async function POST(request: NextRequest) {
         html: emailBodyHtml,
         text: emailBodyText,
         replyTo: validatedData.email,
+        tracking: {
+          clicks: false,
+          opens: false, // Disabled - open tracking can hurt deliverability and is often inaccurate
+        },
         // Removed priority headers - they can actually trigger spam filters
         // SPF, DKIM, and DMARC (via domain verification) are the proper way to ensure deliverability
       });
