@@ -108,6 +108,30 @@
     will-change: stroke-dashoffset, opacity;
     shape-rendering: geometricPrecision;
   }
+
+  /* Permanent underline animation - draws once and stays */
+  @keyframes draw-line-permanent {
+    0% {
+      stroke-dashoffset: 1000;
+      opacity: 0;
+    }
+    2% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
+  .animate-draw-line-permanent {
+    animation: draw-line-permanent 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 2s;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    will-change: stroke-dashoffset, opacity;
+    shape-rendering: geometricPrecision;
+  }
 }
 
 

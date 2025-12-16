@@ -116,9 +116,9 @@ export default function WhoAreWePage() {
       {/* Title Section with Animated Underline */}
       <section className="w-full py-16 md:py-24 overflow-visible">
         <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
-          <div className="flex flex-col items-start justify-between md:flex-row md:items-center overflow-visible">
-            <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl overflow-visible">
-              <AnimatedTitle beforeText="Meet Amaxa:" underlinedText="Mission & Team" variant="professional" color="#BCD96C" />
+          <div className="flex flex-col items-center justify-center overflow-visible">
+            <div className="mb-12 max-w-full overflow-visible">
+              <AnimatedTitle underlinedText="Mission & Team" color="#BCD96C" />
             </div>
           </div>
         </div>

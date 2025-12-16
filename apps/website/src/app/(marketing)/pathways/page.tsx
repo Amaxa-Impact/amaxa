@@ -50,9 +50,9 @@ export default function ProgramPage() {
         {/* Content container with flex layout */}
         <section className="w-full py-16 md:py-24 overflow-visible">
           <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
-            <div className="flex flex-col items-start justify-between md:flex-row md:items-center overflow-visible">
-              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl overflow-visible">
-                <AnimatedTitle beforeText="Explore" underlinedText="Our Pathways" variant="hand-drawn-1" color="#FFD700" />
+            <div className="flex flex-col items-center justify-center overflow-visible">
+              <div className="mb-12 max-w-full overflow-visible">
+                <AnimatedTitle beforeText="Explore" underlinedText="Our Pathways" color="#BCD96C" />
               </div>
             </div>
           </div>
