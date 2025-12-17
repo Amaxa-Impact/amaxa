@@ -1,10 +1,5 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { FocusCards } from "@/components/ui/focus-cards-text";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
 import { ApplyButton } from "~/components/apply";
 
