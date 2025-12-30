@@ -1,17 +1,26 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { env } from "~/env";
+
+const emailSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const body = await request.json();
 
-    // Validate email
-    if (!email || typeof email !== "string" || !email.includes("@")) {
+    // Validate email with Zod
+    const result = emailSchema.safeParse(body);
+
+    if (!result.success) {
       return NextResponse.json(
         { error: "Valid email is required" },
         { status: 400 }
       );
     }
+
+    const { email } = result.data;
 
     // Get Airtable credentials from environment variables
     const airtableApiKey = env.AIRTABLE_API_KEY;
@@ -55,10 +64,9 @@ export async function POST(request: Request) {
         message: errorData?.error?.message,
       });
       
-      // Return user-friendly error message without exposing sensitive details
-      const errorMessage = errorData?.error?.message || "Failed to subscribe. Please try again later.";
+      // Return generic error message to avoid exposing internal details
       return NextResponse.json(
-        { error: errorMessage },
+        { error: "Failed to subscribe. Please try again later." },
         { status: 500 }
       );
     }

@@ -9,21 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@amax
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
-import { urlFor } from "@/lib/careers";
+import { urlFor, type CareerPost } from "@/lib/careers";
+import { cn } from "@amaxa/ui";
 
 type CareerCategory = "all" | "internship" | "volunteer" | "undergraduate-coach";
-
-export interface CareerPost {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  category: "internship" | "volunteer" | "undergraduate-coach";
-  description?: string;
-  body?: any;
-  mainImage?: { asset: { _ref: string }; alt?: string };
-  publishedAt: string;
-  applicationLink?: string;
-}
 
 interface CareersListProps {
   careers: CareerPost[];
@@ -59,7 +48,7 @@ export default function CareersList({ careers }: CareersListProps) {
 
   // Category descriptions
   const categoryDescriptions: Record<string, string> = {
-    internship: "Our internships are fully remote and currently unpaid, ranging from an internship period of 3-6 months. With oppotunities like helping make these webpages you are seeing right now possible.",
+    internship: "Our internships are fully remote and currently unpaid, ranging from an internship period of 3-6 months. With opportunities like helping make these webpages you are seeing right now possible.",
     volunteer: "We are seeking long-term volunteers to take on active leadership roles within ámaxa.",
     "undergraduate-coach": "We match you to a team of students from across the world ages 14-18, guided by a trained undergraduate coach. Our 100% remote program is accessible across income and location.",
   };
@@ -144,7 +133,7 @@ export default function CareersList({ careers }: CareersListProps) {
           src={currentBanner.src}
           alt={currentBanner.alt}
           fill
-          className={`object-cover ${selectedCategory === "internship" ? "object-bottom" : ""}`}
+          className={cn("object-cover", selectedCategory === "internship" && "object-bottom")}
           priority
           quality={95}
           sizes="100vw"
@@ -182,7 +171,11 @@ export default function CareersList({ careers }: CareersListProps) {
           {/* Tabs - Centered */}
           <Tabs
             value={selectedCategory}
-            onValueChange={(value) => setSelectedCategory(value as CareerCategory)}
+            onValueChange={(value) => {
+              if (value === "all" || value === "internship" || value === "volunteer" || value === "undergraduate-coach") {
+                setSelectedCategory(value);
+              }
+            }}
             className="w-full"
             defaultValue="all"
           >

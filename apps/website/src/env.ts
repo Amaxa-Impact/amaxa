@@ -9,12 +9,6 @@ export const env = createEnv({
     AIRTABLE_TABLE_ID: z.string().min(1).optional(),
     AIRTABLE_TABLE_NAME: z.string().optional(),
   },
-  experimental__runtimeEnv: {
-    AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
-    AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
-    AIRTABLE_TABLE_ID: process.env.AIRTABLE_TABLE_ID,
-    AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME,
-  },
   skipValidation:
     !!process.env.CI || process.env.npm_lifecycle_event === "lint",
 });

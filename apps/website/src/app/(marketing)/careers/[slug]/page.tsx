@@ -50,7 +50,8 @@ const portableTextComponents: PortableTextComponents = {
   },
   marks: {
     link: ({ value, children }) => {
-      const target = value?.href?.startsWith('http') ? '_blank' : undefined
+      if (!value?.href) return <>{children}</>
+      const target = value.href.startsWith('http') ? '_blank' : undefined
       return (
         <a
           href={value.href}
@@ -83,7 +84,13 @@ const getCategoryLabel = (category: string) => {
 // --- Page component ---
 export default async function CareerPage({ params }: PageProps) {
   const { slug } = await params
-  const career = await getCareerPostBySlug(slug)
+  let career;
+  try {
+    career = await getCareerPostBySlug(slug)
+  } catch (error) {
+    console.error("Error fetching career post:", error)
+    career = null
+  }
 
   if (!career) {
     return (

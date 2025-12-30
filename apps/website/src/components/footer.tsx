@@ -1,64 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Facebook, Globe, Instagram, Linkedin, Music2, BookOpen, Mail } from "lucide-react";
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
-
-// Typewriter hook for animated text in the footer (This imitates the one from beginning of the page but does loops same message)
-const useTypewriter = (
-  texts: string[],
-  typingSpeed = 50,
-  deletingSpeed = 30,
-  delayAfterTyping = 2000,
-) => {
-  const [displayedText, setDisplayedText] = useState<string>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isTyping, setIsTyping] = useState<boolean>(true);
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const currentText = texts[currentIndex];
-
-    if (isTyping) {
-      // Typing phase
-      if (displayedText === currentText) {
-        // Finished typing, wait before deleting
-        timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, delayAfterTyping);
-      } else {
-        // Continue typing
-        timeout = setTimeout(() => {
-          if (currentText) {
-            setDisplayedText(
-              currentText.substring(0, displayedText.length + 1),
-            );
-          }
-        }, typingSpeed);
-      }
-    } else {
-      // Deleting phase
-      if (displayedText === "") {
-        // Finished deleting, move to next text
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
-        setIsTyping(true);
-      } else {
-        // Continue deleting
-        timeout = setTimeout(() => {
-          setDisplayedText(
-            displayedText.substring(0, displayedText.length - 1),
-          );
-        }, deletingSpeed);
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayedText, isTyping, currentIndex, texts, typingSpeed, deletingSpeed, delayAfterTyping]);
-
-  return displayedText;
-};
+import { useTypewriter } from "~/hooks/use-typewriter";
 
 const Footer = () => {
   const newsletterTexts = [
@@ -163,7 +110,7 @@ const Footer = () => {
         {/* FOOTER LINKS & BRAND */}
         <div className="mb-12 flex flex-col items-center gap-8 md:flex-row md:items-start md:justify-center md:gap-8 lg:gap-10">
           {/* BRAND SECTION */}
-          <div className="flex flex-col items-center text-center md:max-w-xs float-right: -right-50">
+          <div className="flex flex-col items-center text-center md:max-w-xs">
             <Link
               href="/"
               className="inline-block transition-opacity hover:opacity-80"
