@@ -3,12 +3,11 @@ import {
   defineCollection,
   defineConfig
 } from "@content-collections/core";
-import { z } from "zod";
 var posts = defineCollection({
   name: "posts",
   directory: "content/posts",
   include: "*.mdx",
-  schema: z.object({
+  schema: (z) => ({
     title: z.string(),
     description: z.string(),
     publishedAt: z.string(),
