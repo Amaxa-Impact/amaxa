@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { formatTimezone } from "~/lib/timezones";
 
 // Schema for contact form submissions
 const contactFormSchema = z.object({
@@ -33,14 +34,12 @@ export async function POST(request: NextRequest) {
     const validatedData = contactFormSchema.parse(body);
 
     // Get email recipient based on form type
-    // All form submissions go to jyang.scholar@gmail.com
-    const recipientEmail = "jyang.scholar@gmail.com";
+    // All form submissions go to lauren@amaxaimpact.org
+    const recipientEmail = "lauren@amaxaimpact.org";
     
     // Email configuration
-    // Using Resend's testing domain (onboarding@resend.dev)
-    // Domain amaxaimpact.org is not verified yet, so using testing domain
-    // Once domain is verified, can switch to: "ámaxa Contact Form <contact@amaxaimpact.org>"
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "ámaxa Contact Form <onboarding@resend.dev>";
+    // Using verified domain amaxaimpact.org
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "contact@amaxaimpact.org";
 
     // Removed validation - users can submit even if their email matches recipient
     // This allows testing and doesn't block legitimate use cases
@@ -118,8 +117,6 @@ export async function POST(request: NextRequest) {
         return timeString;
       }
     };
-
-    // formatTimezone is now imported from ~/lib/timezones
 
     // Generate Google Calendar link for demo requests
     const generateCalendarLink = () => {
@@ -497,7 +494,9 @@ export async function POST(request: NextRequest) {
       console.log("📥 Resend API Response:", JSON.stringify(emailResult, null, 2));
 
       if (emailResult.error) {
-        console.error(" Resend API Error:", emailResult.error);
+        console.error("❌ Resend API Error:", emailResult.error);
+        console.error("❌ FROM address used:", fromEmail);
+        console.error("❌ TO address used:", recipientEmail);
         throw new Error(emailResult.error.message || "Failed to send email");
       }
 
