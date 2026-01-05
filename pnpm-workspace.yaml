@@ -5,12 +5,7 @@ packages:
 
 catalog:
   #Next
-  next: ^15.2.4
-  # Auth
-  "@auth/core": 0.37.2
-  "@auth/drizzle-adapter": ~1.7.4
-  "next-auth": 5.0.0-beta.25
-  "better-auth": ^1.2.5
+  next: ^15.2.6
 
   # Dev tooling
   eslint: ^9.23.0
@@ -20,14 +15,6 @@ catalog:
 
   # Misc
   zod: ^3.24.2
-  "arktype": ^2.1.16
-  "drizzle-arktype": ^0.1.2
-
-  # Tanstack & tRPC
-  "@tanstack/react-query": ^5.69.0
-  "@trpc/client": ^11.0.0
-  "@trpc/tanstack-react-query": ^11.0.0
-  "@trpc/server": ^11.0.0
 
 catalogs:
   react19:

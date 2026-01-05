@@ -1,9 +1,7 @@
-import React from "react";
-import Script from "next/script";
+import React, { Suspense } from "react";
 
-import GTMProvider from "~/components/_analytics/GTMProvider"; // 👈 import it
-import GoogleTagManager from "~/components/_analytics/GoogleTagManager";
 import AnalyticsRouteListener from "~/components/_analytics/AnalyticsRouteListener";
+import GoogleTagManager from "~/components/_analytics/GoogleTagManager";
 
 import Footer from "~/components/footer";
 import { Navbar } from "~/components/header";
@@ -36,8 +34,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* <GTMProvider /> */}
 
       <Navbar />
-      <GoogleTagManager />
-      <AnalyticsRouteListener />
+      <Suspense fallback={<div>Loading...</div>}>
+        <GoogleTagManager />
+        <AnalyticsRouteListener />
+      </Suspense>
 
       {children}
       <Footer />

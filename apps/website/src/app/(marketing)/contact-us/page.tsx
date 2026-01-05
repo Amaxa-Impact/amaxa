@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 
 import { AnimatedTitle } from "~/components/animated-underline";
-import { ApplyButton } from "~/components/apply";
 
 export default function ProgramPage() {
   useEffect(() => {

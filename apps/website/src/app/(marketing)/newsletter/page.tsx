@@ -1,21 +1,18 @@
-"use client";
 
 import React from "react";
 import Link from "next/link";
-import Script from "next/script"; // Import the Script component
+import Script from "next/script"; 
 
 export default function ProgramPage() {
   return (
     <main>
       <div className="relative flex max-h-[320px] w-full flex-col bg-white px-6 sm:max-h-[240px] md:max-h-[320px] md:px-12 lg:px-20">
-        {/* Background container - hidden but preserved for reference */}
         <div className="invisible absolute inset-0">
           <div
             className="h-full w-full"
             style={{ background: "url(/Untitled design.png)" }}
           />
         </div>
-        {/* Content container with flex layout */}
         <section className="w-full py-16 md:py-24">
           <div className="container mx-auto px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
@@ -25,13 +22,12 @@ export default function ProgramPage() {
                   <span className="text-2xl text-[#3B3B3B]">(seriously.)</span>
                 </h1>
 
-                {/* Green wavy line - SVG replacement for the image */}
                 <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
                   <svg
-                    viewBox="0 0 325 50" // Adjusted viewBox height based on path
+                    viewBox="0 0 325 50" 
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full" // Ensure SVG scales
+                    className="h-full w-full" 
                   >
                     <path
                       d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
@@ -49,10 +45,8 @@ export default function ProgramPage() {
 
       <section className="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
-          {/* Ámaxa Monthly Newsletter */}
           <div className="space-y-8 md:space-y-10">
             <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-              {/* Left: Description */}
               <div className="w-full space-y-6 md:w-1/2">
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
                   Ámaxa Monthly Newsletter
@@ -67,19 +61,17 @@ export default function ProgramPage() {
                 </p>
 
                 <div>
-                  {/* Using Link for navigation */}
                   <Link
                     href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email"
-                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" // Example styling matching ApplyButton
-                    target="_blank" // Open in new tab
-                    rel="noopener noreferrer" // Security best practice
+                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                   >
                     Subscribe Now →
                   </Link>
                 </div>
               </div>
 
-              {/* Right: Substack Embed */}
               <div className="mt-8 w-full md:mt-0 md:w-1/2">
                 <div className="substack-post-embed rounded-xl bg-white p-6 shadow-md">
                   <p className="text-xl font-semibold">
@@ -100,10 +92,8 @@ export default function ProgramPage() {
             </div>
           </div>
 
-          {/* Culture & Cause Newsletter */}
           <div className="space-y-8 md:space-y-10">
             <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-              {/* Left: Description */}
               <div className="w-full space-y-6 md:w-1/2">
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
                   Culture & Cause
@@ -134,12 +124,11 @@ export default function ProgramPage() {
                 </p>
 
                 <div>
-                  {/* Using Link for navigation */}
                   <Link
-                    href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email" // TODO: Update this link if Culture & Cause has a different subscribe link
-                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" // Example styling matching ApplyButton
-                    target="_blank" // Open in new tab
-                    rel="noopener noreferrer" // Security best practice
+                    href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email" 
+                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                   >
                     Subscribe Now →
                   </Link>
@@ -148,7 +137,6 @@ export default function ProgramPage() {
 
               {/* Right: Substack Embed */}
               <div className="mt-8 w-full md:mt-0 md:w-1/2">
-                {/* TODO: Update this embed if needed for Culture & Cause */}
                 <div className="substack-post-embed rounded-xl bg-white p-6 shadow-md">
                   <p className="text-xl font-semibold">
                     join the burnt out club!!❤️‍🔥 by Ámaxa
@@ -170,8 +158,6 @@ export default function ProgramPage() {
         </div>
       </section>
 
-      {/* Add the Next.js Script component here */}
-      {/* 'afterInteractive' strategy loads the script after the page becomes interactive. */}
       <Script
         src="https://substack.com/embedjs/embed.js"
         strategy="afterInteractive"

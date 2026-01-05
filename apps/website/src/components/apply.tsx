@@ -1,11 +1,9 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter} from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { usePostHog } from "posthog-js/react";
-
-import { Button } from "@amaxa/ui/button";
 
 const ApplyButtonContent = (props: {
   variant: "color" | "black" | "long" | "ghost";
@@ -13,15 +11,11 @@ const ApplyButtonContent = (props: {
 }) => {
   const { variant, children } = props;
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const posthog = usePostHog();
   const router = useRouter();
 
   function onClick() {
-    let url = window.origin + pathname;
-    if (searchParams.toString()) {
-      url = url + `?${searchParams.toString()}`;
-    }
+    const url = window.origin + pathname;
     posthog.capture("apply_button_clicked", {
       current_url: url,
     });
