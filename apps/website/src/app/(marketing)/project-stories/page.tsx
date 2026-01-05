@@ -1,19 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import { AnimatedTitle } from "~/components/animated-underline";
-import { ApplyButton } from "~/components/apply";
 import { Spotlight } from "../_sections/spotlight";
 
 export default function ProgramPage() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://substack.com/embedjs/embed.js";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-  }, []);
 
   return (
     <main>

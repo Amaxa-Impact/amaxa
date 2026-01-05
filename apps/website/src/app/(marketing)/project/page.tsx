@@ -5,7 +5,7 @@ import { FocusCards } from "@/components/ui/focus-cards";
 
 import { AnimatedTitle } from "~/components/animated-underline";
 import { ApplyButton } from "~/components/apply";
-import { projects } from "~/lib/constants/projects"; // Assuming this is the correct import for projects
+import { projects } from "~/lib/constants/projects";
 
 export default function Page() {
   return (

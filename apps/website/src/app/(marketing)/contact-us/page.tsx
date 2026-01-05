@@ -1,18 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 
 import { AnimatedTitle } from "~/components/animated-underline";
 
 export default function ProgramPage() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://substack.com/embedjs/embed.js";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-  }, []);
 
   return (
     <main>
@@ -44,7 +37,7 @@ export default function ProgramPage() {
               {/* Left: Description */}
               <div className="w-full space-y-6 md:w-1/2">
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
-                  Questions, comments, or partnership proposals? We've love to
+                  Questions, comments, or partnership proposals? We'd love to
                   hear from you.
                 </h2>
                 <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
@@ -57,20 +50,12 @@ export default function ProgramPage() {
                   at lexi@amaxaimpact.org.
                 </p>
 
-                {/* <div>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ApplyButton variant="color">
-            Check out This Month's Edition →
-            </ApplyButton>
-          </React.Suspense>
-        </div> */}
               </div>
 
-              {/* Right: Image instead of Substack Embed */}
               <div className="mt-8 flex w-full items-center justify-center md:mt-0 md:w-1/2">
                 <div className="h-auto w-auto">
                   <Image
-                    src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI" // replace with your image path
+                    src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI"
                     alt="mail"
                     width="300"
                     height="300"
