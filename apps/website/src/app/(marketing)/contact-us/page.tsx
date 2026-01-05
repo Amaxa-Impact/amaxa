@@ -362,20 +362,12 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                               <SelectValue placeholder="Select timezone" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="America/Denver">Mountain Time (MT)</SelectItem>
-                            <SelectItem value="America/New_York">Eastern Time (ET)</SelectItem>
-                            <SelectItem value="America/Chicago">Central Time (CT)</SelectItem>
-                            <SelectItem value="America/Los_Angeles">Pacific Time (PT)</SelectItem>
-                            <SelectItem value="America/Phoenix">Arizona Time (MST)</SelectItem>
-                            <SelectItem value="America/Anchorage">Alaska Time (AKT)</SelectItem>
-                            <SelectItem value="Pacific/Honolulu">Hawaii Time (HST)</SelectItem>
-                            <SelectItem value="UTC">UTC</SelectItem>
-                            <SelectItem value="Europe/London" label="London (GMT)" />
-                            <SelectItem value="Europe/Paris">Paris (CET)</SelectItem>
-                            <SelectItem value="Asia/Tokyo">Tokyo (JST)</SelectItem>
-                            <SelectItem value="Asia/Shanghai">Shanghai (CST)</SelectItem>
-                            <SelectItem value="Australia/Sydney">Sydney (AEST)</SelectItem>
+                          <SelectContent className="max-h-[300px]">
+                            {timezones.map((tz) => (
+                              <SelectItem key={tz.value} value={tz.value}>
+                                {tz.label}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormDescription>

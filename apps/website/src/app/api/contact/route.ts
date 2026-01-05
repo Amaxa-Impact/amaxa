@@ -119,25 +119,7 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    const formatTimezone = (tz: string | undefined) => {
-      if (!tz) return "";
-      const tzMap: Record<string, string> = {
-        "America/Denver": "Mountain Time (MT)",
-        "America/New_York": "Eastern Time (ET)",
-        "America/Chicago": "Central Time (CT)",
-        "America/Los_Angeles": "Pacific Time (PT)",
-        "America/Phoenix": "Arizona Time (MST)",
-        "America/Anchorage": "Alaska Time (AKT)",
-        "Pacific/Honolulu": "Hawaii Time (HST)",
-        "UTC": "UTC",
-        "Europe/London": "London (GMT)",
-        "Europe/Paris": "Paris (CET)",
-        "Asia/Tokyo": "Tokyo (JST)",
-        "Asia/Shanghai": "Shanghai (CST)",
-        "Australia/Sydney": "Sydney (AEST)",
-      };
-      return tzMap[tz] || tz;
-    };
+    // formatTimezone is now imported from ~/lib/timezones
 
     // Generate Google Calendar link for demo requests
     const generateCalendarLink = () => {
