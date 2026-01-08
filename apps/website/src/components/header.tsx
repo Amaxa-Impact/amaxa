@@ -20,16 +20,15 @@ export const Navbar = () => {
   const cls = cn("text-2xl", navigationMenuTriggerStyle());
 
   const navItems = [
-    { href: "/who-we-are", label: "Meet Ámaxa" },
+    // { href: "/who-we-are", label: "Meet Ámaxa" },
     { href: "/project", label: "Discover Projects" },
     { href: "/pathways", label: "Explore Our Pathways" },
     { href: "/project-stories", label: "Read Ámaxa Stories" },
     // { href: "/newsletter", label: "Keep in Touch" },
     { href: "/contact-us", label: "Contact Us" },
-    {
-      href: "https://ballet-mild-64061755.figma.site/",
-      label: "✨ 2025 Denver Gala",
-    },
+    { href: "/blog", label: "Blog" },
+
+   
   ];
 
   return (

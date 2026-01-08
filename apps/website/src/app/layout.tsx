@@ -3,7 +3,7 @@ import "~/app/globals.css";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 
-// import { CSPostHogProvider } from "./_providers/providers";
+import { Toaster } from "@amaxa/ui/toast";
 
 export const metadata: Metadata = {
   title: {
@@ -78,9 +78,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.variable}`}
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         {children}
+        <Toaster />
       </body>
     </html>
   );
