@@ -77,4 +77,63 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
   }
+
+  /* Animated underline drawing effect - 2s delay, very slow start, stays for 5 seconds, then loops */
+  @keyframes draw-line {
+    0% {
+      stroke-dashoffset: 1000;
+      opacity: 0;
+    }
+    2% {
+      opacity: 1;
+    }
+    30% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    75% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    98% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 1000;
+      opacity: 0;
+    }
+  }
+
+  .animate-draw-line {
+    animation: draw-line 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 1s;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    will-change: stroke-dashoffset, opacity;
+    shape-rendering: geometricPrecision;
+  }
+
+  /* Permanent underline animation - draws once and stays */
+  @keyframes draw-line-permanent {
+    0% {
+      stroke-dashoffset: 1000;
+      opacity: 0;
+    }
+    2% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
+  .animate-draw-line-permanent {
+    animation: draw-line-permanent 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 2s;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    will-change: stroke-dashoffset, opacity;
+    shape-rendering: geometricPrecision;
+  }
 }

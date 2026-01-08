@@ -3,8 +3,9 @@
 import React from "react";
 import { FocusCards } from "@/components/ui/focus-cards";
 
+import { AnimatedTitle } from "~/components/animated-underline";
 import { ApplyButton } from "~/components/apply";
-import { projects } from "~/lib/constants/projects"; // Assuming this is the correct import for projects
+import { projects } from "~/lib/constants/projects";
 
 export default function Page() {
   return (
@@ -18,37 +19,11 @@ export default function Page() {
           />
         </div>
         {/* Content container with flex layout */}
-        <section className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-6 md:px-16 lg:px-20">
-            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
-              <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
-                {/* --- Start of resolved conflict block (main version kept) --- */}
-                <h1 className="text-3xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
-                  Discover{" "}
-                  <span className="font-normal text-[#3B3B3B]">
-                    Our Projects
-                  </span>
-                </h1>
-                {/* --- End of resolved conflict block --- */}
-
-                {/* Green wavy line - SVG replacement for the image */}
-                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
-                  {/* --- Start of resolved conflict block (SVG fixed) --- */}
-                  <svg
-                    viewBox="0 0 325 50" // Adjusted viewBox height
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full" // Ensure SVG scales
-                  >
-                    <path
-                      d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
-                      stroke="#BCD96C"
-                      strokeWidth="8"
-                      strokeLinecap="round" // Moved inside path tag
-                    />
-                  </svg>
-                  {/* --- End of resolved conflict block --- */}
-                </div>
+        <section className="w-full py-16 md:py-24 overflow-visible">
+          <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+            <div className="flex flex-col items-center justify-center overflow-visible">
+              <div className="mb-12 max-w-full overflow-visible">
+                <AnimatedTitle beforeText="Discover" underlinedText="Our Projects" color="#BCD96C" />
               </div>
             </div>
           </div>

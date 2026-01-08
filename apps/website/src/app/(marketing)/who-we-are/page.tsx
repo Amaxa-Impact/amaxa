@@ -12,6 +12,7 @@ import { motion } from "motion/react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@amaxa/ui/tabs";
 
+import { AnimatedTitle } from "~/components/animated-underline";
 import { ApplyButton } from "~/components/apply";
 import { ProfileCard } from "./_components/people";
 
@@ -112,16 +113,20 @@ export const testimonials = [
 export default function WhoAreWePage() {
   return (
     <main className="w-full">
+      {/* Title Section with Animated Underline */}
+      <section className="w-full py-16 md:py-24 overflow-visible">
+        <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+          <div className="flex flex-col items-center justify-center overflow-visible">
+            <div className="mb-12 max-w-full overflow-visible">
+              <AnimatedTitle underlinedText="Mission & Team" color="#BCD96C" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="mx-auto max-w-7xl px-6 py-16 text-[#3B3B3B] md:px-16 lg:px-20">
         <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden bg-black">
-          <motion.img
-            src=""
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover [mask-image:radial-gradient(circle,transparent,black_80%)]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ duration: 1 }}
-          />
           <h1 className="relative z-10 max-w-4xl px-6 text-left text-3xl font-bold text-white">
             Àmaxa’s mission is to make it easier for people who want to make a
             difference to <ColourfulText text="actually take action" /> — not
