@@ -1,10 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { Mail, Phone, Calendar, Building2, Send, Loader2, Globe, Info, CheckCircle2, ArrowRight } from "lucide-react";
-import { z } from "zod";
+import {
+  ArrowRight,
+  Calendar,
+  CheckCircle2,
+  Globe,
+  Info,
+  Loader2,
+  Mail,
+  Send,
+} from "lucide-react";
 import { toast } from "sonner";
+import { z } from "zod";
 
 import { Button } from "@amaxa/ui/button";
 import {
@@ -25,8 +33,6 @@ import {
   useForm,
 } from "@amaxa/ui/form";
 import { Input } from "@amaxa/ui/input";
-import { Textarea } from "@amaxa/ui/textarea";
-import { Separator } from "@amaxa/ui/separator";
 import {
   Select,
   SelectContent,
@@ -34,17 +40,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-import { AnimatedTitle } from "~/components/animated-underline";
+import { Separator } from "@amaxa/ui/separator";
+import { Textarea } from "@amaxa/ui/textarea";
+
 import { timezones } from "~/lib/timezones";
 
-// Unified form schema for general inquiries
 const unifiedInquiryFormSchema = z.object({
   inquiryType: z.enum(["general", "internship", "high-school"], {
     required_error: "Please select an inquiry type",
   }),
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  message: z.string().min(10, "Please provide more details (at least 10 characters)"),
+  message: z
+    .string()
+    .min(10, "Please provide more details (at least 10 characters)"),
 });
 
 const demoFormSchema = z.object({
@@ -55,7 +64,9 @@ const demoFormSchema = z.object({
   preferredDate: z.string().optional(),
   preferredTime: z.string().optional(),
   timezone: z.string().optional(),
-  message: z.string().min(10, "Please provide more details about your interest"),
+  message: z
+    .string()
+    .min(10, "Please provide more details about your interest"),
 });
 
 type FormType = "internship" | "high-school" | "general" | "demo";
@@ -68,12 +79,9 @@ interface ContactFormProps {
   showInquiryTypeSelector?: boolean;
 }
 
-// Format phone number as (XXX) XXX-XXXX
 function formatPhoneNumber(value: string): string {
-  // Remove all non-digit characters
   const phoneNumber = value.replace(/\D/g, "");
-  
-  // Limit to 10 digits
+
   const phoneNumberLength = phoneNumber.length;
   if (phoneNumberLength < 4) return phoneNumber;
   if (phoneNumberLength < 7) {
@@ -82,36 +90,45 @@ function formatPhoneNumber(value: string): string {
   return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
 }
 
-function ContactForm({ formType, title, description, schema, showInquiryTypeSelector = false }: ContactFormProps) {
+function ContactForm({
+  formType,
+  title,
+  description,
+  schema,
+  showInquiryTypeSelector = false,
+}: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const form = useForm({
     schema,
-    defaultValues: formType === "demo" 
-      ? { name: "", email: "", organization: "", phone: "", preferredDate: "", preferredTime: "", timezone: "America/Denver", message: "" }
-      : showInquiryTypeSelector
-      ? { inquiryType: "general" as const, name: "", email: "", message: "" }
-      : { name: "", email: "", message: "" },
+    defaultValues:
+      formType === "demo"
+        ? {
+            name: "",
+            email: "",
+            organization: "",
+            phone: "",
+            preferredDate: "",
+            preferredTime: "",
+            timezone: "America/Denver",
+            message: "",
+          }
+        : showInquiryTypeSelector
+          ? {
+              inquiryType: "general" as const,
+              name: "",
+              email: "",
+              message: "",
+            }
+          : { name: "", email: "", message: "" },
   });
 
   const onSubmit = async (values: any) => {
-    // Very visible debugging
-    console.log("📤 ========== FORM SUBMISSION STARTED ==========");
-    console.log("📤 Form submitted with values:", values);
-    console.log("📤 Current URL:", window.location.href);
-    
-    // Check browser console - if you see this, the form is submitting
-    if (typeof window !== 'undefined') {
-      console.log("✅ Browser window exists, form submission handler is running");
-    }
-    
-    setIsSubmitting(true);
     try {
-      // For unified form, use the inquiryType from values, otherwise use formType
-      const finalFormType = showInquiryTypeSelector ? values.inquiryType : formType;
-      console.log("📤 Sending request to /api/contact with formType:", finalFormType);
-      console.log("📤 Request payload:", JSON.stringify({ ...values, formType: finalFormType }, null, 2));
-      
+      const finalFormType = showInquiryTypeSelector
+        ? values.inquiryType
+        : formType;
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -123,19 +140,16 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
         }),
       });
 
-      console.log("📥 Response status:", response.status, response.statusText);
-      console.log("📥 Response ok:", response.ok);
-
-      // Check if response is ok before parsing JSON
       if (!response.ok) {
         console.error("❌ Response not OK:", response.status);
-        // Try to parse error response
         let errorData;
         try {
           errorData = await response.json();
         } catch {
-          // If JSON parsing fails, use default error
-          errorData = { error: "Failed to send message", message: "Please try again later." };
+          errorData = {
+            error: "Failed to send message",
+            message: "Please try again later.",
+          };
         }
 
         let errorMessage = errorData.error || "Failed to send message";
@@ -143,37 +157,38 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
 
         if (response.status === 400) {
           errorMessage = "Validation Error";
-          errorDescription = errorData.message || "Please check your form and try again.";
+          errorDescription =
+            errorData.message || "Please check your form and try again.";
         } else if (response.status === 403) {
           errorMessage = "Email Service Error";
-          errorDescription = "There was an issue with the email service. Please check your email address and try again, or contact us directly.";
+          errorDescription =
+            "There was an issue with the email service. Please check your email address and try again, or contact us directly.";
         } else if (response.status === 500) {
           errorMessage = "Server Error";
-          errorDescription = "Something went wrong on our end. Please try again in a few moments.";
+          errorDescription =
+            "Something went wrong on our end. Please try again in a few moments.";
         }
 
         toast.error(errorMessage, {
           description: errorDescription,
           duration: Infinity,
         });
-        
-        return; // Exit early on error
+
+        return;
       }
 
       const data = await response.json();
 
       if (data.success) {
-        // Professional success message with reference ID
         const referenceId = data.referenceId;
-        
+
         toast.success("Message Submitted Successfully", {
-          description: referenceId 
+          description: referenceId
             ? `Your message has been received. Reference ID: ${referenceId}`
             : "Your message has been received and will be reviewed by our team.",
           duration: Infinity,
         });
-        
-        // Show reference ID prominently if available
+
         if (referenceId) {
           setTimeout(() => {
             toast.info("Save Your Reference ID", {
@@ -182,7 +197,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
             });
           }, 1500);
         }
-        
+
         form.reset();
       } else {
         // Handle case where success is false but status was 200
@@ -197,14 +212,21 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
     } catch (error) {
       // Handle network errors or other exceptions
       console.error("❌ ========== FORM SUBMISSION ERROR ==========");
-      console.error("❌ Error type:", error instanceof Error ? error.constructor.name : typeof error);
-      console.error("❌ Error message:", error instanceof Error ? error.message : String(error));
+      console.error(
+        "❌ Error type:",
+        error instanceof Error ? error.constructor.name : typeof error,
+      );
+      console.error(
+        "❌ Error message:",
+        error instanceof Error ? error.message : String(error),
+      );
       console.error("❌ Full error:", error);
       console.error("❌ ============================================");
       toast.error("Failed to send message", {
-        description: error instanceof Error 
-          ? error.message 
-          : "Network error. Please check your connection and try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Network error. Please check your connection and try again.",
         duration: Infinity,
       });
     } finally {
@@ -228,7 +250,10 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel {...({} as any)}>Inquiry Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select inquiry type" />
@@ -236,8 +261,12 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="general">General Inquiry</SelectItem>
-                        <SelectItem value="internship">Internship Inquiry</SelectItem>
-                        <SelectItem value="high-school">High School Program</SelectItem>
+                        <SelectItem value="internship">
+                          Internship Inquiry
+                        </SelectItem>
+                        <SelectItem value="high-school">
+                          High School Program
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                     <FormDescription>
@@ -270,7 +299,11 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                 <FormItem>
                   <FormLabel {...({} as any)}>Email Address</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="john@example.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -286,7 +319,10 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     <FormItem>
                       <FormLabel {...({} as any)}>Organization Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Personal, School Name, or Company Name" {...field} />
+                        <Input
+                          placeholder="Personal, School Name, or Company Name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -299,7 +335,9 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>Phone Number (Optional)</FormLabel>
+                        <FormLabel {...({} as any)}>
+                          Phone Number (Optional)
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
@@ -307,7 +345,9 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                             {...field}
                             value={field.value || ""}
                             onChange={(e) => {
-                              const formatted = formatPhoneNumber(e.target.value);
+                              const formatted = formatPhoneNumber(
+                                e.target.value,
+                              );
                               field.onChange(formatted);
                             }}
                           />
@@ -322,7 +362,9 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     name="preferredDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>Preferred Date (Optional)</FormLabel>
+                        <FormLabel {...({} as any)}>
+                          Preferred Date (Optional)
+                        </FormLabel>
                         <FormControl>
                           <Input type="date" {...field} />
                         </FormControl>
@@ -338,7 +380,9 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                     name="preferredTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>Preferred Time (Optional)</FormLabel>
+                        <FormLabel {...({} as any)}>
+                          Preferred Time (Optional)
+                        </FormLabel>
                         <FormControl>
                           <Input type="time" {...field} />
                         </FormControl>
@@ -358,7 +402,10 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                             Timezone (Optional)
                           </div>
                         </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select timezone" />
@@ -373,7 +420,8 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                           </SelectContent>
                         </Select>
                         <FormDescription>
-                          Select your timezone so we can schedule at a convenient time
+                          Select your timezone so we can schedule at a
+                          convenient time
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -407,7 +455,7 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
 
             <Button
               type="submit"
-              className="w-full bg-[#3B3B3B] hover:bg-[#3B3B3B]/90 text-white"
+              className="w-full bg-[#3B3B3B] text-white hover:bg-[#3B3B3B]/90"
               disabled={isSubmitting}
               variant="primary"
             >
@@ -423,15 +471,20 @@ function ContactForm({ formType, title, description, schema, showInquiryTypeSele
                 </>
               )}
             </Button>
-            
+
             {formType !== "demo" && (
-              <div className="mt-4 rounded-lg bg-[#BCD96C]/10 border border-[#BCD96C]/30 p-4">
+              <div className="mt-4 rounded-lg border border-[#BCD96C]/30 bg-[#BCD96C]/10 p-4">
                 <div className="flex items-start gap-3">
-                  <Info className="h-5 w-5 text-[#3B3B3B] mt-0.5 flex-shrink-0" />
+                  <Info className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#3B3B3B]" />
                   <div className="text-sm text-[#3B3B3B]/80">
-                    <p className="font-medium mb-1">Where does this message go?</p>
+                    <p className="mb-1 font-medium">
+                      Where does this message go?
+                    </p>
                     <p>
-                      Your message will be sent directly to <strong>lauren@amaxaimpact.org</strong>. A team member will reply directly to your email address. We typically respond within 1-2 business days.
+                      Your message will be sent directly to{" "}
+                      <strong>lauren@amaxaimpact.org</strong>. A team member
+                      will reply directly to your email address. We typically
+                      respond within 1-2 business days.
                     </p>
                   </div>
                 </div>
@@ -481,17 +534,18 @@ export default function ContactUsPage() {
         <div className="mx-auto max-w-7xl space-y-16">
           {/* Introduction Section */}
           <div className="text-center">
-                <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               Get in touch with ámaxa.
-                </h2>
+            </h2>
             <p className="mt-4 text-lg text-[#3B3B3B]/80 md:text-xl">
-              We're here to help. Choose the form that best fits your inquiry, or reach out directly.
+              We're here to help. Choose the form that best fits your inquiry,
+              or reach out directly.
             </p>
           </div>
 
           {/* Direct Contact Information */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card className="border-2 flex flex-col h-full">
+            <Card className="flex h-full flex-col border-2">
               <CardHeader className="flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#BCD96C]/20">
                   <Mail className="h-6 w-6 text-[#3B3B3B]" />
@@ -503,20 +557,24 @@ export default function ContactUsPage() {
               </CardHeader>
               <CardContent className="flex flex-col justify-end space-y-3">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-2">General Inquiries</p>
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    General Inquiries
+                  </p>
                   <a
                     href="mailto:lauren@amaxaimpact.org"
-                    className="text-[#3B3B3B] hover:text-[#BCD96C] transition-colors font-medium break-all"
+                    className="break-all font-medium text-[#3B3B3B] transition-colors hover:text-[#BCD96C]"
                   >
                     lauren@amaxaimpact.org
                   </a>
                 </div>
                 <Separator />
                 <div>
-                  <p className="text-sm text-muted-foreground mb-2">Collaboration</p>
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    Collaboration
+                  </p>
                   <a
                     href="mailto:lexi@amaxaimpact.org"
-                    className="text-[#3B3B3B] hover:text-[#BCD96C] transition-colors font-medium break-all"
+                    className="break-all font-medium text-[#3B3B3B] transition-colors hover:text-[#BCD96C]"
                   >
                     lexi@amaxaimpact.org
                   </a>
@@ -524,26 +582,29 @@ export default function ContactUsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-2 flex flex-col h-full">
+            <Card className="flex h-full flex-col border-2">
               <CardHeader className="flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#BCD96C]/20">
                   <Calendar className="h-6 w-6 text-[#3B3B3B]" />
                 </div>
                 <CardTitle className="text-xl">Schedule a Call</CardTitle>
                 <CardDescription className="mt-2">
-                  Interested in learning more? Use the demo request form below to schedule an introduction call.
+                  Interested in learning more? Use the demo request form below
+                  to schedule an introduction call.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col justify-end">
                 <Button
                   variant="outline"
-                  className="w-full border-[#3B3B3B] text-[#3B3B3B] hover:bg-[#BCD96C]/20 hover:border-[#BCD96C] transition-colors group"
+                  className="group w-full border-[#3B3B3B] text-[#3B3B3B] transition-colors hover:border-[#BCD96C] hover:bg-[#BCD96C]/20"
                   onClick={() => {
-                    document.getElementById("demo-section")?.scrollIntoView({ behavior: "smooth" });
+                    document
+                      .getElementById("demo-section")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
                   Request Demo
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </CardContent>
             </Card>
@@ -551,19 +612,22 @@ export default function ContactUsPage() {
 
           {/* Contact Forms Section */}
           <div className="space-y-12">
-            <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-3 mb-2">
+            <div className="space-y-4 text-center">
+              <div className="mb-2 inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-3">
                 <Mail className="h-6 w-6 text-[#3B3B3B]" />
               </div>
               <h3 className="text-2xl font-semibold text-[#3B3B3B] md:text-3xl">
                 Send Us a Message
               </h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Fill out the form below that matches your inquiry type. A team member will reply to your email address, or for demo requests with a preferred date and time, you'll receive a Google Calendar invite.
+              <p className="mx-auto max-w-2xl text-muted-foreground">
+                Fill out the form below that matches your inquiry type. A team
+                member will reply to your email address, or for demo requests
+                with a preferred date and time, you'll receive a Google Calendar
+                invite.
               </p>
             </div>
 
-            <div className="max-w-3xl mx-auto">
+            <div className="mx-auto max-w-3xl">
               <ContactForm
                 formType="general"
                 title="Send Us a Message"
@@ -578,46 +642,59 @@ export default function ContactUsPage() {
           <div className="my-16">
             <Separator />
           </div>
-          
-          <div id="demo-section" className="space-y-8 scroll-mt-20">
-            <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-4 mb-4">
+
+          <div id="demo-section" className="scroll-mt-20 space-y-8">
+            <div className="space-y-4 text-center">
+              <div className="mb-4 inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-4">
                 <Calendar className="h-8 w-8 text-[#3B3B3B]" />
               </div>
               <h3 className="text-3xl font-semibold text-[#3B3B3B] md:text-4xl">
                 Schedule a Demo or Call
               </h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Are you an orgainzation interested in learning more about ámaxa? 
+              <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+                Are you an orgainzation interested in learning more about ámaxa?
                 Request an introduction call with our team.
               </p>
-              
+
               {/* Information Card */}
-              <div className="mt-6 max-w-2xl mx-auto rounded-xl bg-gradient-to-br from-[#BCD96C]/10 to-[#BCD96C]/5 border border-[#BCD96C]/30 p-6">
+              <div className="mx-auto mt-6 max-w-2xl rounded-xl border border-[#BCD96C]/30 bg-gradient-to-br from-[#BCD96C]/10 to-[#BCD96C]/5 p-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
                     <div className="rounded-full bg-[#BCD96C]/20 p-2">
                       <CheckCircle2 className="h-6 w-6 text-[#3B3B3B]" />
                     </div>
                   </div>
-                  <div className="text-left space-y-2">
-                    <h4 className="font-semibold text-[#3B3B3B] text-lg">What happens next?</h4>
+                  <div className="space-y-2 text-left">
+                    <h4 className="text-lg font-semibold text-[#3B3B3B]">
+                      What happens next?
+                    </h4>
                     <ul className="space-y-2 text-sm text-[#3B3B3B]/80">
                       <li className="flex items-start gap-2">
-                        <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>Your request is sent to an ámaxa team member</span>
+                        <span className="mt-1 text-[#BCD96C]">•</span>
+                        <span>
+                          Your request is sent to an ámaxa team member
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>We review your information and preferred time (including timezone)</span>
+                        <span className="mt-1 text-[#BCD96C]">•</span>
+                        <span>
+                          We review your information and preferred time
+                          (including timezone)
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>The team member will reply to your email address, or if you've provided a preferred date and time, you'll receive a Google Calendar invite</span>
+                        <span className="mt-1 text-[#BCD96C]">•</span>
+                        <span>
+                          The team member will reply to your email address, or
+                          if you've provided a preferred date and time, you'll
+                          receive a Google Calendar invite
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-[#BCD96C] mt-1">•</span>
-                        <span>We typically respond within 1-2 business days</span>
+                        <span className="mt-1 text-[#BCD96C]">•</span>
+                        <span>
+                          We typically respond within 1-2 business days
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -625,7 +702,7 @@ export default function ContactUsPage() {
               </div>
             </div>
 
-            <div className="max-w-3xl mx-auto">
+            <div className="mx-auto max-w-3xl">
               <ContactForm
                 formType="demo"
                 title="Request a Demo or Intro Call"

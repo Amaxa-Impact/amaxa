@@ -1,9 +1,4 @@
 /** @type {import("next").NextConfig} */
-import createMDX from '@next/mdx'
-import { withContentCollections } from "@content-collections/next";
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
-
 
 const config = {
   reactStrictMode: true,
@@ -66,11 +61,4 @@ const config = {
   skipTrailingSlashRedirect: true,
 };
 
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
-    rehypePlugins: [],
-  },
-
-})
-export default withContentCollections(withMDX(config));
+export default config;
