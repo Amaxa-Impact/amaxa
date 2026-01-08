@@ -1,90 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { ApplyButton } from "~/components/apply";
+import { useTypewriter } from "~/hooks/use-typewriter";
 
 interface ContentItem {
   image: string;
   statement: string;
 }
-
-// Enhanced typewriter hook that supports manual navigation
-const useTypewriter = (
-  texts: string[],
-  typingSpeed = 50,
-  deletingSpeed = 30,
-  delayAfterTyping = 1500,
-) => {
-  const [displayedText, setDisplayedText] = useState<string>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isTyping, setIsTyping] = useState<boolean>(true);
-  const [targetIndex, setTargetIndex] = useState<number | null>(null);
-
-  // Function to manually navigate to specific index
-  const jumpToIndex = (index: number): void => {
-    if (index === currentIndex) return;
-    setIsTyping(false);
-    setTargetIndex(index);
-  };
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const currentText = texts[currentIndex];
-
-    if (isTyping) {
-      // Typing phase
-      if (displayedText === currentText) {
-        // Finished typing, wait before deleting
-        timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, delayAfterTyping);
-      } else {
-        // Continue typing
-        timeout = setTimeout(() => {
-          setDisplayedText(
-            currentText?.substring(0, displayedText.length + 1)!,
-          );
-        }, typingSpeed);
-      }
-    } else {
-      // Deleting phase
-      if (displayedText === "") {
-        // Finished deleting, decide where to go next
-        if (targetIndex !== null) {
-          setCurrentIndex(targetIndex);
-          setTargetIndex(null);
-        } else {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
-        }
-        setIsTyping(true);
-      } else {
-        // Continue deleting
-        timeout = setTimeout(() => {
-          setDisplayedText(
-            displayedText.substring(0, displayedText.length - 1),
-          );
-        }, deletingSpeed);
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [
-    displayedText,
-    isTyping,
-    currentIndex,
-    texts,
-    typingSpeed,
-    deletingSpeed,
-    delayAfterTyping,
-    targetIndex,
-  ]);
-
-  return { text: displayedText, currentIndex, jumpToIndex };
-};
 
 // Content pairs (image and impact statement)
 const content: ContentItem[] = [
@@ -140,12 +67,17 @@ const ImpactSection: React.FC = () => {
   const statements: string[] = content.map((item) => item.statement);
   const [direction, setDirection] = useState<number>(1);
 
-  // Use the enhanced typewriter hook
+  // Use the typewriter hook with manual navigation enabled
+  const typewriterResult = useTypewriter(statements, 40, 20, 2000, true);
   const {
     text: typedText,
     currentIndex: activeIndex,
     jumpToIndex,
-  } = useTypewriter(statements, 40, 20, 2000);
+  } = typewriterResult as {
+    text: string;
+    currentIndex: number;
+    jumpToIndex: (index: number) => void;
+  };
 
   // Calculate previous and next indices
   const prevIndex: number = (activeIndex - 1 + content.length) % content.length;
