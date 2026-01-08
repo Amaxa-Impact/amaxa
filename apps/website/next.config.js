@@ -19,6 +19,14 @@ const config = {
         hostname: "**",
       },
     ],
+    // Increase timeout and add better error handling for slow image sources
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Custom loader to bypass optimization for ufs.sh to prevent timeout errors
+    loader: 'custom',
+    loaderFile: './src/lib/image-loader.ts',
   },
 
   /** Enables hot reloading for local packages without a build step */

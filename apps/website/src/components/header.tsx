@@ -15,8 +15,6 @@ import {
 } from "@amaxa/ui/navigation-menu";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@amaxa/ui/sheet";
 
-import { ApplyButton } from "./apply";
-
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const cls = cn("text-2xl", navigationMenuTriggerStyle());
@@ -35,6 +33,18 @@ export const Navbar = () => {
 
   return (
     <>
+      {/*Scrum 6 Green Banner - Similar to Rise Website*/}
+<Link 
+  href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F" 
+  className="bg-[#abc468] text-white text-center py-3 px-4 text-sm font-medium block hover:bg-black transition-colors"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-1">
+    <span>Application to an Ámaxa Pathway.</span>
+    <span className="underline font-semibold">Apply here now!</span>
+  </div>
+</Link>
       {/* Desktop Navbar */}
       <header className="w-max-screen relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
         <div>
