@@ -2,6 +2,11 @@
 
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
+import type {
+  NameType,
+  Payload,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
 import { cn } from ".";
 
@@ -207,7 +212,7 @@ const ChartTooltipContent = React.forwardRef<
                     item.name,
                     item,
                     index,
-                    payload as unknown[],
+                    payload as Array<Payload<ValueType, NameType>>,
                   )
                 ) : (
                   <>

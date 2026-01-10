@@ -76,7 +76,7 @@ const portableTextComponents: PortableTextComponents = {
       return (
         <div className="my-8">
           <Image
-            src={urlFor(value.asset)}
+            src={urlFor(value.asset).width(1200).url()}
             alt={value.alt || "Image"}
             width={1200}
             height={700}

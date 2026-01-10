@@ -49,28 +49,45 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     if (asChild) {
+      const onlyChild = React.Children.only(children);
+      const ariaDisabled = Boolean(loading || props.disabled);
+
+      if (!React.isValidElement(onlyChild)) {
+        return (
+          <Slot
+            ref={ref}
+            {...props}
+            aria-disabled={ariaDisabled}
+            data-disabled={ariaDisabled ? "" : undefined}
+            className={cn(buttonVariants({ variant, size }), className)}
+          >
+            {onlyChild}
+          </Slot>
+        );
+      }
+
+      const childEl = onlyChild as React.ReactElement<{
+        children?: React.ReactNode;
+      }>;
+
       return (
-        <Slot ref={ref} {...props}>
-          <>
-            {React.Children.map(
-              children as React.ReactElement,
-              (child: React.ReactElement) => {
-                return React.cloneElement(child, {
-                  className: cn(buttonVariants({ variant, size }), className),
-                  children: (
-                    <>
-                      {loading && (
-                        <Loader2
-                          className={cn("h-4 w-4 animate-spin", "mr-2")}
-                        />
-                      )}
-                      {child.props.children}
-                    </>
-                  ),
-                });
-              },
-            )}
-          </>
+        <Slot
+          ref={ref}
+          {...props}
+          aria-disabled={ariaDisabled}
+          data-disabled={ariaDisabled ? "" : undefined}
+          className={cn(buttonVariants({ variant, size }), className)}
+        >
+          {React.cloneElement(childEl, {
+            children: (
+              <>
+                {loading && (
+                  <Loader2 className={cn("h-4 w-4 animate-spin", "mr-2")} />
+                )}
+                {childEl.props.children}
+              </>
+            ),
+          })}
         </Slot>
       );
     }
@@ -78,9 +95,9 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
-        disabled={loading}
         ref={ref}
         {...props}
+        disabled={Boolean(loading || props.disabled)}
       >
         <>
           {loading && (
