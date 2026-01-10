@@ -1,7 +1,7 @@
 "use client";
 
 import { IconPlus } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@amaxa/ui/button";
 import type { CursorPresenceData } from "./types";
 
 interface TasksHeaderProps {

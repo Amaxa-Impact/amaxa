@@ -1,11 +1,14 @@
 "use client";
+
+import Link from "next/link";
 import { IconArrowLeft, IconEye, IconFileText } from "@tabler/icons-react";
 import { useQuery } from "convex/react";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTab } from "@/components/ui/route-tabs";
-import { api } from "@/convex/_generated/api";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
+import { Tabs, TabsList, TabsTab } from "@amaxa/ui/route-tabs";
+
 import { useApplicationForm } from "./context";
 
 export function ApplicationNavbar({ id }: { id: string }) {
@@ -17,9 +20,9 @@ export function ApplicationNavbar({ id }: { id: string }) {
   const responseCount = responses?.length ?? 0;
 
   return (
-    <header className="sticky top-0 z-20 w-full border-border/50 border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+    <header className="border-border/50 bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-20 w-full border-b backdrop-blur-md">
       {/* Subtle top gradient accent */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      <div className="via-primary/50 absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
 
       <div className="container mx-auto px-6 py-4">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -28,7 +31,7 @@ export function ApplicationNavbar({ id }: { id: string }) {
             <div className="flex items-center gap-3">
               <Link href="/applications">
                 <Button
-                  className="group -ml-2 gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="group text-muted-foreground hover:text-foreground -ml-2 gap-2 transition-colors"
                   size="sm"
                   variant="ghost"
                 >
@@ -37,11 +40,11 @@ export function ApplicationNavbar({ id }: { id: string }) {
                 </Button>
               </Link>
 
-              <div className="h-4 w-px bg-border" />
+              <div className="bg-border h-4 w-px" />
 
               <div className="flex items-center gap-2">
-                <IconFileText className="h-5 w-5 text-muted-foreground" />
-                <h1 className="font-semibold text-lg tracking-tight">
+                <IconFileText className="text-muted-foreground h-5 w-5" />
+                <h1 className="text-lg font-semibold tracking-tight">
                   {form.title}
                 </h1>
               </div>
@@ -63,8 +66,8 @@ export function ApplicationNavbar({ id }: { id: string }) {
               </div>
 
               {/* Response Count */}
-              <div className="flex items-center gap-1.5 rounded-full bg-muted/50 px-2.5 py-1 text-xs">
-                <div className="h-1 w-1 rounded-full bg-primary" />
+              <div className="bg-muted/50 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs">
+                <div className="bg-primary h-1 w-1 rounded-full" />
                 <span className="font-medium tabular-nums">
                   {responseCount}
                 </span>
@@ -76,7 +79,7 @@ export function ApplicationNavbar({ id }: { id: string }) {
               {/* View Form Link */}
               {form.isPublished && (
                 <Link
-                  className="group flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-primary"
+                  className="group text-muted-foreground hover:text-primary flex items-center gap-1.5 text-xs transition-colors"
                   href={`/apply/${form.slug}`}
                   target="_blank"
                 >

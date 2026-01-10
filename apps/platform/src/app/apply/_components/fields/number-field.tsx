@@ -1,8 +1,8 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@amaxa/ui/input";
+import { Label } from "@amaxa/ui/label";
 import type { ApplicationFormField } from "../types";
 
 interface NumberFieldProps {

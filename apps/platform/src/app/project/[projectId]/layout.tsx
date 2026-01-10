@@ -1,12 +1,13 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
-import { fetchQuery } from "convex/nextjs";
 import type { Metadata } from "next";
 import { BreadcrumbHeader } from "@/components/dashboard/breadcrumb-header";
 import { DashboardProvider } from "@/components/dashboard/context";
 import { AppSidebar } from "@/components/dashboard/sidebar/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { fetchQuery } from "convex/nextjs";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { SidebarProvider } from "@amaxa/ui/sidebar";
 
 export async function generateMetadata({
   params,
@@ -22,7 +23,7 @@ export async function generateMetadata({
     const project = await fetchQuery(
       api.projects.get,
       { projectId },
-      { token: accessToken }
+      { token: accessToken },
     );
 
     if (!project) {

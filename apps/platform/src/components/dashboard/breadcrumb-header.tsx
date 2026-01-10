@@ -8,8 +8,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+} from "@amaxa/ui/breadcrumb";
+import { SidebarTrigger } from "@amaxa/ui/sidebar";
 import { useDashboardContext } from "./context";
 
 const PAGE_NAMES: Record<string, string> = {

@@ -1,10 +1,11 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
-import { fetchQuery } from "convex/nextjs";
 import type { Metadata } from "next";
 import { ApplicationFormProvider } from "@/components/application/context";
 import { ApplicationNavbar } from "@/components/application/navbar";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { fetchQuery } from "convex/nextjs";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
 
 export async function generateMetadata({
   params,
@@ -20,7 +21,7 @@ export async function generateMetadata({
     const form = await fetchQuery(
       api.applicationForms.get,
       { formId },
-      { token: accessToken }
+      { token: accessToken },
     );
 
     if (!form) {

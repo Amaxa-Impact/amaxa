@@ -223,13 +223,15 @@ export default async function PostPage({ params }: PageProps) {
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link
-                  href="/blog"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Back to Blogs
-                </Link>
+              <BreadcrumbLink
+                render={
+                  <Link
+                    href="/blog"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  />
+                }
+              >
+                Back to Blogs
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />

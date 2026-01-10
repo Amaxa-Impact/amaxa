@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@amaxa/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -20,12 +20,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@amaxa/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@amaxa/ui/popover";
 import { cn } from "@/lib/utils";
 
 interface ComboboxData {

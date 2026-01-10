@@ -1,8 +1,8 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@amaxa/ui/label";
+import { Textarea } from "@amaxa/ui/textarea";
 import type { ApplicationFormField } from "../types";
 
 interface TextareaFieldProps {

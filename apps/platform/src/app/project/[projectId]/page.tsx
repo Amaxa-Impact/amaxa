@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
+import { listUsers } from "@/lib/workos";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
-import type { Metadata } from "next";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import { listUsers } from "@/lib/workos";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+
 import { HomePage } from "./_components/home-page";
 
 export async function generateMetadata({
@@ -20,7 +22,7 @@ export async function generateMetadata({
     const project = await fetchQuery(
       api.projects.get,
       { projectId },
-      { token: accessToken }
+      { token: accessToken },
     );
 
     if (!project) {
@@ -59,7 +61,7 @@ export default async function Page({
       { projectId },
       {
         token: accessToken,
-      }
+      },
     ),
   ]);
 

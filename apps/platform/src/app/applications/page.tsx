@@ -1,8 +1,10 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
-import { preloadQuery } from "convex/nextjs";
 import type { Metadata } from "next";
 import { TopNavbar } from "@/components/navbar/top-navbar";
-import { api } from "@/convex/_generated/api";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { preloadQuery } from "convex/nextjs";
+
+import { api } from "@amaxa/backend/_generated/api";
+
 import { ApplicationsPageClient } from "./client";
 
 export const metadata: Metadata = {
@@ -15,7 +17,7 @@ export default async function ApplicationsPage() {
   const prefetchForms = await preloadQuery(
     api.applicationForms.list,
     {},
-    { token: accessToken }
+    { token: accessToken },
   );
   return (
     <div>

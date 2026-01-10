@@ -1,14 +1,14 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { Label } from "@/components/ui/label";
+import { Label } from "@amaxa/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@amaxa/ui/select";
 import type { ApplicationFormField } from "../types";
 
 interface SelectFieldProps {

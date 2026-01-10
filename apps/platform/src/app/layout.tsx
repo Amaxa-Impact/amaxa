@@ -5,8 +5,8 @@ import "./globals.css";
 import { ReactFlowProvider } from "@xyflow/react";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { AlertDialogProvider } from "@/components/ui/alert-dialog-simple";
-import { ConfirmDialogProvider } from "@/components/ui/confirm-dialog";
+import { AlertDialogProvider } from "@amaxa/ui/alert-dialog-simple";
+import { ConfirmDialogProvider } from "@amaxa/ui/confirm-dialog";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

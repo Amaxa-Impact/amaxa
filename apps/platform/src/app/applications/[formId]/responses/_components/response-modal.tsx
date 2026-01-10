@@ -1,20 +1,21 @@
 "use client";
 
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { IconCheck, IconMail, IconMailForward } from "@tabler/icons-react";
 import { useMutation, useQuery } from "convex/react";
-import { useState } from "react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/components/ui/select";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import { cn } from "@/lib/utils";
+} from "@amaxa/ui/select";
 
 type ResponseStatus = "pending" | "reviewed" | "accepted" | "rejected";
 
@@ -43,10 +44,10 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
     return (
       <div className="max-w-2xl">
         <div className="mb-4">
-          <h2 className="font-medium text-sm">Loading...</h2>
+          <h2 className="text-sm font-medium">Loading...</h2>
         </div>
         <div className="flex items-center justify-center py-8">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          <div className="border-primary h-8 w-8 animate-spin rounded-full border-2 border-t-transparent" />
         </div>
       </div>
     );
@@ -60,7 +61,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
       sendRejectionEmail?: boolean;
     },
     successMessage: string,
-    description: string
+    description: string,
   ) => {
     setEmailSending(true);
     try {
@@ -102,7 +103,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
         "acceptance",
         { sendSchedulingEmail: true },
         "Application accepted",
-        "Interview scheduling email sent to applicant"
+        "Interview scheduling email sent to applicant",
       );
       return;
     }
@@ -113,7 +114,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
         "rejection",
         { sendRejectionEmail: true },
         "Application rejected",
-        "Rejection email sent to applicant"
+        "Rejection email sent to applicant",
       );
       return;
     }
@@ -124,10 +125,10 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
   return (
     <div className="max-h-[85vh] w-full overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <div className="mb-4">
-        <h2 className="font-medium text-lg">
+        <h2 className="text-lg font-medium">
           Application from {response.applicantName}
         </h2>
-        <p className="mt-1 text-muted-foreground text-xs/relaxed">
+        <p className="text-muted-foreground mt-1 text-xs/relaxed">
           Submitted on{" "}
           {new Date(response.submittedAt).toLocaleDateString("en-US", {
             year: "numeric",
@@ -146,7 +147,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
               "flex items-center gap-3 rounded-lg border p-4",
               emailConfirmation.type === "acceptance"
                 ? "border-primary/30 bg-primary/5"
-                : "border-muted bg-muted/50"
+                : "border-muted bg-muted/50",
             )}
           >
             <div
@@ -154,13 +155,13 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
                 "flex h-10 w-10 items-center justify-center rounded-full",
                 emailConfirmation.type === "acceptance"
                   ? "bg-primary/10 text-primary"
-                  : "bg-muted-foreground/10 text-muted-foreground"
+                  : "bg-muted-foreground/10 text-muted-foreground",
               )}
             >
               <IconMailForward size={20} />
             </div>
             <div className="flex-1">
-              <p className="font-medium text-sm">
+              <p className="text-sm font-medium">
                 {emailConfirmation.type === "acceptance"
                   ? "Interview Scheduling Email Sent"
                   : "Rejection Email Sent"}
@@ -176,14 +177,17 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
         )}
 
         <div className="flex items-center gap-4">
-          <span className="font-medium text-sm">Status:</span>
+          <span className="text-sm font-medium">Status:</span>
           <Select
             disabled={emailSending}
             onValueChange={(v) => handleStatusChange(v as ResponseStatus)}
             value={response.status}
           >
             <SelectTrigger className="w-40">
-              <Badge className={statusStyles[response.status]} variant="outline">
+              <Badge
+                className={statusStyles[response.status]}
+                variant="outline"
+              >
                 {response.status.charAt(0).toUpperCase() +
                   response.status.slice(1)}
               </Badge>
@@ -206,21 +210,23 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
             </SelectContent>
           </Select>
           {emailSending && (
-            <span className="flex items-center gap-2 text-muted-foreground text-sm">
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            <span className="text-muted-foreground flex items-center gap-2 text-sm">
+              <div className="border-primary h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
               Sending email...
             </span>
           )}
         </div>
 
         <Card className="overflow-hidden">
-          <div className="bg-gradient-to-r from-primary/10 to-transparent px-6 py-6">
+          <div className="from-primary/10 bg-gradient-to-r to-transparent px-6 py-6">
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 text-xl font-semibold text-primary">
+              <div className="bg-primary/20 text-primary flex h-14 w-14 items-center justify-center rounded-full text-xl font-semibold">
                 {response.applicantName.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h3 className="font-semibold text-lg">{response.applicantName}</h3>
+                <h3 className="text-lg font-semibold">
+                  {response.applicantName}
+                </h3>
                 <a
                   className="text-primary hover:underline"
                   href={`mailto:${response.applicantEmail}`}
@@ -243,7 +249,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
                   className={cn("p-4", index % 2 === 0 && "bg-muted/30")}
                   key={fr.fieldId}
                 >
-                  <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                  <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                     {fr.fieldLabel}
                   </span>
                   <div className="mt-2">

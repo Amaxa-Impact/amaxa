@@ -1,20 +1,24 @@
 "use client";
-import { useMutation, useQuery } from "convex/react";
+
+import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
 import { IconInbox } from "@tabler/icons-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { confirmDialog } from "@/components/ui/confirm-dialog";
+import { useMutation, useQuery } from "convex/react";
+import { toast } from "sonner";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent } from "@amaxa/ui/card";
+import { confirmDialog } from "@amaxa/ui/confirm-dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/components/ui/select";
+} from "@amaxa/ui/select";
 import {
   Table,
   TableBody,
@@ -22,9 +26,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+} from "@amaxa/ui/table";
 
 type ResponseStatus = "pending" | "reviewed" | "accepted" | "rejected";
 
@@ -42,7 +44,7 @@ export default function ResponsesPageClient() {
   const responses = useQuery(api.applicationResponses.list, { formId });
 
   const [statusFilter, setStatusFilter] = useState<ResponseStatus | "all">(
-    "all"
+    "all",
   );
 
   if (!form) {
@@ -75,7 +77,7 @@ export default function ResponsesPageClient() {
             >
               <span className={`h-2 w-2 rounded-full ${statusColors.all}`} />
               All
-              <span className="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+              <span className="bg-background/20 rounded-full px-1.5 py-0.5 text-[10px]">
                 {statusCounts.all}
               </span>
             </Button>
@@ -85,9 +87,11 @@ export default function ResponsesPageClient() {
               size="sm"
               variant={statusFilter === "pending" ? "default" : "outline"}
             >
-              <span className={`h-2 w-2 rounded-full ${statusColors.pending}`} />
+              <span
+                className={`h-2 w-2 rounded-full ${statusColors.pending}`}
+              />
               Pending
-              <span className="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+              <span className="bg-background/20 rounded-full px-1.5 py-0.5 text-[10px]">
                 {statusCounts.pending}
               </span>
             </Button>
@@ -97,9 +101,11 @@ export default function ResponsesPageClient() {
               size="sm"
               variant={statusFilter === "reviewed" ? "default" : "outline"}
             >
-              <span className={`h-2 w-2 rounded-full ${statusColors.reviewed}`} />
+              <span
+                className={`h-2 w-2 rounded-full ${statusColors.reviewed}`}
+              />
               Reviewed
-              <span className="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+              <span className="bg-background/20 rounded-full px-1.5 py-0.5 text-[10px]">
                 {statusCounts.reviewed}
               </span>
             </Button>
@@ -109,9 +115,11 @@ export default function ResponsesPageClient() {
               size="sm"
               variant={statusFilter === "accepted" ? "default" : "outline"}
             >
-              <span className={`h-2 w-2 rounded-full ${statusColors.accepted}`} />
+              <span
+                className={`h-2 w-2 rounded-full ${statusColors.accepted}`}
+              />
               Accepted
-              <span className="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+              <span className="bg-background/20 rounded-full px-1.5 py-0.5 text-[10px]">
                 {statusCounts.accepted}
               </span>
             </Button>
@@ -121,9 +129,11 @@ export default function ResponsesPageClient() {
               size="sm"
               variant={statusFilter === "rejected" ? "default" : "outline"}
             >
-              <span className={`h-2 w-2 rounded-full ${statusColors.rejected}`} />
+              <span
+                className={`h-2 w-2 rounded-full ${statusColors.rejected}`}
+              />
               Rejected
-              <span className="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+              <span className="bg-background/20 rounded-full px-1.5 py-0.5 text-[10px]">
                 {statusCounts.rejected}
               </span>
             </Button>
@@ -132,13 +142,15 @@ export default function ResponsesPageClient() {
           {filteredResponses?.length === 0 ? (
             <Card className="border-dashed">
               <CardContent className="flex flex-col items-center py-16 text-center">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50 ring-1 ring-border">
-                  <IconInbox className="h-8 w-8 text-muted-foreground" />
+                <div className="bg-muted/50 ring-border mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ring-1">
+                  <IconInbox className="text-muted-foreground h-8 w-8" />
                 </div>
-                <h3 className="mb-2 font-semibold text-lg">
-                  {responses?.length === 0 ? "No applications yet" : "No matching applications"}
+                <h3 className="mb-2 text-lg font-semibold">
+                  {responses?.length === 0
+                    ? "No applications yet"
+                    : "No matching applications"}
                 </h3>
-                <p className="max-w-sm text-muted-foreground">
+                <p className="text-muted-foreground max-w-sm">
                   {responses?.length === 0
                     ? "Applications will appear here once candidates submit their forms."
                     : "Try adjusting your filter to see more results."}
@@ -233,7 +245,7 @@ function ResponseRow({
     <TableRow className="group">
       <TableCell className="font-medium">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-semibold uppercase">
+          <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold uppercase">
             {response.applicantName.charAt(0)}
           </div>
           <span>{response.applicantName}</span>

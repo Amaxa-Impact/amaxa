@@ -1,10 +1,11 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
-import { fetchQuery } from "convex/nextjs";
 import type { Metadata } from "next";
 import { TasksFlowContent } from "@/components/dashboard/tasks-flow/tasks-flow-content";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
 import { listUsers } from "@/lib/workos";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { fetchQuery } from "convex/nextjs";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
 
 export async function generateMetadata({
   params,
@@ -20,7 +21,7 @@ export async function generateMetadata({
     const project = await fetchQuery(
       api.projects.get,
       { projectId },
-      { token: accessToken }
+      { token: accessToken },
     );
 
     if (!project) {

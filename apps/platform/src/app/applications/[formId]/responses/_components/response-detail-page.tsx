@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   IconArrowLeft,
   IconCheck,
@@ -7,21 +10,19 @@ import {
   IconMailForward,
 } from "@tabler/icons-react";
 import { useMutation, useQuery } from "convex/react";
-import Link from "next/link";
-import { useState } from "react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/components/ui/select";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import { cn } from "@/lib/utils";
+} from "@amaxa/ui/select";
 
 type ResponseStatus = "pending" | "reviewed" | "accepted" | "rejected";
 
@@ -54,8 +55,8 @@ export function ResponseDetailPage({
     return (
       <div className="flex h-full items-center justify-center p-6">
         <div className="text-center">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <p className="mt-4 text-muted-foreground text-sm">
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-2 border-t-transparent" />
+          <p className="text-muted-foreground mt-4 text-sm">
             Loading application...
           </p>
         </div>
@@ -134,10 +135,10 @@ export function ResponseDetailPage({
           </Link>
 
           <div>
-            <h1 className="font-semibold text-2xl">
+            <h1 className="text-2xl font-semibold">
               Application from {response.applicantName}
             </h1>
-            <p className="mt-1 text-muted-foreground">
+            <p className="text-muted-foreground mt-1">
               Submitted on{" "}
               {new Date(response.submittedAt).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -156,7 +157,7 @@ export function ResponseDetailPage({
                 "flex items-center gap-3 rounded-lg border p-4",
                 emailConfirmation.type === "acceptance"
                   ? "border-primary/30 bg-primary/5"
-                  : "border-muted bg-muted/50"
+                  : "border-muted bg-muted/50",
               )}
             >
               <div
@@ -164,13 +165,13 @@ export function ResponseDetailPage({
                   "flex h-10 w-10 items-center justify-center rounded-full",
                   emailConfirmation.type === "acceptance"
                     ? "bg-primary/10 text-primary"
-                    : "bg-muted-foreground/10 text-muted-foreground"
+                    : "bg-muted-foreground/10 text-muted-foreground",
                 )}
               >
                 <IconMailForward size={20} />
               </div>
               <div className="flex-1">
-                <p className="font-medium text-sm">
+                <p className="text-sm font-medium">
                   {emailConfirmation.type === "acceptance"
                     ? "Interview Scheduling Email Sent"
                     : "Rejection Email Sent"}
@@ -197,7 +198,10 @@ export function ResponseDetailPage({
                   value={response.status}
                 >
                   <SelectTrigger className="w-44">
-                    <Badge className={statusStyles[response.status]} variant="outline">
+                    <Badge
+                      className={statusStyles[response.status]}
+                      variant="outline"
+                    >
                       {response.status.charAt(0).toUpperCase() +
                         response.status.slice(1)}
                     </Badge>
@@ -220,13 +224,13 @@ export function ResponseDetailPage({
                   </SelectContent>
                 </Select>
                 {emailSending && (
-                  <span className="flex items-center gap-2 text-muted-foreground text-sm">
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                  <span className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <div className="border-primary h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
                     Sending email...
                   </span>
                 )}
               </div>
-              <p className="mt-3 text-muted-foreground text-xs">
+              <p className="text-muted-foreground mt-3 text-xs">
                 Changing status to Accepted or Rejected will automatically send
                 an email to the applicant.
               </p>
@@ -234,13 +238,15 @@ export function ResponseDetailPage({
           </Card>
 
           <Card className="overflow-hidden">
-            <div className="bg-gradient-to-r from-primary/10 to-transparent px-6 py-6">
+            <div className="from-primary/10 bg-gradient-to-r to-transparent px-6 py-6">
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 text-xl font-semibold text-primary">
+                <div className="bg-primary/20 text-primary flex h-14 w-14 items-center justify-center rounded-full text-xl font-semibold">
                   {response.applicantName.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">{response.applicantName}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {response.applicantName}
+                  </h3>
                   <a
                     className="text-primary hover:underline"
                     href={`mailto:${response.applicantEmail}`}
@@ -263,7 +269,7 @@ export function ResponseDetailPage({
                     className={cn("p-4", index % 2 === 0 && "bg-muted/30")}
                     key={fr.fieldId}
                   >
-                    <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                    <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                       {fr.fieldLabel}
                     </span>
                     <div className="mt-2">

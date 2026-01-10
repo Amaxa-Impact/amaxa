@@ -87,17 +87,19 @@ export const LinkPreview = ({
   }
 
   return (
-    <HoverCard openDelay={200}>
-      <HoverCardTrigger asChild>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClassName}
-          onMouseEnter={handleMouseEnter}
-        >
-          {children}
-        </a>
+    <HoverCard>
+      <HoverCardTrigger
+        render={
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClassName}
+            onMouseEnter={handleMouseEnter}
+          />
+        }
+      >
+        {children}
       </HoverCardTrigger>
       <HoverCardContent>
         {loading ? (

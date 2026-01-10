@@ -1,28 +1,30 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 "use client";
 
+import { useState } from "react";
 import { IconCheck, IconLoader2, IconSend } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
-import { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { api } from "@/convex/_generated/api";
-import { FormFieldRenderer } from "./form-field-renderer";
+} from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
+import { Label } from "@amaxa/ui/label";
+
 import type {
   ApplicationForm,
   ApplicationFormField,
   FieldResponse,
 } from "./types";
+import { FormFieldRenderer } from "./form-field-renderer";
 import { validateFieldValue } from "./validation";
 
 interface ApplyFormProps {
@@ -42,7 +44,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
         fields.map((field) => [
           field._id,
           field.type === "multiselect" ? [] : "",
-        ])
+        ]),
       ),
     },
     onSubmit: async ({ value }) => {
@@ -65,7 +67,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
         toast.error(
           error instanceof Error
             ? error.message
-            : "Failed to submit application"
+            : "Failed to submit application",
         );
       }
     },
@@ -78,7 +80,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
           <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
             <IconCheck className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
-          <h2 className="mb-2 font-semibold text-xl">Application Submitted!</h2>
+          <h2 className="mb-2 text-xl font-semibold">Application Submitted!</h2>
           <p className="text-muted-foreground">
             Thank you for your application. We&apos;ll review it and get back to
             you soon.
@@ -105,8 +107,8 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
             tanstackForm.handleSubmit();
           }}
         >
-          <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
-            <h3 className="font-medium text-muted-foreground text-sm">
+          <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
+            <h3 className="text-muted-foreground text-sm font-medium">
               Your Information
             </h3>
 
@@ -117,7 +119,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
                   field.state.meta.errors.length > 0;
                 return (
                   <div className="space-y-2">
-                    <Label className="font-medium text-sm" htmlFor={field.name}>
+                    <Label className="text-sm font-medium" htmlFor={field.name}>
                       Full Name <span className="text-destructive">*</span>
                     </Label>
                     <Input
@@ -152,7 +154,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
                   field.state.meta.errors.length > 0;
                 return (
                   <div className="space-y-2">
-                    <Label className="font-medium text-sm" htmlFor={field.name}>
+                    <Label className="text-sm font-medium" htmlFor={field.name}>
                       Email Address <span className="text-destructive">*</span>
                     </Label>
                     <Input
@@ -191,7 +193,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
           {/* Dynamic Form Fields */}
           {fields.length > 0 && (
             <div className="space-y-6">
-              <h3 className="font-medium text-muted-foreground text-sm">
+              <h3 className="text-muted-foreground text-sm font-medium">
                 Application Questions
               </h3>
 

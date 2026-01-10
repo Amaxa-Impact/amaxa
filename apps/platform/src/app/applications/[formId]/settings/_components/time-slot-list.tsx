@@ -1,10 +1,21 @@
 "use client";
 
-import { IconEdit, IconTrash, IconCheck, IconClock, IconCalendarPlus } from "@tabler/icons-react";
+import type { User } from "@/lib/workos";
+import { useEffect, useState } from "react";
+import {
+  IconCalendarPlus,
+  IconCheck,
+  IconClock,
+  IconEdit,
+  IconTrash,
+} from "@tabler/icons-react";
 import { useMutation, useQuery } from "convex/react";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@amaxa/ui/user-dropdown";
+import { api } from "@amaxa/backend/_generated/api";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,9 +25,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+} from "@amaxa/ui/alert-dialog";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
 import {
   Table,
   TableBody,
@@ -24,14 +35,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import {
-  getUserDisplayName,
-  type UserOption,
-} from "@/components/ui/user-dropdown";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import type { User } from "@/lib/workos";
+} from "@amaxa/ui/table";
+import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
 
 interface TimeSlot {
   _id: Id<"interviewTimeSlots">;
@@ -100,7 +105,7 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
     return (
       <div className="space-y-2">
         {[1, 2, 3].map((i) => (
-          <div className="h-12 animate-pulse rounded-md bg-muted" key={i} />
+          <div className="bg-muted h-12 animate-pulse rounded-md" key={i} />
         ))}
       </div>
     );
@@ -109,11 +114,11 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
   if (slots.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-12 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-muted">
-          <IconCalendarPlus className="h-6 w-6 text-muted-foreground" />
+        <div className="bg-muted mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+          <IconCalendarPlus className="text-muted-foreground h-6 w-6" />
         </div>
         <h3 className="mb-1 font-medium">No time slots yet</h3>
-        <p className="mb-4 text-muted-foreground text-sm">
+        <p className="text-muted-foreground mb-4 text-sm">
           Add your first interview slot to get started.
         </p>
       </div>
@@ -138,11 +143,11 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
               <TableRow key={slot._id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 flex-col items-center justify-center rounded-lg bg-muted">
-                      <span className="text-[10px] font-medium uppercase text-muted-foreground">
+                    <div className="bg-muted flex h-10 w-10 flex-col items-center justify-center rounded-lg">
+                      <span className="text-muted-foreground text-[10px] font-medium uppercase">
                         {format(new Date(slot.startTime), "MMM")}
                       </span>
-                      <span className="font-bold text-sm leading-none">
+                      <span className="text-sm leading-none font-bold">
                         {format(new Date(slot.startTime), "d")}
                       </span>
                     </div>
@@ -150,8 +155,9 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
                       <span className="font-medium">
                         {format(new Date(slot.startTime), "EEEE")}
                       </span>
-                      <span className="block text-muted-foreground text-xs">
-                        {format(new Date(slot.startTime), "h:mm a")} - {format(new Date(slot.endTime), "h:mm a")}
+                      <span className="text-muted-foreground block text-xs">
+                        {format(new Date(slot.startTime), "h:mm a")} -{" "}
+                        {format(new Date(slot.endTime), "h:mm a")}
                       </span>
                     </div>
                   </div>

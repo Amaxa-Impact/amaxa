@@ -1,10 +1,12 @@
 "use client";
-import { useQuery } from "convex/react";
+
 import { useParams } from "next/navigation";
 import { useApplicationForm } from "@/components/application/context";
 import { FormBuilder, FormHeader } from "@/components/form-builder";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { useQuery } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
 
 export default function FormEditorClient() {
   const { formId } = useParams<{ formId: Id<"applicationForms"> }>();
@@ -21,7 +23,7 @@ export default function FormEditorClient() {
 
   return (
     <div className="flex h-screen flex-col">
-      <main className="flex-1 overflow-auto bg-background">
+      <main className="bg-background flex-1 overflow-auto">
         <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
           <FormHeader form={form} formId={formId} />
 

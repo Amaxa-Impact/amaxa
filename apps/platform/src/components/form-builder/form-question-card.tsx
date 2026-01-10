@@ -1,19 +1,22 @@
 /* eslint-disable react/no-children-prop */
 "use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { IconCopy, IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { api } from "@/convex/_generated/api";
-import { cn } from "@/lib/utils";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
+import { Field, FieldError, FieldLabel } from "@amaxa/ui/field";
+import { Input } from "@amaxa/ui/input";
+import { Switch } from "@amaxa/ui/switch";
+
+import type { FormField, QuestionFormValues } from "./types";
 import { FormFieldTypeSelector } from "./form-field-type-selector";
 import { FormQuestionOptions } from "./form-question-options";
-import type { FormField, QuestionFormValues } from "./types";
 import { useFieldTypeInference } from "./use-field-type-inference";
 
 interface FormQuestionCardProps {
@@ -75,7 +78,7 @@ export function FormQuestionCard({
         setIsSaving(false);
       }
     },
-    [field._id, updateField]
+    [field._id, updateField],
   );
 
   const debouncedSave = useCallback(
@@ -87,7 +90,7 @@ export function FormQuestionCard({
         saveField(values);
       }, 500);
     },
-    [saveField]
+    [saveField],
   );
 
   useEffect(() => {
@@ -127,10 +130,10 @@ export function FormQuestionCard({
   return (
     <div
       className={cn(
-        "group relative rounded-lg border bg-card transition-all",
+        "group bg-card relative rounded-lg border transition-all",
         isActive
-          ? "border-primary ring-1 ring-primary/20"
-          : "border-border hover:border-muted-foreground/30"
+          ? "border-primary ring-primary/20 ring-1"
+          : "border-border hover:border-muted-foreground/30",
       )}
       onClick={onActivate}
     >
@@ -138,11 +141,11 @@ export function FormQuestionCard({
         {...dragHandleProps}
         className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 cursor-grab opacity-0 transition-opacity group-hover:opacity-100"
       >
-        <IconGripVertical className="h-5 w-5 text-muted-foreground" />
+        <IconGripVertical className="text-muted-foreground h-5 w-5" />
       </div>
 
       {isSaving && (
-        <div className="absolute top-2 right-2 text-muted-foreground text-xs">
+        <div className="text-muted-foreground absolute top-2 right-2 text-xs">
           Saving...
         </div>
       )}
@@ -155,8 +158,8 @@ export function FormQuestionCard({
                 <Field>
                   <Input
                     className={cn(
-                      "rounded-none border-0 border-b px-0 font-medium text-base focus-visible:border-primary focus-visible:ring-0",
-                      isActive ? "border-b-2" : ""
+                      "focus-visible:border-primary rounded-none border-0 border-b px-0 text-base font-medium focus-visible:ring-0",
+                      isActive ? "border-b-2" : "",
                     )}
                     disabled={isInferring}
                     id={`field-${field._id}-label`}
@@ -310,7 +313,7 @@ export function FormQuestionCard({
             children={(fieldApi) => (
               <Field orientation="horizontal">
                 <FieldLabel
-                  className="font-normal text-sm"
+                  className="text-sm font-normal"
                   htmlFor={`field-${field._id}-required`}
                 >
                   Required

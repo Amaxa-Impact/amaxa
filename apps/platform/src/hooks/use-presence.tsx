@@ -1,6 +1,7 @@
-import { useMutation, useQuery } from "convex/react";
 import { useCallback, useEffect, useRef } from "react";
-import { api } from "@/convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
+
+import { api } from "@amaxa/backend/_generated/api";
 
 export interface PresenceData<D> {
   created: number;
@@ -22,7 +23,7 @@ const CURSOR_UPDATE_THROTTLE = 50; // 50ms = 20 updates per second max
 export const usePresence = <T extends Record<string, unknown>>(
   room: string,
   user: string,
-  initialData: T
+  initialData: T,
 ) => {
   const dataRef = useRef<T>(initialData);
   const lastUpdateRef = useRef<number>(0);
@@ -86,7 +87,7 @@ export const usePresence = <T extends Record<string, unknown>>(
         }
       }
     },
-    [room, user, updatePresenceMutation]
+    [room, user, updatePresenceMutation],
   );
 
   useEffect(() => {

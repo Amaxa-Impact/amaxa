@@ -1,16 +1,19 @@
 /* eslint-disable react/no-children-prop */
 /** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 "use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import { cn } from "@/lib/utils";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Card, CardContent } from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
+import { Textarea } from "@amaxa/ui/textarea";
+
 import type { FormData } from "./types";
 
 interface FormHeaderProps {
@@ -52,7 +55,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
         setIsSaving(false);
       }
     },
-    [formId, updateForm]
+    [formId, updateForm],
   );
 
   const debouncedSave = useCallback(
@@ -64,7 +67,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
         saveChanges(values);
       }, 500);
     },
-    [saveChanges]
+    [saveChanges],
   );
 
   useEffect(() => {
@@ -80,8 +83,8 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
       className={cn(
         "border-t-4 transition-all",
         isActive
-          ? "border-t-primary ring-1 ring-primary/20"
-          : "border-t-primary/50"
+          ? "border-t-primary ring-primary/20 ring-1"
+          : "border-t-primary/50",
       )}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -92,7 +95,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
     >
       <CardContent className="space-y-4 pt-6">
         {isSaving && (
-          <div className="text-right text-muted-foreground text-xs">
+          <div className="text-muted-foreground text-right text-xs">
             Saving...
           </div>
         )}
@@ -101,8 +104,8 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
           children={(field) => (
             <Input
               className={cn(
-                "rounded-none border-0 border-b px-0 font-bold text-2xl focus-visible:border-primary focus-visible:ring-0",
-                isActive ? "border-b-2" : ""
+                "focus-visible:border-primary rounded-none border-0 border-b px-0 text-2xl font-bold focus-visible:ring-0",
+                isActive ? "border-b-2" : "",
               )}
               id="form-title"
               name={field.name}
@@ -126,8 +129,8 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
           children={(field) => (
             <Textarea
               className={cn(
-                "resize-none rounded-none border-0 border-b px-0 focus-visible:border-primary focus-visible:ring-0",
-                isActive ? "border-b-2" : ""
+                "focus-visible:border-primary resize-none rounded-none border-0 border-b px-0 focus-visible:ring-0",
+                isActive ? "border-b-2" : "",
               )}
               id="form-description"
               name={field.name}

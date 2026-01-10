@@ -12,7 +12,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@amaxa/ui/select";
 import { FIELD_TYPES, type FieldType, fieldTypeLabels } from "./types";
 
 const fieldTypeIcons: Record<FieldType, React.ReactNode> = {

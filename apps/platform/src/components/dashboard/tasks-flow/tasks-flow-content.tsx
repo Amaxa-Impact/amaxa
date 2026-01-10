@@ -1,35 +1,37 @@
 "use client";
 
+import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
+import type { User } from "@/lib/workos";
+import type {
+  Connection,
+  Edge,
+  Node,
+  NodeMouseHandler,
+  Viewport,
+} from "@xyflow/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "next/navigation";
+import { useDashboardContext } from "@/components/dashboard/context";
+import { Cursor } from "@/components/dashboard/cursor";
+import usePresence from "@/hooks/use-presence";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
   addEdge,
-  type Connection,
-  type Edge,
-  type Node,
-  type NodeMouseHandler,
   useEdgesState,
   useNodesState,
   useOnViewportChange,
-  type Viewport,
 } from "@xyflow/react";
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useDashboardContext } from "@/components/dashboard/context";
-import { Cursor } from "@/components/dashboard/cursor";
-import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
-import {
-  getUserDisplayName,
-  type UserOption,
-} from "@/components/ui/user-dropdown";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import usePresence from "@/hooks/use-presence";
-import type { User } from "@/lib/workos";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@amaxa/ui/user-dropdown";
+import { api } from "@amaxa/backend/_generated/api";
+import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
+
+import type { ContextMenuState, CursorPresenceData } from "./types";
 import { TasksContextMenu } from "./tasks-context-menu";
 import { TasksGraph } from "./tasks-graph";
 import { TasksHeader } from "./tasks-header";
-import type { ContextMenuState, CursorPresenceData } from "./types";
 import { getStableUserId, getUserColor } from "./utils";
 
 export function TasksFlowContent({ allUsers }: { allUsers: User }) {
@@ -79,13 +81,13 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
       color: userColor,
       emoji: "👤",
     }),
-    [userName, userColor]
+    [userName, userColor],
   );
 
   const [_myPresenceData, othersPresence, updatePresence] = usePresence(
     roomId,
     userId,
-    initialPresenceData
+    initialPresenceData,
   );
 
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
@@ -107,16 +109,16 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         updatePresence({ x: flowPosition.x, y: flowPosition.y });
       }
     },
-    [updatePresence, isAuthenticated, flowInstance]
+    [updatePresence, isAuthenticated, flowInstance],
   );
 
   const initialNodes = useMemo(
     () => (convexNodes || []) as Node[],
-    [convexNodes]
+    [convexNodes],
   );
   const initialEdges = useMemo(
     () => (convexEdges || []) as Edge[],
-    [convexEdges]
+    [convexEdges],
   );
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -149,7 +151,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         });
       }
     },
-    [setEdges, createEdge, projectId]
+    [setEdges, createEdge, projectId],
   );
 
   const onNodeDragStop = useCallback(
@@ -159,7 +161,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         position: node.position,
       });
     },
-    [updatePosition]
+    [updatePosition],
   );
 
   const handleStatusChange = useCallback(
@@ -169,7 +171,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         data: { status },
       });
     },
-    [updateTaskData]
+    [updateTaskData],
   );
 
   const handleDataChange = useCallback(
@@ -179,7 +181,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         data,
       });
     },
-    [updateTaskData]
+    [updateTaskData],
   );
 
   const addNewTask = useCallback(
@@ -214,21 +216,21 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         },
       });
     },
-    [createTask, projectId, flowInstance]
+    [createTask, projectId, flowInstance],
   );
 
   const deleteTask = useCallback(
     async (taskId: string) => {
       await removeTask({ taskId: taskId as Id<"tasks"> });
     },
-    [removeTask]
+    [removeTask],
   );
 
   const deleteEdge = useCallback(
     async (edgeId: string) => {
       await removeEdge({ edgeId: edgeId as Id<"edges"> });
     },
-    [removeEdge]
+    [removeEdge],
   );
 
   const handlePaneContextMenu = useCallback(
@@ -242,7 +244,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         });
       }
     },
-    []
+    [],
   );
 
   const handleNodeContextMenu: NodeMouseHandler = useCallback((event, node) => {
@@ -269,7 +271,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
         });
       }
     },
-    []
+    [],
   );
 
   const closeContextMenu = useCallback(() => {
@@ -297,7 +299,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
           }),
         },
       })),
-    [nodes, handleStatusChange, handleDataChange, projectMembers, allUsers]
+    [nodes, handleStatusChange, handleDataChange, projectMembers, allUsers],
   );
 
   const layoutStyle = useMemo(
@@ -307,7 +309,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
       display: "flex",
       flexDirection: "column" as const,
     }),
-    []
+    [],
   );
 
   const getCursorScreenPosition = (flowX: number, flowY: number) => {

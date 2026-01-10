@@ -1,5 +1,5 @@
-import { Card, CardDescription, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardDescription, CardHeader } from "@amaxa/ui/card";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 export default function Loading() {
   return (

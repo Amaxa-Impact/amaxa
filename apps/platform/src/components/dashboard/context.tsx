@@ -1,16 +1,18 @@
 "use client";
-import { useQuery } from "convex/react";
+
 import { createContext, useContext, useMemo } from "react";
+import { useQuery } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+} from "@amaxa/ui/card";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 interface Project {
   name: string;
@@ -58,12 +60,12 @@ export const DashboardProvider = ({
         : { name: "", description: "", id: "" as Id<"projects"> },
       userRole: (userRole ?? null) as UserRole,
     }),
-    [project, userRole]
+    [project, userRole],
   );
 
   if (project === undefined) {
     return (
-      <div className="flex flex-col gap-6 bg-background p-6">
+      <div className="bg-background flex flex-col gap-6 p-6">
         <div>
           <Skeleton className="mb-2 h-9 w-64" />
           <Skeleton className="h-5 w-40" />

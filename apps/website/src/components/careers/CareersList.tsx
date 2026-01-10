@@ -314,16 +314,16 @@ export default function CareersList({ careers }: CareersListProps) {
                                     <Button
                                       variant="outline"
                                       className="w-full shrink-0 md:w-auto"
-                                      asChild
-                                    >
-                                      <Link
-                                        href={career.applicationLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        Apply Now
-                                      </Link>
-                                    </Button>
+                                      render={
+                                        <Link
+                                          href={career.applicationLink}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          Apply Now
+                                        </Link>
+                                      }
+                                    />
                                   )}
                                 </div>
                               </CardHeader>
@@ -332,14 +332,14 @@ export default function CareersList({ careers }: CareersListProps) {
                                   <Button
                                     variant="ghost"
                                     className="h-auto p-0 text-gray-600 hover:text-[#3B3B3B]"
-                                    asChild
-                                  >
-                                    <Link
-                                      href={`/careers/${career.slug.current}`}
-                                    >
-                                      Learn More →
-                                    </Link>
-                                  </Button>
+                                    render={
+                                      <Link
+                                        href={`/careers/${career.slug.current}`}
+                                      >
+                                        Learn More →
+                                      </Link>
+                                    }
+                                  />
                                 </CardContent>
                               )}
                             </div>

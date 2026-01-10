@@ -1,7 +1,9 @@
-import { fetchQuery } from "convex/nextjs";
 import type { Metadata } from "next";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { fetchQuery } from "convex/nextjs";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+
 import { ApplyPageClient } from "./client";
 
 export async function generateMetadata({

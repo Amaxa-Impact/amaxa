@@ -9,8 +9,9 @@ import type {
 } from "react-hook-form";
 import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Slot } from "@radix-ui/react-slot";
 import {
   useForm as __useForm,
   Controller,
@@ -121,27 +122,37 @@ const FormLabel = React.forwardRef<
 });
 FormLabel.displayName = "FormLabel";
 
-const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
+interface FormControlProps extends React.ComponentPropsWithoutRef<"div"> {
+  render?: React.ReactElement<{ children?: React.ReactNode }>;
+}
 
-  return (
-    <Slot
-      ref={ref}
-      id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
-  );
-});
+const FormControl = React.forwardRef<React.ElementRef<"div">, FormControlProps>(
+  ({ render, ...props }, ref) => {
+    const { error, formItemId, formDescriptionId, formMessageId } =
+      useFormField();
+
+    const ariaDescribedBy = !error
+      ? `${formDescriptionId}`
+      : `${formDescriptionId} ${formMessageId}`;
+
+    return useRender({
+      defaultTagName: "div",
+      ref,
+      render,
+      props: mergeProps<"div">(
+        {
+          id: formItemId,
+          "aria-describedby": ariaDescribedBy,
+          "aria-invalid": !!error,
+        },
+        props,
+      ),
+      state: {
+        slot: "form-control",
+      },
+    });
+  },
+);
 FormControl.displayName = "FormControl";
 
 const FormDescription = React.forwardRef<

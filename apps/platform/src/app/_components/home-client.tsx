@@ -1,17 +1,19 @@
 "use client";
 
-import { type Preloaded, usePreloadedQuery } from "convex/react";
+import type { Preloaded } from "convex/react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+import { usePreloadedQuery } from "convex/react";
+
+import type { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import type { api } from "@/convex/_generated/api";
+} from "@amaxa/ui/card";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 interface HomeClientProps {
   userId: string | null;
@@ -45,7 +47,7 @@ export function HomeClient({
     return (
       <div className="container mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 font-bold text-3xl">Welcome, Admin</h1>
+          <h1 className="mb-2 text-3xl font-bold">Welcome, Admin</h1>
           <p className="text-muted-foreground">
             Manage your platform from the dashboard
           </p>
@@ -58,7 +60,7 @@ export function HomeClient({
               <CardDescription>Manage all projects</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="font-bold text-3xl">
+              <div className="text-3xl font-bold">
                 {projects === undefined ? (
                   <Skeleton className="h-10 w-20" />
                 ) : (
@@ -90,7 +92,7 @@ export function HomeClient({
   if (projects === undefined) {
     return (
       <div className="container mx-auto px-6 py-8">
-        <h1 className="mb-6 font-bold text-3xl">My Projects</h1>
+        <h1 className="mb-6 text-3xl font-bold">My Projects</h1>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <Card key={i}>
@@ -123,11 +125,11 @@ export function HomeClient({
 
   return (
     <div className="container mx-auto px-6 py-8">
-      <h1 className="mb-6 font-bold text-3xl">My Projects</h1>
+      <h1 className="mb-6 text-3xl font-bold">My Projects</h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <Link href={`/project/${project._id}`} key={project._id}>
-            <Card className="h-full cursor-pointer transition-all hover:ring-2 hover:ring-primary">
+            <Card className="hover:ring-primary h-full cursor-pointer transition-all hover:ring-2">
               <CardHeader>
                 <div className="mb-2 flex items-center justify-between">
                   <CardTitle className="text-xl">{project.name}</CardTitle>

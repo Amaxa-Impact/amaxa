@@ -1,10 +1,11 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { useEffect, useState } from "react";
-import { UserDropdown } from "@/components/ui/user-dropdown";
-import { api } from "@/convex/_generated/api";
 import type { User } from "@/lib/workos";
+import { useEffect, useState } from "react";
+import { useQuery } from "convex/react";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { UserDropdown } from "@amaxa/ui/user-dropdown";
 
 interface AdminSelectorProps {
   value: string;
@@ -41,13 +42,13 @@ export function AdminSelector({
 
   // Filter users to only show those who are site admins
   const adminUsers = allUsers.filter((user) =>
-    siteAdmins?.some((admin) => admin.userId === user.id)
+    siteAdmins?.some((admin) => admin.userId === user.id),
   );
 
   if (isLoading || !siteAdmins) {
     return (
       <div className={className}>
-        <div className="h-7 w-full animate-pulse rounded-md bg-muted" />
+        <div className="bg-muted h-7 w-full animate-pulse rounded-md" />
       </div>
     );
   }

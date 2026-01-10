@@ -1,19 +1,21 @@
 "use client";
-import { useMutation } from "convex/react";
-import { useParams } from "next/navigation";
+
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
-import { Button } from "@/components/ui/button";
+import { useMutation } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+} from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
 
 export default function SettingsPageClient() {
   const { projectId } = useParams<{ projectId: Id<"projects"> }>();
@@ -84,7 +86,7 @@ export default function SettingsPageClient() {
   return (
     <div className="container mx-auto p-6">
       <div className="mb-6">
-        <h1 className="mb-2 font-bold text-3xl">Project Settings</h1>
+        <h1 className="mb-2 text-3xl font-bold">Project Settings</h1>
         <p className="text-muted-foreground">
           Manage project name and description. Only coaches can edit these
           settings.
@@ -100,7 +102,7 @@ export default function SettingsPageClient() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <label className="mb-2 block font-medium text-sm" htmlFor="name">
+            <label className="mb-2 block text-sm font-medium" htmlFor="name">
               Project Name
             </label>
             <Input
@@ -112,7 +114,7 @@ export default function SettingsPageClient() {
           </div>
           <div>
             <label
-              className="mb-2 block font-medium text-sm"
+              className="mb-2 block text-sm font-medium"
               htmlFor="description"
             >
               Description

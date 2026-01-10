@@ -108,47 +108,54 @@ export const Navbar = () => {
           <SheetContent side="right" className="w-[80%] sm:w-[350px]">
             <div className="mt-8 flex flex-col gap-6">
               {navItems.map((item) => (
-                <SheetClose asChild key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="hover:text-primary text-xl font-medium transition-colors"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </SheetClose>
+                <SheetClose
+                  render={
+                    <Link
+                      href={item.href}
+                      className="hover:text-primary text-xl font-medium transition-colors"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  }
+                  key={item.href}
+                />
               ))}
               <div className="mt-4 flex flex-col gap-4">
-                <SheetClose asChild>
-                  <Link
-                    href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
-                    target="_blank"
-                    className={cn(
-                      buttonVariants({
-                        variant: "outline",
-                        size: "lg",
-                      }),
-                      "w-full rounded-[3rem]",
-                    )}
-                  >
-                    Apply Now
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
-                    target="_blank"
-                    className={cn(
-                      buttonVariants({
-                        variant: "link",
-                        size: "lg",
-                      }),
-                      "w-full rounded-[3rem]",
-                    )}
-                  >
-                    Support Us
-                  </Link>
-                </SheetClose>
+                <SheetClose
+                  render={
+                    <Link
+                      href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
+                      target="_blank"
+                      className={cn(
+                        buttonVariants({
+                          variant: "outline",
+                          size: "lg",
+                        }),
+                        "w-full rounded-[3rem]",
+                      )}
+                    >
+                      Apply Now
+                    </Link>
+                  }
+                />
+                <SheetClose
+                  render={
+                    <Link
+                      href="https://collect.crowded.me/collection/8d1ba838-a38e-4803-b155-d102b7b131e4"
+                      target="_blank"
+                      className={cn(
+                        buttonVariants({
+                          variant: "link",
+                          size: "lg",
+                        }),
+                        "w-full rounded-[3rem]",
+                      )}
+                    >
+                      Support Us
+                    </Link>
+                  }
+                />
               </div>
             </div>
           </SheetContent>

@@ -3,7 +3,7 @@
 import { IconCalendarCheck, IconCheck } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@amaxa/ui/card";
 
 interface ConfirmationViewProps {
   applicantName: string;

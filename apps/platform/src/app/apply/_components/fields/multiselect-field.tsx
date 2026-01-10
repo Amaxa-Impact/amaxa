@@ -1,8 +1,8 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Checkbox } from "@amaxa/ui/checkbox";
+import { Label } from "@amaxa/ui/label";
 import type { ApplicationFormField } from "../types";
 
 interface MultiselectFieldProps {

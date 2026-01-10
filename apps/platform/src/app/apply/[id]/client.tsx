@@ -2,10 +2,12 @@
 
 import { IconAlertCircle, IconLock } from "@tabler/icons-react";
 import { useQuery } from "convex/react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Card, CardContent, CardHeader } from "@amaxa/ui/card";
+import { Skeleton } from "@amaxa/ui/skeleton";
+
 import { ApplyForm } from "../_components/apply-form";
 
 interface ApplyPageClientProps {
@@ -30,7 +32,7 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/20">
               <IconLock className="h-7 w-7 text-amber-600 dark:text-amber-400" />
             </div>
-            <h2 className="mb-2 font-semibold text-lg">Form Not Available</h2>
+            <h2 className="mb-2 text-lg font-semibold">Form Not Available</h2>
             <p className="text-muted-foreground text-sm">
               This application form is not currently available. It may have been
               unpublished or the link is incorrect.
@@ -46,10 +48,10 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
       <div className="flex min-h-[60vh] items-center justify-center px-4">
         <Card className="mx-auto max-w-md text-center">
           <CardContent className="flex flex-col items-center py-12">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-destructive/10">
-              <IconAlertCircle className="h-7 w-7 text-destructive" />
+            <div className="bg-destructive/10 mb-4 flex h-14 w-14 items-center justify-center rounded-full">
+              <IconAlertCircle className="text-destructive h-7 w-7" />
             </div>
-            <h2 className="mb-2 font-semibold text-lg">Something Went Wrong</h2>
+            <h2 className="mb-2 text-lg font-semibold">Something Went Wrong</h2>
             <p className="text-muted-foreground text-sm">
               We couldn&apos;t load the form. Please try refreshing the page.
             </p>
@@ -60,7 +62,7 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-8 md:py-12">
+    <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
         <ApplyForm fields={fields} form={form} />
       </div>
@@ -70,7 +72,7 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
 
 function ApplyFormSkeleton() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-8 md:py-12">
+    <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
         <Card className="mx-auto max-w-2xl">
           <CardHeader className="border-b">
@@ -78,7 +80,7 @@ function ApplyFormSkeleton() {
             <Skeleton className="mt-2 h-4 w-64" />
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
-            <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
+            <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
               <Skeleton className="h-4 w-24" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-16" />

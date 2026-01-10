@@ -1,24 +1,25 @@
 "use client";
-import { useMutation, useQuery } from "convex/react";
-import { useParams } from "next/navigation";
+
+import type { User } from "@/lib/workos";
 import { useState } from "react";
-import { toast } from "sonner";
+import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
-import { Button } from "@/components/ui/button";
+import { useMutation, useQuery } from "convex/react";
+import { toast } from "sonner";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@amaxa/ui/user-dropdown";
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import {
-  getUserDisplayName,
-  type UserOption,
-} from "@/components/ui/user-dropdown";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import type { User } from "@/lib/workos";
+} from "@amaxa/ui/card";
+import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
+
 import { AddUserForm } from "../_components/add-user-form";
 
 export function UsersPageContent({ allUsers }: { allUsers: User }) {
@@ -50,7 +51,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
           await removeUser({ userId, projectId });
         } catch (error) {
           toast.error(
-            `Failed to remove user: ${error instanceof Error ? error.message : "Unknown error"}`
+            `Failed to remove user: ${error instanceof Error ? error.message : "Unknown error"}`,
           );
         }
       },
@@ -62,7 +63,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
       await updateRole({ userId, projectId, role });
     } catch (error) {
       toast.error(
-        `Failed to update role: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to update role: ${error instanceof Error ? error.message : "Unknown error"}`,
       );
     }
   };
@@ -71,7 +72,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
     <div className="container mx-auto p-6">
       <div className="flex items-center justify-between">
         <div className="mb-6">
-          <h1 className="mb-2 font-bold text-3xl">Project Users</h1>
+          <h1 className="mb-2 text-3xl font-bold">Project Users</h1>
           <p className="text-muted-foreground">
             Manage users and their roles in this project. Your role:{" "}
             <strong>{userRole || "None"}</strong>
@@ -118,7 +119,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
                     <p className="font-medium">
                       {(() => {
                         const workosUser = allUsers.find(
-                          (u) => u.id === user.userId
+                          (u) => u.id === user.userId,
                         );
                         return workosUser
                           ? getUserDisplayName(workosUser as UserOption)
@@ -136,7 +137,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
                         onChange={(e) =>
                           handleUpdateRole(
                             user.userId,
-                            e.target.value as "coach" | "member"
+                            e.target.value as "coach" | "member",
                           )
                         }
                         value={user.role}

@@ -1,11 +1,12 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import Link from "next/link";
 import { memo, useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { api } from "@/convex/_generated/api";
+import Link from "next/link";
+import { useQuery } from "convex/react";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 export const TopNavbar = memo(function TopNavbar() {
   const userStatus = useQuery(api.auth.getCurrentUserStatus);
@@ -22,7 +23,7 @@ export const TopNavbar = memo(function TopNavbar() {
 
   if (userStatus === undefined) {
     return (
-      <nav className="h-14 border-border border-b bg-card">
+      <nav className="border-border bg-card h-14 border-b">
         <div className="flex h-full items-center gap-4 px-6">
           <Skeleton className="h-8 w-20" />
           <Skeleton className="h-8 w-32" />
@@ -32,10 +33,10 @@ export const TopNavbar = memo(function TopNavbar() {
   }
 
   return (
-    <nav className="h-14 border-border border-b bg-card">
+    <nav className="border-border bg-card h-14 border-b">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-lg">Amaxa</span>
+          <span className="text-lg font-semibold">Amaxa</span>
         </div>
 
         <div className="flex items-center gap-2">

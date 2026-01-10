@@ -1,8 +1,10 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { Modal } from "@/components/ui/modal";
-import type { Id } from "@/convex/_generated/dataModel";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { Modal } from "@amaxa/ui/modal";
+
 import { ResponseModal } from "../../../_components/response-modal";
 
 export default function ResponseModalPage() {

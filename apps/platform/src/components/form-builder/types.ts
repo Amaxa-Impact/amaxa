@@ -1,5 +1,6 @@
 import { z } from "zod";
-import type { Id } from "@/convex/_generated/dataModel";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
 
 export const FIELD_TYPES = [
   "text",

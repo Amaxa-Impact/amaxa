@@ -1,11 +1,12 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { IconCheck } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
-import { Card, CardContent } from "@/components/ui/card";
-import type { Id } from "@/convex/_generated/dataModel";
-import { cn } from "@/lib/utils";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { Card, CardContent } from "@amaxa/ui/card";
 
 interface SlotCardProps {
   slot: {
@@ -47,8 +48,8 @@ export function SlotCard({
   return (
     <Card
       className={cn(
-        "cursor-pointer transition-all hover:border-primary/50",
-        isSelected && "border-primary ring-2 ring-primary/20"
+        "hover:border-primary/50 cursor-pointer transition-all",
+        isSelected && "border-primary ring-primary/20 ring-2",
       )}
       onClick={onSelect}
       onKeyDown={(e) => {
@@ -72,7 +73,7 @@ export function SlotCard({
             "flex size-6 items-center justify-center rounded-full border-2 transition-colors",
             isSelected
               ? "border-primary bg-primary text-primary-foreground"
-              : "border-muted-foreground/30"
+              : "border-muted-foreground/30",
           )}
         >
           {isSelected && <IconCheck className="size-4" />}

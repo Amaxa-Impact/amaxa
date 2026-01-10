@@ -1,9 +1,10 @@
 "use client";
 
-import { useQuery } from "convex/react";
 import { createContext, useContext } from "react";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { useQuery } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
 
 interface FormContext {
   _id: Id<"applicationForms">;

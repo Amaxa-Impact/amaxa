@@ -5,23 +5,23 @@ import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { Handle, type NodeProps, Position } from "@xyflow/react";
 import { memo, useCallback, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@amaxa/ui/button";
 import {
   Field,
   FieldContent,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@amaxa/ui/field";
+import { Input } from "@amaxa/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from "@amaxa/ui/select";
+import { Textarea } from "@amaxa/ui/textarea";
 
 export interface TaskNodeData {
   label: string;

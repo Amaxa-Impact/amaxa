@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { Button } from "@/components/ui/button";
-import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Button } from "@amaxa/ui/button";
+import { SidebarMenu, SidebarMenuItem } from "@amaxa/ui/sidebar";
 import { useDashboardContext } from "../context";
 
 export const TeamDisplay = memo(() => {

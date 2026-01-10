@@ -1,8 +1,8 @@
 "use client";
 import { IconCircle, IconPlus, IconSquare, IconX } from "@tabler/icons-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@amaxa/ui/button";
+import { Input } from "@amaxa/ui/input";
 import { cn } from "@/lib/utils";
 
 interface FormQuestionOptionsProps {

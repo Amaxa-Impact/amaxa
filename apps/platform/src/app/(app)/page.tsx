@@ -1,8 +1,10 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
-import { fetchQuery, preloadQuery } from "convex/nextjs";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { api } from "@/convex/_generated/api";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { fetchQuery, preloadQuery } from "convex/nextjs";
+
+import { api } from "@amaxa/backend/_generated/api";
+
 import { HomeClient } from "../_components/home-client";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export default async function Home() {
     ? await fetchQuery(
         api.auth.getCurrentUserStatus,
         {},
-        { token: accessToken }
+        { token: accessToken },
       )
     : null;
 
@@ -31,7 +33,7 @@ export default async function Home() {
   const prefetchProjects = await preloadQuery(
     api.projects.listForUser,
     { userId },
-    { token: accessToken }
+    { token: accessToken },
   );
 
   return (

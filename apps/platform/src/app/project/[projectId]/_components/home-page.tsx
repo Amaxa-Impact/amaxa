@@ -1,10 +1,13 @@
 "use client";
+
 import type { User } from "@workos-inc/node";
-import { type Preloaded, usePreloadedQuery } from "convex/react";
+import type { Preloaded } from "convex/react";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { TaskStatusChart } from "@/components/dashboard/task-status-chart";
 import { TasksTable } from "@/components/dashboard/tasks-table";
-import type { api } from "@/convex/_generated/api";
+import { usePreloadedQuery } from "convex/react";
+
+import type { api } from "@amaxa/backend/_generated/api";
 
 export function HomePage({
   allUsers,
@@ -18,9 +21,9 @@ export function HomePage({
   const statusCounts = usePreloadedQuery(statusCountsPrefetched);
 
   return (
-    <div className="flex flex-col gap-6 bg-background p-6">
+    <div className="bg-background flex flex-col gap-6 p-6">
       <div>
-        <h1 className="font-bold text-3xl">{project.name}</h1>
+        <h1 className="text-3xl font-bold">{project.name}</h1>
         <p className="text-muted-foreground">Project Dashboard</p>
       </div>
 

@@ -1,14 +1,16 @@
 "use client";
 
 import { Layout, MapIcon, PieChart, Settings } from "lucide-react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import type { Id } from "@/convex/_generated/dataModel";
+} from "@amaxa/ui/sidebar";
+
 import { useDashboardContext } from "../context";
 import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
@@ -56,7 +58,7 @@ export function AppSidebar({
         <NavProjects projects={links} />
       </SidebarContent>
       <SidebarFooter>
-        <div className="px-2 py-2 text-muted-foreground text-xs">
+        <div className="text-muted-foreground px-2 py-2 text-xs">
           Role:{" "}
           <span className="font-medium capitalize">{userRole || "None"}</span>
         </div>

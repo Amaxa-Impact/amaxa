@@ -7,7 +7,7 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
+} from "@amaxa/ui/context-menu";
 import type { ContextMenuState } from "./types";
 
 interface TasksContextMenuProps {

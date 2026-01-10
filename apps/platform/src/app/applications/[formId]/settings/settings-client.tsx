@@ -1,17 +1,18 @@
 "use client";
 
+import { useApplicationForm } from "@/components/application/context";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
 import { z } from "zod";
-import { useApplicationForm } from "@/components/application/context";
+
+import { api } from "@amaxa/backend/_generated/api";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { api } from "@/convex/_generated/api";
+} from "@amaxa/ui/field";
+import { Input } from "@amaxa/ui/input";
 
 export default function SettingsPageClient() {
   const applicationFormData = useApplicationForm();

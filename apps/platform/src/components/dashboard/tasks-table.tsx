@@ -1,19 +1,23 @@
 "use client";
+
 import type { User } from "@workos-inc/node";
-import { usePaginatedQuery, useQuery } from "convex/react";
 import { useEffect, useMemo, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { usePaginatedQuery, useQuery } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@amaxa/ui/select";
+import { Skeleton } from "@amaxa/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -21,10 +25,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { getUserDisplayName } from "@/components/ui/user-dropdown";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+} from "@amaxa/ui/table";
+import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
 
 interface TasksTableProps {
   projectId: Id<"projects">;
@@ -114,7 +116,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
       assignedTo: filters.assignedTo,
       searchLabel: debouncedSearch || undefined,
     },
-    { initialNumItems: PAGE_SIZE }
+    { initialNumItems: PAGE_SIZE },
   );
 
   const projectUsers = useQuery(api.dashboard.getProjectUsers, { projectId });
@@ -230,7 +232,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
             ) : results.length === 0 ? (
               <TableRow>
                 <TableCell
-                  className="text-center text-muted-foreground"
+                  className="text-muted-foreground text-center"
                   colSpan={4}
                 >
                   No tasks found

@@ -1,15 +1,18 @@
 "use client";
 
-import { useForm } from "@tanstack/react-form";
-import { type Preloaded, useMutation, usePreloadedQuery } from "convex/react";
-import { Plus } from "lucide-react";
+import type { Preloaded } from "convex/react";
 import { useRouter } from "next/navigation";
+import { IconForms } from "@tabler/icons-react";
+import { useForm } from "@tanstack/react-form";
+import { useMutation, usePreloadedQuery } from "convex/react";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { IconForms } from "@tabler/icons-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+
+import { api } from "@amaxa/backend/_generated/api";
+import { Badge } from "@amaxa/ui/badge";
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent } from "@amaxa/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -18,14 +21,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Field,
-  FieldContent,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@amaxa/ui/dialog";
+import { Field, FieldContent, FieldError, FieldLabel } from "@amaxa/ui/field";
+import { Input } from "@amaxa/ui/input";
 import {
   Table,
   TableBody,
@@ -33,9 +31,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
+} from "@amaxa/ui/table";
+import { Textarea } from "@amaxa/ui/textarea";
 
 export function ApplicationsPageClient({
   prefetchForms,
@@ -47,12 +44,16 @@ export function ApplicationsPageClient({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="sticky top-0 z-10 flex flex-row items-center justify-between bg-background/95 backdrop-blur-sm border-b border-border/50 p-6">
-        <h1 className="font-bold text-xl">Application Forms</h1>
+      <div className="bg-background/95 border-border/50 sticky top-0 z-10 flex flex-row items-center justify-between border-b p-6 backdrop-blur-sm">
+        <h1 className="text-xl font-bold">Application Forms</h1>
         <Dialog>
           <DialogTrigger
             render={() => (
-              <Button className="ml-2 group transition-all hover:shadow-sm hover:shadow-primary/20" size="sm" variant="outline">
+              <Button
+                className="group hover:shadow-primary/20 ml-2 transition-all hover:shadow-sm"
+                size="sm"
+                variant="outline"
+              >
                 <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" />
                 Create Form
               </Button>
@@ -68,12 +69,15 @@ export function ApplicationsPageClient({
         {forms.length === 0 ? (
           <Card className="border-dashed">
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50 ring-1 ring-border">
-                <IconForms className="h-8 w-8 text-muted-foreground" />
+              <div className="bg-muted/50 ring-border mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ring-1">
+                <IconForms className="text-muted-foreground h-8 w-8" />
               </div>
-              <h3 className="mb-2 font-semibold text-lg">No application forms yet</h3>
-              <p className="mb-6 max-w-sm text-muted-foreground">
-                Create your first form to start collecting applications from candidates.
+              <h3 className="mb-2 text-lg font-semibold">
+                No application forms yet
+              </h3>
+              <p className="text-muted-foreground mb-6 max-w-sm">
+                Create your first form to start collecting applications from
+                candidates.
               </p>
               <Dialog>
                 <DialogTrigger
@@ -104,9 +108,11 @@ export function ApplicationsPageClient({
               <TableBody>
                 {forms.map((form) => (
                   <TableRow
-                    className="cursor-pointer transition-all hover:bg-muted/50 hover:border-l-2 hover:border-l-primary group"
+                    className="hover:bg-muted/50 hover:border-l-primary group cursor-pointer transition-all hover:border-l-2"
                     key={form._id}
-                    onClick={() => router.push(`/applications/${form._id}/edit`)}
+                    onClick={() =>
+                      router.push(`/applications/${form._id}/edit`)
+                    }
                   >
                     <TableCell className="font-medium">{form.title}</TableCell>
                     <TableCell className="text-muted-foreground">
@@ -114,20 +120,22 @@ export function ApplicationsPageClient({
                     </TableCell>
                     <TableCell>
                       <div className="relative inline-block">
-                        <Badge variant={form.isPublished ? "default" : "secondary"}>
+                        <Badge
+                          variant={form.isPublished ? "default" : "secondary"}
+                        >
                           {form.isPublished ? "Published" : "Draft"}
                         </Badge>
                         {form.isPublished && (
                           <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+                            <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+                            <span className="bg-primary relative inline-flex h-2 w-2 rounded-full" />
                           </span>
                         )}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span className="bg-muted inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium">
+                        <span className="bg-primary h-1.5 w-1.5 rounded-full" />
                         {form.responseCount}
                       </span>
                     </TableCell>
@@ -150,7 +158,7 @@ const createFormSchema = z.object({
     .min(1, "Slug is required.")
     .regex(
       /^[a-z0-9-]+$/,
-      "Slug can only contain lowercase letters, numbers, and hyphens"
+      "Slug can only contain lowercase letters, numbers, and hyphens",
     ),
 });
 
@@ -179,7 +187,7 @@ function CreateFormDialog() {
         form.reset();
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "Failed to create form"
+          error instanceof Error ? error.message : "Failed to create form",
         );
       }
     },

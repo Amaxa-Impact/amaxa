@@ -1,10 +1,12 @@
 "use client";
 
-import { useMutation, useQuery } from "convex/react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import { useMutation, useQuery } from "convex/react";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
+
 import { CalendarPlaceholder } from "./_components/calendar-placeholder";
 import { ConfirmationView } from "./_components/confirmation-view";
 import { SlotCard } from "./_components/slot-card";
@@ -39,18 +41,18 @@ export default function ScheduleClient({ token }: ScheduleClientProps) {
 
   if (data === undefined) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <div className="text-muted-foreground animate-pulse">Loading...</div>
       </div>
     );
   }
 
   if (data === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="bg-background flex min-h-screen items-center justify-center">
         <div className="mx-auto max-w-md px-4 text-center">
-          <h1 className="font-semibold text-2xl">Invalid Link</h1>
-          <p className="mt-2 text-muted-foreground">
+          <h1 className="text-2xl font-semibold">Invalid Link</h1>
+          <p className="text-muted-foreground mt-2">
             This scheduling link is invalid or has expired. Please contact the
             team for a new link.
           </p>
@@ -104,14 +106,14 @@ export default function ScheduleClient({ token }: ScheduleClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <div className="mx-auto max-w-2xl px-4 py-12">
         <div className="mb-8 text-center">
-          <h1 className="font-semibold text-2xl">Schedule Your Interview</h1>
-          <p className="mt-2 text-muted-foreground">
+          <h1 className="text-2xl font-semibold">Schedule Your Interview</h1>
+          <p className="text-muted-foreground mt-2">
             Hi {data.applicantName}, please select a time slot for your
             interview for{" "}
-            <span className="font-medium text-foreground">
+            <span className="text-foreground font-medium">
               {data.formTitle}
             </span>
             .
@@ -124,7 +126,7 @@ export default function ScheduleClient({ token }: ScheduleClientProps) {
         />
 
         {bookingResult && !bookingResult.success && (
-          <div className="mb-4 rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+          <div className="border-destructive/50 bg-destructive/10 mb-4 rounded-lg border p-4">
             <p className="text-destructive text-sm">{bookingResult.message}</p>
           </div>
         )}

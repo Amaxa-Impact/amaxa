@@ -8,7 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@amaxa/ui/sidebar";
 
 export const NavProjects = memo(
   ({

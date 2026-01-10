@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { useQuery } from "convex/react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
+
 import { TimeSlotForm } from "./_components/time-slot-form";
 import { TimeSlotList } from "./_components/time-slot-list";
 
@@ -65,11 +67,13 @@ export function SchedulingSettings({ formId }: SchedulingSettingsProps) {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Slots used</span>
-            <span className="font-medium">{slotCount} / {MAX_SLOTS}</span>
+            <span className="font-medium">
+              {slotCount} / {MAX_SLOTS}
+            </span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+          <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
             <div
-              className="h-full rounded-full bg-primary transition-all"
+              className="bg-primary h-full rounded-full transition-all"
               style={{ width: `${(slotCount / MAX_SLOTS) * 100}%` }}
             />
           </div>

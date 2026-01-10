@@ -3,8 +3,8 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@amaxa/ui/field";
+import { Skeleton } from "@amaxa/ui/skeleton";
 
 export default function Loading() {
   return (

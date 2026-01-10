@@ -1,17 +1,21 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: TanStack Form uses children prop pattern */
 "use client";
 
-import { useForm } from "@tanstack/react-form";
-import { useMutation } from "convex/react";
-import { format } from "date-fns";
 import { useState } from "react";
-import { toast } from "sonner";
 import {
   getDefaultTimezone,
   TimezoneSelect,
 } from "@/components/scheduling/timezone-select";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { useForm } from "@tanstack/react-form";
+import { useMutation } from "convex/react";
+import { format } from "date-fns";
+import { toast } from "sonner";
+
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { api } from "@amaxa/backend/_generated/api";
+import { Button } from "@amaxa/ui/button";
+import { Calendar } from "@amaxa/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -19,23 +23,17 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@amaxa/ui/dialog";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
-import { cn } from "@/lib/utils";
+} from "@amaxa/ui/field";
+import { Input } from "@amaxa/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
+
 import { AdminSelector } from "./admin-selector";
 
 interface TimeSlotFormProps {
@@ -128,7 +126,7 @@ export function TimeSlotForm({
           {
             description:
               error instanceof Error ? error.message : "An error occurred",
-          }
+          },
         );
       }
     },
@@ -167,8 +165,8 @@ export function TimeSlotForm({
                     <Popover onOpenChange={setCalendarOpen} open={calendarOpen}>
                       <PopoverTrigger
                         className={cn(
-                          "flex h-9 w-full items-center justify-start rounded-md border border-input bg-input/20 px-3 py-2 text-left text-sm",
-                          !field.state.value && "text-muted-foreground"
+                          "border-input bg-input/20 flex h-9 w-full items-center justify-start rounded-md border px-3 py-2 text-left text-sm",
+                          !field.state.value && "text-muted-foreground",
                         )}
                       >
                         {field.state.value ? (

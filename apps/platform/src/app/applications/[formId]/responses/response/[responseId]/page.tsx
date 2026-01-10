@@ -1,4 +1,5 @@
-import type { Id } from "@/convex/_generated/dataModel";
+import type { Id } from "@amaxa/backend/_generated/dataModel";
+
 import { ResponseDetailPage } from "../../_components/response-detail-page";
 
 export default async function ResponsePage({
