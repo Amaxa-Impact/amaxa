@@ -46,14 +46,13 @@
     "embla-carousel-react": "^8.1.7",
     "lucide-react": "^0.416.0",
     "next-themes": "^0.3.0",
-    "react-day-picker": "8.10.1",
+    "react-day-picker": "^9.4.5",
     "react-hook-form": "^7.52.1",
     "recharts": "^2.12.7",
     "sonner": "^1.4.41",
-    "tailwind-animate": "^0.2.10",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^0.9.1"
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@amaxa/eslint-config": "workspace:*",
@@ -63,6 +62,7 @@
     "eslint": "catalog:",
     "prettier": "catalog:",
     "react": "catalog:react19",
+    "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "zod": "catalog:"
   },
