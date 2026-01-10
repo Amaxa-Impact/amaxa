@@ -1,15 +1,13 @@
 "use client";
 
 import React from "react";
-import { FocusCards } from "@/components/ui/focus-cards-text";
+import { FocusCards } from "@/components/ui/focus-cards";
 
-import { ApplyButton } from "~/components/apply";
-import Footer from "~/components/footer";
 import SynchronizedCarousel from "./_sections/hero";
 import { Projects } from "./_sections/projects";
 import { Spotlight } from "./_sections/spotlight";
 
-export const cards = [
+const cards = [
   {
     title: "Ámaxa Cohorts",
     src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
@@ -66,10 +64,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="lg:px-30 relative bg-white py-16">
+      <section className="relative bg-white py-16 lg:px-30">
         <div className="px-6 py-16 md:px-16 lg:px-20">
           {/* Main heading */}
-          <h1 className="mb-8 text-3xl font-semibold leading-tight text-black md:text-4xl lg:text-5xl">
+          <h1 className="mb-8 text-3xl leading-tight font-semibold text-black md:text-4xl lg:text-5xl">
             Ámaxa Pathways takes you from start to finish of what's needed to
             truly effect change.
           </h1>
@@ -118,7 +116,7 @@ export default function Page() {
       </section> */}
       <section className="py-16 md:py-24 lg:py-32">
         <div className="">
-          <h2 className="px-16 font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 md:text-5xl">
+          <h2 className="px-16 font-sans text-xl font-bold text-neutral-800 md:text-5xl dark:text-neutral-200">
             Ámaxa Stories
           </h2>
 
@@ -132,7 +130,7 @@ export default function Page() {
 Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
 `,
                 `
-Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations. 
+Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.
 `,
                 `
 By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.
@@ -187,7 +185,7 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
       <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="px-6 md:px-16 lg:px-20">
           {/* Main heading */}
-          <h2 className="mb-12 max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
+          <h2 className="mb-12 max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
             We want to build a world where anyone who wants to help the world
             can do it.
           </h2>

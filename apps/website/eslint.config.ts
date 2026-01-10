@@ -7,10 +7,10 @@ export default [
   {
     ignores: [".next/**", "..content-collections/**"],
   },
-  ...baseConfig,
-  ...reactConfig,
-  ...nextjsConfig,
-  ...restrictEnvAccess,
+  baseConfig,
+   reactConfig,
+   nextjsConfig,
+   restrictEnvAccess,
   {
     // TODO: Resolve errors when setting these rules to 'error'
     rules: {

@@ -7,10 +7,15 @@ catalog:
   #Next
   next: ^15.2.6
 
+
   # Dev tooling
-  eslint: ^9.23.0
-  prettier: ^3.5.3
-  tailwindcss: ^3.4.15
+  "@types/node": "^22.13.11"
+  "@eslint/js": ^9.38.0
+  eslint: ^9.38.0
+  prettier: ^3.6.2
+
+  tailwindcss: ^4.1.16
+  "@tailwindcss/postcss": ^4.1.16
   typescript: ^5.8.2
 
   # Misc
@@ -22,3 +27,12 @@ catalogs:
     react-dom: 19.0.0
     "@types/react": ^19.0.12
     "@types/react-dom": ^19.0.4
+
+
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+  - esbuild
+
+publicHoistPattern:
+  - "@ianvs/prettier-plugin-sort-imports"
+  - prettier-plugin-tailwindcss

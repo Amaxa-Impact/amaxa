@@ -1,6 +1,8 @@
 {
   "extends": "@amaxa/tsconfig/compiled-package.json",
-  "compilerOptions": {},
-  "include": ["*.ts", "src"],
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "include": ["*.ts", "*.tsx", "src"],
   "exclude": ["node_modules"]
 }

@@ -57,11 +57,9 @@ export const Navbar = () => {
           <NavigationMenuList className="text-xl">
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink className={cls}>
+                  <NavigationMenuLink className={cls} href={item.href}>
                     {item.label}
                   </NavigationMenuLink>
-                </Link>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>

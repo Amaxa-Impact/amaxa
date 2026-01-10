@@ -1,59 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@amaxa/tailwind-config/theme";
 
-@layer base {
-  :root {
-    --background: 234 100% 100%;
-    --foreground: 234 5% 10%;
-    --card: 234 50% 100%;
-    --card-foreground: 234 5% 15%;
-    --popover: 234 100% 100%;
-    --popover-foreground: 234 100% 10%;
-    --primary: 234 56.3% 59.6%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 234 5% 100%;
-    --border: 234 30% 82%;
-    --input: 234 30% 50%;
-    --ring: 234 56.3% 59.6%;
-    --radius: 0.75rem;
-    --font-geist-sans:
-      "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
-    --font-geist-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
-    --brand-green: 76 54% 64%;
-    --brand-green-hover: 76 54% 54%;
+@plugin "@tailwindcss/typography";
+
+@source "../../../../packages/ui/src/*.{ts,tsx}";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+@custom-variant auto (&:where(.auto, .auto *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
   }
-
-  .dark {
-    --background: 234 50% 10%;
-    --foreground: 234 5% 100%;
-    --card: 234 50% 10%;
-    --card-foreground: 234 5% 100%;
-    --popover: 234 50% 5%;
-    --popover-foreground: 234 5% 100%;
-    --primary: 234 56.3% 59.6%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 234 5% 100%;
-    --border: 234 30% 50%;
-    --input: 234 30% 50%;
-    --ring: 234 56.3% 59.6%;
-    --radius: 0.75rem;
-    --brand-green: 76 54% 64%;
-    --brand-green-hover: 76 54% 54%;
+  @media (width >= 1400px) {
+    max-width: 1400px;
   }
 }
 
@@ -61,23 +25,12 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground;
+    letter-spacing: var(--tracking-normal);
   }
 }
 
 @layer utilities {
-  /* Chrome, Safari and Opera */
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
-  }
-
-  .scrollbar-hidden {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-
   /* Animated underline drawing effect - 2s delay, very slow start, stays for 5 seconds, then loops */
   @keyframes draw-line {
     0% {
@@ -104,15 +57,6 @@
     }
   }
 
-  .animate-draw-line {
-    animation: draw-line 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    animation-delay: 1s;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    will-change: stroke-dashoffset, opacity;
-    shape-rendering: geometricPrecision;
-  }
-
   /* Permanent underline animation - draws once and stays */
   @keyframes draw-line-permanent {
     0% {
@@ -128,12 +72,142 @@
     }
   }
 
-  .animate-draw-line-permanent {
-    animation: draw-line-permanent 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    animation-delay: 2s;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    will-change: stroke-dashoffset, opacity;
-    shape-rendering: geometricPrecision;
+  /* Keyframes from tailwind.config.ts */
+  @keyframes skew-scroll {
+    0% {
+      transform: translateZ(0) translateY(0);
+    }
+    100% {
+      transform: translateZ(0) translateY(-100%);
+    }
+  }
+
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+
+  @keyframes image-glow {
+    0% {
+      opacity: 0;
+      animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1);
+    }
+    10% {
+      opacity: 0.7;
+      animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99);
+    }
+    100% {
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes shimmer {
+    0%, 90%, 100% {
+      background-position: calc(-100% - var(--shimmer-width)) 0;
+    }
+    30%, 60% {
+      background-position: calc(100% + var(--shimmer-width)) 0;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+}
+
+/* Custom utility classes with animations */
+@utility animate-draw-line {
+  animation: draw-line 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1s;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  will-change: stroke-dashoffset, opacity;
+  shape-rendering: geometricPrecision;
+}
+
+@utility animate-draw-line-permanent {
+  animation: draw-line-permanent 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 2s;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  will-change: stroke-dashoffset, opacity;
+  shape-rendering: geometricPrecision;
+}
+
+@utility animate-border-beam {
+  animation: border-beam calc(var(--duration) * 1s) infinite linear;
+}
+
+@utility animate-skew-scroll {
+  animation: skew-scroll 20s linear infinite;
+}
+
+@utility animate-image-glow {
+  animation: image-glow 4100ms 600ms ease-out forwards;
+}
+
+@utility animate-fade-in {
+  animation: fade-in 1000ms var(--animation-delay, 0ms) ease forwards;
+}
+
+@utility animate-fade-up {
+  animation: fade-up 1000ms var(--animation-delay, 0ms) ease forwards;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 8s infinite;
+}
+
+@utility animate-marquee {
+  animation: marquee var(--duration) infinite linear;
+}
+
+@utility animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
+
+@utility scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
