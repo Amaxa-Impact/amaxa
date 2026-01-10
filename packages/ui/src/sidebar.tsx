@@ -10,16 +10,18 @@ import { useIsMobile } from "./use-mobile";
 
 export const SIDEBAR_STATE_COOKIE = "sidebar:state";
 
-type SidebarContext = {
+interface SidebarContext {
   state: "open" | "closed";
   open: boolean;
   onOpenChange: (open: boolean) => void;
-};
+}
 
 const SidebarContext = React.createContext<SidebarContext>({
   state: "open",
   open: true,
-  onOpenChange: () => {},
+  onOpenChange: () => {
+    // This is intentionally empty - it's overridden by the provider
+  },
 });
 
 function useSidebar() {
@@ -54,7 +56,7 @@ const SidebarLayout = React.forwardRef<
           } as React.CSSProperties
         }
         className={cn(
-          "flex min-h-screen bg-accent/50 pl-0 transition-all duration-300 ease-in-out data-[sidebar=closed]:pl-0 sm:pl-[--sidebar-width]",
+          "bg-accent/50 flex min-h-screen pl-0 transition-all duration-300 ease-in-out data-[sidebar=closed]:pl-0 sm:pl-[--sidebar-width]",
           className,
         )}
         {...props}
@@ -94,7 +96,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
     const sidebar = (
       <div
         ref={ref}
-        className={cn("flex h-full flex-col border-r bg-background", className)}
+        className={cn("bg-background flex h-full flex-col border-r", className)}
       >
         {children}
       </div>
@@ -182,7 +184,7 @@ const SidebarLabel = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "px-1.5 text-xs font-medium text-muted-foreground",
+        "text-muted-foreground px-1.5 text-xs font-medium",
         className,
       )}
       {...props}

@@ -1,0 +1,35 @@
+{
+  "name": "@amaxa/resend",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "devDependencies": {
+    "@amaxa/eslint-config": "workspace:*",
+    "@amaxa/prettier-config": "workspace:*",
+    "@amaxa/tsconfig": "workspace:*",
+    "@types/react": "catalog:react19",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "react": "catalog:react19",
+    "typescript": "catalog:"
+  },
+  "prettier": "@amaxa/prettier-config",
+  "dependencies": {
+    "@react-email/components": "^1.0.4",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.2.0",
+    "resend": "^6.7.0",
+    "zod": "catalog:"
+  }
+}

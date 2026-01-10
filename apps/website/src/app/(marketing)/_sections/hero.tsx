@@ -130,13 +130,13 @@ const ImpactSection: React.FC = () => {
 
           {/* Rotating impact statement with typewriter effect */}
           <div className="flex h-[120px] items-center py-4 sm:h-[150px] md:h-[180px] md:py-8">
-            <h2 className="pb-8 text-xl font-bold leading-tight text-gray-800 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+            <h2 className="pb-8 text-xl leading-tight font-bold text-gray-800 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
               {typedText}
               <span className="animate-blink">|</span>
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-3 pb-4 pt-4 md:gap-4 md:pt-8">
+          <div className="flex flex-wrap gap-3 pt-4 pb-4 md:gap-4 md:pt-8">
             <React.Suspense fallback={<div>Loading...</div>}>
               <ApplyButton variant="color">
                 Join Us <span className="ml-2">→</span>
@@ -187,7 +187,7 @@ const ImpactSection: React.FC = () => {
               onClick={() => navigateTo(prevIndex)}
             >
               <Image
-                src={content[prevIndex]?.image!}
+                src={content[prevIndex]?.image ?? ""}
                 alt="Previous"
                 fill
                 priority
@@ -215,8 +215,8 @@ const ImpactSection: React.FC = () => {
                 }}
               >
                 <Image
-                  src={content[activeIndex]?.image!}
-                  alt={content[activeIndex]?.statement!}
+                  src={content[activeIndex]?.image ?? ""}
+                  alt={content[activeIndex]?.statement ?? ""}
                   fill
                   priority
                   sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 280px"
@@ -242,7 +242,7 @@ const ImpactSection: React.FC = () => {
               onClick={() => navigateTo(nextIndex)}
             >
               <Image
-                src={content[nextIndex]?.image!}
+                src={content[nextIndex]?.image ?? ""}
                 alt="Next"
                 priority
                 fill

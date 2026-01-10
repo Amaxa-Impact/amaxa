@@ -1,6 +1,6 @@
-/** @type {import("next").NextConfig} */
+import type { NextConfig } from "next";
 
-const config = {
+const config: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   async redirects() {
@@ -19,17 +19,14 @@ const config = {
         hostname: "**",
       },
     ],
-    // Increase timeout and add better error handling for slow image sources
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
+    contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Custom loader to bypass optimization for ufs.sh to prevent timeout errors
-    loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
 
-  /** Enables hot reloading for local packages without a build step */
   transpilePackages: [
     "@amaxa/api",
     "@amaxa/auth",
@@ -38,8 +35,6 @@ const config = {
     "@amaxa/validators",
   ],
 
-  /** We already do linting and typechecking as separate tasks in CI */
-  eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   async rewrites() {
     return [
@@ -57,7 +52,6 @@ const config = {
       },
     ];
   },
-  // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
 };
 

@@ -1,27 +1,28 @@
 "use client";
-import React from 'react';
-import Link from 'next/link';
+
+import React from "react";
+import Link from "next/link";
 
 interface AmaxaCTAProps {
   text?: string;
   link?: string;
-  variant?: 'start-solving' | 'blog' | 'explore' | 'apply';
+  variant?: "start-solving" | "blog" | "explore" | "apply";
 }
 
-export function AmaxaCTA({ 
+export function AmaxaCTA({
   text = "Learn more about ámaxa and start solving problems with global nonprofits!",
   link = "/start-solving",
-  variant = "start-solving"
+  variant = "start-solving",
 }: AmaxaCTAProps) {
   const getVariantText = () => {
     switch (variant) {
-      case 'start-solving':
+      case "start-solving":
         return "Join our Student Impact Program and start solving problems with global non-profits!";
-      case 'blog':
+      case "blog":
         return "Check out our blog to find amazing local and remote opportunities!";
-      case 'explore':
+      case "explore":
         return "Explore all the problems you can help solve on ámaxa!";
-      case 'apply':
+      case "apply":
         return "Apply today to get started with ámaxa!";
       default:
         return text;
@@ -30,13 +31,13 @@ export function AmaxaCTA({
 
   const getVariantLink = () => {
     switch (variant) {
-      case 'start-solving':
+      case "start-solving":
         return "/start-solving";
-      case 'blog':
+      case "blog":
         return "/blog";
-      case 'explore':
+      case "explore":
         return "/explore-problems-all";
-      case 'apply':
+      case "apply":
         return "/start-solving";
       default:
         return link;
@@ -44,21 +45,19 @@ export function AmaxaCTA({
   };
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 my-8">
+    <div className="my-8 rounded-lg border border-blue-200 bg-blue-50 p-6">
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-blue-900 mb-2">
+        <h3 className="mb-2 text-lg font-semibold text-blue-900">
           Ready to Make an Impact?
         </h3>
-        <p className="text-blue-700 mb-4">
-          {getVariantText()}
-        </p>
-        <Link 
+        <p className="mb-4 text-blue-700">{getVariantText()}</p>
+        <Link
           href={getVariantLink()}
-          className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+          className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
         >
           Get Started with ámaxa
         </Link>
       </div>
     </div>
   );
-} 
+}

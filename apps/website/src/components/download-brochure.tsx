@@ -44,20 +44,20 @@ export function DownloadBrochure() {
 
   return (
     <>
-      <section className="w-full bg-background px-6 py-16 md:px-16 md:py-20 lg:px-20 lg:py-24">
+      <section className="bg-background w-full px-6 py-16 md:px-16 md:py-20 lg:px-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="flex flex-col justify-center space-y-8">
               <div className="space-y-6">
                 <div>
-                  <h2 className="bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-3xl font-semibold leading-relaxed text-transparent md:text-4xl lg:text-5xl">
+                  <h2 className="from-foreground to-foreground/60 bg-gradient-to-br bg-clip-text text-3xl leading-relaxed font-semibold text-transparent md:text-4xl lg:text-5xl">
                     Are you a school
                   </h2>
-                  <p className="mt-2 text-3xl font-bold leading-relaxed text-brand-green md:text-4xl lg:text-5xl">
+                  <p className="text-brand-green mt-2 text-3xl leading-relaxed font-bold md:text-4xl lg:text-5xl">
                     Interested in Partnering with Amaxa?
                   </p>
                 </div>
-                <div className="h-1 w-24 rounded-full bg-brand-green" />
+                <div className="bg-brand-green h-1 w-24 rounded-full" />
               </div>
 
               <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -88,7 +88,7 @@ export function DownloadBrochure() {
                         className="mt-1"
                       />
                       {errors.schoolName && (
-                        <p className="mt-1 text-sm text-destructive">
+                        <p className="text-destructive mt-1 text-sm">
                           {errors.schoolName.message}
                         </p>
                       )}
@@ -105,7 +105,7 @@ export function DownloadBrochure() {
                         className="mt-1"
                       />
                       {errors.contactName && (
-                        <p className="mt-1 text-sm text-destructive">
+                        <p className="text-destructive mt-1 text-sm">
                           {errors.contactName.message}
                         </p>
                       )}
@@ -127,7 +127,7 @@ export function DownloadBrochure() {
                         className="mt-1"
                       />
                       {errors.contactEmail && (
-                        <p className="mt-1 text-sm text-destructive">
+                        <p className="text-destructive mt-1 text-sm">
                           {errors.contactEmail.message}
                         </p>
                       )}
@@ -154,13 +154,13 @@ export function DownloadBrochure() {
               <Card className="rounded-2xl">
                 <CardContent className="flex items-start gap-4 p-6">
                   <div className="flex-shrink-0">
-                    <Globe className="h-12 w-12 text-brand-green" />
+                    <Globe className="text-brand-green h-12 w-12" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="mb-2 text-xl font-bold text-card-foreground md:text-2xl">
+                    <h3 className="text-card-foreground mb-2 text-xl font-bold md:text-2xl">
                       Global Collaboration
                     </h3>
-                    <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+                    <p className="text-muted-foreground text-base leading-relaxed md:text-lg">
                       Give your students the opportunity to collaborate with
                       peers from 48+ countries, work on real-world projects with
                       nonprofits in Palestine, Uganda, and Liberia, and develop
@@ -173,13 +173,13 @@ export function DownloadBrochure() {
               <Card className="rounded-2xl">
                 <CardContent className="flex items-start gap-4 p-6">
                   <div className="flex-shrink-0">
-                    <CheckCircle className="h-12 w-12 text-brand-green" />
+                    <CheckCircle className="text-brand-green h-12 w-12" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="mb-2 text-xl font-bold text-card-foreground md:text-2xl">
+                    <h3 className="text-card-foreground mb-2 text-xl font-bold md:text-2xl">
                       100% Remote & Accessible
                     </h3>
-                    <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+                    <p className="text-muted-foreground text-base leading-relaxed md:text-lg">
                       Accessible to all students with no additional burden on
                       your staff—we provide trained coaches and a proven 3-month
                       curriculum that integrates seamlessly with your school's
@@ -192,13 +192,13 @@ export function DownloadBrochure() {
               <Card className="rounded-2xl">
                 <CardContent className="flex items-start gap-4 p-6">
                   <div className="flex-shrink-0">
-                    <Star className="h-12 w-12 text-brand-green" />
+                    <Star className="text-brand-green h-12 w-12" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="mb-2 text-xl font-bold text-card-foreground md:text-2xl">
+                    <h3 className="text-card-foreground mb-2 text-xl font-bold md:text-2xl">
                       Real-World Impact
                     </h3>
-                    <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+                    <p className="text-muted-foreground text-base leading-relaxed md:text-lg">
                       Students work on meaningful projects that create tangible
                       change in communities around the world, building
                       portfolios that showcase leadership, empathy, and global

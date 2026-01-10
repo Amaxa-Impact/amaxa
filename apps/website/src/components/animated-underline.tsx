@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import { cn } from "@amaxa/ui";
 
 interface AnimatedUnderlineProps {
@@ -23,7 +24,10 @@ export function AnimatedUnderline({
 }: AnimatedUnderlineProps) {
   return (
     <div
-      className={cn("absolute left-0 top-full h-20 overflow-visible", className)}
+      className={cn(
+        "absolute top-full left-0 h-20 overflow-visible",
+        className,
+      )}
       style={{ width: "100%" }}
     >
       <svg
@@ -56,10 +60,12 @@ export function AnimatedTitle({
   underlinedText,
   color = "#BCD96C",
 }: AnimatedTitleProps) {
-  const fullText = beforeText ? `${beforeText} ${underlinedText}` : underlinedText;
+  const fullText = beforeText
+    ? `${beforeText} ${underlinedText}`
+    : underlinedText;
 
   return (
-    <h1 className="text-2xl font-bold leading-tight text-black md:text-3xl lg:text-5xl overflow-visible pb-3 mb-0 whitespace-nowrap text-center">
+    <h1 className="mb-0 overflow-visible pb-3 text-center text-2xl leading-tight font-bold whitespace-nowrap text-black md:text-3xl lg:text-5xl">
       <span className="relative inline-block overflow-visible font-bold">
         {fullText}
         <AnimatedUnderline color={color} />

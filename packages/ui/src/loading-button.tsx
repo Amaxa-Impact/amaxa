@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from ".";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border-input bg-background hover:bg-accent hover:text-accent-foreground border",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -36,7 +36,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
@@ -48,28 +49,45 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     if (asChild) {
+      const onlyChild = React.Children.only(children);
+      const ariaDisabled = Boolean(loading || props.disabled);
+
+      if (!React.isValidElement(onlyChild)) {
+        return (
+          <Slot
+            ref={ref}
+            {...props}
+            aria-disabled={ariaDisabled}
+            data-disabled={ariaDisabled ? "" : undefined}
+            className={cn(buttonVariants({ variant, size }), className)}
+          >
+            {onlyChild}
+          </Slot>
+        );
+      }
+
+      const childEl = onlyChild as React.ReactElement<{
+        children?: React.ReactNode;
+      }>;
+
       return (
-        <Slot ref={ref} {...props}>
-          <>
-            {React.Children.map(
-              children as React.ReactElement,
-              (child: React.ReactElement) => {
-                return React.cloneElement(child, {
-                  className: cn(buttonVariants({ variant, size }), className),
-                  children: (
-                    <>
-                      {loading && (
-                        <Loader2
-                          className={cn("h-4 w-4 animate-spin", "mr-2")}
-                        />
-                      )}
-                      {child.props.children}
-                    </>
-                  ),
-                });
-              },
-            )}
-          </>
+        <Slot
+          ref={ref}
+          {...props}
+          aria-disabled={ariaDisabled}
+          data-disabled={ariaDisabled ? "" : undefined}
+          className={cn(buttonVariants({ variant, size }), className)}
+        >
+          {React.cloneElement(childEl, {
+            children: (
+              <>
+                {loading && (
+                  <Loader2 className={cn("h-4 w-4 animate-spin", "mr-2")} />
+                )}
+                {childEl.props.children}
+              </>
+            ),
+          })}
         </Slot>
       );
     }
@@ -77,9 +95,9 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
-        disabled={loading}
         ref={ref}
         {...props}
+        disabled={Boolean(loading || props.disabled)}
       >
         <>
           {loading && (

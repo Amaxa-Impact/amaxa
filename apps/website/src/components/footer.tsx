@@ -1,10 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Facebook, Globe, Instagram, Linkedin, Music2, BookOpen, Mail } from "lucide-react";
+import {
+  BookOpen,
+  Facebook,
+  Globe,
+  Instagram,
+  Linkedin,
+  Mail,
+  Music2,
+} from "lucide-react";
+
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
+
 import { useTypewriter } from "~/hooks/use-typewriter";
 
 const Footer = () => {
@@ -12,7 +23,7 @@ const Footer = () => {
     "Join our community and stay connected with stories of change.",
   ];
 
-  const typedText = useTypewriter(newsletterTexts, 50, 30, 2000);
+  const typedText = useTypewriter(newsletterTexts, 50, 30, 2000) as string;
   const [email, setEmail] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitStatus, setSubmitStatus] = useState<{
@@ -61,9 +72,9 @@ const Footer = () => {
   return (
     <footer className="w-full bg-black">
       {/* NEWSLETTER SECTION */}
-      <div className="bg-white py-16 px-4 md:py-20 lg:py-24">
+      <div className="bg-white px-4 py-16 md:py-20 lg:py-24">
         <div className="container mx-auto max-w-5xl">
-          <h3 className="mb-8 min-h-[4rem] text-center text-4xl font-light leading-tight text-black md:mb-10 md:min-h-[5rem] md:text-5xl lg:text-6xl lg:leading-tight">
+          <h3 className="mb-8 min-h-[4rem] text-center text-4xl leading-tight font-light text-black md:mb-10 md:min-h-[5rem] md:text-5xl lg:text-6xl lg:leading-tight">
             {typedText}
             <span className="animate-pulse">|</span>
           </h3>
@@ -78,7 +89,7 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
-                className="flex-1 rounded-full border border-[#3B3B3B] bg-white px-6 py-4 text-lg text-[#3B3B3B] transition-colors focus:border-[#b9d66e] focus:outline-none focus:ring-2 focus:ring-[#b9d66e]/20 disabled:opacity-50 md:px-8 md:py-5"
+                className="flex-1 rounded-full border border-[#3B3B3B] bg-white px-6 py-4 text-lg text-[#3B3B3B] transition-colors focus:border-[#b9d66e] focus:ring-2 focus:ring-[#b9d66e]/20 focus:outline-none disabled:opacity-50 md:px-8 md:py-5"
                 required
                 aria-label="Email address for newsletter subscription"
               />
@@ -86,7 +97,7 @@ const Footer = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="box-border flex shrink-0 items-center justify-center rounded-full border border-[#3B3B3B] bg-[#b9d66e] px-8 py-4 text-lg font-normal text-[#3B3B3B] transition-all hover:bg-[#a8c55f] hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed md:px-10 md:py-5 md:text-xl"
+              className="box-border flex shrink-0 items-center justify-center rounded-full border border-[#3B3B3B] bg-[#b9d66e] px-8 py-4 text-lg font-normal text-[#3B3B3B] transition-all hover:bg-[#a8c55f] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 md:px-10 md:py-5 md:text-xl"
             >
               {isSubmitting ? "Subscribing..." : "Subscribe →"}
             </Button>

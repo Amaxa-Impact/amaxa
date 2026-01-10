@@ -19,11 +19,15 @@ export default function Page() {
           />
         </div>
         {/* Content container with flex layout */}
-        <section className="w-full py-16 md:py-24 overflow-visible">
-          <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+        <section className="w-full overflow-visible py-16 md:py-24">
+          <div className="container mx-auto overflow-visible px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-center justify-center overflow-visible">
               <div className="mb-12 max-w-full overflow-visible">
-                <AnimatedTitle beforeText="Discover" underlinedText="Our Projects" color="#BCD96C" />
+                <AnimatedTitle
+                  beforeText="Discover"
+                  underlinedText="Our Projects"
+                  color="#BCD96C"
+                />
               </div>
             </div>
           </div>
@@ -76,7 +80,7 @@ export default function Page() {
       <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="px-6 md:px-16 lg:px-20">
           {/* Main heading */}
-          <h2 className="mb-12 max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
+          <h2 className="mb-12 max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
             Join us to transform your passion into impact.
           </h2>
 

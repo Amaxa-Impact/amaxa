@@ -1,7 +1,3 @@
-export default function NewsletterLoading() {   
-    return (
-        <div>
-        loading 
-        </div>
-    )
+export default function NewsletterLoading() {
+  return <div>loading</div>;
 }

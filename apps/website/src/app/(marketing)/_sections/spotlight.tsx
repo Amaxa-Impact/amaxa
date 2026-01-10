@@ -9,7 +9,7 @@ export const Spotlight = (props: { spotlightData: SpotlightData }) => {
     <section className="container mx-auto flex flex-col py-10 md:flex-row">
       {/* Left Section */}
       <div className="flex flex-col gap-5 p-4 md:w-2/4 lg:w-3/4">
-        <h2 className="mb-2 text-sm font-bold uppercase text-gray-500">
+        <h2 className="mb-2 text-sm font-bold text-gray-500 uppercase">
           {spotlightData.heading}
         </h2>
         <div>

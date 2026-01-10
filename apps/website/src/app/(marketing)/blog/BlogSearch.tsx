@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface SearchResult {
@@ -16,20 +16,16 @@ interface BlogSearchProps {
 export function BlogSearch({ posts }: BlogSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
+  // Derive results from searchText using useMemo instead of useEffect
+  const results = useMemo(() => {
     if (searchText.trim() === "") {
-      setResults([]);
-      return;
+      return [];
     }
-
-    const filtered = posts.filter((post) =>
+    return posts.filter((post) =>
       post.title.toLowerCase().includes(searchText.toLowerCase()),
     );
-
-    setResults(filtered);
   }, [searchText, posts]);
 
   function handleResultClick(slug: string) {
@@ -48,9 +44,9 @@ export function BlogSearch({ posts }: BlogSearchProps) {
       <div className="mx-auto max-w-4xl">
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex w-full items-center justify-between border-b border-border py-4 transition-colors duration-200 hover:border-foreground/40"
+          className="group border-border hover:border-foreground/40 flex w-full items-center justify-between border-b py-4 transition-colors duration-200"
         >
-          <span className="text-lg text-muted-foreground">
+          <span className="text-muted-foreground text-lg">
             Search for blogs...
           </span>
           <svg
@@ -58,7 +54,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            className="text-muted-foreground transition-colors group-hover:text-foreground"
+            className="text-muted-foreground group-hover:text-foreground transition-colors"
           >
             <circle
               cx="10"
@@ -83,7 +79,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
           onClick={handleBackdropClick}
         >
           <div
-            className={`w-full max-w-2xl overflow-hidden bg-card shadow-2xl ${
+            className={`bg-card w-full max-w-2xl overflow-hidden shadow-2xl ${
               searchText ? "rounded-3xl" : "rounded-full"
             }`}
             onClick={(e) => e.stopPropagation()}
@@ -95,7 +91,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
-                  className="flex-shrink-0 text-muted-foreground"
+                  className="text-muted-foreground flex-shrink-0"
                 >
                   <circle
                     cx="8"
@@ -116,16 +112,16 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                   placeholder="Search..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  className="flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
+                  className="text-foreground placeholder:text-muted-foreground flex-1 bg-transparent text-base outline-none"
                   autoFocus
                 />
               </div>
             </div>
 
             {searchText && (
-              <div className="max-h-[400px] overflow-y-auto rounded-b-3xl border-t border-border">
+              <div className="border-border max-h-[400px] overflow-y-auto rounded-b-3xl border-t">
                 {results.length === 0 ? (
-                  <div className="p-8 text-center text-muted-foreground">
+                  <div className="text-muted-foreground p-8 text-center">
                     No blogs found for "{searchText}"
                   </div>
                 ) : (
@@ -133,12 +129,12 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                     <button
                       key={result._id}
                       onClick={() => handleResultClick(result.slug.current)}
-                      className="w-full border-b border-border/50 p-6 text-left transition-colors last:border-b-0 hover:bg-muted"
+                      className="border-border/50 hover:bg-muted w-full border-b p-6 text-left transition-colors last:border-b-0"
                     >
-                      <h3 className="mb-1 text-lg font-semibold text-foreground">
+                      <h3 className="text-foreground mb-1 text-lg font-semibold">
                         {result.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         /blog/{result.slug.current}
                       </p>
                     </button>

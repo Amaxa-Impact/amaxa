@@ -1,17 +1,15 @@
 import React from "react";
 
+import type { Period, TimePickerType } from "./time-picker-utils";
 import { cn } from "..";
 import { Input } from "../input";
 import {
   getArrowByType,
   getDateByType,
-  Period,
   setDateByType,
-  TimePickerType,
 } from "./time-picker-utils";
 
-export interface TimePickerInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TimePickerInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   picker: TimePickerType;
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
@@ -103,13 +101,13 @@ const TimePickerInput = React.forwardRef<
     return (
       <Input
         ref={ref}
-        id={id || picker}
-        name={name || picker}
+        id={id ?? picker}
+        name={name ?? picker}
         className={cn(
-          "w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
+          "focus:bg-accent focus:text-accent-foreground w-[48px] text-center font-mono text-base tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none",
           className,
         )}
-        value={value || calculatedValue}
+        value={value ?? calculatedValue}
         onChange={(e) => {
           e.preventDefault();
           onChange?.(e);

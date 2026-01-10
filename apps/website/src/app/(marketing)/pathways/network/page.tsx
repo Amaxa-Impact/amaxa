@@ -20,14 +20,14 @@ export default function ProgramPage() {
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
                 {/* --- Start of resolved conflict block (main version kept) --- */}
-                <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
+                <h1 className="text-4xl leading-tight font-light text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Ámaxa Network:{" "}
                   <span className="font-normal text-[#3B3B3B]">Colorado</span>
                 </h1>
                 {/* --- End of resolved conflict block --- */}
 
                 {/* Green wavy line - SVG replacement for the image */}
-                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
+                <div className="relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64 lg:w-200">
                   {/* --- Start of resolved conflict block (SVG fixed) --- */}
                   <svg
                     viewBox="0 6 325 120" // Adjusted viewBox height
@@ -58,20 +58,20 @@ export default function ProgramPage() {
               This is an open invitation for individuals in Colorado who are
               doing great things to effect change.
             </h2>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
               The Ámaxa Network provides a space to congregate both digitally &
               in-person, celebrate both big wins and small victories, and foster
               a sense of collective achievement. Here, accomplishments are not
               just noted; they're elevated, fueling inspiration and
               collaborative growth.
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
               Our core philosophy: every achievement, no matter how seemingly
               modest, contributes to a larger tapestry of social impact. In
               essence, the ámaxa network isn’t just about connectivity—it’s
               about building a legacy of excellence through shared efforts.
             </p>
-            <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+            <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
               {" "}
               Any Colorado-based applicant can apply today through our link
               below, and we will be in touch with next steps.
@@ -155,7 +155,7 @@ export default function ProgramPage() {
                 </h2>
               </div>
               <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                <p className="text-xl leading-snug font-normal text-[#3B3B3B] md:text-2xl lg:text-3xl">
                   A community of passionate individuals in Colorado actively
                   pursuring social impact projects or activities in their own
                   lives. As a part of the network, you have access to ámaxa's
@@ -172,7 +172,7 @@ export default function ProgramPage() {
                 </h2>
               </div>
               <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                <p className="text-xl leading-snug font-normal text-[#3B3B3B] md:text-2xl lg:text-3xl">
                   Anyone aged 14+ based in Colorado
                 </p>
               </div>
@@ -186,7 +186,7 @@ export default function ProgramPage() {
                 </h2>
               </div>
               <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                <p className="text-xl leading-snug font-normal text-[#3B3B3B] md:text-2xl lg:text-3xl">
                   You can take part in the network both remotely via our online
                   platform and by attending in-person events and meetups.
                 </p>
@@ -201,7 +201,7 @@ export default function ProgramPage() {
                 </h2>
               </div>
               <div className="md:w-2/3">
-                <p className="text-xl font-normal leading-snug text-[#3B3B3B] md:text-2xl lg:text-3xl">
+                <p className="text-xl leading-snug font-normal text-[#3B3B3B] md:text-2xl lg:text-3xl">
                   There is no cost to join.
                 </p>
               </div>
@@ -213,7 +213,7 @@ export default function ProgramPage() {
       <section className="w-full bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
           <div className="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">
-            <h2 className="text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl xl:text-6xl">
+            <h2 className="text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl xl:text-6xl">
               Read stories of past students to learn about the diverse types of
               projects cohorts undertake.
             </h2>

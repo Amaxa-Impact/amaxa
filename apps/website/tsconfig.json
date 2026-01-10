@@ -1,15 +1,13 @@
 {
   "extends": "@amaxa/tsconfig/base.json",
   "compilerOptions": {
-    "lib": ["es2022", "dom", "dom.iterable"],
+    "lib": ["ES2022", "dom", "dom.iterable"],
     "jsx": "preserve",
-    "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "~/*": ["./src/*"]
     },
-    "plugins": [{ "name": "next" }],
-    "module": "esnext"
+    "plugins": [{ "name": "next" }]
   },
   "include": [".", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

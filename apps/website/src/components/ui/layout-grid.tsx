@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -8,7 +9,7 @@ import { cn } from "@amaxa/ui";
 
 interface Card {
   id: number;
-  content: JSX.Element | React.ReactNode | string;
+  content: React.ReactNode;
   className: string;
   thumbnail: string;
   name: string;
@@ -53,7 +54,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       <motion.div
         onClick={handleOutsideClick}
         className={cn(
-          "absolute left-0 top-0 z-10 h-full w-full bg-black opacity-0",
+          "absolute top-0 left-0 z-10 h-full w-full bg-black opacity-0",
           selected?.id ? "pointer-events-auto" : "pointer-events-none",
         )}
         animate={{ opacity: selected?.id ? 0.3 : 0 }}
@@ -65,7 +66,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
 const BlurImage = ({ card }: { card: Card }) => {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="h-500 w-500 relative">
+    <div className="relative h-500 w-500">
       <Image
         src={card.thumbnail}
         height="500"
@@ -77,7 +78,7 @@ const BlurImage = ({ card }: { card: Card }) => {
         )}
         alt="thumbnail"
       />
-      <div className="absolute bottom-0 right-0 m-4 bg-black bg-opacity-50 p-2 text-white">
+      <div className="bg-opacity-50 absolute right-0 bottom-0 m-4 bg-black p-2 text-white">
         {card.name}
       </div>
     </div>

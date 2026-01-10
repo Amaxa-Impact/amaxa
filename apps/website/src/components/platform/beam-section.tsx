@@ -2,7 +2,7 @@
 
 import React, { forwardRef, useRef } from "react";
 
-import { BentoSectionLanding } from "./bento-landing";
+import { BentoSectionLanding } from "../bento-landing";
 
 export function BeamSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +15,7 @@ export function BeamSection() {
             Pricing
           </h4> */}
 
-          <h2 className="text-5xl font-bold tracking-tight text-black dark:text-white sm:text-6xl">
+          <h2 className="text-5xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
             Features that help you succeed
           </h2>
 
@@ -26,9 +26,9 @@ export function BeamSection() {
         </div>
       </div>
 
-      <div className="container mb-14 mt-4 flex items-center justify-center px-4 md:px-6">
+      <div className="container mt-4 mb-14 flex items-center justify-center px-4 md:px-6">
         <div
-          className="relative flex w-full max-w-[1000px] items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl"
+          className="bg-background relative flex w-full max-w-[1000px] items-center justify-center overflow-hidden rounded-lg md:shadow-xl"
           ref={containerRef}
         >
           <BentoSectionLanding />

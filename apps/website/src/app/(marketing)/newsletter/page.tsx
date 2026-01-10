@@ -1,7 +1,6 @@
-
 import React from "react";
 import Link from "next/link";
-import Script from "next/script"; 
+import Script from "next/script";
 
 export default function ProgramPage() {
   return (
@@ -17,17 +16,17 @@ export default function ProgramPage() {
           <div className="container mx-auto px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
-                <h1 className="text-4xl font-light leading-tight text-[#3B3B3B] md:text-4xl lg:text-6xl">
+                <h1 className="text-4xl leading-tight font-light text-[#3B3B3B] md:text-4xl lg:text-6xl">
                   Our newsletter rocks.{" "}
                   <span className="text-2xl text-[#3B3B3B]">(seriously.)</span>
                 </h1>
 
-                <div className="lg:w-200 relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64">
+                <div className="relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64 lg:w-200">
                   <svg
-                    viewBox="0 0 325 50" 
+                    viewBox="0 0 325 50"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full" 
+                    className="h-full w-full"
                   >
                     <path
                       d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
@@ -51,7 +50,7 @@ export default function ProgramPage() {
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
                   Ámaxa Monthly Newsletter
                 </h2>
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+                <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
                   The ámaxa monthly newsletter is your go-to for staying up to
                   date on all things ámaxa. Content ranges from project and
                   cohort updates, to student written columns and executive
@@ -63,9 +62,9 @@ export default function ProgramPage() {
                 <div>
                   <Link
                     href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email"
-                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                    className="hover:bg-opacity-80 inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Subscribe Now →
                   </Link>
@@ -98,7 +97,7 @@ export default function ProgramPage() {
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
                   Culture & Cause
                 </h2>
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+                <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
                   Culture & Cause is ámaxa’s second newsletter written by
                   Isabella Benice and Alexi Jones, members of ámaxa’s marketing
                   and communications team. This newsletter was born out of our
@@ -111,13 +110,13 @@ export default function ProgramPage() {
                   lands in your inbox on the 15th of each month.
                 </p>
 
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+                <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
                   We hope it makes you think, smile, and if nothing else, gives
                   you some interesting things to listen to and read over your
                   upcoming weeks. Enjoy!
                 </p>
 
-                <p className="text-sm font-light font-normal leading-relaxed text-[#3B3B3B] md:text-sm lg:text-sm">
+                <p className="text-sm leading-relaxed font-light font-normal text-[#3B3B3B] md:text-sm lg:text-sm">
                   P.S. Anyone can submit questions, essays, poems etc to Culture
                   & Cause, so if you consider yourself a creative, shoot an
                   email to lexi@amaxaimpact.org with a pitch/draft/piece!
@@ -125,10 +124,10 @@ export default function ProgramPage() {
 
                 <div>
                   <Link
-                    href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email" 
-                    className="inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition hover:bg-opacity-80" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                    href="https://amaxaimpact.substack.com/subscribe?utm_source=email&utm_campaign=email-subscribe&r=1qhobc&next=https%3A%2F%2Famaxaimpact.substack.com%2Fp%2Fmarch-preview&utm_medium=email"
+                    className="hover:bg-opacity-80 inline-block rounded bg-[#BCD96C] px-5 py-3 text-lg font-medium text-[#3B3B3B] transition"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Subscribe Now →
                   </Link>

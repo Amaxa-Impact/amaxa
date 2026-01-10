@@ -1,8 +1,9 @@
 {
-  "extends": "@amaxa/tsconfig/internal-package.json",
+  "extends": "@amaxa/tsconfig/compiled-package.json",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "ES2022"],
     "jsx": "preserve",
+    "rootDir": ".",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
   "include": ["*.ts", "src"],

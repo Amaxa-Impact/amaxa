@@ -114,8 +114,8 @@ export default function WhoAreWePage() {
   return (
     <main className="w-full">
       {/* Title Section with Animated Underline */}
-      <section className="w-full py-16 md:py-24 overflow-visible">
-        <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+      <section className="w-full overflow-visible py-16 md:py-24">
+        <div className="container mx-auto overflow-visible px-6 md:px-16 lg:px-20">
           <div className="flex flex-col items-center justify-center overflow-visible">
             <div className="mb-12 max-w-full overflow-visible">
               <AnimatedTitle underlinedText="Mission & Team" color="#BCD96C" />
@@ -123,7 +123,6 @@ export default function WhoAreWePage() {
           </div>
         </div>
       </section>
-
       {/* Hero Section */}
       <section className="mx-auto max-w-7xl px-6 py-16 text-[#3B3B3B] md:px-16 lg:px-20">
         <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden bg-black">
@@ -176,22 +175,20 @@ export default function WhoAreWePage() {
             containerClassName="col-span-2 lg:col-span-1 max-h-[320px]"
             className=""
           >
-         
-            <img
+            <Image
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVJDCilWL0MYRHUetxwcyzJn3h7alsSdIDAKf"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[30%] -z-10 filter brightness-75"
+              className="absolute -right-10 -bottom-40 -z-10 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[30%]"
             />
-            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
-               <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+            <div className="absolute inset-0 -z-20 rounded-2xl bg-[#0E101F]/40"></div>
+            <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
               Ámaxa Cohorts, for high school students{" "}
             </h2>
             <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
               End-to-end support to turn ideas into change
             </p>
-
           </WobbleCard>
         </Link>
 
@@ -201,24 +198,21 @@ export default function WhoAreWePage() {
           className="col-span-1 lg:col-span-1"
         >
           <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-          
-            <img
+            <Image
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOjxcCpDmYZFtMKdGCwhkEePg27zV39qyDB0mr"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%] -z-10  filter brightness-75"
-            />  
-            
-            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
-              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              className="absolute -right-10 -bottom-40 -z-10 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[10%]"
+            />
+
+            <div className="absolute inset-0 -z-20 rounded-2xl bg-[#0E101F]/40"></div>
+            <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
               Ámaxa Research for: undergrad & postgrad students
             </h2>
             <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-              Real research for real change. {" "}
+              Real research for real change.{" "}
             </p>
-
-
           </WobbleCard>
         </Link>
 
@@ -228,22 +222,20 @@ export default function WhoAreWePage() {
           className="col-span-1 lg:col-span-1"
         >
           <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-           
-            <img
+            <Image
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaLemsuIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
               width={600}
               height={600}
               alt="linear demo image"
-              className="absolute -top-[30%] -z-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[-0%] -z-10 filter brightness-75"
+              className="absolute -top-[30%] -z-10 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[-0%]"
             />
-            <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
-             <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+            <div className="absolute inset-0 -z-20 rounded-2xl bg-[#0E101F]/40"></div>
+            <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
               Ámaxa Partnerships, for professionals
             </h2>
             <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
               Unlock your capacity to change lives through networks.
             </p>
-
           </WobbleCard>
         </Link>
 
@@ -253,26 +245,22 @@ export default function WhoAreWePage() {
           className="col-span-1 lg:col-span-1"
         >
           <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-           
-     
-            <img
+            <Image
               src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONU0PJlDesbBzAkMUD2VgJC8t15PQoqpLNrjf"
               width={500}
               height={500}
               alt="linear demo image"
-              className="absolute -bottom-20 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%] filter brightness-75"
+              className="absolute -right-10 -bottom-20 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[10%]"
             />
-          <div className="absolute inset-0 bg-[#0E101F]/40 -z-20 rounded-2xl"></div>
-                      <div className="max-w-sm">
-
-             <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+            <div className="absolute inset-0 -z-20 rounded-2xl bg-[#0E101F]/40"></div>
+            <div className="max-w-sm">
+              <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
                 Ámaxa Network, for Coloradans
               </h2>
               <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
                 Connect with changemakers in Colorado
               </p>
-                     </div>
-
+            </div>
           </WobbleCard>
         </Link>
       </div>
@@ -295,7 +283,7 @@ export default function WhoAreWePage() {
       ...
       {/* Student Impact Details */}
       <div className="mx-auto max-w-7xl space-y-10 px-6 py-8 md:px-16 lg:px-20">
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           Created an
           <LinkPreview
             url="https://tailwindcss.com"
@@ -306,7 +294,7 @@ export default function WhoAreWePage() {
           for the ISNAD Center in Palestine.
         </p>
 
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           Raised $700 for Gazans through
           <LinkPreview
             url="https://tailwindcss.com"
@@ -324,7 +312,7 @@ export default function WhoAreWePage() {
           .
         </p>
 
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           Paid
           <LinkPreview
             url="https://tailwindcss.com"
@@ -342,7 +330,7 @@ export default function WhoAreWePage() {
           .
         </p>
 
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           Raised $500 for
           <LinkPreview
             url="https://tailwindcss.com"
@@ -353,7 +341,7 @@ export default function WhoAreWePage() {
           .
         </p>
 
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           We are providing PR for artist Piera van de Wiel to promote a
           <LinkPreview
             url="https://tailwindcss.com"
@@ -364,7 +352,7 @@ export default function WhoAreWePage() {
           .
         </p>
 
-        <p className="max-w-3xl text-lg text-neutral-500 dark:text-neutral-400 md:text-xl">
+        <p className="max-w-3xl text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
           Creating educational and cultural remote exchanges for
           <LinkPreview
             url="https://tailwindcss.com"
@@ -379,7 +367,7 @@ export default function WhoAreWePage() {
       {/* Vision CTA Section */}
       <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
         <div className="px-6 md:px-16 lg:px-20">
-          <h2 className="mb-12 max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
+          <h2 className="mb-12 max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
             Join us in our vision of 10,000 ámaxa members by 2030.
           </h2>
           <div className="flex flex-wrap gap-4">
@@ -392,12 +380,12 @@ export default function WhoAreWePage() {
         <div className="relative flex h-[600px] w-full items-center justify-center overflow-hidden bg-black">
           <motion.img
             src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1"
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover [mask-image:radial-gradient(circle,transparent,black_80%)]"
+            className="pointer-events-none absolute inset-0 h-full w-full [mask-image:radial-gradient(circle,transparent,black_80%)] object-cover"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             transition={{ duration: 1 }}
           />
-          <h1 className="z-2 relative w-[1000px] text-center text-4xl font-bold text-white">
+          <h1 className="relative z-2 w-[1000px] text-center text-4xl font-bold text-white">
             Àmaxa’s mission is to make it easier for people who want to make a
             difference to <ColourfulText text="actually take action" /> — not
             just feel stuck in that “I want to help, but I don’t know how”
@@ -407,7 +395,7 @@ export default function WhoAreWePage() {
 
         <section className="w-full py-16 md:py-24">
           <div className="">
-            <h2 className="max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            <h2 className="max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               So, we aim to take care of every aspect of what stops people- when
               you have that “but how do I start feeling”- the right nonprofit to
               help, who will do it with you, someone to guide you, and how to
@@ -441,7 +429,7 @@ export default function WhoAreWePage() {
 
         <section className="w-full py-16 md:py-24">
           <div className="">
-            <h2 className="max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            <h2 className="max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               Explore the ámaxa pathway for you.
             </h2>
           </div>
@@ -458,7 +446,7 @@ export default function WhoAreWePage() {
               containerClassName="col-span-2 lg:col-span-1 max-h-[320px]"
               className=""
             >
-              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
                 Ámaxa Cohorts, for high school students{" "}
               </h2>
               <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
@@ -467,12 +455,12 @@ export default function WhoAreWePage() {
                 change through one of our 9 partner nonprofits or original
                 initiatives.
               </p>
-              <img
+              <Image
                 src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVJDCilWL0MYRHUetxwcyzJn3h7alsSdIDAKf"
                 width={500}
                 height={500}
                 alt="linear demo image"
-                className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[30%]"
+                className="absolute -right-10 -bottom-40 rounded-2xl object-contain md:-right-[70%] lg:-right-[30%]"
               />
             </WobbleCard>
           </Link>
@@ -483,7 +471,7 @@ export default function WhoAreWePage() {
             className="col-span-1 lg:col-span-1"
           >
             <WobbleCard containerClassName="col-span-2 lg:col-span-1 min-h-[320px]">
-              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
                 Ámaxa Research for: undergrad & postgrad students
               </h2>
               <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
@@ -491,12 +479,12 @@ export default function WhoAreWePage() {
                 original research on questions critical to the work of our
                 partner nonprofits and initiatives.{" "}
               </p>
-              <img
+              <Image
                 src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOjxcCpDmYZFtMKdGCwhkEePg27zV39qyDB0mr"
                 width={500}
                 height={500}
                 alt="linear demo image"
-                className="absolute -bottom-40 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
+                className="absolute -right-10 -bottom-40 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
               />
             </WobbleCard>
           </Link>
@@ -507,7 +495,7 @@ export default function WhoAreWePage() {
             className="col-span-1 lg:col-span-1"
           >
             <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
-              <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+              <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
                 Ámaxa Partnerships, for professionals
               </h2>
               <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
@@ -516,12 +504,12 @@ export default function WhoAreWePage() {
                 ability to raise funds through corporate partnerships and
                 donations via each of our networks.
               </p>
-              <img
+              <Image
                 src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaLemsuIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
                 width={450}
                 height={450}
                 alt="linear demo image"
-                className="absolute -right-20 -top-[20%] -z-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[2%]"
+                className="absolute -top-[20%] -right-20 -z-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[2%]"
               />
             </WobbleCard>
           </Link>
@@ -533,7 +521,7 @@ export default function WhoAreWePage() {
           >
             <WobbleCard containerClassName="col-span-2 lg:col-span-1 max-h-[320px]">
               <div className="max-w-sm">
-                <h2 className="max-w-sm text-balance text-left text-base font-semibold tracking-[-0.015em] text-white md:max-w-lg md:text-xl lg:text-3xl">
+                <h2 className="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
                   Ámaxa Network, for Coloradans
                 </h2>
                 <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
@@ -542,12 +530,12 @@ export default function WhoAreWePage() {
                   digitally & in-person
                 </p>
               </div>
-              <img
+              <Image
                 src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONU0PJlDesbBzAkMUD2VgJC8t15PQoqpLNrjf"
                 width={500}
                 height={500}
                 alt="linear demo image"
-                className="absolute -bottom-20 -right-10 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
+                className="absolute -right-10 -bottom-20 rounded-2xl object-contain md:-right-[70%] lg:-right-[10%]"
               />
             </WobbleCard>
           </Link>
@@ -555,7 +543,7 @@ export default function WhoAreWePage() {
 
         <section className="w-full py-16 md:py-24">
           <div className="">
-            <h2 className="max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            <h2 className="max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               What our students have said:
             </h2>
           </div>
@@ -570,7 +558,7 @@ export default function WhoAreWePage() {
 
         <section className="w-full py-16 md:py-24">
           <div className="">
-            <h2 className="max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            <h2 className="max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
               What our students have done:
             </h2>
           </div>
@@ -581,7 +569,7 @@ export default function WhoAreWePage() {
         <section className="bg-[#F5F2F2] py-16 md:py-24 lg:py-32">
           <div className="px-6 md:px-16 lg:px-20">
             {/* Main heading */}
-            <h2 className="mb-12 max-w-5xl text-3xl font-normal leading-tight text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
+            <h2 className="mb-12 max-w-5xl text-3xl leading-tight font-normal text-[#3B3B3B] md:mb-16 md:text-4xl lg:text-5xl">
               Join us in our vision of 10,000 ámaxa members by 2030.
             </h2>
             {/* Button */}

@@ -1,14 +1,15 @@
 "use client";
 
 import type { ImageProps } from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 export default function BlurImage(props: ImageProps) {
   const [loading, setLoading] = useState(true);
   const [src, setSrc] = useState(props.src);
-  useEffect(() => setSrc(props.src), [props.src]); // update the `src` value when the `prop.src` value changes
 
+  // Reset src when props.src changes by using key prop on parent
+  // or handle it in onError
   return (
     <Image
       {...props}
