@@ -1,62 +1,132 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
+import React from "react";
+import { contactFormSchema } from "@amaxa/resend";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "@amaxa/ui/form";
+import { Button } from "@amaxa/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@amaxa/ui/card";
+import { Input } from "@amaxa/ui/input";
+import { Textarea } from "@amaxa/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@amaxa/ui/select";
+import { Globe, Info, Loader2, Send } from "lucide-react";
 
 import { AnimatedTitle } from "~/components/animated-underline";
 
-export default function ProgramPage() {
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+type ContactFormProps = {
+  formType?: ContactFormValues["formType"];
+  title: string;
+  description?: string;
+};
+
+const timezones: Array<{ value: string; label: string }> = [
+  { value: "America/New_York", label: "Eastern (ET) — America/New_York" },
+  { value: "America/Chicago", label: "Central (CT) — America/Chicago" },
+  { value: "America/Denver", label: "Mountain (MT) — America/Denver" },
+  { value: "America/Los_Angeles", label: "Pacific (PT) — America/Los_Angeles" },
+  { value: "UTC", label: "UTC" },
+];
+
+function formatPhoneNumber(input: string) {
+  const digits = input.replace(/\D/g, "").slice(0, 10);
+  const a = digits.slice(0, 3);
+  const b = digits.slice(3, 6);
+  const c = digits.slice(6, 10);
+  if (digits.length <= 3) return a;
+  if (digits.length <= 6) return `(${a}) ${b}`;
+  return `(${a}) ${b}-${c}`;
+}
+
+export function ContactForm({ formType = "general", title, description }: ContactFormProps) {
+  const form = useForm<ContactFormValues, any, ContactFormValues>({
+    schema: contactFormSchema,
+    defaultValues: {
+      formType,
+      name: "",
+      email: "",
+      message: "",
+      organization: "",
+      phone: "",
+      preferredDate: "",
+      preferredTime: "",
+      timezone: "",
+    },
+  });
+
+  const isSubmitting = form.formState.isSubmitting;
+  const [status, setStatus] = React.useState<
+    | { state: "idle" }
+    | { state: "success"; message: string }
+    | { state: "error"; message: string }
+  >({ state: "idle" });
+
+  async function onSubmit(values: ContactFormValues) {
+    setStatus({ state: "idle" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const json = (await res.json().catch(() => null)) as
+        | { success?: boolean; message?: string; error?: string }
+        | null;
+
+      if (!res.ok) {
+        setStatus({
+          state: "error",
+          message: json?.error ?? json?.message ?? "Failed to send message.",
+        });
+        return;
+      }
+
+      setStatus({
+        state: "success",
+        message: json?.message ?? "Message sent successfully!",
+      });
+      form.reset({ ...form.getValues(), name: "", email: "", message: "" });
+    } catch (err) {
+      setStatus({
+        state: "error",
+        message: err instanceof Error ? err.message : "Failed to send message.",
+      });
+    }
+  }
 
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-2xl">{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        {description ? <CardDescription>{description}</CardDescription> : null}
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {showInquiryTypeSelector && (
-              <FormField
-                control={form.control}
-                name="inquiryType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel {...({} as any)}>Inquiry Type</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="general">General Inquiry</SelectItem>
-                        <SelectItem value="internship">
-                          Internship Inquiry
-                        </SelectItem>
-                        <SelectItem value="high-school">
-                          High School Program
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      Select the type of inquiry that best matches your question
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
-
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel {...({} as any)}>Full Name</FormLabel>
+                  <FormLabel>Full Name</FormLabel>
                   <FormControl>
                     <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -70,27 +140,23 @@ export default function ProgramPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel {...({} as any)}>Email Address</FormLabel>
+                  <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="john@example.com"
-                      {...field}
-                    />
+                    <Input type="email" placeholder="john@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {formType === "demo" && (
+            {formType === "demo" ? (
               <>
                 <FormField
                   control={form.control}
                   name="organization"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel {...({} as any)}>Organization Name</FormLabel>
+                      <FormLabel>Organization Name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Personal, School Name, or Company Name"
@@ -108,21 +174,14 @@ export default function ProgramPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>
-                          Phone Number (Optional)
-                        </FormLabel>
+                        <FormLabel>Phone Number (Optional)</FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
                             placeholder="(555) 123-4567"
                             {...field}
                             value={field.value || ""}
-                            onChange={(e) => {
-                              const formatted = formatPhoneNumber(
-                                e.target.value,
-                              );
-                              field.onChange(formatted);
-                            }}
+                            onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
                           />
                         </FormControl>
                         <FormMessage />
@@ -135,9 +194,7 @@ export default function ProgramPage() {
                     name="preferredDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>
-                          Preferred Date (Optional)
-                        </FormLabel>
+                        <FormLabel>Preferred Date (Optional)</FormLabel>
                         <FormControl>
                           <Input type="date" {...field} />
                         </FormControl>
@@ -153,9 +210,7 @@ export default function ProgramPage() {
                     name="preferredTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>
-                          Preferred Time (Optional)
-                        </FormLabel>
+                        <FormLabel>Preferred Time (Optional)</FormLabel>
                         <FormControl>
                           <Input type="time" {...field} />
                         </FormControl>
@@ -169,15 +224,15 @@ export default function ProgramPage() {
                     name="timezone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel {...({} as any)}>
-                          <div className="flex items-center gap-2">
+                        <FormLabel>
+                          <span className="flex items-center gap-2">
                             <Globe className="h-4 w-4" />
                             Timezone (Optional)
-                          </div>
+                          </span>
                         </FormLabel>
                         <Select
                           onValueChange={field.onChange}
-                          defaultValue={field.value}
+                          defaultValue={field.value || undefined}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -193,8 +248,7 @@ export default function ProgramPage() {
                           </SelectContent>
                         </Select>
                         <FormDescription>
-                          Select your timezone so we can schedule at a
-                          convenient time
+                          Select your timezone so we can schedule at a convenient time.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -202,14 +256,14 @@ export default function ProgramPage() {
                   />
                 </div>
               </>
-            )}
+            ) : null}
 
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel {...({} as any)}>Message</FormLabel>
+                  <FormLabel>Message</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder={
@@ -226,12 +280,7 @@ export default function ProgramPage() {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full bg-[#3B3B3B] text-white hover:bg-[#3B3B3B]/90"
-              disabled={isSubmitting}
-              variant="primary"
-            >
+            <Button type="submit" className="w-full" disabled={isSubmitting} variant="primary">
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -245,24 +294,33 @@ export default function ProgramPage() {
               )}
             </Button>
 
-            {formType !== "demo" && (
+            {status.state === "success" ? (
+              <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+                {status.message}
+              </div>
+            ) : null}
+            {status.state === "error" ? (
+              <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-900">
+                {status.message}
+              </div>
+            ) : null}
+
+            {formType !== "demo" ? (
               <div className="mt-4 rounded-lg border border-[#BCD96C]/30 bg-[#BCD96C]/10 p-4">
                 <div className="flex items-start gap-3">
                   <Info className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#3B3B3B]" />
                   <div className="text-sm text-[#3B3B3B]/80">
-                    <p className="mb-1 font-medium">
-                      Where does this message go?
-                    </p>
+                    <p className="mb-1 font-medium">Where does this message go?</p>
                     <p>
                       Your message will be sent directly to{" "}
-                      <strong>lauren@amaxaimpact.org</strong>. A team member
-                      will reply directly to your email address. We typically
-                      respond within 1-2 business days.
+                      <strong>lauren@amaxaimpact.org</strong>. A team member will reply
+                      directly to your email address. We typically respond within 1-2
+                      business days.
                     </p>
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
           </form>
         </Form>
       </CardContent>
@@ -298,7 +356,7 @@ export default function ContactUsPage() {
         <div className="mx-auto max-w-7xl space-y-16 md:space-y-20">
           {/* High School Program */}
           <div className="space-y-8 md:space-y-10">
-            <div className="flex flex-col md:flex-row md:items-center md:gap-12">
+            <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-12">
               {/* Left: Description */}
               <div className="w-full space-y-6 md:w-1/2">
                 <h2 className="text-3xl font-normal text-[#3B3B3B] md:text-4xl lg:text-5xl">
@@ -314,27 +372,29 @@ export default function ContactUsPage() {
                   For collaboration inquiries, please email our COO Alexi Jones
                   at lexi@amaxaimpact.org.
                 </p>
-
               </div>
-              <h3 className="text-2xl font-semibold text-[#3B3B3B] md:text-3xl">
-                Send Us a Message
-              </h3>
-              <p className="mx-auto max-w-2xl text-muted-foreground">
-                Fill out the form below that matches your inquiry type. A team
-                member will reply to your email address, or for demo requests
-                with a preferred date and time, you'll receive a Google Calendar
-                invite.
-              </p>
-            </div>
 
-              <div className="mt-8 flex w-full items-center justify-center md:mt-0 md:w-1/2">
-                <div className="h-auto w-auto">
-                  <Image
-                    src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI"
-                    alt="mail"
-                    width="300"
-                    height="300"
-                  />
+              {/* Right: Form intro + image */}
+              <div className="w-full md:w-1/2">
+                <h3 className="text-2xl font-semibold text-[#3B3B3B] md:text-3xl">
+                  Send Us a Message
+                </h3>
+                <p className="mt-4 max-w-2xl text-muted-foreground">
+                  Fill out the form below that matches your inquiry type. A team
+                  member will reply to your email address, or for demo requests
+                  with a preferred date and time, you'll receive a Google Calendar
+                  invite.
+                </p>
+
+                <div className="mt-8 flex w-full items-center justify-center md:mt-10">
+                  <div className="h-auto w-auto">
+                    <Image
+                      src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO8nKnqPHgjXRpn0dgo1l6KOV2DuqGLya94cMI"
+                      alt="mail"
+                      width="300"
+                      height="300"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -344,7 +404,6 @@ export default function ContactUsPage() {
                 formType="demo"
                 title="Request a Demo or Intro Call"
                 description="Tell us about your organization and we'll schedule a time to connect."
-                schema={demoFormSchema}
               />
             </div>
           </div>

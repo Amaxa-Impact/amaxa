@@ -9,6 +9,9 @@ export const env = createEnv({
     AIRTABLE_TABLE_ID: z.string().min(1).optional(),
     AIRTABLE_TABLE_NAME: z.string().optional(),
   },
+  // Next.js only statically analyzes client-side `process.env` reads.
+  // Since we have no client/shared vars here, an empty object satisfies the type.
+  experimental__runtimeEnv: {},
   skipValidation:
     !!process.env.CI || process.env.npm_lifecycle_event === "lint",
 });
