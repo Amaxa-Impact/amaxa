@@ -9,8 +9,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@amaxa/eslint-config": "workspace:*",
     "@types/node": "catalog:",
-    "@amaxa/eslint-config": "catalog:",
     "typescript": "catalog:"
   },
   "dependencies": {

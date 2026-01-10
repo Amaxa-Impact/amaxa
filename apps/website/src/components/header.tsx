@@ -100,7 +100,7 @@ export const Navbar = () => {
         </Link>
 
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
+          <SheetTrigger>
             <button className="p-2">
               <Menu size={24} />
             </button>

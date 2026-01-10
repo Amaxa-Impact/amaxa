@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "base-nova",
   "rsc": true,
   "tsx": true,
   "tailwind": {
@@ -12,10 +12,10 @@
   "iconLibrary": "tabler",
   "aliases": {
     "utils": "@amaxa/ui",
-    "components": "src/",
-    "ui": "src/",
-    "lib": "src/",
-    "hooks": "src/"
+    "components": "@amaxa/ui",
+    "ui": "@amaxa/ui",
+    "lib": "@amaxa/ui",
+    "hooks": "@amaxa/ui"
   },
   "menuColor": "inverted",
   "menuAccent": "bold",

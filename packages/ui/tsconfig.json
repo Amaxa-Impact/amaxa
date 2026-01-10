@@ -4,7 +4,12 @@
     "lib": ["dom", "dom.iterable", "ES2022"],
     "jsx": "preserve",
     "rootDir": ".",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "baseUrl": ".",
+    "paths": {
+      "@amaxa/ui": ["./src"],
+      "@amaxa/ui/*": ["./src/*"]
+    }
   },
   "include": ["*.ts", "src"],
   "exclude": ["node_modules"]
