@@ -1,10 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import {
-  contactFormSchema,
-  sendContactEmail,
-} from "@amaxa/resend";
+
+import { contactFormSchema, sendContactEmail } from "@amaxa/resend";
+
+import { env } from "~/env";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,8 +12,8 @@ export async function POST(request: NextRequest) {
     const validatedData = contactFormSchema.parse(body);
 
     const recipientEmail = "lauren@amaxaimpact.org";
-    
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "contact@amaxaimpact.org";
+
+    const fromEmail = env.RESEND_FROM_EMAIL ?? "contact@amaxaimpact.org";
 
     const result = await sendContactEmail({
       formData: validatedData,
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
           error: result.error,
           referenceId: result.referenceId,
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -40,20 +40,20 @@ export async function POST(request: NextRequest) {
         referenceId: result.referenceId,
         calendarLink: result.calendarLink,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, error: "Invalid form data", details: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     console.error("Error processing contact form:", error);
     return NextResponse.json(
       { success: false, error: "Failed to send message. Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

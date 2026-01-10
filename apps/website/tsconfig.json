@@ -5,10 +5,10 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"],
-      "~/*": ["./src/*"],
+      "~/*": ["./src/*"]
     },
-    "plugins": [{ "name": "next" }],
+    "plugins": [{ "name": "next" }]
   },
   "include": [".", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

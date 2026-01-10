@@ -1,7 +1,8 @@
 "use client";
 
-import React, { Suspense } from "react";
-import { usePathname, useRouter} from "next/navigation";
+import type React from "react";
+import { Suspense } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { usePostHog } from "posthog-js/react";
 
@@ -52,7 +53,7 @@ const ApplyButtonContent = (props: {
   } else if (variant === "ghost") {
     return (
       <button
-        className="text-[32px] font-normal leading-tight text-black transition-opacity hover:opacity-80 md:text-[40px] lg:text-[48px]"
+        className="text-[32px] leading-tight font-normal text-black transition-opacity hover:opacity-80 md:text-[40px] lg:text-[48px]"
         onClick={onClick}
       >
         {children}

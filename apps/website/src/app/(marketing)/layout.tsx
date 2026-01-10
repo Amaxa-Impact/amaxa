@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+import type React from "react";
+import { Suspense } from "react";
 
 import AnalyticsRouteListener from "~/components/_analytics/AnalyticsRouteListener";
 import GoogleTagManager from "~/components/_analytics/GoogleTagManager";

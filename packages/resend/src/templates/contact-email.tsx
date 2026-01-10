@@ -1,20 +1,21 @@
 import {
-  Html,
-  Head,
-  Preview,
   Body,
-  Container,
-  Section,
-  Text,
-  Link,
   Button,
-  Tailwind,
+  Container,
+  Head,
+  Html,
+  Link,
+  Preview,
   render,
+  Section,
+  Tailwind,
+  Text,
 } from "@react-email/components";
+
 import type { ContactFormData } from "../types";
 import { formTypeLabels } from "../types";
-import { formatDate, formatTime, formatTimezone } from "../utils/formatting";
 import { generateCalendarLink } from "../utils/calendar";
+import { formatDate, formatTime, formatTimezone } from "../utils/formatting";
 
 interface ContactEmailProps {
   formData: ContactFormData;
@@ -28,7 +29,7 @@ export function ContactEmail({ formData, referenceId }: ContactEmailProps) {
   if (formData.preferredDate && formData.preferredTime) {
     try {
       const dateInUserTz = new Date(
-        `${formData.preferredDate}T${formData.preferredTime}:00`
+        `${formData.preferredDate}T${formData.preferredTime}:00`,
       );
       const easternTime = new Intl.DateTimeFormat("en-US", {
         timeZone: "America/New_York",
@@ -61,12 +62,12 @@ export function ContactEmail({ formData, referenceId }: ContactEmailProps) {
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-gray-100 font-sans my-0 mx-auto p-0">
-          <Container className="max-w-[600px] mx-auto my-10 px-5">
-            <Section className="bg-white rounded-lg shadow-md overflow-hidden">
+        <Body className="mx-auto my-0 bg-gray-100 p-0 font-sans">
+          <Container className="mx-auto my-10 max-w-[600px] px-5">
+            <Section className="overflow-hidden rounded-lg bg-white shadow-md">
               {/* Header */}
-              <Section className="bg-black px-10 py-10 rounded-t-lg">
-                <Text className="text-white text-[32px] font-light tracking-[2px] my-0">
+              <Section className="rounded-t-lg bg-black px-10 py-10">
+                <Text className="my-0 text-[32px] font-light tracking-[2px] text-white">
                   ámaxa
                 </Text>
                 <div
@@ -137,7 +138,7 @@ export function ContactEmail({ formData, referenceId }: ContactEmailProps) {
                   </Text>
                 </Section>
 
-                <Text className="text-black text-[26px] font-normal leading-[1.5] tracking-[0.3px] mt-0 mb-8">
+                <Text className="mt-0 mb-8 text-[26px] leading-[1.5] font-normal tracking-[0.3px] text-black">
                   New Contact Form Submission
                 </Text>
 
@@ -153,10 +154,10 @@ export function ContactEmail({ formData, referenceId }: ContactEmailProps) {
                       textAlign: "center",
                     }}
                   >
-                    <Text className="text-black text-[20px] font-medium tracking-[0.4px] mt-0 mb-3.5">
+                    <Text className="mt-0 mb-3.5 text-[20px] font-medium tracking-[0.4px] text-black">
                       Schedule This Call
                     </Text>
-                    <Text className="text-black text-[15px] leading-[1.7] mt-0 mb-4">
+                    <Text className="mt-0 mb-4 text-[15px] leading-[1.7] text-black">
                       Click below to add this demo/intro call to your Google
                       Calendar with all contact information included.
                     </Text>
@@ -405,10 +406,10 @@ export function ContactEmail({ formData, referenceId }: ContactEmailProps) {
  */
 export async function generateEmailHtml(
   formData: ContactFormData,
-  referenceId: string
+  referenceId: string,
 ): Promise<string> {
   return await render(
-    <ContactEmail formData={formData} referenceId={referenceId} />
+    <ContactEmail formData={formData} referenceId={referenceId} />,
   );
 }
 
@@ -417,7 +418,7 @@ export async function generateEmailHtml(
  */
 export function generateEmailText(
   formData: ContactFormData,
-  referenceId: string
+  referenceId: string,
 ): string {
   let emailBodyText = `New ${formTypeLabels[formData.formType]} from ámaxa Contact Form\n\n`;
   emailBodyText += `Reference ID: ${referenceId}\n\n`;

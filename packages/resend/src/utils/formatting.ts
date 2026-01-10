@@ -36,11 +36,7 @@ export function convertToEasternTime(
     const dateTimeStr = `${dateStr}T${timeStr}:00`;
     const date = toDate(dateTimeStr, { timeZone: userTimezone });
 
-    return formatInTimeZone(
-      date,
-      "America/New_York",
-      "MM/dd 'at' h:mm a 'ET'",
-    );
+    return formatInTimeZone(date, "America/New_York", "MM/dd 'at' h:mm a 'ET'");
   } catch {
     return null;
   }

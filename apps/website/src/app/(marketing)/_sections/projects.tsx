@@ -10,7 +10,7 @@ export function Projects() {
 
   return (
     <div className="h-full w-full overflow-x-hidden bg-transparent">
-      <h2 className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 md:text-5xl">
+      <h2 className="font-sans text-xl font-bold text-neutral-800 md:text-5xl dark:text-neutral-200">
         Our Projects
       </h2>
       <Carousel items={cards} />

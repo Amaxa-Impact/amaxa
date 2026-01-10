@@ -82,7 +82,7 @@ export default async function BlogPage() {
   const otherPosts = posts.filter((post) => post._id !== featuredPost?._id);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <div className="mx-auto max-w-7xl px-6 py-16 md:px-16 md:py-24 lg:px-20">
         {/* Page Header */}
         <BlogHeader />
@@ -93,7 +93,7 @@ export default async function BlogPage() {
             href={`/blog/${featuredPost.slug.current}`}
             className="group mb-12 block"
           >
-            <Card className="flex flex-col overflow-hidden rounded-2xl border-border bg-card transition-shadow duration-300 hover:shadow-lg md:flex-row">
+            <Card className="border-border bg-card flex flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg md:flex-row">
               {featuredPost.mainImage?.asset && (
                 <div className="relative h-64 w-full overflow-hidden md:h-96 md:w-1/2">
                   <Image
@@ -105,11 +105,11 @@ export default async function BlogPage() {
                 </div>
               )}
               <CardContent className="flex flex-col justify-center p-8 md:w-1/2 md:p-10">
-                <h2 className="mb-4 text-3xl font-semibold text-foreground transition-colors duration-300 group-hover:text-muted-foreground md:text-4xl">
+                <h2 className="text-foreground group-hover:text-muted-foreground mb-4 text-3xl font-semibold transition-colors duration-300 md:text-4xl">
                   {featuredPost.title}
                 </h2>
                 {featuredPost.author && (
-                  <p className="mb-4 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mb-4 text-sm">
                     By {featuredPost.author.name} •{" "}
                     {new Date(featuredPost.publishedAt).toLocaleDateString(
                       "en-US",
@@ -121,7 +121,7 @@ export default async function BlogPage() {
                     )}
                   </p>
                 )}
-                <p className="line-clamp-4 text-muted-foreground">
+                <p className="text-muted-foreground line-clamp-4">
                   {extractPlainText(featuredPost.body, 300)}
                 </p>
               </CardContent>
@@ -142,7 +142,7 @@ export default async function BlogPage() {
               href={`/blog/${post.slug.current}`}
               className="group block"
             >
-              <Card className="flex h-full flex-col overflow-hidden rounded-2xl border-border bg-card transition-shadow duration-300 hover:shadow-lg">
+              <Card className="border-border bg-card flex h-full flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg">
                 {post.mainImage?.asset ? (
                   <div className="relative h-64 w-full overflow-hidden">
                     <Image
@@ -153,7 +153,7 @@ export default async function BlogPage() {
                     />
                   </div>
                 ) : (
-                  <div className="relative flex h-64 w-full items-center justify-center bg-gradient-to-br from-muted to-background">
+                  <div className="from-muted to-background relative flex h-64 w-full items-center justify-center bg-gradient-to-br">
                     <Image
                       src="/icon.png"
                       alt="Ámaxa logo"
@@ -164,11 +164,11 @@ export default async function BlogPage() {
                   </div>
                 )}
                 <CardContent className="flex flex-1 flex-col p-8">
-                  <h2 className="mb-3 text-2xl font-semibold leading-tight text-foreground transition-colors duration-300 group-hover:text-muted-foreground">
+                  <h2 className="text-foreground group-hover:text-muted-foreground mb-3 text-2xl leading-tight font-semibold transition-colors duration-300">
                     {post.title}
                   </h2>
                   {post.author && (
-                    <p className="mb-3 text-sm text-muted-foreground">
+                    <p className="text-muted-foreground mb-3 text-sm">
                       By {post.author.name} •{" "}
                       {new Date(post.publishedAt).toLocaleDateString("en-US", {
                         month: "short",
@@ -177,11 +177,11 @@ export default async function BlogPage() {
                       })}
                     </p>
                   )}
-                  <p className="mb-4 line-clamp-3 flex-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mb-4 line-clamp-3 flex-1 text-sm">
                     {extractPlainText(post.body, 150)}
                   </p>
                   <div className="mt-auto">
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                    <span className="text-foreground inline-flex items-center gap-2 text-sm font-medium">
                       Read more
                       <svg
                         width="16"

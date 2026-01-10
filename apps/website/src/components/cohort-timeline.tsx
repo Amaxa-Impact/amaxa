@@ -49,8 +49,8 @@ export function CohortTimeline() {
         className="rounded-2xl transition-shadow hover:shadow-md"
       >
         <CardHeader>
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-green">
-            <StepIcon className="h-8 w-8 text-foreground" />
+          <div className="bg-brand-green mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+            <StepIcon className="text-foreground h-8 w-8" />
           </div>
           <CardTitle className="text-xl lg:text-2xl">{step.number}</CardTitle>
           <CardTitle className="text-lg font-semibold">
@@ -67,13 +67,13 @@ export function CohortTimeline() {
   }
 
   return (
-    <section className="w-full bg-background py-16 md:py-20 lg:py-24">
+    <section className="bg-background w-full py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
         <div className="mb-12 md:mb-16">
-          <h2 className="bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
+          <h2 className="from-foreground to-foreground/60 bg-gradient-to-br bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
             How Cohorts Work
           </h2>
-          <div className="mt-4 h-1 w-24 rounded-full bg-brand-green" />
+          <div className="bg-brand-green mt-4 h-1 w-24 rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">

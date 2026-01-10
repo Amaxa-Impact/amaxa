@@ -14,15 +14,31 @@ export const timezones: TimezoneOption[] = [
   { value: "America/New_York", label: "Eastern Time (ET)", region: "Americas" },
   { value: "America/Chicago", label: "Central Time (CT)", region: "Americas" },
   { value: "America/Denver", label: "Mountain Time (MT)", region: "Americas" },
-  { value: "America/Los_Angeles", label: "Pacific Time (PT)", region: "Americas" },
+  {
+    value: "America/Los_Angeles",
+    label: "Pacific Time (PT)",
+    region: "Americas",
+  },
   { value: "America/Phoenix", label: "Arizona Time (MST)", region: "Americas" },
-  { value: "America/Anchorage", label: "Alaska Time (AKT)", region: "Americas" },
+  {
+    value: "America/Anchorage",
+    label: "Alaska Time (AKT)",
+    region: "Americas",
+  },
   { value: "Pacific/Honolulu", label: "Hawaii Time (HST)", region: "Americas" },
   { value: "America/Toronto", label: "Toronto (ET)", region: "Americas" },
   { value: "America/Vancouver", label: "Vancouver (PT)", region: "Americas" },
-  { value: "America/Mexico_City", label: "Mexico City (CST)", region: "Americas" },
+  {
+    value: "America/Mexico_City",
+    label: "Mexico City (CST)",
+    region: "Americas",
+  },
   { value: "America/Sao_Paulo", label: "São Paulo (BRT)", region: "Americas" },
-  { value: "America/Buenos_Aires", label: "Buenos Aires (ART)", region: "Americas" },
+  {
+    value: "America/Buenos_Aires",
+    label: "Buenos Aires (ART)",
+    region: "Americas",
+  },
 
   // Europe - UK & Major Cities
   { value: "Europe/London", label: "London (GMT/BST)", region: "Europe" },
@@ -66,15 +82,31 @@ export const timezones: TimezoneOption[] = [
 
   // Oceania
   { value: "Australia/Sydney", label: "Sydney (AEST/AEDT)", region: "Oceania" },
-  { value: "Australia/Melbourne", label: "Melbourne (AEST/AEDT)", region: "Oceania" },
+  {
+    value: "Australia/Melbourne",
+    label: "Melbourne (AEST/AEDT)",
+    region: "Oceania",
+  },
   { value: "Australia/Brisbane", label: "Brisbane (AEST)", region: "Oceania" },
   { value: "Australia/Perth", label: "Perth (AWST)", region: "Oceania" },
-  { value: "Australia/Adelaide", label: "Adelaide (ACST/ACDT)", region: "Oceania" },
-  { value: "Pacific/Auckland", label: "Auckland (NZST/NZDT)", region: "Oceania" },
+  {
+    value: "Australia/Adelaide",
+    label: "Adelaide (ACST/ACDT)",
+    region: "Oceania",
+  },
+  {
+    value: "Pacific/Auckland",
+    label: "Auckland (NZST/NZDT)",
+    region: "Oceania",
+  },
   { value: "Pacific/Fiji", label: "Fiji (FJT)", region: "Oceania" },
 
   // Africa - Major Cities
-  { value: "Africa/Johannesburg", label: "Johannesburg (SAST)", region: "Africa" },
+  {
+    value: "Africa/Johannesburg",
+    label: "Johannesburg (SAST)",
+    region: "Africa",
+  },
   { value: "Africa/Cairo", label: "Cairo (EET)", region: "Africa" },
   { value: "Africa/Lagos", label: "Lagos (WAT)", region: "Africa" },
   { value: "Africa/Nairobi", label: "Nairobi (EAT)", region: "Africa" },
@@ -98,13 +130,13 @@ export function getTimezoneLabel(value: string): string {
  */
 export function formatTimezone(tz: string | undefined): string {
   if (!tz) return "";
-  
+
   const tzOption = timezones.find((t) => t.value === tz);
   if (tzOption) {
     // Extract just the timezone name without the abbreviation in parentheses for cleaner display
     return tzOption.label;
   }
-  
+
   // Fallback: try to format the IANA identifier nicely
   return tz.split("/").pop()?.replace(/_/g, " ") || tz;
 }
@@ -113,13 +145,15 @@ export function formatTimezone(tz: string | undefined): string {
  * Get timezones grouped by region
  */
 export function getTimezonesByRegion(): Record<string, TimezoneOption[]> {
-  return timezones.reduce((acc, tz) => {
-    const region = tz.region || "Other";
-    if (!acc[region]) {
-      acc[region] = [];
-    }
-    acc[region].push(tz);
-    return acc;
-  }, {} as Record<string, TimezoneOption[]>);
+  return timezones.reduce(
+    (acc, tz) => {
+      const region = tz.region || "Other";
+      if (!acc[region]) {
+        acc[region] = [];
+      }
+      acc[region].push(tz);
+      return acc;
+    },
+    {} as Record<string, TimezoneOption[]>,
+  );
 }
-

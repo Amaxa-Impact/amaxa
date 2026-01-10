@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-type UseTypewriterResult = string | {
-  text: string;
-  currentIndex: number;
-  jumpToIndex: (index: number) => void;
-};
+type UseTypewriterResult =
+  | string
+  | {
+      text: string;
+      currentIndex: number;
+      jumpToIndex: (index: number) => void;
+    };
 
 /**
  * Typewriter hook for animated text effect
@@ -60,16 +62,20 @@ export function useTypewriter(
     } else {
       // Deleting phase
       if (displayedText === "") {
-        // Finished deleting, decide where to go next
-        if (enableManualNavigation && targetIndex !== null) {
-          // Manual navigation mode: jump to target index
-          setCurrentIndex(targetIndex);
-          setTargetIndex(null);
-        } else {
-          // Auto-cycling mode: move to next text
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
-        }
-        setIsTyping(true);
+        // Finished deleting, decide where to go next using a microtask to avoid sync setState
+        void Promise.resolve().then(() => {
+          let nextIndex: number;
+          if (enableManualNavigation && targetIndex !== null) {
+            // Manual navigation mode: jump to target index
+            nextIndex = targetIndex;
+            setTargetIndex(null);
+          } else {
+            // Auto-cycling mode: move to next text
+            nextIndex = (currentIndex + 1) % texts.length;
+          }
+          setCurrentIndex(nextIndex);
+          setIsTyping(true);
+        });
       } else {
         // Continue deleting
         timeout = setTimeout(() => {
@@ -98,5 +104,4 @@ export function useTypewriter(
   }
 
   return displayedText;
-};
-
+}

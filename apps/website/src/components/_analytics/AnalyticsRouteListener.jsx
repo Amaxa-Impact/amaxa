@@ -1,6 +1,7 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
+
 import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function AnalyticsRouteListener() {
   const pathname = usePathname();

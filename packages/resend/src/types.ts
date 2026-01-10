@@ -4,12 +4,7 @@ export const contactFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
   message: z.string().min(1, "Message is required"),
-  formType: z.enum([
-    "internship",
-    "high-school",
-    "general",
-    "demo",
-  ]),
+  formType: z.enum(["internship", "high-school", "general", "demo"]),
   organization: z.string().optional(),
   phone: z.string().optional(),
   preferredDate: z.string().optional(),

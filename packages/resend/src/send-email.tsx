@@ -1,9 +1,9 @@
 import type { ContactFormData } from "./types";
-import { formTypeLabels } from "./types";
 import { createResendClient } from "./client";
 import { ContactEmail, generateEmailText } from "./templates/contact-email";
-import { generateReferenceId } from "./utils/reference-id";
+import { formTypeLabels } from "./types";
 import { generateCalendarLink } from "./utils/calendar";
+import { generateReferenceId } from "./utils/reference-id";
 
 export interface SendEmailOptions {
   formData: ContactFormData;

@@ -23,11 +23,11 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
       }));
 
       for (let i = headingElements.length - 1; i >= 0; i--) {
-        const { element } = headingElements[i]!;
-        if (element) {
-          const rect = element.getBoundingClientRect();
+        const headingElement = headingElements[i];
+        if (headingElement?.element) {
+          const rect = headingElement.element.getBoundingClientRect();
           if (rect.top <= 100) {
-            setActiveId(headingElements[i]!.id);
+            setActiveId(headingElement.id);
             return;
           }
         }
@@ -51,8 +51,8 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
 
   return (
     <div className="sticky top-24 hidden lg:block">
-      <div className="rounded-lg border border-border bg-card p-4">
-        <h3 className="mb-3 text-sm font-semibold text-foreground">
+      <div className="border-border bg-card rounded-lg border p-4">
+        <h3 className="text-foreground mb-3 text-sm font-semibold">
           Table of Contents
         </h3>
         <ul className="space-y-2">
@@ -60,9 +60,9 @@ export const TableOfContents = ({ headings }: TableOfContentsProps) => {
             <li key={heading.id}>
               <button
                 onClick={() => handleClick(heading.id)}
-                className={`text-left text-sm transition-colors hover:text-foreground ${
+                className={`hover:text-foreground text-left text-sm transition-colors ${
                   activeId === heading.id
-                    ? "font-semibold text-foreground"
+                    ? "text-foreground font-semibold"
                     : "text-muted-foreground"
                 }`}
               >

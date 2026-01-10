@@ -1,7 +1,8 @@
 "use client";
 
 import type { IconProps } from "@radix-ui/react-icons/dist/types";
-import React, { forwardRef, useRef } from "react";
+import type React from "react";
+import { forwardRef, useRef } from "react";
 
 import { cn } from "@amaxa/ui";
 
@@ -41,7 +42,7 @@ export function AnimatedBeamMultipleOutputDemo({
   return (
     <div
       className={cn(
-        "relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg border bg-background p-10 md:shadow-xl",
+        "bg-background relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg border p-10 md:shadow-xl",
         className,
       )}
       ref={containerRef}
@@ -78,39 +79,39 @@ export function AnimatedBeamMultipleOutputDemo({
 
       {/* AnimatedBeams */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div1Ref as React.RefObject<HTMLElement>}
+        toRef={div6Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div2Ref as React.RefObject<HTMLElement>}
+        toRef={div6Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div3Ref as React.RefObject<HTMLElement>}
+        toRef={div6Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div4Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div4Ref as React.RefObject<HTMLElement>}
+        toRef={div6Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div5Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div5Ref as React.RefObject<HTMLElement>}
+        toRef={div6Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div6Ref}
-        toRef={div7Ref}
+        containerRef={containerRef as React.RefObject<HTMLElement>}
+        fromRef={div6Ref as React.RefObject<HTMLElement>}
+        toRef={div7Ref as React.RefObject<HTMLElement>}
         duration={3}
       />
     </div>

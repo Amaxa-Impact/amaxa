@@ -1,5 +1,6 @@
 import { addHours } from "date-fns";
 import { formatInTimeZone, toDate } from "date-fns-tz";
+
 import type { ContactFormData } from "../types";
 import {
   convertToEasternTime,
@@ -34,7 +35,11 @@ export function generateCalendarLink(
     const userTimeStr = `${formatDate(preferredDate)} at ${formatTime(
       preferredTime,
     )}`;
-    const etTimeStr = convertToEasternTime(preferredDate, preferredTime, userTz);
+    const etTimeStr = convertToEasternTime(
+      preferredDate,
+      preferredTime,
+      userTz,
+    );
 
     const eventDetails = [
       `Reference ID: ${referenceId}`,

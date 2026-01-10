@@ -21,10 +21,10 @@ const config: NextConfig = {
     ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
+    contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
 
   transpilePackages: [

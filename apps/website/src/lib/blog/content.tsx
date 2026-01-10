@@ -1,4 +1,5 @@
 // import { Logo } from "#/ui/icons";
+import type React from "react";
 import { Settings } from "lucide-react";
 
 export const BLOG_CATEGORIES: {
@@ -30,7 +31,7 @@ export const HELP_CATEGORIES: {
   title: string;
   slug: "blog" | "engineering";
   description: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
 }[] = [];
 
 export const getPopularArticles = () => {

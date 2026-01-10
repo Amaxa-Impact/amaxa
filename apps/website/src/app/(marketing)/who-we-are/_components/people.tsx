@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import Image from "next/image";
 
 interface ProfileCardProps {
@@ -23,7 +23,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
       <div className="flex flex-col md:flex-row">
         <div className="flex flex-col justify-center p-8 md:w-1/2 md:p-12">
           <h2 className="mb-2 text-4xl font-semibold text-gray-800">{name}</h2>
-          <p className="mb-6 text-sm font-medium uppercase tracking-wider text-gray-600">
+          <p className="mb-6 text-sm font-medium tracking-wider text-gray-600 uppercase">
             {title}
           </p>
           <p className="leading-relaxed text-gray-700">{bio}</p>

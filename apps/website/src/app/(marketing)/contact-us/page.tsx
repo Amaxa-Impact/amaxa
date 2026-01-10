@@ -1,9 +1,19 @@
 "use client";
 
-import Image from "next/image";
+import type { z } from "zod";
 import React from "react";
+import Image from "next/image";
+import { Globe, Info, Loader2, Send } from "lucide-react";
+
 import { contactFormSchema } from "@amaxa/resend";
-import { z } from "zod";
+import { Button } from "@amaxa/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@amaxa/ui/card";
 import {
   Form,
   FormControl,
@@ -14,10 +24,7 @@ import {
   FormMessage,
   useForm,
 } from "@amaxa/ui/form";
-import { Button } from "@amaxa/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@amaxa/ui/card";
 import { Input } from "@amaxa/ui/input";
-import { Textarea } from "@amaxa/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -25,19 +32,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-import { Globe, Info, Loader2, Send } from "lucide-react";
+import { Textarea } from "@amaxa/ui/textarea";
 
 import { AnimatedTitle } from "~/components/animated-underline";
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
-type ContactFormProps = {
+interface ContactFormProps {
   formType?: ContactFormValues["formType"];
   title: string;
   description?: string;
-};
+}
 
-const timezones: Array<{ value: string; label: string }> = [
+const timezones: { value: string; label: string }[] = [
   { value: "America/New_York", label: "Eastern (ET) — America/New_York" },
   { value: "America/Chicago", label: "Central (CT) — America/Chicago" },
   { value: "America/Denver", label: "Mountain (MT) — America/Denver" },
@@ -55,7 +62,11 @@ function formatPhoneNumber(input: string) {
   return `(${a}) ${b}-${c}`;
 }
 
-export function ContactForm({ formType = "general", title, description }: ContactFormProps) {
+export function ContactForm({
+  formType = "general",
+  title,
+  description,
+}: ContactFormProps) {
   const form = useForm<ContactFormValues, any, ContactFormValues>({
     schema: contactFormSchema,
     defaultValues: {
@@ -87,9 +98,11 @@ export function ContactForm({ formType = "general", title, description }: Contac
         body: JSON.stringify(values),
       });
 
-      const json = (await res.json().catch(() => null)) as
-        | { success?: boolean; message?: string; error?: string }
-        | null;
+      const json = (await res.json().catch(() => null)) as {
+        success?: boolean;
+        message?: string;
+        error?: string;
+      } | null;
 
       if (!res.ok) {
         setStatus({
@@ -142,7 +155,11 @@ export function ContactForm({ formType = "general", title, description }: Contac
                 <FormItem>
                   <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="john@example.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -181,7 +198,9 @@ export function ContactForm({ formType = "general", title, description }: Contac
                             placeholder="(555) 123-4567"
                             {...field}
                             value={field.value || ""}
-                            onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
+                            onChange={(e) =>
+                              field.onChange(formatPhoneNumber(e.target.value))
+                            }
                           />
                         </FormControl>
                         <FormMessage />
@@ -248,7 +267,8 @@ export function ContactForm({ formType = "general", title, description }: Contac
                           </SelectContent>
                         </Select>
                         <FormDescription>
-                          Select your timezone so we can schedule at a convenient time.
+                          Select your timezone so we can schedule at a
+                          convenient time.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -280,7 +300,12 @@ export function ContactForm({ formType = "general", title, description }: Contac
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting} variant="primary">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isSubmitting}
+              variant="primary"
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -310,12 +335,14 @@ export function ContactForm({ formType = "general", title, description }: Contac
                 <div className="flex items-start gap-3">
                   <Info className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#3B3B3B]" />
                   <div className="text-sm text-[#3B3B3B]/80">
-                    <p className="mb-1 font-medium">Where does this message go?</p>
+                    <p className="mb-1 font-medium">
+                      Where does this message go?
+                    </p>
                     <p>
                       Your message will be sent directly to{" "}
-                      <strong>lauren@amaxaimpact.org</strong>. A team member will reply
-                      directly to your email address. We typically respond within 1-2
-                      business days.
+                      <strong>lauren@amaxaimpact.org</strong>. A team member
+                      will reply directly to your email address. We typically
+                      respond within 1-2 business days.
                     </p>
                   </div>
                 </div>
@@ -341,8 +368,8 @@ export default function ContactUsPage() {
           />
         </div>
         {/* Content container with flex layout */}
-        <section className="w-full py-16 md:py-24 overflow-visible">
-          <div className="container mx-auto px-6 md:px-16 lg:px-20 overflow-visible">
+        <section className="w-full overflow-visible py-16 md:py-24">
+          <div className="container mx-auto overflow-visible px-6 md:px-16 lg:px-20">
             <div className="flex flex-col items-center justify-center overflow-visible">
               <div className="mb-12 max-w-full overflow-visible">
                 <AnimatedTitle underlinedText="Contact Us" color="#BCD96C" />
@@ -363,12 +390,12 @@ export default function ContactUsPage() {
                   Questions, comments, or partnership proposals? We'd love to
                   hear from you.
                 </h2>
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+                <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
                   For general inquiries, please email our CEO Lauren McMillen at
                   lauren@amaxaimpact.org.
                 </p>
 
-                <p className="text-lg font-normal leading-relaxed text-[#3B3B3B] md:text-xl lg:text-2xl">
+                <p className="text-lg leading-relaxed font-normal text-[#3B3B3B] md:text-xl lg:text-2xl">
                   For collaboration inquiries, please email our COO Alexi Jones
                   at lexi@amaxaimpact.org.
                 </p>
@@ -379,11 +406,11 @@ export default function ContactUsPage() {
                 <h3 className="text-2xl font-semibold text-[#3B3B3B] md:text-3xl">
                   Send Us a Message
                 </h3>
-                <p className="mt-4 max-w-2xl text-muted-foreground">
+                <p className="text-muted-foreground mt-4 max-w-2xl">
                   Fill out the form below that matches your inquiry type. A team
                   member will reply to your email address, or for demo requests
-                  with a preferred date and time, you'll receive a Google Calendar
-                  invite.
+                  with a preferred date and time, you'll receive a Google
+                  Calendar invite.
                 </p>
 
                 <div className="mt-8 flex w-full items-center justify-center md:mt-10">

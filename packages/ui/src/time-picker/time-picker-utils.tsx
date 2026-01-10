@@ -19,7 +19,11 @@ export function isValidMinuteOrSecond(value: string) {
   return /^[0-5][0-9]$/.test(value);
 }
 
-type GetValidNumberConfig = { max: number; min?: number; loop?: boolean };
+interface GetValidNumberConfig {
+  max: number;
+  min?: number;
+  loop?: boolean;
+}
 
 export function getValidNumber(
   value: string,
@@ -56,11 +60,11 @@ export function getValidMinuteOrSecond(value: string) {
   return getValidNumber(value, { max: 59 });
 }
 
-type GetValidArrowNumberConfig = {
+interface GetValidArrowNumberConfig {
   min: number;
   max: number;
   step: number;
-};
+}
 
 export function getValidArrowNumber(
   value: string,
@@ -144,9 +148,10 @@ export function getDateByType(date: Date, type: TimePickerType) {
       return getValidMinuteOrSecond(String(date.getSeconds()));
     case "hours":
       return getValidHour(String(date.getHours()));
-    case "12hours":
-      const hours = display12HourValue(date.getHours());
-      return getValid12Hour(String(hours));
+    case "12hours": {
+      const switchHours = display12HourValue(date.getHours());
+      return getValid12Hour(String(switchHours));
+    }
     default:
       return "00";
   }
@@ -180,13 +185,10 @@ export function convert12HourTo24Hour(hour: number, period: Period) {
   if (period === "PM") {
     if (hour <= 11) {
       return hour + 12;
-    } else {
-      return hour;
     }
-  } else if (period === "AM") {
-    if (hour === 12) return 0;
     return hour;
   }
+  if (hour === 12) return 0;
   return hour;
 }
 

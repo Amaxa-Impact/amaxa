@@ -41,7 +41,7 @@ const features = [
     background: (
       <Marquee
         pauseOnHover
-        className="absolute top-10 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)]"
+        className="absolute top-10 [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] [--duration:20s]"
       >
         {files.map((f, idx) => (
           <figure
@@ -98,7 +98,7 @@ const features = [
     href: "",
     cta: "",
     background: (
-      <AnimatedListLanding className="absolute right-2 top-4 h-[300px] w-[600px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 md:h-[150px] md:w-[300px]" />
+      <AnimatedListLanding className="absolute top-4 right-2 h-[300px] w-[600px] border-none [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-105 md:h-[150px] md:w-[300px]" />
     ),
   },
 ];

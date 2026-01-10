@@ -1,5 +1,7 @@
 "use client";
-import React from 'react';
+
+import React from "react";
+import Image from "next/image";
 
 interface AuthorCardProps {
   name: string;
@@ -10,31 +12,31 @@ interface AuthorCardProps {
 
 export function AuthorCard({ name, avatar, date, bio }: AuthorCardProps) {
   return (
-    <div className="flex items-center space-x-4 py-6 border-t border-b border-gray-200 my-8">
+    <div className="my-8 flex items-center space-x-4 border-t border-b border-gray-200 py-6">
       {avatar && (
         <div className="flex-shrink-0">
-          <img
+          <Image
             src={avatar}
             alt={name}
-            className="w-16 h-16 rounded-full object-cover"
+            width={64}
+            height={64}
+            className="h-16 w-16 rounded-full object-cover"
           />
         </div>
       )}
       <div className="flex-1">
-        <h4 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">
+        <h4 className="text-lg font-semibold tracking-wide text-gray-900 uppercase">
           {name}
         </h4>
         <time className="text-sm text-gray-500" dateTime={date}>
-          {new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+          {new Date(date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           })}
         </time>
-        {bio && (
-          <p className="text-sm text-gray-600 mt-2">{bio}</p>
-        )}
+        {bio && <p className="mt-2 text-sm text-gray-600">{bio}</p>}
       </div>
     </div>
   );
-} 
+}

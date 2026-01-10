@@ -27,24 +27,22 @@ export const Navbar = () => {
     // { href: "/newsletter", label: "Keep in Touch" },
     { href: "/contact-us", label: "Contact Us" },
     { href: "/blog", label: "Blog" },
-
-   
   ];
 
   return (
     <>
       {/*Scrum 6 Green Banner - Similar to Rise Website*/}
-<Link 
-  href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F" 
-  className="bg-[#abc468] text-white text-center py-3 px-4 text-sm font-medium block hover:bg-black transition-colors"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-1">
-    <span>Application to an Ámaxa Pathway.</span>
-    <span className="underline font-semibold">Apply here now!</span>
-  </div>
-</Link>
+      <Link
+        href="https://airtable.com/appPR9mkslbn3U8YZ/shrHHUtRzK4DqKt3F"
+        className="block bg-[#abc468] px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-black"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-1">
+          <span>Application to an Ámaxa Pathway.</span>
+          <span className="font-semibold underline">Apply here now!</span>
+        </div>
+      </Link>
       {/* Desktop Navbar */}
       <header className="w-max-screen relative hidden h-[89px] flex-row items-center justify-between px-10 md:flex lg:px-8">
         <div>
@@ -57,9 +55,9 @@ export const Navbar = () => {
           <NavigationMenuList className="text-xl">
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                  <NavigationMenuLink className={cls} href={item.href}>
-                    {item.label}
-                  </NavigationMenuLink>
+                <NavigationMenuLink className={cls} href={item.href}>
+                  {item.label}
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
@@ -113,7 +111,7 @@ export const Navbar = () => {
                 <SheetClose asChild key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-xl font-medium transition-colors hover:text-primary"
+                    className="hover:text-primary text-xl font-medium transition-colors"
                     onClick={() => setOpen(false)}
                   >
                     {item.label}

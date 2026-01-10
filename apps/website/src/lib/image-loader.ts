@@ -13,18 +13,18 @@ export default function customImageLoader({
   quality?: number;
 }) {
   // Handle relative paths (already optimized or local images)
-  if (src.startsWith('/')) {
+  if (src.startsWith("/")) {
     return src;
   }
 
   // If the image is from ufs.sh, return it unoptimized to prevent timeout errors
   // This bypasses Next.js Image Optimization API which is timing out when fetching from ufs.sh
   // We still need to include width parameter to satisfy Next.js requirements
-  if (src.includes('ufs.sh')) {
+  if (src.includes("ufs.sh")) {
     const url = new URL(src);
-    url.searchParams.set('w', width.toString());
+    url.searchParams.set("w", width.toString());
     if (quality) {
-      url.searchParams.set('q', quality.toString());
+      url.searchParams.set("q", quality.toString());
     }
     return url.toString();
   }
@@ -32,12 +32,11 @@ export default function customImageLoader({
   // For all other images, use Next.js default optimization
   // This uses the built-in /_next/image endpoint
   const params = new URLSearchParams();
-  params.set('url', src);
-  params.set('w', width.toString());
+  params.set("url", src);
+  params.set("w", width.toString());
   if (quality) {
-    params.set('q', quality.toString());
+    params.set("q", quality.toString());
   }
-  
+
   return `/_next/image?${params.toString()}`;
 }
-

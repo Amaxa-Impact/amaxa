@@ -1,19 +1,25 @@
-import baseConfig, { restrictEnvAccess } from "@amaxa/eslint-config/base";
-import nextjsConfig from "@amaxa/eslint-config/nextjs";
-import reactConfig from "@amaxa/eslint-config/react";
+import { defineConfig } from "eslint/config";
 
-/** @type {import('typescript-eslint').Config} */
-export default [
+import { baseConfig, restrictEnvAccess } from "@amaxa/eslint-config/base";
+import { nextjsConfig } from "@amaxa/eslint-config/nextjs";
+import { reactConfig } from "@amaxa/eslint-config/react";
+
+export default defineConfig(
   {
-    ignores: [".next/**", "..content-collections/**"],
+    ignores: [".next/**", ".content-collections/**"],
   },
   baseConfig,
-   reactConfig,
-   nextjsConfig,
-   restrictEnvAccess,
+  reactConfig,
+  nextjsConfig,
+  restrictEnvAccess,
   {
-    // TODO: Resolve errors when setting these rules to 'error'
+    files: ["**/*.js", "**/*.ts", "**/*.tsx"],
     rules: {
+      // These newer React rules are useful, but too disruptive for the current codebase.
+      // Keep them visible as warnings for incremental cleanup.
+      "react-hooks/set-state-in-effect": "warn",
+      "react-hooks/purity": "warn",
+      "react-hooks/immutability": "warn",
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-non-null-assertion": "warn",
@@ -33,4 +39,4 @@ export default [
       "@typescript-eslint/dot-notation": "warn",
     },
   },
-];
+);

@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface DonationOrganization {
   name: string;
@@ -13,16 +13,21 @@ interface DonationGridProps {
   description?: string;
 }
 
-export function DonationGrid({ title, organizations, description }: DonationGridProps) {
+export function DonationGrid({
+  title,
+  organizations,
+  description,
+}: DonationGridProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 my-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-      {description && (
-        <p className="text-gray-600 mb-4">{description}</p>
-      )}
+    <div className="my-6 rounded-lg border border-gray-200 bg-white p-6">
+      <h3 className="mb-2 text-xl font-bold text-gray-900">{title}</h3>
+      {description && <p className="mb-4 text-gray-600">{description}</p>}
       <div className="space-y-3">
         {organizations.map((org, index) => (
-          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+          <div
+            key={index}
+            className="flex items-center justify-between rounded-md bg-gray-50 p-3"
+          >
             <div>
               <h4 className="font-medium text-gray-900">{org.name}</h4>
               {org.description && (
@@ -33,7 +38,7 @@ export function DonationGrid({ title, organizations, description }: DonationGrid
               href={org.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-green-700"
             >
               Donate
             </Link>
@@ -42,4 +47,4 @@ export function DonationGrid({ title, organizations, description }: DonationGrid
       </div>
     </div>
   );
-} 
+}

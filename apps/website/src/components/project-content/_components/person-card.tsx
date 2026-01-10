@@ -18,7 +18,7 @@ export function PersonCard({ name, image, role }: PersonCardProps) {
           "bg-cover",
         )}
       >
-        <div className="absolute left-0 top-0 h-full w-full opacity-60 transition duration-300 group-hover/card:bg-black"></div>
+        <div className="absolute top-0 left-0 h-full w-full opacity-60 transition duration-300 group-hover/card:bg-black"></div>
         <div className="text content">
           <h1 className="relative z-10 text-xl font-bold text-gray-50 md:text-2xl">
             {name}

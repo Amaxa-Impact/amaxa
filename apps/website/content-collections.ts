@@ -1,7 +1,4 @@
-import {
-  defineCollection,
-  defineConfig,
-} from "@content-collections/core";
+import { defineCollection, defineConfig } from "@content-collections/core";
 import { z } from "zod";
 
 const posts = defineCollection({

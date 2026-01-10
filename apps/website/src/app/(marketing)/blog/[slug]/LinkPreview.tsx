@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -34,7 +34,6 @@ export const LinkPreview = ({
   const hasFetchedRef = useRef(false);
 
   const handleMouseEnter = () => {
-
     if (hasFetchedRef.current || !isExternal || !href.startsWith("http")) {
       return;
     }
@@ -71,7 +70,6 @@ export const LinkPreview = ({
     void fetchPreview();
   };
 
-
   useEffect(() => {
     return () => {
       if (abortControllerRef.current) {
@@ -104,16 +102,16 @@ export const LinkPreview = ({
       <HoverCardContent>
         {loading ? (
           <>
-            <span className="block h-40 w-full animate-pulse rounded-t bg-muted" />
+            <span className="bg-muted block h-40 w-full animate-pulse rounded-t" />
             <span className="block space-y-2 p-4">
-              <span className="block h-4 w-3/4 animate-pulse rounded bg-muted" />
-              <span className="block h-3 w-full animate-pulse rounded bg-muted" />
+              <span className="bg-muted block h-4 w-3/4 animate-pulse rounded" />
+              <span className="bg-muted block h-3 w-full animate-pulse rounded" />
             </span>
           </>
         ) : (
           <>
             {previewData?.image && (
-              <span className="relative block h-40 w-full bg-muted">
+              <span className="bg-muted relative block h-40 w-full">
                 <Image
                   src={previewData.image}
                   alt={previewData.title || "Preview"}
@@ -128,16 +126,16 @@ export const LinkPreview = ({
             )}
             <span className="block space-y-2 p-4">
               {previewData?.title && (
-                <span className="line-clamp-2 block text-sm font-semibold text-foreground">
+                <span className="text-foreground line-clamp-2 block text-sm font-semibold">
                   {previewData.title}
                 </span>
               )}
               {previewData?.description && (
-                <span className="line-clamp-2 block text-xs text-muted-foreground">
+                <span className="text-muted-foreground line-clamp-2 block text-xs">
                   {previewData.description}
                 </span>
               )}
-              <span className="block break-all text-xs text-muted-foreground/60">
+              <span className="text-muted-foreground/60 block text-xs break-all">
                 {href}
               </span>
             </span>
