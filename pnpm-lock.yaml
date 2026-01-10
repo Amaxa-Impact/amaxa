@@ -355,14 +355,11 @@ importers:
       '@amaxa/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@amaxa/tailwind-config':
-        specifier: workspace:*
-        version: link:../../tooling/tailwind
       '@amaxa/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/react':
-        specifier: 19.2.7
+        specifier: catalog:react19
         version: 19.2.7
       eslint:
         specifier: 'catalog:'
