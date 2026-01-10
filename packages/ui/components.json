@@ -4,14 +4,22 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "./tailwind.config.ts",
+    "config": "",
     "css": "unused.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
+  "iconLibrary": "tabler",
   "aliases": {
     "utils": "@amaxa/ui",
     "components": "src/",
-    "ui": "src/"
+    "ui": "src/",
+    "lib": "src/",
+    "hooks": "src/"
+  },
+  "menuColor": "inverted",
+  "menuAccent": "bold",
+  "registries": {
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
   }
 }

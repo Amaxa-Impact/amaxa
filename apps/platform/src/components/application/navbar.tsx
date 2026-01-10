@@ -1,0 +1,125 @@
+"use client";
+import { IconArrowLeft, IconEye, IconFileText } from "@tabler/icons-react";
+import { useQuery } from "convex/react";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTab } from "@/components/ui/route-tabs";
+import { api } from "@/convex/_generated/api";
+import { useApplicationForm } from "./context";
+
+export function ApplicationNavbar({ id }: { id: string }) {
+  const form = useApplicationForm();
+  const responses = useQuery(api.applicationResponses.list, {
+    formId: form._id,
+  });
+
+  const responseCount = responses?.length ?? 0;
+
+  return (
+    <header className="sticky top-0 z-20 w-full border-border/50 border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+      {/* Subtle top gradient accent */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          {/* Left section: Back button + Title + Metadata */}
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <Link href="/applications">
+                <Button
+                  className="group -ml-2 gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                  size="sm"
+                  variant="ghost"
+                >
+                  <IconArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+                  <span className="hidden sm:inline">Applications</span>
+                </Button>
+              </Link>
+
+              <div className="h-4 w-px bg-border" />
+
+              <div className="flex items-center gap-2">
+                <IconFileText className="h-5 w-5 text-muted-foreground" />
+                <h1 className="font-semibold text-lg tracking-tight">
+                  {form.title}
+                </h1>
+              </div>
+            </div>
+
+            {/* Metadata row */}
+            <div className="flex items-center gap-3 pl-2">
+              {/* Status Badge */}
+              <div className="relative">
+                <Badge
+                  className="gap-1.5 font-medium"
+                  variant={form.isPublished ? "default" : "secondary"}
+                >
+                  {form.isPublished && (
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
+                  )}
+                  {form.isPublished ? "Published" : "Draft"}
+                </Badge>
+              </div>
+
+              {/* Response Count */}
+              <div className="flex items-center gap-1.5 rounded-full bg-muted/50 px-2.5 py-1 text-xs">
+                <div className="h-1 w-1 rounded-full bg-primary" />
+                <span className="font-medium tabular-nums">
+                  {responseCount}
+                </span>
+                <span className="text-muted-foreground">
+                  {responseCount === 1 ? "response" : "responses"}
+                </span>
+              </div>
+
+              {/* View Form Link */}
+              {form.isPublished && (
+                <Link
+                  className="group flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-primary"
+                  href={`/apply/${form.slug}`}
+                  target="_blank"
+                >
+                  <IconEye className="h-3.5 w-3.5" />
+                  <span className="font-medium">View live form</span>
+                  <svg
+                    className="h-3 w-3 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* Right section: Navigation Tabs */}
+          <div className="flex items-center">
+            <Tabs>
+              <TabsList className="bg-muted/30" variant="default">
+                <TabsTab href={`/applications/${id}/edit`}>Edit</TabsTab>
+                <TabsTab href={`/applications/${id}/responses`}>
+                  Responses
+                </TabsTab>
+                <TabsTab href={`/applications/${id}/scheduling`}>
+                  Scheduling
+                </TabsTab>
+
+                <TabsTab href={`/applications/${id}/settings`}>
+                  Settings
+                </TabsTab>
+              </TabsList>
+            </Tabs>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

@@ -1,0 +1,365 @@
+/* eslint-disable react/no-children-prop */
+"use client";
+import { IconCopy, IconGripVertical, IconTrash } from "@tabler/icons-react";
+import { useForm } from "@tanstack/react-form";
+import { useMutation } from "convex/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { api } from "@/convex/_generated/api";
+import { cn } from "@/lib/utils";
+import { FormFieldTypeSelector } from "./form-field-type-selector";
+import { FormQuestionOptions } from "./form-question-options";
+import type { FormField, QuestionFormValues } from "./types";
+import { useFieldTypeInference } from "./use-field-type-inference";
+
+interface FormQuestionCardProps {
+  field: FormField;
+  isActive: boolean;
+  onActivate: () => void;
+  onDelete: () => void;
+  onDuplicate: () => void;
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
+}
+
+export function FormQuestionCard({
+  field,
+  isActive,
+  onActivate,
+  onDelete,
+  onDuplicate,
+  dragHandleProps,
+}: FormQuestionCardProps) {
+  const updateField = useMutation(api.applicationFormFields.update);
+  const [isSaving, setIsSaving] = useState(false);
+  const labelInputRef = useRef<HTMLInputElement>(null);
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const { inferFieldType, isInferring } = useFieldTypeInference();
+
+  const form = useForm({
+    defaultValues: {
+      label: field.label,
+      description: field.description ?? "",
+      type: field.type,
+      required: field.required,
+      options: field.options ?? [],
+      min: field.min,
+      max: field.max,
+    },
+  });
+
+  const saveField = useCallback(
+    async (values: QuestionFormValues) => {
+      setIsSaving(true);
+      try {
+        await updateField({
+          fieldId: field._id,
+          label: values.label,
+          description: values.description || undefined,
+          type: values.type,
+          required: values.required,
+          options:
+            values.type === "select" || values.type === "multiselect"
+              ? values.options
+              : undefined,
+          min: values.type === "number" ? values.min : undefined,
+          max: values.type === "number" ? values.max : undefined,
+        });
+      } catch (_error) {
+        toast.error("Failed to save changes");
+      } finally {
+        setIsSaving(false);
+      }
+    },
+    [field._id, updateField]
+  );
+
+  const debouncedSave = useCallback(
+    (values: QuestionFormValues) => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+      saveTimeoutRef.current = setTimeout(() => {
+        saveField(values);
+      }, 500);
+    },
+    [saveField]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleLabelBlur = useCallback(async () => {
+    const label = form.getFieldValue("label");
+    if (label && label.length > 3) {
+      const result = await inferFieldType(label);
+      if (result) {
+        form.setFieldValue("type", result.fieldType);
+        debouncedSave({
+          ...form.state.values,
+          type: result.fieldType,
+        });
+      }
+    }
+  }, [form, inferFieldType, debouncedSave]);
+
+  useEffect(() => {
+    if (isActive && labelInputRef.current) {
+      labelInputRef.current.focus();
+    }
+  }, [isActive]);
+
+  const showOptions =
+    form.state.values.type === "select" ||
+    form.state.values.type === "multiselect";
+
+  const showNumberConfig = form.state.values.type === "number";
+
+  return (
+    <div
+      className={cn(
+        "group relative rounded-lg border bg-card transition-all",
+        isActive
+          ? "border-primary ring-1 ring-primary/20"
+          : "border-border hover:border-muted-foreground/30"
+      )}
+      onClick={onActivate}
+    >
+      <div
+        {...dragHandleProps}
+        className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 cursor-grab opacity-0 transition-opacity group-hover:opacity-100"
+      >
+        <IconGripVertical className="h-5 w-5 text-muted-foreground" />
+      </div>
+
+      {isSaving && (
+        <div className="absolute top-2 right-2 text-muted-foreground text-xs">
+          Saving...
+        </div>
+      )}
+
+      <div className="space-y-4 p-4">
+        <div className="flex gap-4">
+          <div className="flex-1">
+            <form.Field
+              children={(fieldApi) => (
+                <Field>
+                  <Input
+                    className={cn(
+                      "rounded-none border-0 border-b px-0 font-medium text-base focus-visible:border-primary focus-visible:ring-0",
+                      isActive ? "border-b-2" : ""
+                    )}
+                    disabled={isInferring}
+                    id={`field-${field._id}-label`}
+                    name={fieldApi.name}
+                    onBlur={() => {
+                      fieldApi.handleBlur();
+                      handleLabelBlur();
+                    }}
+                    onChange={(e) => {
+                      fieldApi.handleChange(e.target.value);
+                      debouncedSave({
+                        ...form.state.values,
+                        label: e.target.value,
+                      });
+                    }}
+                    placeholder="Question"
+                    ref={labelInputRef}
+                    value={fieldApi.state.value}
+                  />
+                  {fieldApi.state.meta.isTouched &&
+                    !fieldApi.state.meta.isValid && (
+                      <FieldError errors={fieldApi.state.meta.errors} />
+                    )}
+                </Field>
+              )}
+              name="label"
+            />
+          </div>
+          <form.Field
+            children={(fieldApi) => (
+              <FormFieldTypeSelector
+                disabled={isInferring}
+                onChange={(value) => {
+                  fieldApi.handleChange(value);
+                  debouncedSave({
+                    ...form.state.values,
+                    type: value,
+                  });
+                }}
+                value={fieldApi.state.value}
+              />
+            )}
+            name="type"
+          />
+        </div>
+
+        {isActive && (
+          <form.Field
+            children={(fieldApi) => (
+              <Field>
+                <Input
+                  className="text-muted-foreground text-sm"
+                  id={`field-${field._id}-description`}
+                  name={fieldApi.name}
+                  onBlur={fieldApi.handleBlur}
+                  onChange={(e) => {
+                    fieldApi.handleChange(e.target.value);
+                    debouncedSave({
+                      ...form.state.values,
+                      description: e.target.value,
+                    });
+                  }}
+                  placeholder="Description (optional)"
+                  value={fieldApi.state.value ?? ""}
+                />
+              </Field>
+            )}
+            name="description"
+          />
+        )}
+
+        {showOptions && (
+          <form.Field
+            children={(fieldApi) => (
+              <FormQuestionOptions
+                onOptionsChange={(options) => {
+                  fieldApi.setValue(options);
+                  debouncedSave({
+                    ...form.state.values,
+                    options,
+                  });
+                }}
+                options={fieldApi.state.value ?? []}
+                type={form.state.values.type as "select" | "multiselect"}
+              />
+            )}
+            mode="array"
+            name="options"
+          />
+        )}
+
+        {showNumberConfig && isActive && (
+          <div className="flex gap-4">
+            <form.Field
+              children={(fieldApi) => (
+                <Field className="flex-1">
+                  <FieldLabel htmlFor={`field-${field._id}-min`}>
+                    Minimum
+                  </FieldLabel>
+                  <Input
+                    id={`field-${field._id}-min`}
+                    onChange={(e) => {
+                      const value = e.target.value
+                        ? Number.parseFloat(e.target.value)
+                        : undefined;
+                      fieldApi.handleChange(value);
+                      debouncedSave({
+                        ...form.state.values,
+                        min: value,
+                      });
+                    }}
+                    placeholder="No minimum"
+                    type="number"
+                    value={fieldApi.state.value ?? ""}
+                  />
+                </Field>
+              )}
+              name="min"
+            />
+            <form.Field
+              children={(fieldApi) => (
+                <Field className="flex-1">
+                  <FieldLabel htmlFor={`field-${field._id}-max`}>
+                    Maximum
+                  </FieldLabel>
+                  <Input
+                    id={`field-${field._id}-max`}
+                    onChange={(e) => {
+                      const value = e.target.value
+                        ? Number.parseFloat(e.target.value)
+                        : undefined;
+                      fieldApi.handleChange(value);
+                      debouncedSave({
+                        ...form.state.values,
+                        max: value,
+                      });
+                    }}
+                    placeholder="No maximum"
+                    type="number"
+                    value={fieldApi.state.value ?? ""}
+                  />
+                </Field>
+              )}
+              name="max"
+            />
+          </div>
+        )}
+
+        <div className="flex items-center justify-between border-t pt-2">
+          <form.Field
+            children={(fieldApi) => (
+              <Field orientation="horizontal">
+                <FieldLabel
+                  className="font-normal text-sm"
+                  htmlFor={`field-${field._id}-required`}
+                >
+                  Required
+                </FieldLabel>
+                <Switch
+                  checked={fieldApi.state.value}
+                  id={`field-${field._id}-required`}
+                  onCheckedChange={(checked) => {
+                    fieldApi.handleChange(checked);
+                    debouncedSave({
+                      ...form.state.values,
+                      required: checked,
+                    });
+                  }}
+                />
+              </Field>
+            )}
+            name="required"
+          />
+
+          <div className="flex gap-1">
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDuplicate();
+              }}
+              size="icon-sm"
+              title="Duplicate"
+              type="button"
+              variant="ghost"
+            >
+              <IconCopy className="h-4 w-4" />
+            </Button>
+            <Button
+              className="text-destructive hover:text-destructive"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              size="icon-sm"
+              title="Delete"
+              type="button"
+              variant="ghost"
+            >
+              <IconTrash className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

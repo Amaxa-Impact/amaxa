@@ -1,4 +1,5 @@
 import * as path from "node:path";
+import convexPlugin from "@convex-dev/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
@@ -45,6 +46,7 @@ export const baseConfig = defineConfig(
     plugins: {
       import: importPlugin,
       turbo: turboPlugin,
+      convex: convexPlugin.configs.recommended,
     },
     extends: [
       eslint.configs.recommended,
@@ -53,7 +55,8 @@ export const baseConfig = defineConfig(
       ...tseslint.configs.stylisticTypeChecked,
     ],
     rules: {
-      ...turboPlugin.configs.recommended.rules,
+      ...turboPlugin.configs.recommended,
+      ...convexPlugin.configs.recommended.rules,
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
