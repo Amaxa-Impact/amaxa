@@ -1,4 +1,5 @@
 "use client";
+
 import {
   IconAlignLeft,
   IconCheck,
@@ -6,6 +7,7 @@ import {
   IconHash,
   IconTextSize,
 } from "@tabler/icons-react";
+
 import {
   Select,
   SelectContent,
@@ -13,7 +15,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-import { FIELD_TYPES, type FieldType, fieldTypeLabels } from "./types";
+
+import type { FieldType } from "./types";
+import { FIELD_TYPES, fieldTypeLabels } from "./types";
 
 const fieldTypeIcons: Record<FieldType, React.ReactNode> = {
   text: <IconTextSize className="h-4 w-4" />,
@@ -39,7 +43,7 @@ export function FormFieldTypeSelector({
       disabled={disabled}
       onValueChange={(newValue) => {
         if (newValue) {
-          onChange(newValue as FieldType);
+          onChange(newValue);
         }
       }}
       value={value}

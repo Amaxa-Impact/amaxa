@@ -2,6 +2,7 @@
 
 import type { User } from "@workos-inc/node";
 import { useEffect, useMemo, useState } from "react";
+import { getUserDisplayName } from "@/components/user-dropdown";
 import { usePaginatedQuery, useQuery } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
@@ -26,7 +27,6 @@ import {
   TableHeader,
   TableRow,
 } from "@amaxa/ui/table";
-import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
 
 interface TasksTableProps {
   projectId: Id<"projects">;

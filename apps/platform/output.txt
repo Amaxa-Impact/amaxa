@@ -1,0 +1,943 @@
+
+> @amaxa/platform@0.0.1 lint /Users/ani/amaxa/apps/platform
+> eslint
+
+
+/Users/ani/amaxa/apps/platform/src/app/(app)/page.tsx
+  18:9   error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  20:13  error  Unsafe member access .auth on an `error` typed value      @typescript-eslint/no-unsafe-member-access
+  26:9   error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  26:31  error  Unsafe member access .isAdmin on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+  27:9   error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  27:30  error  Unsafe member access .userId on an `error` typed value    @typescript-eslint/no-unsafe-member-access
+  34:9   error  Unsafe member access .projects on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  35:7   error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  41:16  error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  43:15  error  Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/_components/home-client.tsx
+   29:9   error  Unsafe assignment of an error typed value               @typescript-eslint/no-unsafe-assignment
+   67:28  error  Unsafe member access .length on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  110:16  error  Unsafe member access .length on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  130:10  error  Unsafe call of a(n) `error` type typed value            @typescript-eslint/no-unsafe-call
+  130:19  error  Unsafe member access .map on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  131:43  error  Unsafe member access ._id on an `any` value             @typescript-eslint/no-unsafe-member-access
+  131:55  error  Unsafe assignment of an `any` value                     @typescript-eslint/no-unsafe-assignment
+  131:63  error  Unsafe member access ._id on an `any` value             @typescript-eslint/no-unsafe-member-access
+  135:59  error  Unsafe member access .name on an `any` value            @typescript-eslint/no-unsafe-member-access
+  137:38  error  Unsafe member access .role on an `any` value            @typescript-eslint/no-unsafe-member-access
+  139:30  error  Unsafe member access .role on an `any` value            @typescript-eslint/no-unsafe-member-access
+  142:43  error  Unsafe member access .description on an `any` value     @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/api/field-type/route.ts
+  16:11  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/api/users/route.ts
+  4:29  error  WORKOS_API_KEY is not listed as a dependency in the root turbo.json or workspace () turbo.json                    turbo/no-undeclared-env-vars
+  4:29  error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/edit/form-editor-client.tsx
+  12:11  error  Unsafe object destructuring of a property with an error typed value    @typescript-eslint/no-unsafe-assignment
+  13:9   error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  13:31  error  Unsafe member access .applicationFormFields on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  13:69  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  16:7   error  Unnecessary conditional, value is always falsy                         @typescript-eslint/no-unnecessary-condition
+  28:43  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  30:32  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  30:48  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/edit/page.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .applicationForms on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  35:27  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  36:57  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/layout.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value                                        @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .applicationForms on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  35:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  35:19  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  36:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  36:25  error  Unsafe member access .description on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  36:37  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  36:55  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  55:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  58:40  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  59:32  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/@modal/(.)response/[responseId]/page.tsx
+  11:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  11:23  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  18:30  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  18:50  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/_components/response-detail-page.tsx
+   45:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   45:33  error  Unsafe member access .applicationResponses on an `error` typed value                          @typescript-eslint/no-unsafe-member-access
+   45:61  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   46:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   46:29  error  Unsafe member access .applicationForms on an `error` typed value                              @typescript-eslint/no-unsafe-member-access
+   46:53  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   47:40  error  Unsafe member access .applicationResponses on an `error` typed value                          @typescript-eslint/no-unsafe-member-access
+   68:11  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   68:37  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+   73:15  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   74:11  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   74:32  error  Unsafe member access ._id on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+   78:20  error  Unsafe member access .success on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+   84:16  error  '_error' is defined but never used                                                            @typescript-eslint/no-unused-vars
+   95:15  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   96:11  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   96:32  error  Unsafe member access ._id on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+  100:20  error  Unsafe member access .success on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+  106:16  error  '_error' is defined but never used                                                            @typescript-eslint/no-unused-vars
+  116:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  116:30  error  Unsafe member access ._id on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+  121:14  error  '_error' is defined but never used                                                            @typescript-eslint/no-unused-vars
+  139:42  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  143:25  error  Unsafe argument of type error typed assigned to a parameter of type `string | number | Date`  @typescript-eslint/no-unsafe-argument
+  143:34  error  Unsafe member access .submittedAt on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  150:37  error  Unsafe member access .title on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+  156:26  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  156:26  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  164:28  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  164:28  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  198:26  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  198:35  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  202:34  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  202:47  error  Computed name [response.status] resolves to an `error` typed value                            @typescript-eslint/no-unsafe-member-access
+  202:56  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  205:24  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  205:24  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  205:33  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  205:50  error  Unsafe member access .toUpperCase on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  206:25  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  206:34  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  244:20  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  244:20  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  244:29  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  244:53  error  Unsafe member access .toUpperCase on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  248:31  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  252:46  error  Unsafe member access .applicantEmail on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  254:31  error  Unsafe member access .applicantEmail on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  261:21  error  Unsafe member access .fieldResponses on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  267:18  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  267:27  error  Unsafe member access .fieldResponses on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  269:32  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  269:32  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  270:26  error  Unsafe assignment of an `any` value                                                           @typescript-eslint/no-unsafe-assignment
+  270:29  error  Unsafe member access .fieldId on an `any` value                                               @typescript-eslint/no-unsafe-member-access
+  273:27  error  Unsafe member access .fieldLabel on an `any` value                                            @typescript-eslint/no-unsafe-member-access
+  276:41  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+  278:28  error  Unsafe call of a(n) `any` typed value                                                         @typescript-eslint/no-unsafe-call
+  278:31  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+  280:42  error  Unsafe member access .fieldId on an `any` value                                               @typescript-eslint/no-unsafe-member-access
+  288:64  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/_components/response-modal.tsx
+   12:16  error  'CardContent' is defined but never used. Allowed unused vars must match /^_/u                 @typescript-eslint/no-unused-vars
+   35:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   35:33  error  Unsafe member access .applicationResponses on an `error` typed value                          @typescript-eslint/no-unsafe-member-access
+   35:61  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   36:40  error  Unsafe member access .applicationResponses on an `error` typed value                          @typescript-eslint/no-unsafe-member-access
+   68:13  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   69:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   69:30  error  Unsafe member access ._id on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+   73:18  error  Unsafe member access .success on an `error` typed value                                       @typescript-eslint/no-unsafe-member-access
+   77:14  error  '_error' is defined but never used                                                            @typescript-eslint/no-unused-vars
+   87:9   error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   87:30  error  Unsafe member access ._id on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+   92:14  error  '_error' is defined but never used                                                            @typescript-eslint/no-unused-vars
+   98:11  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+   98:37  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  129:38  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  133:21  error  Unsafe argument of type error typed assigned to a parameter of type `string | number | Date`  @typescript-eslint/no-unsafe-argument
+  133:30  error  Unsafe member access .submittedAt on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  146:24  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  146:24  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  154:26  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  154:26  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  184:20  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  184:29  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  188:28  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  188:41  error  Computed name [response.status] resolves to an `error` typed value                            @typescript-eslint/no-unsafe-member-access
+  188:50  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  191:18  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  191:18  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  191:27  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  191:44  error  Unsafe member access .toUpperCase on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  192:19  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  192:28  error  Unsafe member access .status on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+  224:18  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  224:18  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  224:27  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  224:51  error  Unsafe member access .toUpperCase on an `error` typed value                                   @typescript-eslint/no-unsafe-member-access
+  228:29  error  Unsafe member access .applicantName on an `error` typed value                                 @typescript-eslint/no-unsafe-member-access
+  232:44  error  Unsafe member access .applicantEmail on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  234:29  error  Unsafe member access .applicantEmail on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  241:19  error  Unsafe member access .fieldResponses on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  247:16  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  247:25  error  Unsafe member access .fieldResponses on an `error` typed value                                @typescript-eslint/no-unsafe-member-access
+  249:30  error  Unsafe assignment of an error typed value                                                     @typescript-eslint/no-unsafe-assignment
+  249:30  error  Unsafe call of a(n) `error` type typed value                                                  @typescript-eslint/no-unsafe-call
+  250:24  error  Unsafe assignment of an `any` value                                                           @typescript-eslint/no-unsafe-assignment
+  250:27  error  Unsafe member access .fieldId on an `any` value                                               @typescript-eslint/no-unsafe-member-access
+  253:25  error  Unsafe member access .fieldLabel on an `any` value                                            @typescript-eslint/no-unsafe-member-access
+  256:39  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+  258:26  error  Unsafe call of a(n) `any` typed value                                                         @typescript-eslint/no-unsafe-call
+  258:29  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+  259:45  error  Unsafe member access .fieldId on an `any` value                                               @typescript-eslint/no-unsafe-member-access
+  265:62  error  Unsafe member access .value on an `any` value                                                 @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/page.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .applicationForms on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  35:34  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  36:58  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/response/[responseId]/page.tsx
+  13:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  13:19  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  14:38  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  14:58  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/responses-client.tsx
+   42:11  error  Unsafe object destructuring of a property with an error typed value   @typescript-eslint/no-unsafe-assignment
+   43:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   43:29  error  Unsafe member access .applicationForms on an `error` typed value      @typescript-eslint/no-unsafe-member-access
+   43:53  error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   44:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   44:34  error  Unsafe member access .applicationResponses on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+   44:63  error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   54:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   57:9   error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+   57:20  error  Unsafe member access .filter on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   57:36  error  Unsafe member access .status on an `any` value                        @typescript-eslint/no-unsafe-member-access
+   60:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   60:21  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   61:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   61:14  error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+   61:25  error  Unsafe member access .filter on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   61:41  error  Unsafe member access .status on an `any` value                        @typescript-eslint/no-unsafe-member-access
+   61:63  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   62:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   62:15  error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+   62:26  error  Unsafe member access .filter on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   62:42  error  Unsafe member access .status on an `any` value                        @typescript-eslint/no-unsafe-member-access
+   62:65  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   63:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   63:15  error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+   63:26  error  Unsafe member access .filter on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   63:42  error  Unsafe member access .status on an `any` value                        @typescript-eslint/no-unsafe-member-access
+   63:65  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   64:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+   64:15  error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+   64:26  error  Unsafe member access .filter on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+   64:42  error  Unsafe member access .status on an `any` value                        @typescript-eslint/no-unsafe-member-access
+   64:65  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  142:31  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  149:31  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  154:31  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  173:20  error  Unsafe call of a(n) `error` type typed value                          @typescript-eslint/no-unsafe-call
+  173:39  error  Unsafe member access .map on an `error` typed value                   @typescript-eslint/no-unsafe-member-access
+  175:31  error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  176:28  error  Unsafe assignment of an `any` value                                   @typescript-eslint/no-unsafe-assignment
+  176:37  error  Unsafe member access ._id on an `any` value                           @typescript-eslint/no-unsafe-member-access
+  177:33  error  Unsafe assignment of an `any` value                                   @typescript-eslint/no-unsafe-assignment
+  203:40  error  Unsafe member access .applicationResponses on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  204:42  error  Unsafe member access .applicationResponses on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  209:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  213:14  error  '_error' is defined but never used                                    @typescript-eslint/no-unused-vars
+  228:34  error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  230:18  error  '_error' is defined but never used                                    @typescript-eslint/no-unused-vars
+  266:52  error  Forbidden non-null assertion                                          @typescript-eslint/no-non-null-assertion
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/scheduling/page.tsx
+  10:35  error  Unsafe assignment of an error typed value  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/admin-selector.tsx
+  21:9   error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  21:35  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                  @typescript-eslint/no-unsafe-member-access
+  30:17  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  40:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  45:5   error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  45:17  error  Unsafe member access .some on an `error` typed value                                                                                                                @typescript-eslint/no-unsafe-member-access
+  45:39  error  Unsafe member access .userId on an `any` value                                                                                                                      @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/time-slot-form.tsx
+   57:38  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                  @typescript-eslint/no-unsafe-member-access
+   58:38  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                  @typescript-eslint/no-unsafe-member-access
+  101:26  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+  103:13  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  111:13  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  153:13  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  167:36  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  167:36  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/time-slot-list.tsx
+   56:9   error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   56:30  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                  @typescript-eslint/no-unsafe-member-access
+   56:63  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   57:38  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                  @typescript-eslint/no-unsafe-member-access
+   59:10  error  Unsafe array destructuring of a tuple element with an error typed value                                                                                             @typescript-eslint/no-unsafe-assignment
+   60:14  error  'Id' is an 'error' type that acts as 'any' and overrides all other types in this union type                                                                         @typescript-eslint/no-redundant-type-constituents
+   67:17  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+   75:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+   92:26  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  114:13  error  Unsafe member access .length on an `error` typed value                                                                                                              @typescript-eslint/no-unsafe-member-access
+  142:14  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  142:20  error  Unsafe member access .map on an `error` typed value                                                                                                                 @typescript-eslint/no-unsafe-member-access
+  143:30  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  143:35  error  Unsafe member access ._id on an `any` value                                                                                                                         @typescript-eslint/no-unsafe-member-access
+  148:42  error  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                                                                              @typescript-eslint/no-unsafe-argument
+  148:47  error  Unsafe member access .startTime on an `any` value                                                                                                                   @typescript-eslint/no-unsafe-member-access
+  151:42  error  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                                                                              @typescript-eslint/no-unsafe-argument
+  151:47  error  Unsafe member access .startTime on an `any` value                                                                                                                   @typescript-eslint/no-unsafe-member-access
+  156:42  error  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                                                                              @typescript-eslint/no-unsafe-argument
+  156:47  error  Unsafe member access .startTime on an `any` value                                                                                                                   @typescript-eslint/no-unsafe-member-access
+  159:42  error  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                                                                              @typescript-eslint/no-unsafe-argument
+  159:47  error  Unsafe member access .startTime on an `any` value                                                                                                                   @typescript-eslint/no-unsafe-member-access
+  160:42  error  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                                                                              @typescript-eslint/no-unsafe-argument
+  160:47  error  Unsafe member access .endTime on an `any` value                                                                                                                     @typescript-eslint/no-unsafe-member-access
+  167:27  error  Unsafe member access .timezone on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+  172:35  error  Unsafe argument of type `any` assigned to a parameter of type `string | undefined`                                                                                  @typescript-eslint/no-unsafe-argument
+  172:40  error  Unsafe member access .assignedAdminId on an `any` value                                                                                                             @typescript-eslint/no-unsafe-member-access
+  176:25  error  Unsafe member access .isBooked on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+  191:33  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  191:38  error  Unsafe member access .isBooked on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+  192:45  error  Unsafe argument of type `any` assigned to a parameter of type `TimeSlot`                                                                                            @typescript-eslint/no-unsafe-argument
+  195:30  error  Unsafe member access .isBooked on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+  202:33  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  202:38  error  Unsafe member access .isBooked on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+  203:61  error  Unsafe member access ._id on an `any` value                                                                                                                         @typescript-eslint/no-unsafe-member-access
+  206:30  error  Unsafe member access .isBooked on an `any` value                                                                                                                    @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/page.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .applicationForms on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  35:33  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+  36:48  error  Unsafe member access .title on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/scheduling-settings.tsx
+  31:9   error  Unsafe assignment of an error typed value                           @typescript-eslint/no-unsafe-assignment
+  31:30  error  Unsafe member access .interviewTimeSlots on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  31:63  error  Unsafe assignment of an error typed value                           @typescript-eslint/no-unsafe-assignment
+  32:9   error  Unsafe assignment of an error typed value                           @typescript-eslint/no-unsafe-assignment
+  32:28  error  Unsafe member access .length on an `error` typed value              @typescript-eslint/no-unsafe-member-access
+  83:29  error  Unsafe assignment of an error typed value                           @typescript-eslint/no-unsafe-assignment
+  87:17  error  Unsafe assignment of an error typed value                           @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/settings-client.tsx
+  19:36  error  Unsafe member access .applicationForms on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  34:11  error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/applications/client.tsx
+   42:9   error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   69:16  error  Unsafe member access .length on an `error` typed value                                                                                                              @typescript-eslint/no-unsafe-member-access
+  109:18  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  109:24  error  Unsafe member access .map on an `error` typed value                                                                                                                 @typescript-eslint/no-unsafe-member-access
+  112:26  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  112:31  error  Unsafe member access ._id on an `any` value                                                                                                                         @typescript-eslint/no-unsafe-member-access
+  114:57  error  Unsafe member access ._id on an `any` value                                                                                                                         @typescript-eslint/no-unsafe-member-access
+  117:62  error  Unsafe member access .title on an `any` value                                                                                                                       @typescript-eslint/no-unsafe-member-access
+  119:36  error  Unsafe member access .slug on an `any` value                                                                                                                        @typescript-eslint/no-unsafe-member-access
+  124:41  error  Unsafe member access .isPublished on an `any` value                                                                                                                 @typescript-eslint/no-unsafe-member-access
+  126:33  error  Unsafe member access .isPublished on an `any` value                                                                                                                 @typescript-eslint/no-unsafe-member-access
+  128:31  error  Unsafe member access .isPublished on an `any` value                                                                                                                 @typescript-eslint/no-unsafe-member-access
+  139:31  error  Unsafe member access .responseCount on an `any` value                                                                                                               @typescript-eslint/no-unsafe-member-access
+  168:38  error  Unsafe member access .applicationForms on an `error` typed value                                                                                                    @typescript-eslint/no-unsafe-member-access
+  183:41  error  Unnecessary optional chain on a non-nullish value                                                                                                                   @typescript-eslint/no-unnecessary-condition
+  212:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/ani/amaxa/apps/platform/src/app/applications/page.tsx
+  18:9  error  Unsafe member access .applicationForms on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/apply/[id]/client.tsx
+  18:9   error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  18:29  error  Unsafe member access .applicationForms on an `error` typed value       @typescript-eslint/no-unsafe-member-access
+  18:63  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  19:9   error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  19:31  error  Unsafe member access .applicationFormFields on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  20:5   error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+  67:42  error  Unsafe assignment of an error typed value                              @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/[id]/page.tsx
+  18:11  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  18:39  error  Unsafe member access .applicationForms on an `error` typed value                                           @typescript-eslint/no-unsafe-member-access
+  28:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  28:19  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  29:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  30:14  error  Unsafe member access .description on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  30:26  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  30:65  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  32:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  32:21  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  33:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  34:16  error  Unsafe member access .description on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  34:28  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  34:67  error  Unsafe member access .title on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  51:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  53:35  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/apply-form.tsx
+   37:45  error  Unsafe member access .applicationResponses on an `error` typed value                                                                                                @typescript-eslint/no-unsafe-member-access
+   40:5   error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+   52:9   error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   53:22  error  Unsafe member access [field._id] on an `any` value                                                                                                                  @typescript-eslint/no-unsafe-member-access
+   53:22  error  Computed name [field._id] resolves to an `error` typed value                                                                                                        @typescript-eslint/no-unsafe-member-access
+   58:11  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   59:32  error  Unsafe member access .applicantName on an `any` value                                                                                                               @typescript-eslint/no-unsafe-member-access
+   60:33  error  Unsafe member access .applicantEmail on an `any` value                                                                                                              @typescript-eslint/no-unsafe-member-access
+  107:13  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  205:24  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  206:25  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  222:29  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/multiselect-field.tsx
+  17:9  error  Unsafe assignment of type `any[]` to a variable of type `string[]`  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/number-field.tsx
+  19:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  29:13  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  32:15  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  37:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/select-field.tsx
+  26:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  38:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/text-field.tsx
+  19:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  29:13  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  30:15  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+  34:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/textarea-field.tsx
+  16:9   error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+  16:47  error  Unsafe member access .length on an `any` value  @typescript-eslint/no-unsafe-member-access
+  22:57  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+  40:13  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+  42:15  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+  46:16  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/apply/_components/validation.ts
+  100:5   error  Unsafe return of a value of type error              @typescript-eslint/no-unsafe-return
+  100:32  error  Unsafe member access [0] on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/layout.tsx
+  39:5   error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+  39:38  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator         @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/_components/add-user-form.tsx
+   65:38  error  Unsafe member access .userToProjects on an `error` typed value                                                                                                      @typescript-eslint/no-unsafe-member-access
+   79:11  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  118:13  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/_components/home-page.tsx
+  21:9   error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+  32:17  error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+  32:31  error  Unsafe member access .allTasks on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+  35:18  error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+  35:32  error  Unsafe member access .totalAll on an `error` typed value   @typescript-eslint/no-unsafe-member-access
+  38:17  error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+  38:31  error  Unsafe member access .userTasks on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  41:18  error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+  41:32  error  Unsafe member access .totalUser on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  45:50  error  Unsafe assignment of an error typed value                  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/layout.tsx
+  19:11  error  Unsafe object destructuring of a property with an error typed value                                        @typescript-eslint/no-unsafe-assignment
+  23:11  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  24:11  error  Unsafe member access .projects on an `error` typed value                                                   @typescript-eslint/no-unsafe-member-access
+  25:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  37:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  37:22  error  Unsafe member access .name on an `error` typed value                                                       @typescript-eslint/no-unsafe-member-access
+  38:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  38:28  error  Unsafe member access .description on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  38:40  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  38:63  error  Unsafe member access .name on an `error` typed value                                                       @typescript-eslint/no-unsafe-member-access
+  57:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  60:35  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  62:32  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/page.tsx
+  18:11  error  Unsafe object destructuring of a property with an error typed value                                        @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  23:11  error  Unsafe member access .projects on an `error` typed value                                                   @typescript-eslint/no-unsafe-member-access
+  24:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  36:25  error  Unsafe member access .name on an `error` typed value                                                       @typescript-eslint/no-unsafe-member-access
+  37:45  error  Unsafe member access .name on an `error` typed value                                                       @typescript-eslint/no-unsafe-member-access
+  37:62  error  Unsafe member access .description on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  37:74  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  54:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  60:11  error  Unsafe member access .dashboard on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+  61:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/settings/page.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .projects on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  35:36  error  Unsafe member access .name on an `error` typed value                 @typescript-eslint/no-unsafe-member-access
+  36:51  error  Unsafe member access .name on an `error` typed value                 @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/settings/settings-client.tsx
+  21:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  25:41  error  Unsafe member access .projects on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+  40:7   error  Unsafe call of a(n) `error` type typed value                         @typescript-eslint/no-unsafe-call
+  51:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  55:7   error  Unsafe call of a(n) `error` type typed value                         @typescript-eslint/no-unsafe-call
+  61:7   error  Unsafe call of a(n) `error` type typed value                         @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/tasks/page.tsx
+  17:11  error  Unsafe object destructuring of a property with an error typed value       @typescript-eslint/no-unsafe-assignment
+  21:11  error  Unsafe assignment of an error typed value                                 @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe member access .projects on an `error` typed value                  @typescript-eslint/no-unsafe-member-access
+  23:9   error  Unsafe assignment of an error typed value                                 @typescript-eslint/no-unsafe-assignment
+  35:33  error  Unsafe member access .name on an `error` typed value                      @typescript-eslint/no-unsafe-member-access
+  36:57  error  Unsafe member access .name on an `error` typed value                      @typescript-eslint/no-unsafe-member-access
+  47:3   error  'params' is defined but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/users/client.tsx
+   26:11  error  Unsafe object destructuring of a property with an error typed value                                        @typescript-eslint/no-unsafe-assignment
+   30:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   30:38  error  Unsafe member access .userToProjects on an `error` typed value                                             @typescript-eslint/no-unsafe-member-access
+   31:5   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   34:38  error  Unsafe member access .userToProjects on an `error` typed value                                             @typescript-eslint/no-unsafe-member-access
+   35:38  error  Unsafe member access .userToProjects on an `error` typed value                                             @typescript-eslint/no-unsafe-member-access
+   39:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   39:27  error  Unsafe call of a(n) `error` type typed value                                                               @typescript-eslint/no-unsafe-call
+   39:42  error  Unsafe member access .map on an `error` typed value                                                        @typescript-eslint/no-unsafe-member-access
+   39:56  error  Unsafe return of a value of type `any`                                                                     @typescript-eslint/no-unsafe-return
+   39:61  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+   41:51  error  Async arrow function 'handleRemoveUser' has no 'await' expression                                          @typescript-eslint/require-await
+   42:5   error  Unsafe call of a(n) `error` type typed value                                                               @typescript-eslint/no-unsafe-call
+   51:38  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   63:34  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   78:31  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+   91:32  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+   94:26  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  101:45  error  Unsafe member access .length on an `error` typed value                                                     @typescript-eslint/no-unsafe-member-access
+  107:27  error  Unsafe member access .length on an `error` typed value                                                     @typescript-eslint/no-unsafe-member-access
+  113:16  error  Unsafe call of a(n) `error` type typed value                                                               @typescript-eslint/no-unsafe-call
+  113:31  error  Unsafe member access .map on an `error` typed value                                                        @typescript-eslint/no-unsafe-member-access
+  116:24  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  116:29  error  Unsafe member access ._id on an `any` value                                                                @typescript-eslint/no-unsafe-member-access
+  122:48  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  124:25  error  Unsafe return of a value of type `any`                                                                     @typescript-eslint/no-unsafe-return
+  126:34  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  130:64  error  Unsafe member access .role on an `any` value                                                               @typescript-eslint/no-unsafe-member-access
+  139:29  error  Unsafe argument of type `any` assigned to a parameter of type `string`                                     @typescript-eslint/no-unsafe-argument
+  139:34  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  143:32  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  143:37  error  Unsafe member access .role on an `any` value                                                               @typescript-eslint/no-unsafe-member-access
+  149:57  error  Unsafe argument of type `any` assigned to a parameter of type `string`                                     @typescript-eslint/no-unsafe-argument
+  149:62  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/project/[projectId]/users/page.tsx
+  18:11  error  Unsafe object destructuring of a property with an error typed value  @typescript-eslint/no-unsafe-assignment
+  22:11  error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  23:11  error  Unsafe member access .projects on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+  24:9   error  Unsafe assignment of an error typed value                            @typescript-eslint/no-unsafe-assignment
+  36:33  error  Unsafe member access .name on an `error` typed value                 @typescript-eslint/no-unsafe-member-access
+  37:71  error  Unsafe member access .name on an `error` typed value                 @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/app/schedule/[token]/_components/slot-card.tsx
+  50:18  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+  50:18  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+  72:22  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+  72:22  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/app/schedule/[token]/schedule-client.tsx
+   20:10  error  Unsafe array destructuring of a tuple element with an error typed value                                                                                                                                @typescript-eslint/no-unsafe-assignment
+   21:14  error  'Id' is an 'error' type that acts as 'any' and overrides all other types in this union type                                                                                                            @typescript-eslint/no-redundant-type-constituents
+   39:9   error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   39:29  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                                                     @typescript-eslint/no-unsafe-member-access
+   40:36  error  Unsafe member access .interviewTimeSlots on an `error` typed value                                                                                                                                     @typescript-eslint/no-unsafe-member-access
+   64:12  error  Unsafe member access .alreadyBooked on an `error` typed value                                                                                                                                          @typescript-eslint/no-unsafe-member-access
+   64:34  error  Unsafe member access .bookedSlot on an `error` typed value                                                                                                                                             @typescript-eslint/no-unsafe-member-access
+   67:24  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   67:29  error  Unsafe member access .applicantName on an `error` typed value                                                                                                                                          @typescript-eslint/no-unsafe-member-access
+   68:18  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   68:23  error  Unsafe member access .bookedSlot on an `error` typed value                                                                                                                                             @typescript-eslint/no-unsafe-member-access
+   69:20  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   69:25  error  Unsafe member access .formTitle on an `error` typed value                                                                                                                                              @typescript-eslint/no-unsafe-member-access
+   70:20  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   70:25  error  Unsafe member access .bookedSlot on an `error` typed value                                                                                                                                             @typescript-eslint/no-unsafe-member-access
+   77:11  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   77:26  error  Unsafe call of a(n) `error` type typed value                                                                                                                                                           @typescript-eslint/no-unsafe-call
+   77:31  error  Unsafe member access .slots on an `error` typed value                                                                                                                                                  @typescript-eslint/no-unsafe-member-access
+   77:51  error  Unsafe member access ._id on an `any` value                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+   80:24  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   80:29  error  Unsafe member access .applicantName on an `error` typed value                                                                                                                                          @typescript-eslint/no-unsafe-member-access
+   81:18  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   81:32  error  Unsafe member access .endTime on an `error` typed value                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   82:20  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   82:25  error  Unsafe member access .formTitle on an `error` typed value                                                                                                                                              @typescript-eslint/no-unsafe-member-access
+   83:20  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   83:34  error  Unsafe member access .startTime on an `error` typed value                                                                                                                                              @typescript-eslint/no-unsafe-member-access
+   96:13  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   96:46  error  Unsafe assignment of an error typed value                                                                                                                                                              @typescript-eslint/no-unsafe-assignment
+   97:24  error  Unsafe argument of type error typed assigned to a parameter of type `SetStateAction<{ success: boolean; message: string; bookedSlot?: { startTime: number; endTime: number; } | undefined; } | null>`  @typescript-eslint/no-unsafe-argument
+  114:22  error  Unsafe member access .applicantName on an `error` typed value                                                                                                                                          @typescript-eslint/no-unsafe-member-access
+  117:21  error  Unsafe member access .formTitle on an `error` typed value                                                                                                                                              @typescript-eslint/no-unsafe-member-access
+  134:15  error  Unsafe member access .slots on an `error` typed value                                                                                                                                                  @typescript-eslint/no-unsafe-member-access
+  144:16  error  Unsafe call of a(n) `error` type typed value                                                                                                                                                           @typescript-eslint/no-unsafe-call
+  144:21  error  Unsafe member access .slots on an `error` typed value                                                                                                                                                  @typescript-eslint/no-unsafe-member-access
+  146:55  error  Unsafe member access ._id on an `any` value                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+  147:24  error  Unsafe assignment of an `any` value                                                                                                                                                                    @typescript-eslint/no-unsafe-assignment
+  147:29  error  Unsafe member access ._id on an `any` value                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+  148:58  error  Unsafe member access ._id on an `any` value                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+  149:25  error  Unsafe assignment of an `any` value                                                                                                                                                                    @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/components/application/context.tsx
+  19:3   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  34:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  34:29  error  Unsafe member access .applicationForms on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  35:5   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  45:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  45:19  error  Unsafe member access ._id on an `error` typed value               @typescript-eslint/no-unsafe-member-access
+  46:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  46:21  error  Unsafe member access .title on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+  47:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  47:27  error  Unsafe member access .description on an `error` typed value       @typescript-eslint/no-unsafe-member-access
+  48:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  48:27  error  Unsafe member access .isPublished on an `error` typed value       @typescript-eslint/no-unsafe-member-access
+  49:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  49:20  error  Unsafe member access .slug on an `error` typed value              @typescript-eslint/no-unsafe-member-access
+  50:9   error  Unsafe assignment of an error typed value                         @typescript-eslint/no-unsafe-assignment
+  50:25  error  Unsafe member access .createdBy on an `error` typed value         @typescript-eslint/no-unsafe-member-access
+  61:7   error  Unnecessary conditional, value is always falsy                    @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/application/navbar.tsx
+  16:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  16:34  error  Unsafe member access .applicationResponses on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  17:5   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  20:9   error  Unsafe assignment of an error typed value                             @typescript-eslint/no-unsafe-assignment
+  20:36  error  Unsafe member access .length on an `error` typed value                @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/components/component-example.tsx
+  109:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  468:44  error    Unsafe assignment of an `any` value                                                                                                                                                                                                                                                      @typescript-eslint/no-unsafe-assignment
+  468:57  error    Unsafe assignment of an `any` value                                                                                                                                                                                                                                                      @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/components/convex-client-provider.tsx
+  14:34  error  Forbidden non-null assertion                                                                                      @typescript-eslint/no-non-null-assertion
+  14:34  error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/breadcrumb-header.tsx
+  31:43  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  32:44  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  49:35  error  Invalid type "string | string[] | undefined" of template literal expression                                @typescript-eslint/restrict-template-expressions
+  49:45  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  51:43  error  Invalid type "string | string[] | undefined" of template literal expression                                @typescript-eslint/restrict-template-expressions
+  51:53  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/context.tsx
+  49:9   error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  49:32  error  Unsafe member access .projects on an `error` typed value        @typescript-eslint/no-unsafe-member-access
+  49:48  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  50:9   error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  50:33  error  Unsafe member access .userToProjects on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  50:63  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  56:13  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  56:27  error  Unsafe member access .name on an `error` typed value            @typescript-eslint/no-unsafe-member-access
+  57:13  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  57:34  error  Unsafe member access .description on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  58:13  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+  58:25  error  Unsafe member access ._id on an `error` typed value             @typescript-eslint/no-unsafe-member-access
+  60:40  error  Unsafe assignment of an error typed value                       @typescript-eslint/no-unsafe-assignment
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/sidebar/TaskNode.tsx
+   71:34  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   72:38  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   77:41  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   78:39  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   79:36  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   97:62  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   98:60  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+  101:28  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+  123:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  157:13  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  205:24  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+  231:24  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+  251:31  error  Forbidden non-null assertion                                                                                                                                        @typescript-eslint/no-non-null-assertion
+  270:26  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+  285:46  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+  313:48  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+  318:28  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+  389:21  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/sidebar/app-sidebar.tsx
+  63:62  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/task-status-chart.tsx
+   74:20  error  Unnecessary optional chain on a non-nullish value                                                          @typescript-eslint/no-unnecessary-condition
+  124:44  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx
+   38:11  error  Unsafe object destructuring of a property with an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unsafe-assignment
+   53:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   53:36  error  Unsafe member access .tasks on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   53:60  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   54:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   54:36  error  Unsafe member access .edges on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   54:60  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   55:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   55:39  error  Unsafe member access .userToProjects on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+   56:5   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+   59:38  error  Unsafe member access .tasks on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   60:42  error  Unsafe member access .tasks on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   61:42  error  Unsafe member access .tasks on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   62:38  error  Unsafe member access .tasks on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   63:38  error  Unsafe member access .edges on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   64:38  error  Unsafe member access .edges on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   67:3   error  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/prefer-nullish-coalescing
+   70:18  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:70:18
+  68 |     userIdRef.current = getStableUserId();
+  69 |   }
+> 70 |   const userId = userIdRef.current;
+     |                  ^^^^^^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  71 |
+  72 |   const roomId = `project:${projectId}:tasks`;
+  73 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/refs
+   70:18  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:70:18
+  68 |     userIdRef.current = getStableUserId();
+  69 |   }
+> 70 |   const userId = userIdRef.current;
+     |                  ^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  71 |
+  72 |   const roomId = `project:${projectId}:tasks`;
+  73 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/refs
+  116:24  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/prefer-nullish-coalescing
+  120:24  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/prefer-nullish-coalescing
+  145:11  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  146:11  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  147:11  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  160:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  170:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  180:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  209:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  224:26  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  231:26  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  291:11  error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  291:27  error  Unsafe call of a(n) `error` type typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unsafe-call
+  291:43  error  Unsafe member access .map on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unsafe-member-access
+  292:69  error  Unsafe member access .userId on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+  294:15  error  Unsafe assignment of an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unsafe-assignment
+  294:30  error  Unsafe member access .userId on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+  295:15  error  Unsafe assignment of an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unsafe-assignment
+  297:26  error  Unsafe member access .userId on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+  337:40  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/prefer-nullish-coalescing
+  374:16  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:374:16
+  372 |             return data.x !== 0 || data.y !== 0;
+  373 |           })
+> 374 |           .map((presence) => {
+      |                ^^^^^^^^^^^^^^^
+> 375 |             const data = presence.data as unknown as CursorPresenceData;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 376 |             const pos = getCursorScreenPosition(data.x, data.y);
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 386 |             );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 387 |           })}
+      | ^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  388 |
+  389 |         {contextMenu && (
+  390 |           <TasksContextMenu  react-hooks/refs
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-graph.tsx
+  66:32  error  Unnecessary conditional, value is always truthy  @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-header.tsx
+  24:10  error  Unnecessary conditional, value is always truthy  @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-table.tsx
+  112:9   error  Unsafe member access .dashboard on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+  114:7   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  122:9   error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  122:37  error  Unsafe member access .dashboard on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+  122:66  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  196:16  error  Unsafe call of a(n) `error` type typed value                                                               @typescript-eslint/no-unsafe-call
+  196:30  error  Unsafe member access .map on an `error` typed value                                                        @typescript-eslint/no-unsafe-member-access
+  197:34  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  197:39  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  197:54  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  197:59  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  198:32  error  Unsafe argument of type `any` assigned to a parameter of type `string`                                     @typescript-eslint/no-unsafe-argument
+  198:37  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  198:53  error  Unsafe member access .userId on an `any` value                                                             @typescript-eslint/no-unsafe-member-access
+  204:28  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  204:50  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  244:34  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  244:39  error  Unsafe member access ._id on an `error` typed value                                                        @typescript-eslint/no-unsafe-member-access
+  245:62  error  Unsafe member access .label on an `error` typed value                                                      @typescript-eslint/no-unsafe-member-access
+  246:44  error  Unsafe argument of type error typed assigned to a parameter of type `number | null`                        @typescript-eslint/no-unsafe-argument
+  246:49  error  Unsafe member access .dueDate on an `error` typed value                                                    @typescript-eslint/no-unsafe-member-access
+  248:29  error  Unsafe member access .assignedTo on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+  249:40  error  Unsafe argument of type error typed assigned to a parameter of type `string`                               @typescript-eslint/no-unsafe-argument
+  249:45  error  Unsafe member access .assignedTo on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+  253:29  error  Unsafe member access .status on an `error` typed value                                                     @typescript-eslint/no-unsafe-member-access
+  254:41  error  Unsafe assignment of an error typed value                                                                  @typescript-eslint/no-unsafe-assignment
+  254:56  error  Computed name [task.status] resolves to an `error` typed value                                             @typescript-eslint/no-unsafe-member-access
+  254:61  error  Unsafe member access .status on an `error` typed value                                                     @typescript-eslint/no-unsafe-member-access
+  255:41  error  Computed name [task.status] resolves to an `error` typed value                                             @typescript-eslint/no-unsafe-member-access
+  255:46  error  Unsafe member access .status on an `error` typed value                                                     @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/components/example.tsx
+   7:20  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+   7:20  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+  31:18  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+  31:18  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+  42:20  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+  42:20  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/components/form-builder/form-builder.tsx
+   22:10  error  Unsafe array destructuring of a tuple element with an error typed value                      @typescript-eslint/no-unsafe-assignment
+   23:14  error  'Id' is an 'error' type that acts as 'any' and overrides all other types in this union type  @typescript-eslint/no-redundant-type-constituents
+   25:39  error  Unsafe member access .applicationFormFields on an `error` typed value                        @typescript-eslint/no-unsafe-member-access
+   26:39  error  Unsafe member access .applicationFormFields on an `error` typed value                        @typescript-eslint/no-unsafe-member-access
+   27:41  error  Unsafe member access .applicationFormFields on an `error` typed value                        @typescript-eslint/no-unsafe-member-access
+   31:13  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+   32:9   error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+   39:14  error  '_error' is defined but never used                                                           @typescript-eslint/no-unused-vars
+   47:29  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+   52:16  error  '_error' is defined but never used                                                           @typescript-eslint/no-unused-vars
+   62:15  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+   63:11  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+   74:16  error  '_error' is defined but never used                                                           @typescript-eslint/no-unused-vars
+   83:41  error  Unsafe argument of type error typed assigned to a parameter of type `string`                 @typescript-eslint/no-unsafe-argument
+   97:13  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+  112:28  error  Unsafe spread of an `any` value in an array                                                  @typescript-eslint/no-unsafe-assignment
+  112:51  error  Unsafe return of a value of type error                                                       @typescript-eslint/no-unsafe-return
+  118:11  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+  121:16  error  '_error' is defined but never used                                                           @typescript-eslint/no-unused-vars
+  156:22  error  Unsafe assignment of an error typed value                                                    @typescript-eslint/no-unsafe-assignment
+  156:27  error  Unnecessary optional chain on a non-nullish value                                            @typescript-eslint/no-unnecessary-condition
+  159:51  error  Unnecessary optional chain on a non-nullish value                                            @typescript-eslint/no-unnecessary-condition
+  165:52  error  Unnecessary optional chain on a non-nullish value                                            @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/form-builder/form-header.tsx
+   30:38  error  Unsafe member access .applicationForms on an `error` typed value                                                                                                    @typescript-eslint/no-unsafe-member-access
+   48:11  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   52:16  error  '_error' is defined but never used                                                                                                                                  @typescript-eslint/no-unused-vars
+   67:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+   83:18  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   83:18  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  106:26  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  106:26  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  131:26  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  131:26  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/components/form-builder/form-question-card.tsx
+   39:39  error  Unsafe member access .applicationFormFields on an `error` typed value                                                                                               @typescript-eslint/no-unsafe-member-access
+   63:11  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+   65:43  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+   75:16  error  '_error' is defined but never used                                                                                                                                  @typescript-eslint/no-unused-vars
+   90:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  132:18  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  132:18  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  160:32  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+  160:32  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+  169:23  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  226:26  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                                                                  @typescript-eslint/no-unnecessary-condition
+  245:26  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                                                                  @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/form-builder/form-question-options.tsx
+  94:24  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+  94:24  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+
+/Users/ani/amaxa/apps/platform/src/components/form-builder/use-field-type-inference.ts
+  34:49  error  Promise returned in function argument where a void return was expected                                     @typescript-eslint/no-misused-promises
+  52:19  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  54:31  error  Unsafe member access .fieldType on an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+  55:15  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+  55:31  error  Unsafe member access .reasoning on an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+  55:41  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/ani/amaxa/apps/platform/src/components/kibo-ui/combobox/index.tsx
+   43:24  error  Unexpected empty method 'onValueChange'            @typescript-eslint/no-empty-function
+   45:23  error  Unexpected empty method 'onOpenChange'             @typescript-eslint/no-empty-function
+   47:19  error  Unexpected empty method 'setWidth'                 @typescript-eslint/no-empty-function
+   49:24  error  Unexpected empty method 'setInputValue'            @typescript-eslint/no-empty-function
+  120:19  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+
+/Users/ani/amaxa/apps/platform/src/components/navbar/top-navbar.tsx
+  12:9   error  Unsafe assignment of an error typed value                @typescript-eslint/no-unsafe-assignment
+  12:35  error  Unsafe member access .auth on an `error` typed value     @typescript-eslint/no-unsafe-member-access
+  17:21  error  Unsafe member access .isAdmin on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+  22:19  error  Unsafe member access .isAdmin on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+
+/Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx
+   33:9   error  Unsafe assignment of an error typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unsafe-assignment
+   33:33  error  Unsafe member access .presence on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+   35:26  error  Unsafe call of a(n) `error` type typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unsafe-call
+   35:26  error  Unsafe call of a(n) `error` type typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unsafe-call
+   36:7   error  Unsafe member access .filter on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unsafe-member-access
+   36:21  error  Unsafe return of a value of type `any`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unsafe-return
+   36:23  error  Unsafe member access .user on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unsafe-member-access
+   36:42  error  Unsafe member access .present on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unsafe-member-access
+   37:6   error  Unsafe member access .map on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+   37:18  error  Unsafe return of a value of type `any`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unsafe-return
+   39:15  error  Unsafe member access .data on an `any` value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unsafe-member-access
+   42:50  error  Unsafe member access .presence on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+   43:45  error  Unsafe member access .presence on an `error` typed value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unsafe-member-access
+   47:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-floating-promises
+   49:18  error  Unexpected empty arrow function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-empty-function
+   54:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-floating-promises
+   70:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-floating-promises
+   74:9   error  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-nullish-coalescing
+   78:15  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-floating-promises
+  101:10  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx:101:10
+   99 |   }, []);
+  100 |
+> 101 |   return [dataRef.current, othersPresence, updateData] as const;
+      |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  102 | };
+  103 |
+  104 | export default usePresence;  react-hooks/refs
+  101:11  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx:101:11
+   99 |   }, []);
+  100 |
+> 101 |   return [dataRef.current, othersPresence, updateData] as const;
+      |           ^^^^^^^^^^^^^^^ Cannot access ref value during render
+  102 | };
+  103 |
+  104 | export default usePresence;                                        react-hooks/refs
+
+/Users/ani/amaxa/apps/platform/src/lib/workos.ts
+  4:27  error  WORKOS_API_KEY is not listed as a dependency in the root turbo.json or workspace () turbo.json                    turbo/no-undeclared-env-vars
+  4:27  error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+
+✖ 739 problems (738 errors, 1 warning)
+
+ ELIFECYCLE  Command failed with exit code 1.

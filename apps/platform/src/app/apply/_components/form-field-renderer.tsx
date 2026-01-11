@@ -2,12 +2,13 @@
 
 import type { AnyFieldApi } from "@tanstack/react-form";
 import { memo } from "react";
+
+import type { ApplicationFormField } from "./types";
 import { MultiselectField } from "./fields/multiselect-field";
 import { NumberField } from "./fields/number-field";
 import { SelectField } from "./fields/select-field";
 import { TextField } from "./fields/text-field";
 import { TextareaField } from "./fields/textarea-field";
-import type { ApplicationFormField } from "./types";
 
 interface FormFieldRendererProps {
   field: AnyFieldApi;

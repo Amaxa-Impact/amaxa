@@ -1,8 +1,10 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
+
 import { Checkbox } from "@amaxa/ui/checkbox";
 import { Label } from "@amaxa/ui/label";
+
 import type { ApplicationFormField } from "../types";
 
 interface MultiselectFieldProps {
@@ -28,14 +30,14 @@ export function MultiselectField({ field, formField }: MultiselectFieldProps) {
   return (
     <div className="space-y-3">
       <div>
-        <Label className="font-medium text-sm">
+        <Label className="text-sm font-medium">
           {formField.label}
           {formField.required && (
-            <span className="ml-1 text-destructive">*</span>
+            <span className="text-destructive ml-1">*</span>
           )}
         </Label>
         {formField.description && (
-          <p className="mt-1 text-muted-foreground text-xs">
+          <p className="text-muted-foreground mt-1 text-xs">
             {formField.description}
           </p>
         )}
@@ -56,7 +58,7 @@ export function MultiselectField({ field, formField }: MultiselectFieldProps) {
                 }
               />
               <Label
-                className="cursor-pointer font-normal text-sm"
+                className="cursor-pointer text-sm font-normal"
                 htmlFor={optionId}
               >
                 {option}

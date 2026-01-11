@@ -42,7 +42,6 @@ export const usePresence = <T extends Record<string, unknown>>(
   const updatePresenceMutation = useMutation(api.presence.update);
   const heartbeatMutation = useMutation(api.presence.heartbeat);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     updatePresenceMutation({ room, user, data: initialData });
 

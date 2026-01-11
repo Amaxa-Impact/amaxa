@@ -1,6 +1,6 @@
+import { NextResponse } from "next/server";
 import { google } from "@ai-sdk/google";
 import { generateText, Output } from "ai";
-import { NextResponse } from "next/server";
 import { z } from "zod";
 
 const fieldTypeSchema = z.enum([
@@ -60,7 +60,7 @@ Analyze the question and predict the most suitable field type. Consider:
         error: "Failed to predict field type",
         fieldType: "text", // fallback
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

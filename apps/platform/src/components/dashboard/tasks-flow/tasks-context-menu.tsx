@@ -1,6 +1,7 @@
 "use client";
 
 import { IconCopy, IconPlus, IconTrash } from "@tabler/icons-react";
+
 import {
   ContextMenu,
   ContextMenuContent,
@@ -8,6 +9,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@amaxa/ui/context-menu";
+
 import type { ContextMenuState } from "./types";
 
 interface TasksContextMenuProps {

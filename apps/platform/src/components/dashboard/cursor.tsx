@@ -1,4 +1,5 @@
 "use client";
+
 import { memo } from "react";
 
 export interface CursorProps {

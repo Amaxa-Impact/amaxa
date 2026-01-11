@@ -1,6 +1,7 @@
 "use client";
 
 import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
+import type { UserOption } from "@/components/user-dropdown";
 import type { User } from "@/lib/workos";
 import type {
   Connection,
@@ -13,6 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { Cursor } from "@/components/dashboard/cursor";
+import { getUserDisplayName } from "@/components/user-dropdown";
 import usePresence from "@/hooks/use-presence";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
@@ -24,9 +26,7 @@ import {
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
-import type { UserOption } from "@amaxa/ui/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
-import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
 
 import type { ContextMenuState, CursorPresenceData } from "./types";
 import { TasksContextMenu } from "./tasks-context-menu";

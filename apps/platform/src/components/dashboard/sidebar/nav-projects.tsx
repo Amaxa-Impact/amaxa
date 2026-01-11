@@ -1,7 +1,9 @@
 "use client";
+
 import type { LucideIcon } from "lucide-react";
-import Link from "next/link";
 import { memo } from "react";
+import Link from "next/link";
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -33,5 +35,5 @@ export const NavProjects = memo(
         </SidebarMenu>
       </SidebarGroup>
     );
-  }
+  },
 );

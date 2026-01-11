@@ -1,7 +1,9 @@
 "use client";
 
+import type { UserOption } from "@/components/user-dropdown";
 import type { User } from "@/lib/workos";
 import { useEffect, useState } from "react";
+import { getUserDisplayName } from "@/components/user-dropdown";
 import {
   IconCalendarPlus,
   IconCheck,
@@ -14,7 +16,6 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
-import type { UserOption } from "@amaxa/ui/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 import {
   AlertDialog,
@@ -36,7 +37,6 @@ import {
   TableHeader,
   TableRow,
 } from "@amaxa/ui/table";
-import { getUserDisplayName } from "@amaxa/ui/user-dropdown";
 
 interface TimeSlot {
   _id: Id<"interviewTimeSlots">;

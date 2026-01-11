@@ -11,7 +11,7 @@ import {
 export default function Loading() {
   return (
     <div className="flex h-full flex-col">
-      <div className="sticky top-0 z-10 flex flex-row items-center justify-between bg-background p-6">
+      <div className="bg-background sticky top-0 z-10 flex flex-row items-center justify-between p-6">
         <Skeleton className="h-7 w-48" />
         <Skeleton className="h-9 w-32" />
       </div>

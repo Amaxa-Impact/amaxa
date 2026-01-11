@@ -5,6 +5,16 @@
     "dev": "convex dev",
     "dev:setup": "convex dev --configure --until-success"
   },
+  "exports": {
+    "./*": {
+      "types": "./convex/*",
+      "default": "./convex/*"
+    },
+    "./_generated/*": {
+      "types": "./convex/_generated/*",
+      "default": "./convex/_generated/*"
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",

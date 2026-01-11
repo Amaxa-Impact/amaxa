@@ -1,23 +1,25 @@
 "use client";
 
+import type {
+  Connection,
+  Edge,
+  Node,
+  NodeMouseHandler,
+  NodeTypes,
+  OnEdgesChange,
+  OnNodesChange,
+} from "@xyflow/react";
+import { memo, useEffect, useMemo } from "react";
+import { TaskNode } from "@/components/dashboard/sidebar/TaskNode";
 import {
   Background,
-  type Connection,
   Controls,
-  type Edge,
   MarkerType,
   MiniMap,
-  type Node,
-  type NodeMouseHandler,
-  type NodeTypes,
-  type OnEdgesChange,
-  type OnNodesChange,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
 } from "@xyflow/react";
-import { memo, useEffect, useMemo } from "react";
-import { TaskNode } from "@/components/dashboard/sidebar/TaskNode";
 
 const nodeTypes: NodeTypes = {
   task: TaskNode,
@@ -75,7 +77,7 @@ const TasksGraphInner = memo(function TasksGraphInner({
       height: "100%",
       backgroundColor: "#ffffff",
     }),
-    []
+    [],
   );
   const fitViewOptions = useMemo(() => ({ padding: 0.2 }), []);
   const proOptions = useMemo(() => ({ hideAttribution: true }), []);

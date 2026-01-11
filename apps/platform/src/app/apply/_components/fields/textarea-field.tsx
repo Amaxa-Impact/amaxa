@@ -1,8 +1,10 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
+
 import { Label } from "@amaxa/ui/label";
 import { Textarea } from "@amaxa/ui/textarea";
+
 import type { ApplicationFormField } from "../types";
 
 interface TextareaFieldProps {
@@ -19,10 +21,10 @@ export function TextareaField({ field, formField }: TextareaFieldProps) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <Label className="font-medium text-sm" htmlFor={field.name}>
+        <Label className="text-sm font-medium" htmlFor={field.name}>
           {formField.label}
           {formField.required && (
-            <span className="ml-1 text-destructive">*</span>
+            <span className="text-destructive ml-1">*</span>
           )}
         </Label>
         {showCharCount && (

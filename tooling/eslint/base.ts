@@ -46,7 +46,6 @@ export const baseConfig = defineConfig(
     plugins: {
       import: importPlugin,
       turbo: turboPlugin,
-      convex: convexPlugin.configs.recommended,
     },
     extends: [
       eslint.configs.recommended,
@@ -55,8 +54,7 @@ export const baseConfig = defineConfig(
       ...tseslint.configs.stylisticTypeChecked,
     ],
     rules: {
-      ...turboPlugin.configs.recommended,
-      ...convexPlugin.configs.recommended.rules,
+      ...turboPlugin.configs.recommended.rules,
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },

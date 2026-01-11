@@ -9,7 +9,7 @@ import { Skeleton } from "@amaxa/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col gap-6 bg-background p-6">
+    <div className="bg-background flex flex-col gap-6 p-6">
       <div>
         <Skeleton className="mb-2 h-9 w-64" />
         <Skeleton className="h-5 w-40" />

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 /** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 "use client";
 

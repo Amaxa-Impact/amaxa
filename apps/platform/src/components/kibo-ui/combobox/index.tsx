@@ -1,16 +1,11 @@
 "use client";
 
+import type { ComponentProps, ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { ChevronsUpDownIcon, PlusIcon } from "lucide-react";
-import {
-  type ComponentProps,
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+
+import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import {
   Command,
@@ -21,12 +16,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@amaxa/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@amaxa/ui/popover";
-import { cn } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@amaxa/ui/popover";
 
 interface ComboboxData {
   label: string;
@@ -149,7 +139,7 @@ export const ComboboxTrigger = ({
             ? data.find((item) => item.value === value)?.label
             : `Select ${type}...`}
           <ChevronsUpDownIcon
-            className="shrink-0 text-muted-foreground"
+            className="text-muted-foreground shrink-0"
             size={16}
           />
         </span>
@@ -284,8 +274,8 @@ export const ComboboxCreateNew = ({
   return (
     <button
       className={cn(
-        "relative flex w-full cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        className
+        "aria-selected:bg-accent aria-selected:text-accent-foreground relative flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        className,
       )}
       onClick={handleCreateNew}
       type="button"
@@ -294,7 +284,7 @@ export const ComboboxCreateNew = ({
         children(inputValue)
       ) : (
         <>
-          <PlusIcon className="h-4 w-4 text-muted-foreground" />
+          <PlusIcon className="text-muted-foreground h-4 w-4" />
           <span>{`Create new ${type}: "${inputValue}"`}</span>
         </>
       )}

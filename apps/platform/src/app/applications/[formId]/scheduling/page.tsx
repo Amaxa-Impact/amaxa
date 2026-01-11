@@ -1,5 +1,7 @@
 "use client";
+
 import { useApplicationForm } from "@/components/application/context";
+
 import { SchedulingSettings } from "../settings/scheduling-settings";
 
 export default function Page() {

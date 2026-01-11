@@ -1,6 +1,7 @@
 "use client";
 
 import type { AnyFieldApi } from "@tanstack/react-form";
+
 import { Label } from "@amaxa/ui/label";
 import {
   Select,
@@ -9,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
+
 import type { ApplicationFormField } from "../types";
 
 interface SelectFieldProps {
@@ -23,9 +25,9 @@ export function SelectField({ field, formField }: SelectFieldProps) {
 
   return (
     <div className="space-y-2">
-      <Label className="font-medium text-sm" htmlFor={field.name}>
+      <Label className="text-sm font-medium" htmlFor={field.name}>
         {formField.label}
-        {formField.required && <span className="ml-1 text-destructive">*</span>}
+        {formField.required && <span className="text-destructive ml-1">*</span>}
       </Label>
       {formField.description && (
         <p className="text-muted-foreground text-xs">{formField.description}</p>

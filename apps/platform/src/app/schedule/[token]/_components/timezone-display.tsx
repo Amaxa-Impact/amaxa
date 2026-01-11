@@ -1,10 +1,10 @@
 "use client";
 
-import { IconGlobe } from "@tabler/icons-react";
 import {
   formatTimezoneDisplay,
   TimezoneSelect,
 } from "@/components/scheduling/timezone-select";
+import { IconGlobe } from "@tabler/icons-react";
 
 interface TimezoneDisplayProps {
   timezone: string;
@@ -16,8 +16,8 @@ export function TimezoneDisplay({
   onTimezoneChange,
 }: TimezoneDisplayProps) {
   return (
-    <div className="mb-6 flex items-center justify-between rounded-lg border bg-muted/30 p-3">
-      <div className="flex items-center gap-2 text-muted-foreground text-sm">
+    <div className="bg-muted/30 mb-6 flex items-center justify-between rounded-lg border p-3">
+      <div className="text-muted-foreground flex items-center gap-2 text-sm">
         <IconGlobe className="size-4" />
         <span>Times shown in: {formatTimezoneDisplay(timezone)}</span>
       </div>

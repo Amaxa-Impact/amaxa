@@ -1,9 +1,11 @@
 "use client";
-import { IconCircle, IconPlus, IconSquare, IconX } from "@tabler/icons-react";
+
 import { useCallback, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+import { IconCircle, IconPlus, IconSquare, IconX } from "@tabler/icons-react";
+
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
-import { cn } from "@/lib/utils";
 
 interface FormQuestionOptionsProps {
   options: string[];
@@ -38,7 +40,7 @@ export function FormQuestionOptions({
       newOptions[index] = value;
       onOptionsChange(newOptions);
     },
-    [options, onOptionsChange]
+    [options, onOptionsChange],
   );
 
   const removeOption = useCallback(
@@ -49,7 +51,7 @@ export function FormQuestionOptions({
       const newOptions = options.filter((_, i) => i !== index);
       onOptionsChange(newOptions);
     },
-    [options, onOptionsChange]
+    [options, onOptionsChange],
   );
 
   const handleKeyDown = useCallback(
@@ -76,7 +78,7 @@ export function FormQuestionOptions({
         }, 0);
       }
     },
-    [options, addOption, removeOption]
+    [options, addOption, removeOption],
   );
 
   useEffect(() => {
@@ -89,11 +91,11 @@ export function FormQuestionOptions({
     <div className="space-y-2">
       {options.map((option, index) => (
         <div className="group flex items-center gap-2" key={index}>
-          <OptionIcon className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+          <OptionIcon className="text-muted-foreground h-4 w-4 flex-shrink-0" />
           <Input
             className={cn(
-              "flex-1 rounded-none border-0 border-b px-0 focus-visible:border-primary focus-visible:ring-0",
-              editingIndex === index ? "border-primary border-b-2" : ""
+              "focus-visible:border-primary flex-1 rounded-none border-0 border-b px-0 focus-visible:ring-0",
+              editingIndex === index ? "border-primary border-b-2" : "",
             )}
             onBlur={() => setEditingIndex(null)}
             onChange={(e) => updateOption(index, e.target.value)}

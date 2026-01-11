@@ -1,6 +1,8 @@
 "use client";
+
 import { Label, Pie, PieChart } from "recharts";
 
+import type { ChartConfig } from "@amaxa/ui/chart";
 import {
   Card,
   CardContent,
@@ -9,7 +11,6 @@ import {
   CardTitle,
 } from "@amaxa/ui/card";
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -111,7 +112,7 @@ export function TaskStatusChart({
                           y={viewBox.cy}
                         >
                           <tspan
-                            className="fill-foreground font-bold text-3xl"
+                            className="fill-foreground text-3xl font-bold"
                             x={viewBox.cx}
                             y={viewBox.cy}
                           >

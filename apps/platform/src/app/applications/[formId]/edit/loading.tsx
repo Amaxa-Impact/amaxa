@@ -4,9 +4,9 @@ import { Skeleton } from "@amaxa/ui/skeleton";
 export default function Loading() {
   return (
     <div className="flex h-screen flex-col">
-      <main className="flex-1 overflow-auto bg-background">
+      <main className="bg-background flex-1 overflow-auto">
         <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
-          <Card className="border-t-4 border-t-primary/50">
+          <Card className="border-t-primary/50 border-t-4">
             <CardContent className="space-y-4 pt-6">
               <Skeleton className="h-8 w-64" />
               <Skeleton className="h-16 w-full" />

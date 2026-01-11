@@ -3,7 +3,7 @@ import { Skeleton } from "@amaxa/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-8 md:py-12">
+    <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
         <Card className="mx-auto max-w-2xl">
           <CardHeader className="border-b">
@@ -11,7 +11,7 @@ export default function Loading() {
             <Skeleton className="mt-2 h-4 w-64" />
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
-            <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
+            <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
               <Skeleton className="h-4 w-24" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-16" />

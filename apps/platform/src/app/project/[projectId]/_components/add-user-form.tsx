@@ -12,6 +12,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from "@/components/kibo-ui/combobox";
+import { UserDropdown } from "@/components/user-dropdown";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
@@ -35,7 +36,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@amaxa/ui/field";
-import { UserDropdown } from "@amaxa/ui/user-dropdown";
 
 const formSchema = z.object({
   userId: z.string().min(1, "Please select a user."),

@@ -1,12 +1,14 @@
 "use client";
 
 import { IconPlus } from "@tabler/icons-react";
+
 import { Button } from "@amaxa/ui/button";
+
 import type { CursorPresenceData } from "./types";
 
 interface TasksHeaderProps {
   projectName: string;
-  othersPresence: Array<{ user: string; data: unknown }>;
+  othersPresence: { user: string; data: unknown }[];
   userRole: "coach" | "member" | null;
   onAddTask: () => void;
 }
@@ -19,7 +21,7 @@ export function TasksHeader({
 }: TasksHeaderProps) {
   return (
     <div className="flex items-center justify-between border-b px-6 py-4">
-      <h1 className="font-bold text-2xl">{projectName}</h1>
+      <h1 className="text-2xl font-bold">{projectName}</h1>
       <div className="flex items-center gap-4">
         {othersPresence && othersPresence.length > 0 && (
           <div className="flex items-center gap-2">
@@ -29,7 +31,7 @@ export function TasksHeader({
             </span>
             <div className="flex -space-x-2">
               {othersPresence.slice(0, 5).map((p) => {
-                const data = p.data as unknown as CursorPresenceData;
+                const data = p.data as CursorPresenceData;
                 const name = data.name || `User ${p.user.slice(0, 4)}`;
                 const initials =
                   name
@@ -42,7 +44,7 @@ export function TasksHeader({
 
                 return (
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background font-medium text-white text-xs"
+                    className="border-background flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-medium text-white"
                     key={p.user}
                     style={{ backgroundColor: data.color || "#3b82f6" }}
                     title={name}
@@ -52,7 +54,7 @@ export function TasksHeader({
                 );
               })}
               {othersPresence.length > 5 && (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-muted font-medium text-xs">
+                <div className="border-background bg-muted flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-medium">
                   +{othersPresence.length - 5}
                 </div>
               )}

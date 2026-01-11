@@ -56,7 +56,7 @@ export function TimezoneSelect({
 }: TimezoneSelectProps) {
   const userTimezone = getDefaultTimezone();
   const isUserTimezoneInList = COMMON_TIMEZONES.some(
-    (tz) => tz.value === userTimezone
+    (tz) => tz.value === userTimezone,
   );
 
   return (
@@ -85,14 +85,14 @@ export function TimezoneSelect({
               <SelectItem key={tz.value} value={tz.value}>
                 {tz.label}
               </SelectItem>
-            )
+            ),
           )}
           {COMMON_TIMEZONES.filter((tz) => tz.value.startsWith("Pacific/")).map(
             (tz) => (
               <SelectItem key={tz.value} value={tz.value}>
                 {tz.label}
               </SelectItem>
-            )
+            ),
           )}
         </SelectGroup>
         <SelectGroup>
@@ -102,14 +102,14 @@ export function TimezoneSelect({
               <SelectItem key={tz.value} value={tz.value}>
                 {tz.label}
               </SelectItem>
-            )
+            ),
           )}
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>Asia & Pacific</SelectLabel>
           {COMMON_TIMEZONES.filter(
             (tz) =>
-              tz.value.startsWith("Asia/") || tz.value.startsWith("Australia/")
+              tz.value.startsWith("Asia/") || tz.value.startsWith("Australia/"),
           ).map((tz) => (
             <SelectItem key={tz.value} value={tz.value}>
               {tz.label}

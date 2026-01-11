@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import type { ApplicationFormField } from "./types";
 
 export function createFieldValidator(field: ApplicationFormField) {
@@ -14,13 +15,13 @@ export function createFieldValidator(field: ApplicationFormField) {
       if (field.min !== undefined) {
         schema = schema.min(
           field.min,
-          `${field.label} must be at least ${field.min} characters`
+          `${field.label} must be at least ${field.min} characters`,
         );
       }
       if (field.max !== undefined) {
         schema = schema.max(
           field.max,
-          `${field.label} must be at most ${field.max} characters`
+          `${field.label} must be at most ${field.max} characters`,
         );
       }
       validator = field.required ? schema : schema.optional();
@@ -32,13 +33,13 @@ export function createFieldValidator(field: ApplicationFormField) {
       if (field.min !== undefined) {
         schema = schema.min(
           field.min,
-          `${field.label} must be at least ${field.min}`
+          `${field.label} must be at least ${field.min}`,
         );
       }
       if (field.max !== undefined) {
         schema = schema.max(
           field.max,
-          `${field.label} must be at most ${field.max}`
+          `${field.label} must be at most ${field.max}`,
         );
       }
       if (field.required) {
@@ -70,7 +71,7 @@ export function createFieldValidator(field: ApplicationFormField) {
       if (field.required) {
         schema = schema.min(
           1,
-          `Please select at least one option for ${field.label}`
+          `Please select at least one option for ${field.label}`,
         );
       }
       validator = schema;
@@ -91,7 +92,7 @@ export const applicantInfoSchema = z.object({
 
 export function validateFieldValue(
   field: ApplicationFormField,
-  value: string | string[] | undefined
+  value: string | string[] | undefined,
 ): string | undefined {
   const validator = createFieldValidator(field);
   const result = validator.safeParse(value);

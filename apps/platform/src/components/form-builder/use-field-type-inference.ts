@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+
 import type { FieldType, FieldTypeInferenceResult } from "./types";
 
 interface UseFieldTypeInferenceOptions {
@@ -6,12 +7,12 @@ interface UseFieldTypeInferenceOptions {
 }
 
 export function useFieldTypeInference(
-  options: UseFieldTypeInferenceOptions = {}
+  options: UseFieldTypeInferenceOptions = {},
 ) {
   const { debounceMs = 300 } = options;
   const [isInferring, setIsInferring] = useState(false);
   const [lastResult, setLastResult] = useState<FieldTypeInferenceResult | null>(
-    null
+    null,
   );
   const abortControllerRef = useRef<AbortController | null>(null);
   const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -70,7 +71,7 @@ export function useFieldTypeInference(
         }, debounceMs);
       });
     },
-    [debounceMs]
+    [debounceMs],
   );
 
   const cancelInference = useCallback(() => {

@@ -1,6 +1,8 @@
 "use client";
+
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@amaxa/ui/breadcrumb";
 import { SidebarTrigger } from "@amaxa/ui/sidebar";
+
 import { useDashboardContext } from "./context";
 
 const PAGE_NAMES: Record<string, string> = {
@@ -32,10 +35,10 @@ export function BreadcrumbHeader() {
   const pageName = PAGE_NAMES[currentPage] || currentPage;
 
   return (
-    <header className="sticky top-0 z-10 border-border border-b bg-background">
+    <header className="border-border bg-background sticky top-0 z-10 border-b">
       <div className="flex items-center gap-2 px-4 py-3">
         <SidebarTrigger className="-ml-1" />
-        <div className="h-5 w-px bg-border" />
+        <div className="bg-border h-5 w-px" />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "@xyflow/react/dist/style.css";
 import "./globals.css";
-import { ReactFlowProvider } from "@xyflow/react";
+
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ReactFlowProvider } from "@xyflow/react";
+
 import { AlertDialogProvider } from "@amaxa/ui/alert-dialog-simple";
 import { ConfirmDialogProvider } from "@amaxa/ui/confirm-dialog";
 
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
   creator: "Amaxa",
   publisher: "Amaxa",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),
   openGraph: {
     type: "website",
@@ -65,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-screen bg-background antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-background h-screen antialiased`}
       >
         <ThemeProvider attribute={"class"} forcedTheme="dark">
           <ReactFlowProvider>

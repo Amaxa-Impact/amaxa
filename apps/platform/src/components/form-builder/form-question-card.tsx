@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";

@@ -1,4 +1,6 @@
 "use client";
+
+import { memo } from "react";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
   Bell,
@@ -8,7 +10,7 @@ import {
   LogOut,
   Star,
 } from "lucide-react";
-import { memo } from "react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@amaxa/ui/avatar";
 import {
   DropdownMenu,

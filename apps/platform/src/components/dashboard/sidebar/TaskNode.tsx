@@ -1,10 +1,12 @@
-/* eslint-disable react/jsx-no-undef */
 /** biome-ignore-all lint/correctness/noChildrenProp: This is a workaround to fix the linting error. */
 "use client";
+
+import type { NodeProps } from "@xyflow/react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
-import { Handle, type NodeProps, Position } from "@xyflow/react";
-import { memo, useCallback, useEffect, useState } from "react";
+import { Handle, Position } from "@xyflow/react";
+
 import { Button } from "@amaxa/ui/button";
 import {
   Field,
@@ -32,7 +34,7 @@ export interface TaskNodeData {
   priority?: "low" | "medium" | "high";
   onStatusChange?: (status: TaskNodeData["status"]) => void;
   onDataChange?: (data: Partial<TaskNodeData>) => void;
-  projectMembers?: Array<{ userId: string; name?: string }>;
+  projectMembers?: { userId: string; name?: string }[];
 }
 
 const statusColors = {
@@ -75,7 +77,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
       label: taskData.label,
       description: taskData.description || "",
       assignedTo: taskData.assignedTo || "",
-      priority: (taskData.priority || "medium") as "low" | "medium" | "high",
+      priority: taskData.priority || "medium",
     },
     onSubmit: ({ value }) => {
       if (taskData.onDataChange) {
@@ -95,10 +97,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
       form.setFieldValue("label", taskData.label);
       form.setFieldValue("description", taskData.description || "");
       form.setFieldValue("assignedTo", taskData.assignedTo || "");
-      form.setFieldValue(
-        "priority",
-        (taskData.priority || "medium") as "low" | "medium" | "high"
-      );
+      form.setFieldValue("priority", taskData.priority || "medium");
     }
   }, [isEditing, taskData, form]);
 
@@ -108,7 +107,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
         taskData.onStatusChange(newStatus as TaskNodeData["status"]);
       }
     },
-    [taskData]
+    [taskData],
   );
 
   const handleEditClick = useCallback((e: React.MouseEvent) => {
@@ -121,7 +120,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
       e.stopPropagation();
       form.handleSubmit();
     },
-    [form]
+    [form],
   );
 
   const handleCancel = useCallback(
@@ -130,7 +129,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
       setIsEditing(false);
       form.reset();
     },
-    [form]
+    [form],
   );
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -143,7 +142,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
     return (
       <div
         className={
-          "nodrag nopan min-w-[280px] rounded-lg border-2 bg-card px-3 py-3 text-card-foreground shadow-md"
+          "nodrag nopan bg-card text-card-foreground min-w-[280px] rounded-lg border-2 px-3 py-3 shadow-md"
         }
         onKeyDown={handleKeyDown}
       >
@@ -158,7 +157,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
         >
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-medium text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-xs font-medium">
                 Edit Task
               </span>
               <div className="flex gap-1">
@@ -245,11 +244,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                       </FieldLabel>
                       <FieldContent>
                         <Select
-                          onValueChange={(value) =>
-                            field.handleChange(
-                              value as "low" | "medium" | "high"
-                            )
-                          }
+                          onValueChange={(value) => field.handleChange(value!)}
                           value={field.state.value}
                         >
                           <SelectTrigger
@@ -278,7 +273,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                 <form.Field
                   children={(field) => {
                     const selectedMember = taskData.projectMembers?.find(
-                      (m) => m.userId === field.state.value
+                      (m) => m.userId === field.state.value,
                     );
                     const displayName = field.state.value
                       ? selectedMember?.name || field.state.value
@@ -335,17 +330,17 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
 
   return (
     <div
-      className={`min-w-[200px] rounded-lg border-2 px-3 py-2.5 text-foreground shadow-md ${statusColors[status]}`}
+      className={`text-foreground min-w-[200px] rounded-lg border-2 px-3 py-2.5 shadow-md ${statusColors[status]}`}
     >
       <Handle className="h-3 w-3" position={Position.Left} type="target" />
 
       <div className="flex flex-col gap-2">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="flex-1 font-semibold text-sm leading-tight">
+          <h3 className="flex-1 text-sm leading-tight font-semibold">
             {taskData.label}
           </h3>
           <div className="flex items-center gap-1">
-            <span className={`font-medium text-xs ${priorityColors[priority]}`}>
+            <span className={`text-xs font-medium ${priorityColors[priority]}`}>
               {priority.toUpperCase()}
             </span>
             <Button
@@ -360,7 +355,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
         </div>
 
         {taskData.description && (
-          <p className="line-clamp-2 text-muted-foreground text-xs">
+          <p className="text-muted-foreground line-clamp-2 text-xs">
             {taskData.description}
           </p>
         )}
@@ -384,7 +379,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
           <div className="text-muted-foreground text-xs">
             Assigned to:{" "}
             {taskData.projectMembers?.find(
-              (m) => m.userId === taskData.assignedTo
+              (m) => m.userId === taskData.assignedTo,
             )?.name || taskData.assignedTo}
           </div>
         )}

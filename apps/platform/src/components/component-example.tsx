@@ -1,3 +1,5 @@
+import * as React from "react";
+import { Example, ExampleWrapper } from "@/components/example";
 import {
   Bell,
   Bluetooth,
@@ -28,8 +30,7 @@ import {
   Sun,
   User,
 } from "lucide-react";
-import * as React from "react";
-import { Example, ExampleWrapper } from "@/components/example";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -53,14 +54,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@amaxa/ui/card";
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@amaxa/ui/combobox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -90,6 +83,15 @@ import {
 } from "@amaxa/ui/select";
 import { Textarea } from "@amaxa/ui/textarea";
 
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "./kibo-ui/combobox";
+
 export function ComponentExample() {
   return (
     <ExampleWrapper>
@@ -103,7 +105,7 @@ function CardExample() {
   return (
     <Example className="items-center justify-center" title="Card">
       <Card className="relative w-full max-w-sm overflow-hidden pt-0">
-        <div className="absolute inset-0 z-30 aspect-video bg-primary opacity-50 mix-blend-color" />
+        <div className="bg-primary absolute inset-0 z-30 aspect-video opacity-50 mix-blend-color" />
         <img
           alt="Photo by mymind on Unsplash"
           className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale"

@@ -55,7 +55,7 @@ export interface ButtonProps
 
 const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, render, loading, children, ...props }, ref) => {
-    const ariaDisabled = Boolean(loading || props.disabled);
+    const ariaDisabled = Boolean(loading ?? props.disabled);
 
     if (render) {
       return (

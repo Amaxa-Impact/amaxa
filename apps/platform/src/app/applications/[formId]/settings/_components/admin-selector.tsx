@@ -2,10 +2,10 @@
 
 import type { User } from "@/lib/workos";
 import { useEffect, useState } from "react";
+import { UserDropdown } from "@/components/user-dropdown";
 import { useQuery } from "convex/react";
 
 import { api } from "@amaxa/backend/_generated/api";
-import { UserDropdown } from "@amaxa/ui/user-dropdown";
 
 interface AdminSelectorProps {
   value: string;
