@@ -61,12 +61,14 @@ export function DownloadBrochure() {
               </div>
 
               <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="brand" size="xl" className="gap-2">
-                    Download Brochure
-                    <Download className="h-5 w-5" />
-                  </Button>
-                </DialogTrigger>
+                <DialogTrigger
+                  render={
+                    <Button variant="brand" size="xl" className="gap-2">
+                      Download Brochure
+                      <Download className="h-5 w-5" />
+                    </Button>
+                  }
+                />
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
                     <DialogTitle>Request Brochure</DialogTitle>

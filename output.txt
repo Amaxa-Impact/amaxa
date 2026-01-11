@@ -1,0 +1,347 @@
+
+> create-t3-turbo@ lint /Users/ani/amaxa
+> turbo run lint --continue -- --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+
+• Packages in scope: @amaxa/backend, @amaxa/eslint-config, @amaxa/github, @amaxa/platform, @amaxa/prettier-config, @amaxa/resend, @amaxa/tailwind-config, @amaxa/tsconfig, @amaxa/ui, @amaxa/website
+• Running lint in 10 packages
+• Remote caching disabled
+@amaxa/ui:lint: cache hit, replaying logs e7f0fefd10073ded
+@amaxa/ui:lint: 
+@amaxa/ui:lint: > @amaxa/ui@0.1.0 lint /Users/ani/amaxa/packages/ui
+@amaxa/ui:lint: > eslint --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+@amaxa/ui:lint: 
+@amaxa/resend:build: cache hit, replaying logs dfa6c5e367a4462f
+@amaxa/tailwind-config:lint: cache hit, replaying logs 82bad8ccb7004490
+@amaxa/resend:build: 
+@amaxa/resend:build: 
+@amaxa/resend:build: > @amaxa/resend@ build /Users/ani/amaxa/packages/resend
+@amaxa/resend:build: > tsc
+@amaxa/resend:build: 
+@amaxa/tailwind-config:lint: 
+@amaxa/tailwind-config:lint: 
+@amaxa/tailwind-config:lint: > @amaxa/tailwind-config@ lint /Users/ani/amaxa/tooling/tailwind
+@amaxa/tailwind-config:lint: > eslint --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+@amaxa/tailwind-config:lint: 
+@amaxa/resend:lint: cache hit, replaying logs 62893db0dce10219
+@amaxa/resend:lint: 
+@amaxa/resend:lint: 
+@amaxa/resend:lint: > @amaxa/resend@ lint /Users/ani/amaxa/packages/resend
+@amaxa/resend:lint: > eslint --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+@amaxa/resend:lint: 
+@amaxa/platform:lint: cache miss, executing 219b0e64d44abd95
+@amaxa/website:lint: cache hit, replaying logs 020dece5d4707039
+@amaxa/website:lint: 
+@amaxa/website:lint: > @amaxa/website@0.1.0 lint /Users/ani/amaxa/apps/website
+@amaxa/website:lint: > eslint --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+@amaxa/website:lint: 
+@amaxa/platform:lint: 
+@amaxa/platform:lint: > @amaxa/platform@0.0.1 lint /Users/ani/amaxa/apps/platform
+@amaxa/platform:lint: > eslint --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache
+@amaxa/platform:lint: 
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/api/field-type/route.ts
+@amaxa/platform:lint:   16:11  error  Unsafe assignment of an `any` value            @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   17:24  error  Unsafe member access .input on an `any` value  @typescript-eslint/no-unsafe-member-access
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/edit/form-editor-client.tsx
+@amaxa/platform:lint:   16:7  error  Unnecessary conditional, value is always falsy  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/_components/response-detail-page.tsx
+@amaxa/platform:lint:    84:16  error  '_error' is defined but never used                                            @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   106:16  error  '_error' is defined but never used                                            @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   121:14  error  '_error' is defined but never used                                            @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   156:26  error  Unsafe assignment of an error typed value                                     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   156:26  error  Unsafe call of a(n) `error` type typed value                                  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   164:28  error  Unsafe assignment of an error typed value                                     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   164:28  error  Unsafe call of a(n) `error` type typed value                                  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   197:60  error  Use a ! assertion to more succinctly remove null and undefined from the type  @typescript-eslint/non-nullable-type-assertion-style
+@amaxa/platform:lint:   269:32  error  Unsafe assignment of an error typed value                                     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   269:32  error  Unsafe call of a(n) `error` type typed value                                  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/_components/response-modal.tsx
+@amaxa/platform:lint:    12:16  error  'CardContent' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:    77:14  error  '_error' is defined but never used                                             @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:    92:14  error  '_error' is defined but never used                                             @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   146:24  error  Unsafe assignment of an error typed value                                      @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   146:24  error  Unsafe call of a(n) `error` type typed value                                   @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   154:26  error  Unsafe assignment of an error typed value                                      @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   154:26  error  Unsafe call of a(n) `error` type typed value                                   @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   183:54  error  Use a ! assertion to more succinctly remove null and undefined from the type   @typescript-eslint/non-nullable-type-assertion-style
+@amaxa/platform:lint:   249:30  error  Unsafe assignment of an error typed value                                      @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   249:30  error  Unsafe call of a(n) `error` type typed value                                   @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/responses/responses-client.tsx
+@amaxa/platform:lint:   213:14  error  '_error' is defined but never used  @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   230:18  error  '_error' is defined but never used  @typescript-eslint/no-unused-vars
+@amaxa/platform:lint:   266:52  error  Forbidden non-null assertion        @typescript-eslint/no-non-null-assertion
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/admin-selector.tsx
+@amaxa/platform:lint:   30:17  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   40:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/time-slot-form.tsx
+@amaxa/platform:lint:   101:26  error  Unnecessary conditional, value is always truthy                                                                                                                     @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   153:13  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint:   167:36  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   167:36  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/[formId]/settings/_components/time-slot-list.tsx
+@amaxa/platform:lint:   67:17  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   75:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/applications/client.tsx
+@amaxa/platform:lint:   183:41  error  Unnecessary optional chain on a non-nullish value                                                                                                                   @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   212:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/[id]/page.tsx
+@amaxa/platform:lint:   30:26  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   34:28  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/apply-form.tsx
+@amaxa/platform:lint:    59:26  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+@amaxa/platform:lint:    60:27  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+@amaxa/platform:lint:   133:30  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+@amaxa/platform:lint:   169:30  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+@amaxa/platform:lint:   184:40  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+@amaxa/platform:lint:   222:29  error  Unsafe assignment of an `any` value                                                @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/multiselect-field.tsx
+@amaxa/platform:lint:   19:9  error  Unsafe assignment of type `any[]` to a variable of type `string[]`  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/number-field.tsx
+@amaxa/platform:lint:   21:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   31:13  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   34:15  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   39:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/select-field.tsx
+@amaxa/platform:lint:   28:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   40:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/text-field.tsx
+@amaxa/platform:lint:   21:55  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   31:13  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   32:15  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   36:16  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/fields/textarea-field.tsx
+@amaxa/platform:lint:   18:9   error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   18:47  error  Unsafe member access .length on an `any` value  @typescript-eslint/no-unsafe-member-access
+@amaxa/platform:lint:   24:57  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   42:13  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   44:15  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   48:16  error  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/apply/_components/validation.ts
+@amaxa/platform:lint:   101:5   error  Unsafe return of a value of type error              @typescript-eslint/no-unsafe-return
+@amaxa/platform:lint:   101:32  error  Unsafe member access [0] on an `error` typed value  @typescript-eslint/no-unsafe-member-access
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/layout.tsx
+@amaxa/platform:lint:   42:5  error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/project/[projectId]/_components/home-page.tsx
+@amaxa/platform:lint:   32:29  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   35:30  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   38:29  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   41:30  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/project/[projectId]/tasks/page.tsx
+@amaxa/platform:lint:   47:3  error  'params' is defined but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/project/[projectId]/users/client.tsx
+@amaxa/platform:lint:   42:51  error  Async arrow function 'handleRemoveUser' has no 'await' expression                                          @typescript-eslint/require-await
+@amaxa/platform:lint:   78:31  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/app/schedule/[token]/_components/slot-card.tsx
+@amaxa/platform:lint:   50:18  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   50:18  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   72:22  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   72:22  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/application/context.tsx
+@amaxa/platform:lint:   61:7  error  Unnecessary conditional, value is always falsy  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/convex-client-provider.tsx
+@amaxa/platform:lint:   14:23  error  'process.env' is restricted from being used. Use `import { env } from '~/env'` instead to ensure validated types  no-restricted-properties
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/breadcrumb-header.tsx
+@amaxa/platform:lint:   34:43  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   35:44  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   52:35  error  Invalid type "string | string[] | undefined" of template literal expression                                @typescript-eslint/restrict-template-expressions
+@amaxa/platform:lint:   52:45  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   54:43  error  Invalid type "string | string[] | undefined" of template literal expression                                @typescript-eslint/restrict-template-expressions
+@amaxa/platform:lint:   54:53  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/sidebar/TaskNode.tsx
+@amaxa/platform:lint:   86:24  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   87:23  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx
+@amaxa/platform:lint:    67:18  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:67:18
+@amaxa/platform:lint:   65 |
+@amaxa/platform:lint:   66 |   const userIdRef = useRef<string | null>(null);
+@amaxa/platform:lint: > 67 |   const userId = userIdRef.current ?? (userIdRef.current = getStableUserId());
+@amaxa/platform:lint:      |                  ^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+@amaxa/platform:lint:   68 |
+@amaxa/platform:lint:   69 |   const roomId = `project:${projectId}:tasks`;
+@amaxa/platform:lint:   70 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/refs
+@amaxa/platform:lint:    67:18  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:67:18
+@amaxa/platform:lint:   65 |
+@amaxa/platform:lint:   66 |   const userIdRef = useRef<string | null>(null);
+@amaxa/platform:lint: > 67 |   const userId = userIdRef.current ?? (userIdRef.current = getStableUserId());
+@amaxa/platform:lint:      |                  ^^^^^^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+@amaxa/platform:lint:   68 |
+@amaxa/platform:lint:   69 |   const roomId = `project:${projectId}:tasks`;
+@amaxa/platform:lint:   70 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                       react-hooks/refs
+@amaxa/platform:lint:    67:18  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:67:18
+@amaxa/platform:lint:   65 |
+@amaxa/platform:lint:   66 |   const userIdRef = useRef<string | null>(null);
+@amaxa/platform:lint: > 67 |   const userId = userIdRef.current ?? (userIdRef.current = getStableUserId());
+@amaxa/platform:lint:      |                  ^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+@amaxa/platform:lint:   68 |
+@amaxa/platform:lint:   69 |   const roomId = `project:${projectId}:tasks`;
+@amaxa/platform:lint:   70 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/refs
+@amaxa/platform:lint:    67:40  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:67:40
+@amaxa/platform:lint:   65 |
+@amaxa/platform:lint:   66 |   const userIdRef = useRef<string | null>(null);
+@amaxa/platform:lint: > 67 |   const userId = userIdRef.current ?? (userIdRef.current = getStableUserId());
+@amaxa/platform:lint:      |                                        ^^^^^^^^^^^^^^^^^ Cannot update ref during render
+@amaxa/platform:lint:   68 |
+@amaxa/platform:lint:   69 |   const roomId = `project:${projectId}:tasks`;
+@amaxa/platform:lint:   70 |   const userColor = getUserColor(userId);                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/refs
+@amaxa/platform:lint:   334:40  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   371:16  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-flow-content.tsx:371:16
+@amaxa/platform:lint:   369 |             return data.x !== 0 || data.y !== 0;
+@amaxa/platform:lint:   370 |           })
+@amaxa/platform:lint: > 371 |           .map((presence) => {
+@amaxa/platform:lint:       |                ^^^^^^^^^^^^^^^
+@amaxa/platform:lint: > 372 |             const data = presence.data as unknown as CursorPresenceData;
+@amaxa/platform:lint:       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@amaxa/platform:lint: > 373 |             const pos = getCursorScreenPosition(data.x, data.y);
+@amaxa/platform:lint:       …
+@amaxa/platform:lint:       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@amaxa/platform:lint: > 383 |             );
+@amaxa/platform:lint:       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@amaxa/platform:lint: > 384 |           })}
+@amaxa/platform:lint:       | ^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+@amaxa/platform:lint:   385 |
+@amaxa/platform:lint:   386 |         {contextMenu && (
+@amaxa/platform:lint:   387 |           <TasksContextMenu  react-hooks/refs
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-graph.tsx
+@amaxa/platform:lint:   67:32  error  Unnecessary conditional, value is always truthy  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-flow/tasks-header.tsx
+@amaxa/platform:lint:   26:24  error  Unnecessary optional chain on a non-nullish value                                                   @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   35:30  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/dashboard/tasks-table.tsx
+@amaxa/platform:lint:   204:28  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   204:50  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/example.tsx
+@amaxa/platform:lint:    7:20  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:    7:20  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   31:18  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   31:18  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   42:20  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   42:20  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/form-builder/form-header.tsx
+@amaxa/platform:lint:    82:18  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:    82:18  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   105:26  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   105:26  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   130:26  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   130:26  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/form-builder/form-question-card.tsx
+@amaxa/platform:lint:    64:43  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator                                                           @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:    89:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint:   131:18  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   131:18  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   159:32  error  Unsafe assignment of an error typed value                                                                                                                           @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   159:32  error  Unsafe call of a(n) `error` type typed value                                                                                                                        @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint:   168:23  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+@amaxa/platform:lint:   225:26  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                                                                  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint:   244:26  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                                                                  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/form-builder/form-question-options.tsx
+@amaxa/platform:lint:   96:24  error  Unsafe assignment of an error typed value     @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   96:24  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/form-builder/use-field-type-inference.ts
+@amaxa/platform:lint:   35:49  error  Promise returned in function argument where a void return was expected                                     @typescript-eslint/no-misused-promises
+@amaxa/platform:lint:   53:19  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   55:31  error  Unsafe member access .fieldType on an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/platform:lint:   56:15  error  Unsafe assignment of an `any` value                                                                        @typescript-eslint/no-unsafe-assignment
+@amaxa/platform:lint:   56:31  error  Unsafe member access .reasoning on an `any` value                                                          @typescript-eslint/no-unsafe-member-access
+@amaxa/platform:lint:   56:41  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/components/kibo-ui/combobox/index.tsx
+@amaxa/platform:lint:    43:24  error  Unexpected empty method 'onValueChange'            @typescript-eslint/no-empty-function
+@amaxa/platform:lint:    45:23  error  Unexpected empty method 'onOpenChange'             @typescript-eslint/no-empty-function
+@amaxa/platform:lint:    47:19  error  Unexpected empty method 'setWidth'                 @typescript-eslint/no-empty-function
+@amaxa/platform:lint:    49:24  error  Unexpected empty method 'setInputValue'            @typescript-eslint/no-empty-function
+@amaxa/platform:lint:   120:19  error  Unnecessary optional chain on a non-nullish value  @typescript-eslint/no-unnecessary-condition
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx
+@amaxa/platform:lint:    48:18  error  Unexpected empty arrow function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-empty-function
+@amaxa/platform:lint:    69:9   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-floating-promises
+@amaxa/platform:lint:    73:9   error  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-nullish-coalescing
+@amaxa/platform:lint:   100:10  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx:100:10
+@amaxa/platform:lint:    98 |   }, []);
+@amaxa/platform:lint:    99 |
+@amaxa/platform:lint: > 100 |   return [dataRef.current, othersPresence, updateData] as const;
+@amaxa/platform:lint:       |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+@amaxa/platform:lint:   101 | };
+@amaxa/platform:lint:   102 |
+@amaxa/platform:lint:   103 | export default usePresence;  react-hooks/refs
+@amaxa/platform:lint:   100:11  error  Error: Cannot access refs during render
+@amaxa/platform:lint: 
+@amaxa/platform:lint: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+@amaxa/platform:lint: 
+@amaxa/platform:lint: /Users/ani/amaxa/apps/platform/src/hooks/use-presence.tsx:100:11
+@amaxa/platform:lint:    98 |   }, []);
+@amaxa/platform:lint:    99 |
+@amaxa/platform:lint: > 100 |   return [dataRef.current, othersPresence, updateData] as const;
+@amaxa/platform:lint:       |           ^^^^^^^^^^^^^^^ Cannot access ref value during render
+@amaxa/platform:lint:   101 | };
+@amaxa/platform:lint:   102 |
+@amaxa/platform:lint:   103 | export default usePresence;                                        react-hooks/refs
+@amaxa/platform:lint: 
+@amaxa/platform:lint: ✖ 135 problems (135 errors, 0 warnings)
+@amaxa/platform:lint:   7 errors and 0 warnings potentially fixable with the `--fix` option.
+@amaxa/platform:lint: 
+@amaxa/platform:lint:  ELIFECYCLE  Command failed with exit code 1.
+
+ Tasks:    5 successful, 6 total
+Cached:    5 cached, 6 total
+  Time:    657ms 
+Failed:    @amaxa/platform#lint
+
+ ELIFECYCLE  Command failed with exit code 1.

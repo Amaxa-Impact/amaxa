@@ -1,0 +1,31 @@
+{
+  "name": "@amaxa/backend",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "convex dev",
+    "dev:setup": "convex dev --configure --until-success"
+  },
+  "exports": {
+    "./*": {
+      "types": "./convex/*.d.ts",
+      "default": "./convex/*.js"
+    },
+    "./_generated/*": {
+      "types": "./convex/_generated/*.d.ts",
+      "default": "./convex/_generated/*.js"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@amaxa/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@convex-dev/migrations": "^0.2.9",
+    "convex": "catalog:",
+    "convex-helpers": "^0.1.106"
+  }
+}

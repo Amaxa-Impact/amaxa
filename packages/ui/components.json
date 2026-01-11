@@ -1,17 +1,25 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "base-nova",
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "./tailwind.config.ts",
+    "config": "",
     "css": "unused.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
+  "iconLibrary": "tabler",
   "aliases": {
     "utils": "@amaxa/ui",
-    "components": "src/",
-    "ui": "src/"
+    "components": "@amaxa/ui",
+    "ui": "@amaxa/ui",
+    "lib": "@amaxa/ui",
+    "hooks": "@amaxa/ui"
+  },
+  "menuColor": "inverted",
+  "menuAccent": "bold",
+  "registries": {
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
   }
 }

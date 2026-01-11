@@ -1,0 +1,30 @@
+{
+  "name": "@amaxa/validators",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "field-types": "./src/field-types.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "devDependencies": {
+    "@amaxa/eslint-config": "workspace:*",
+    "@amaxa/prettier-config": "workspace:*",
+    "@amaxa/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@amaxa/prettier-config",
+  "dependencies": {
+    "@hookform/resolvers": "catalog:",
+    "arktype": "catalog:"
+  }
+}

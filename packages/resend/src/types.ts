@@ -1,18 +1,18 @@
-import { z } from "zod";
+import { type } from "arktype";
 
-export const contactFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  message: z.string().min(1, "Message is required"),
-  formType: z.enum(["internship", "high-school", "general", "demo"]),
-  organization: z.string().optional(),
-  phone: z.string().optional(),
-  preferredDate: z.string().optional(),
-  preferredTime: z.string().optional(),
-  timezone: z.string().optional(),
+export const contactFormSchema = type({
+  name: "string",
+  email: "string.email",
+  message: "string",
+  formType: type.enumerated("internship", "high-school", "general", "demo"),
+  organization: "string",
+  phone: "string | undefined",
+  preferredDate: "string | undefined",
+  preferredTime: "string | undefined",
+  timezone: "string | undefined",
 });
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
+export type ContactFormData = typeof contactFormSchema.infer;
 
 export type FormType = ContactFormData["formType"];
 

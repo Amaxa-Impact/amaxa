@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import {
   AnimatePresence,
@@ -11,6 +10,8 @@ import {
   useSpring,
 } from "motion/react";
 import { encode } from "qss";
+
+import { cn } from "@amaxa/ui";
 
 type LinkPreviewProps = {
   children: React.ReactNode;

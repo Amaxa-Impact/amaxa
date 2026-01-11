@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 
@@ -40,7 +40,7 @@ export interface ButtonProps
   extends
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+  render?: React.ReactElement<{ children?: React.ReactNode }>;
   disabled?: boolean;
   icon?: React.ReactNode;
   loading?: boolean;
@@ -56,16 +56,40 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       loading,
       disabled,
       size,
-      asChild = false,
+      render,
       ...props
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "button";
+    const ariaDisabled = Boolean(loading || disabled);
+
+    if (render) {
+      return (
+        <ButtonPrimitive
+          className={cn(buttonVariants({ variant, size }), className)}
+          ref={ref}
+          render={React.cloneElement(render, {
+            children: (
+              <>
+                {loading && (
+                  <Loader2 className={cn("h-4 w-4 animate-spin", "mr-2")} />
+                )}
+                {!loading && icon}
+                {render.props.children}
+              </>
+            ),
+          })}
+          disabled={ariaDisabled}
+          aria-disabled={ariaDisabled}
+          {...props}
+        />
+      );
+    }
+
     return (
-      <Comp
+      <ButtonPrimitive
         className={cn(buttonVariants({ variant, size, className }))}
-        disabled={disabled}
+        disabled={ariaDisabled}
         ref={ref}
         {...props}
       >
@@ -76,7 +100,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {!loading && icon}
           {children}
         </>
-      </Comp>
+      </ButtonPrimitive>
     );
   },
 );

@@ -1,4 +1,5 @@
 import * as path from "node:path";
+import convexPlugin from "@convex-dev/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import importPlugin from "eslint-plugin-import";

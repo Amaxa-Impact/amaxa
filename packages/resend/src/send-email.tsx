@@ -57,14 +57,14 @@ export async function sendContactEmail(
         success: false,
         error: error.message,
         referenceId,
-        calendarLink: calendarLink ?? undefined,
+        ...(calendarLink && { calendarLink }),
       };
     }
 
     return {
       success: true,
       referenceId,
-      calendarLink: calendarLink ?? undefined,
+      ...(calendarLink && { calendarLink }),
       emailId: data.id,
     };
   } catch (err) {
@@ -72,7 +72,7 @@ export async function sendContactEmail(
       success: false,
       error: err instanceof Error ? err.message : "Unknown error",
       referenceId,
-      calendarLink: calendarLink ?? undefined,
+      ...(calendarLink && { calendarLink }),
     };
   }
 }

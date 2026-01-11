@@ -26,7 +26,7 @@ const ApplyButtonContent = (props: {
   if (variant === "color") {
     return (
       <button
-        className="inline-flex items-center rounded-[3rem] border-[1px] border-[#3B3B3B] bg-[#b9d66e] px-5 py-2 text-sm font-light text-[#3B3B3B] transition-colors hover:bg-[#a8c55f] sm:px-6 md:px-8 md:py-3 md:text-base"
+        className="inline-flex items-center rounded-[3rem] border border-[#3B3B3B] bg-[#b9d66e] px-5 py-2 text-sm font-light text-[#3B3B3B] transition-colors hover:bg-[#a8c55f] sm:px-6 md:px-8 md:py-3 md:text-base"
         onClick={onClick}
       >
         {children}
@@ -43,7 +43,7 @@ const ApplyButtonContent = (props: {
     );
   } else if (variant === "long") {
     return (
-      <button className="mr-4 inline-flex items-center rounded-full border-[1px] border-[#3B3B3B] bg-white px-5 py-2 text-sm font-light text-[#3B3B3B] transition-colors hover:bg-gray-100 sm:px-6 md:px-8 md:py-3 md:text-base">
+      <button className="mr-4 inline-flex items-center rounded-full border border-[#3B3B3B] bg-white px-5 py-2 text-sm font-light text-[#3B3B3B] transition-colors hover:bg-gray-100 sm:px-6 md:px-8 md:py-3 md:text-base">
         <span>{children}</span>
         <div>
           <ArrowRight className="h-5 w-5" />

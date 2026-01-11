@@ -26,10 +26,12 @@
   },
   "prettier": "@amaxa/prettier-config",
   "dependencies": {
+    "@amaxa/validators": "workspace:*",
     "@react-email/components": "^1.0.4",
-    "date-fns": "^3.6.0",
+    "@react-email/render": "^2.0.1",
+    "arktype": "catalog:",
+    "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
-    "resend": "^6.7.0",
-    "zod": "catalog:"
+    "resend": "^6.7.0"
   }
 }

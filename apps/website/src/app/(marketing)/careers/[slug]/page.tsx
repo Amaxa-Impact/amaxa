@@ -117,12 +117,14 @@ export default async function CareerPage({ params }: PageProps) {
           <p className="mb-8 text-gray-600">
             The career post you're looking for doesn't exist.
           </p>
-          <Button asChild>
-            <Link href="/careers">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Careers
-            </Link>
-          </Button>
+          <Button
+            render={
+              <Link href="/careers">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Careers
+              </Link>
+            }
+          />
         </div>
       </div>
     );
@@ -134,13 +136,13 @@ export default async function CareerPage({ params }: PageProps) {
       <Button
         variant="ghost"
         className="mb-8 h-auto p-0 text-gray-600 hover:text-[#3B3B3B]"
-        asChild
-      >
-        <Link href="/careers">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Careers
-        </Link>
-      </Button>
+        render={
+          <Link href="/careers">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Careers
+          </Link>
+        }
+      />
 
       {/* Main Image */}
       {career.mainImage?.asset && (
@@ -192,15 +194,18 @@ export default async function CareerPage({ params }: PageProps) {
       {/* Application Link */}
       {career.applicationLink && (
         <div className="mt-12 border-t border-gray-200 pt-8">
-          <Button size="lg" asChild>
-            <Link
-              href={career.applicationLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Apply Now
-            </Link>
-          </Button>
+          <Button
+            size="lg"
+            render={
+              <Link
+                href={career.applicationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Apply Now
+              </Link>
+            }
+          />
         </div>
       )}
     </article>

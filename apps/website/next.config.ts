@@ -27,13 +27,7 @@ const config: NextConfig = {
     loaderFile: "./src/lib/image-loader.ts",
   },
 
-  transpilePackages: [
-    "@amaxa/api",
-    "@amaxa/auth",
-    "@amaxa/db",
-    "@amaxa/ui",
-    "@amaxa/validators",
-  ],
+  transpilePackages: ["@amaxa/resend", "@amaxa/ui", "@amaxa/validators"],
 
   typescript: { ignoreBuildErrors: true },
   async rewrites() {

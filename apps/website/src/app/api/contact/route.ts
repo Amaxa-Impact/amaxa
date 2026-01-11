@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { z } from "zod";
+import { type } from "arktype";
 
 import { contactFormSchema, sendContactEmail } from "@amaxa/resend";
 
@@ -9,25 +9,30 @@ import { env } from "~/env";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const validatedData = contactFormSchema.parse(body);
+    const data = contactFormSchema(body);
+    if (data instanceof type.errors) {
+      return NextResponse.json({ error: data.summary }, { status: 400 });
+    }
+
+    const validatedData = data;
 
     const recipientEmail = "lauren@amaxaimpact.org";
 
     const fromEmail = env.RESEND_FROM_EMAIL ?? "contact@amaxaimpact.org";
 
-    const result = await sendContactEmail({
+    const resultEmail = await sendContactEmail({
       formData: validatedData,
       recipientEmail,
       fromEmail,
     });
 
-    if (!result.success) {
+    if (!resultEmail.success) {
       return NextResponse.json(
         {
           success: false,
           message: "Failed to send message. Please try again.",
-          error: result.error,
-          referenceId: result.referenceId,
+          error: resultEmail.error,
+          referenceId: resultEmail.referenceId,
         },
         { status: 500 },
       );
@@ -37,19 +42,12 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Your message has been sent successfully!",
-        referenceId: result.referenceId,
-        calendarLink: result.calendarLink,
+        referenceId: resultEmail.referenceId,
+        calendarLink: resultEmail.calendarLink,
       },
       { status: 200 },
     );
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { success: false, error: "Invalid form data", details: error.errors },
-        { status: 400 },
-      );
-    }
-
     console.error("Error processing contact form:", error);
     return NextResponse.json(
       { success: false, error: "Failed to send message. Please try again." },
