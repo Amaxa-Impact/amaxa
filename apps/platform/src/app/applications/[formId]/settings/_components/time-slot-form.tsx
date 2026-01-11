@@ -6,7 +6,6 @@ import {
   getDefaultTimezone,
   TimezoneSelect,
 } from "@/components/scheduling/timezone-select";
-import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
 import { format } from "date-fns";
@@ -14,6 +13,7 @@ import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
+import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import { Calendar } from "@amaxa/ui/calendar";
 import {
@@ -94,11 +94,15 @@ export function TimeSlotForm({
       try {
         const [hours, minutes] = value.time.split(":").map(Number);
         const dateInTimezone = new Date(value.date);
+        if (!hours || !minutes) {
+          toast.error("Please enter a valid time");
+          return;
+        }
         dateInTimezone.setHours(hours, minutes, 0, 0);
 
         const startTime = dateInTimezone.getTime();
 
-        if (isEditing && editingSlot) {
+        if (editingSlot) {
           await updateSlot({
             slotId: editingSlot._id,
             startTime,
@@ -150,7 +154,7 @@ export function TimeSlotForm({
           id="time-slot-form"
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
         >
           <FieldGroup>

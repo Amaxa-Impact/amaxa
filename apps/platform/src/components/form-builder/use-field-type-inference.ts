@@ -31,7 +31,7 @@ export function useFieldTypeInference(
         return null;
       }
 
-      return new Promise((resolve) => {
+      return new Promise<FieldTypeInferenceResult | null>((resolve) => {
         debounceTimeoutRef.current = setTimeout(async () => {
           setIsInferring(true);
           abortControllerRef.current = new AbortController();
@@ -53,7 +53,7 @@ export function useFieldTypeInference(
             const data = await response.json();
             const result: FieldTypeInferenceResult = {
               fieldType: data.fieldType as FieldType,
-              reasoning: data.reasoning || "",
+              reasoning: data.reasoning ?? "",
             };
 
             setLastResult(result);

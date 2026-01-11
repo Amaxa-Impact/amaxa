@@ -113,11 +113,11 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
   );
 
   const initialNodes = useMemo(
-    () => (convexNodes || []) as Node[],
+    () => (convexNodes ?? []) as Node[],
     [convexNodes],
   );
   const initialEdges = useMemo(
-    () => (convexEdges || []) as Edge[],
+    () => (convexEdges ?? []) as Edge[],
     [convexEdges],
   );
 

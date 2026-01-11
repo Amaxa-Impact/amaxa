@@ -33,7 +33,7 @@ export async function generateMetadata({
 
     return {
       title: form.title,
-      description: form.description || `Manage ${form.title} application form`,
+      description: form.description ?? `Manage ${form.title} application form`,
     };
   } catch {
     return {

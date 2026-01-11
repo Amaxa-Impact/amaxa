@@ -180,7 +180,7 @@ function CreateFormDialog() {
       try {
         await createForm({
           title: value.title.trim(),
-          description: value.description?.trim() || undefined,
+          description: value.description.trim() || undefined,
           slug: value.slug.trim(),
         });
         toast.success("Form created successfully");

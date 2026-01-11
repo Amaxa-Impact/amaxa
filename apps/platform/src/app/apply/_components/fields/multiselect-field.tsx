@@ -17,7 +17,7 @@ export function MultiselectField({ field, formField }: MultiselectFieldProps) {
     field.state.meta.isTouched && field.state.meta.errors.length > 0;
   const options = formField.options ?? [];
   const selectedValues: string[] = Array.isArray(field.state.value)
-    ? field.state.value
+    ? (field.state.value as string[])
     : [];
 
   const handleToggle = (option: string, checked: boolean) => {

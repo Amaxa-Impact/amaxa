@@ -61,7 +61,7 @@ export function HomeClient({
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                {projects === undefined ? (
+                {projects.length == 0 ? (
                   <Skeleton className="h-10 w-20" />
                 ) : (
                   projects.length
@@ -89,7 +89,7 @@ export function HomeClient({
     );
   }
 
-  if (projects === undefined) {
+  if (projects.length === 0) {
     return (
       <div className="container mx-auto px-6 py-8">
         <h1 className="mb-6 text-3xl font-bold">My Projects</h1>

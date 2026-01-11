@@ -7,6 +7,8 @@ import { useQuery } from "convex/react";
 
 import { api } from "@amaxa/backend/_generated/api";
 
+import { useUsers } from "./time-slot-list";
+
 interface AdminSelectorProps {
   value: string;
   onValueChange: (value: string) => void;
@@ -19,26 +21,7 @@ export function AdminSelector({
   className,
 }: AdminSelectorProps) {
   const siteAdmins = useQuery(api.interviewTimeSlots.listSiteAdmins);
-  const [allUsers, setAllUsers] = useState<User>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/users");
-        if (response.ok) {
-          const data = await response.json();
-          // API returns array directly, not { users: [...] }
-          setAllUsers(Array.isArray(data) ? data : []);
-        }
-      } catch (error) {
-        console.error("Failed to fetch users:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
+  const { allUsers, isLoading } = useUsers();
 
   // Filter users to only show those who are site admins
   const adminUsers = allUsers.filter((user) =>

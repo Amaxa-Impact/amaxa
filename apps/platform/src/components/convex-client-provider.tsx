@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
+import { env } from "@/env";
 import {
   AuthKitProvider,
   useAccessToken,
@@ -11,7 +12,11 @@ import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   const [convex] = useState(() => {
-    return new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+    const convexUrl = env.NEXT_PUBLIC_CONVEX_URL;
+    if (!convexUrl) {
+      throw new Error("NEXT_PUBLIC_CONVEX_URL is not defined");
+    }
+    return new ConvexReactClient(convexUrl);
   });
   return (
     <AuthKitProvider>

@@ -210,7 +210,7 @@ function ResponseRow({
         status: newStatus,
       });
       toast.success("Status updated");
-    } catch (_error) {
+    } catch {
       toast.error("Failed to update status");
     }
   };
@@ -227,7 +227,7 @@ function ResponseRow({
         try {
           await deleteResponse({ responseId: response._id });
           toast.success("Application deleted");
-        } catch (_error) {
+        } catch {
           toast.error("Failed to delete application");
         }
       },

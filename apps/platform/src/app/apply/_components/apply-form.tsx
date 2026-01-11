@@ -56,8 +56,8 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
       try {
         await submitApplication({
           formId: form._id,
-          applicantName: value.applicantName as string,
-          applicantEmail: value.applicantEmail as string,
+          applicantName: value.applicantName,
+          applicantEmail: value.applicantEmail,
           fieldResponses,
         });
 
@@ -104,7 +104,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            tanstackForm.handleSubmit();
+            void tanstackForm.handleSubmit();
           }}
         >
           <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
@@ -130,7 +130,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter your full name"
-                      value={field.state.value as string}
+                      value={field.state.value}
                     />
                     {hasError && (
                       <p className="text-destructive text-xs">
@@ -166,7 +166,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter your email address"
                       type="email"
-                      value={field.state.value as string}
+                      value={field.state.value}
                     />
                     {hasError && (
                       <p className="text-destructive text-xs">
@@ -181,7 +181,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
                 onChange: ({ value }) => {
                   if (!value) return "Email is required";
                   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                  if (!emailRegex.test(value as string)) {
+                  if (!emailRegex.test(value)) {
                     return "Please enter a valid email address";
                   }
                   return undefined;

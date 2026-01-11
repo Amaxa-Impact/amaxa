@@ -60,7 +60,7 @@ export function AppSidebar({
       <SidebarFooter>
         <div className="text-muted-foreground px-2 py-2 text-xs">
           Role:{" "}
-          <span className="font-medium capitalize">{userRole || "None"}</span>
+          <span className="font-medium capitalize">{userRole ?? "None"}</span>
         </div>
         <NavUser />
       </SidebarFooter>

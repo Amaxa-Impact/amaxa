@@ -13,14 +13,6 @@ export default function FormEditorClient() {
   const fields = useQuery(api.applicationFormFields.listByFormId, { formId });
   const form = useApplicationForm();
 
-  if (!form) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-muted-foreground">Form not found</p>
-      </div>
-    );
-  }
-
   return (
     <div className="flex h-screen flex-col">
       <main className="bg-background flex-1 overflow-auto">

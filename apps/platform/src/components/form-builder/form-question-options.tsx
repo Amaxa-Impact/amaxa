@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 import { IconCircle, IconPlus, IconSquare, IconX } from "@tabler/icons-react";
 
+import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import { Input } from "@amaxa/ui/input";
 

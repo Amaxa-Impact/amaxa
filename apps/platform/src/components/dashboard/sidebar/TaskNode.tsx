@@ -69,22 +69,22 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
   const taskData = data as unknown as TaskNodeData;
   const [isEditing, setIsEditing] = useState(false);
 
-  const status = taskData.status || "todo";
-  const priority = taskData.priority || "medium";
+  const status = taskData.status ?? "todo";
+  const priority = taskData.priority ?? "medium";
 
   const form = useForm({
     defaultValues: {
       label: taskData.label,
-      description: taskData.description || "",
-      assignedTo: taskData.assignedTo || "",
-      priority: taskData.priority || "medium",
+      description: taskData.description ?? "",
+      assignedTo: taskData.assignedTo ?? "",
+      priority: taskData.priority ?? "medium",
     },
     onSubmit: ({ value }) => {
       if (taskData.onDataChange) {
         taskData.onDataChange({
           label: value.label,
-          description: value.description || undefined,
-          assignedTo: value.assignedTo || undefined,
+          description: value.description ?? undefined,
+          assignedTo: value.assignedTo ?? undefined,
           priority: value.priority,
         });
       }
@@ -95,9 +95,9 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
   useEffect(() => {
     if (isEditing) {
       form.setFieldValue("label", taskData.label);
-      form.setFieldValue("description", taskData.description || "");
-      form.setFieldValue("assignedTo", taskData.assignedTo || "");
-      form.setFieldValue("priority", taskData.priority || "medium");
+      form.setFieldValue("description", taskData.description ?? "");
+      form.setFieldValue("assignedTo", taskData.assignedTo ?? "");
+      form.setFieldValue("priority", taskData.priority ?? "medium");
     }
   }, [isEditing, taskData, form]);
 
@@ -118,7 +118,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
   const handleSave = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      form.handleSubmit();
+      void form.handleSubmit();
     },
     [form],
   );
@@ -127,7 +127,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
     (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsEditing(false);
-      form.reset();
+      void form.reset();
     },
     [form],
   );
@@ -152,7 +152,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
         >
           <div className="flex flex-col gap-3">
@@ -200,9 +200,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                         placeholder="Task name"
                         value={field.state.value}
                       />
-                      {field.state.meta.errors && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      <FieldError errors={field.state.meta.errors} />
                     </FieldContent>
                   </Field>
                 )}
@@ -226,9 +224,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                         placeholder="Description (optional)"
                         value={field.state.value}
                       />
-                      {field.state.meta.errors && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      <FieldError errors={field.state.meta.errors} />
                     </FieldContent>
                   </Field>
                 )}
@@ -244,7 +240,11 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                       </FieldLabel>
                       <FieldContent>
                         <Select
-                          onValueChange={(value) => field.handleChange(value!)}
+                          onValueChange={(value) => {
+                            if (value != null) {
+                              field.handleChange(value);
+                            }
+                          }}
                           value={field.state.value}
                         >
                           <SelectTrigger
@@ -261,9 +261,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                             ))}
                           </SelectContent>
                         </Select>
-                        {field.state.meta.errors && (
-                          <FieldError errors={field.state.meta.errors} />
-                        )}
+                        <FieldError errors={field.state.meta.errors} />
                       </FieldContent>
                     </Field>
                   )}
@@ -276,7 +274,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                       (m) => m.userId === field.state.value,
                     );
                     const displayName = field.state.value
-                      ? selectedMember?.name || field.state.value
+                      ? (selectedMember?.name ?? field.state.value)
                       : "Unassigned";
 
                     return (
@@ -304,14 +302,12 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                                   key={member.userId}
                                   value={member.userId}
                                 >
-                                  {member.name || member.userId}
+                                  {member.name ?? member.userId}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
-                          {field.state.meta.errors && (
-                            <FieldError errors={field.state.meta.errors} />
-                          )}
+                          <FieldError errors={field.state.meta.errors} />
                         </FieldContent>
                       </Field>
                     );
@@ -380,7 +376,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
             Assigned to:{" "}
             {taskData.projectMembers?.find(
               (m) => m.userId === taskData.assignedTo,
-            )?.name || taskData.assignedTo}
+            )?.name ?? taskData.assignedTo}
           </div>
         )}
       </div>

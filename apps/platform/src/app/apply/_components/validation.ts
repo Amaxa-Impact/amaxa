@@ -98,7 +98,7 @@ export function validateFieldValue(
   const result = validator.safeParse(value);
 
   if (!result.success) {
-    return result.error.errors[0]?.message;
+    return result.error.errors[0]!.message as string | undefined;
   }
 
   return undefined;

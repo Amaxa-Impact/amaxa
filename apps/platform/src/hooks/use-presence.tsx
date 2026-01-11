@@ -43,14 +43,14 @@ export const usePresence = <T extends Record<string, unknown>>(
   const heartbeatMutation = useMutation(api.presence.heartbeat);
 
   useEffect(() => {
-    updatePresenceMutation({ room, user, data: initialData });
+    void updatePresenceMutation({ room, user, data: initialData });
 
     return () => {};
   }, [room, user, initialData, updatePresenceMutation]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      heartbeatMutation({ room, user });
+      void heartbeatMutation({ room, user });
     }, HEARTBEAT_PERIOD);
 
     return () => clearInterval(intervalId);
@@ -74,7 +74,7 @@ export const usePresence = <T extends Record<string, unknown>>(
           timeoutRef.current = setTimeout(() => {
             if (pendingUpdateRef.current) {
               lastUpdateRef.current = Date.now();
-              updatePresenceMutation({
+              void updatePresenceMutation({
                 room,
                 user,
                 data: pendingUpdateRef.current,

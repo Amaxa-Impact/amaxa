@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { env } from "@/env";
 
 import "@xyflow/react/dist/style.css";
 import "./globals.css";
@@ -38,9 +39,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Amaxa" }],
   creator: "Amaxa",
   publisher: "Amaxa",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ),
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   openGraph: {
     type: "website",
     locale: "en_US",

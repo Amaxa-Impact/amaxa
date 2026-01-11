@@ -11,11 +11,16 @@ const fieldTypeSchema = z.enum([
   "multiselect",
 ]);
 
+const inputSchema = z.object({
+  input: z.string().min(1).max(1000),
+});
+
 export async function POST(request: Request) {
   try {
-    const { input } = await request.json();
+    const body = (await request.json()) as { input?: unknown };
+    const { success, data: input } = inputSchema.safeParse(body);
 
-    if (!input || typeof input !== "string") {
+    if (!success) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
@@ -40,7 +45,7 @@ Available field types:
 - "select": Single choice from predefined options (country, category)
 - "multiselect": Multiple choices from predefined options (interests, skills)
 
-Question: "${input}"
+Question: "${input.input}"
 
 Analyze the question and predict the most suitable field type. Consider:
 - Does it ask for a short answer or long explanation?

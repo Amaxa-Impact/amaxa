@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@amaxa/ui/card";
+import { confirmDialog } from "@amaxa/ui/confirm-dialog";
 
 import { AddUserForm } from "../_components/add-user-form";
 
@@ -38,7 +39,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
 
   const existingUserIds = existingUsers?.map((user) => user.userId);
 
-  const handleRemoveUser = async (userId: string) => {
+  const handleRemoveUser = (userId: string) => {
     confirmDialog({
       title: "Remove User",
       description:
@@ -50,9 +51,9 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
         try {
           await removeUser({ userId, projectId });
         } catch (error) {
-          toast.error(
-            `Failed to remove user: ${error instanceof Error ? error.message : "Unknown error"}`,
-          );
+          const message =
+            error instanceof Error ? error.message : "Unknown error";
+          toast.error(`Failed to remove user: ${message}`);
         }
       },
     });
@@ -62,9 +63,8 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
     try {
       await updateRole({ userId, projectId, role });
     } catch (error) {
-      toast.error(
-        `Failed to update role: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
+      const message = error instanceof Error ? error.message : "Unknown error";
+      toast.error(`Failed to update role: ${message}`);
     }
   };
 

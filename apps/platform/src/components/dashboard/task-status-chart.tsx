@@ -71,7 +71,7 @@ export function TaskStatusChart({
       fill: "var(--color-completed)",
     },
     { status: "blocked", count: data?.blocked, fill: "var(--color-blocked)" },
-  ].filter((d) => d?.count && d.count > 0);
+  ].filter((d) => d.count != null && d.count > 0);
 
   return (
     <Card className="flex flex-col">
@@ -121,7 +121,7 @@ export function TaskStatusChart({
                           <tspan
                             className="fill-muted-foreground"
                             x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 24}
+                            y={(viewBox.cy ?? 0) + 24}
                           >
                             Tasks
                           </tspan>

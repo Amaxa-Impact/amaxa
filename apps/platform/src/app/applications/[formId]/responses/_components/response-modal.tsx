@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { IconCheck, IconMail, IconMailForward } from "@tabler/icons-react";
 import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
+import { cn } from "@amaxa/ui";
 import { Badge } from "@amaxa/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
+import { Card, CardHeader, CardTitle } from "@amaxa/ui/card";
 import {
   Select,
   SelectContent,
@@ -74,7 +74,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
         setEmailConfirmation({ type: emailType, sent: true });
         toast.success(successMessage, { description });
       }
-    } catch (_error) {
+    } catch {
       toast.error("Failed to update status");
     } finally {
       setEmailSending(false);
@@ -89,7 +89,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
       });
       setEmailConfirmation(null);
       toast.success("Status updated");
-    } catch (_error) {
+    } catch {
       toast.error("Failed to update status");
     }
   };
@@ -180,7 +180,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
           <span className="text-sm font-medium">Status:</span>
           <Select
             disabled={emailSending}
-            onValueChange={(v) => handleStatusChange(v as ResponseStatus)}
+            onValueChange={(v) => handleStatusChange(v!)}
             value={response.status}
           >
             <SelectTrigger className="w-40">

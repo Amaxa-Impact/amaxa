@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { useApplicationForm } from "@/components/application/context";
 import {
   IconArrowLeft,
   IconCheck,
@@ -14,6 +14,7 @@ import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
+import { cn } from "@amaxa/ui";
 import { Badge } from "@amaxa/ui/badge";
 import { Button } from "@amaxa/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@amaxa/ui/card";
@@ -43,7 +44,7 @@ export function ResponseDetailPage({
   formId,
 }: ResponseDetailPageProps) {
   const response = useQuery(api.applicationResponses.get, { responseId });
-  const form = useQuery(api.applicationForms.get, { formId });
+  const form = useApplicationForm();
   const updateStatus = useMutation(api.applicationResponses.updateStatus);
   const [emailSending, setEmailSending] = useState(false);
   const [emailConfirmation, setEmailConfirmation] = useState<{
@@ -81,7 +82,7 @@ export function ResponseDetailPage({
             description: "Interview scheduling email sent to applicant",
           });
         }
-      } catch (_error) {
+      } catch {
         toast.error("Failed to update status");
       } finally {
         setEmailSending(false);
@@ -103,7 +104,7 @@ export function ResponseDetailPage({
             description: "Rejection email sent to applicant",
           });
         }
-      } catch (_error) {
+      } catch {
         toast.error("Failed to update status");
       } finally {
         setEmailSending(false);
@@ -118,7 +119,7 @@ export function ResponseDetailPage({
       });
       setEmailConfirmation(null);
       toast.success("Status updated");
-    } catch (_error) {
+    } catch {
       toast.error("Failed to update status");
     }
   };
@@ -147,7 +148,7 @@ export function ResponseDetailPage({
                 hour: "2-digit",
                 minute: "2-digit",
               })}
-              {form && ` for ${form.title}`}
+              {` for ${form.title}`}
             </p>
           </div>
 
@@ -194,7 +195,10 @@ export function ResponseDetailPage({
               <div className="flex items-center gap-4">
                 <Select
                   disabled={emailSending}
-                  onValueChange={(v) => handleStatusChange(v as ResponseStatus)}
+                  onValueChange={(v) => {
+                    if (!v) return;
+                    void handleStatusChange(v);
+                  }}
                   value={response.status}
                 >
                   <SelectTrigger className="w-44">

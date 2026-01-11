@@ -1,11 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { IconCheck } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import { cn } from "@amaxa/ui";
 import { Card, CardContent } from "@amaxa/ui/card";
 
 interface SlotCardProps {
@@ -39,7 +39,7 @@ export function SlotCard({
 
   const formatDate = (date: Date) => {
     try {
-      return formatInTimeZone(date, userTimezone, "EEEE, MMMM d, yyyy");
+      return format(date, "EEEE, MMMM d, yyyy");
     } catch {
       return format(date, "EEEE, MMMM d, yyyy");
     }
@@ -49,7 +49,7 @@ export function SlotCard({
     <Card
       className={cn(
         "hover:border-primary/50 cursor-pointer transition-all",
-        isSelected && "border-primary ring-primary/20 ring-2",
+        (isSelected && "border-primary ring-primary/20 ring-2") as string,
       )}
       onClick={onSelect}
       onKeyDown={(e) => {
@@ -71,9 +71,9 @@ export function SlotCard({
         <div
           className={cn(
             "flex size-6 items-center justify-center rounded-full border-2 transition-colors",
-            isSelected
+            (isSelected
               ? "border-primary bg-primary text-primary-foreground"
-              : "border-muted-foreground/30",
+              : "border-muted-foreground/30") as string,
           )}
         >
           {isSelected && <IconCheck className="size-4" />}

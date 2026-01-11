@@ -36,7 +36,7 @@ export function FormBuilder({ formId, fields }: FormBuilderProps) {
       });
       setActiveFieldId(newFieldId);
       toast.success("Question added");
-    } catch (_error) {
+    } catch {
       toast.error("Failed to add question");
     }
   }, [formId, createField]);
@@ -49,7 +49,7 @@ export function FormBuilder({ formId, fields }: FormBuilderProps) {
           setActiveFieldId(null);
         }
         toast.success("Question deleted");
-      } catch (_error) {
+      } catch {
         toast.error("Failed to delete question");
       }
     },
@@ -71,7 +71,7 @@ export function FormBuilder({ formId, fields }: FormBuilderProps) {
         });
         setActiveFieldId(newFieldId);
         toast.success("Question duplicated");
-      } catch (_error) {
+      } catch {
         toast.error("Failed to duplicate question");
       }
     },
@@ -118,7 +118,7 @@ export function FormBuilder({ formId, fields }: FormBuilderProps) {
           formId,
           fieldIds: newFieldIds,
         });
-      } catch (_error) {
+      } catch {
         toast.error("Failed to reorder questions");
       }
     },
@@ -153,16 +153,16 @@ export function FormBuilder({ formId, fields }: FormBuilderProps) {
                 aria-label={`Form question ${field.label || "card"}`}
                 className="w-full focus:outline-none"
                 draggable
-                key={field?._id}
+                key={field._id}
                 onDragOver={handleDragOver}
                 onDragStart={(e) => handleDragStart(e, field._id)}
-                onDrop={(e) => handleDrop(e, field?._id)}
+                onDrop={(e) => handleDrop(e, field._id)}
                 role="button"
                 tabIndex={0}
               >
                 <FormQuestionCard
                   field={field}
-                  isActive={activeFieldId === field?._id}
+                  isActive={activeFieldId === field._id}
                   onActivate={() => setActiveFieldId(field._id)}
                   onDelete={() => handleDeleteField(field._id)}
                   onDuplicate={() => handleDuplicateField(field)}

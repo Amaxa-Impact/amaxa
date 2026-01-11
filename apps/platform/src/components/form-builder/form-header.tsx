@@ -2,13 +2,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
+import { cn } from "@amaxa/ui";
 import { Card, CardContent } from "@amaxa/ui/card";
 import { Input } from "@amaxa/ui/input";
 import { Textarea } from "@amaxa/ui/textarea";
@@ -48,7 +48,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
           title: values.title.trim(),
           description: values.description.trim() || undefined,
         });
-      } catch (_error) {
+      } catch {
         toast.error("Failed to save form");
       } finally {
         setIsSaving(false);
@@ -63,7 +63,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
         clearTimeout(saveTimeoutRef.current);
       }
       saveTimeoutRef.current = setTimeout(() => {
-        saveChanges(values);
+        void saveChanges(values);
       }, 500);
     },
     [saveChanges],

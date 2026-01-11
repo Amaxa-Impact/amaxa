@@ -43,13 +43,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function RouteComponent({
-  params,
-}: {
-  params: Promise<{
-    projectId: Id<"projects">;
-  }>;
-}) {
+export default async function RouteComponent() {
   const allUsers = await listUsers();
 
   return <TasksFlowContent allUsers={allUsers} />;

@@ -49,9 +49,9 @@ export function BreadcrumbHeader() {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                href={`/project/${projectId || projectIdFromPath}`}
+                href={`/project/${projectId ?? projectIdFromPath}`}
                 render={
-                  <Link href={`/project/${projectId || projectIdFromPath}`} />
+                  <Link href={`/project/${projectId ?? projectIdFromPath}`} />
                 }
               >
                 {project.name || "No Project Found"}

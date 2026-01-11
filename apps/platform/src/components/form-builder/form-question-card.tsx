@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 import { IconCopy, IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
 import { api } from "@amaxa/backend/_generated/api";
+import { cn } from "@amaxa/ui";
 import { Button } from "@amaxa/ui/button";
 import { Field, FieldError, FieldLabel } from "@amaxa/ui/field";
 import { Input } from "@amaxa/ui/input";
@@ -71,7 +71,7 @@ export function FormQuestionCard({
           min: values.type === "number" ? values.min : undefined,
           max: values.type === "number" ? values.max : undefined,
         });
-      } catch (_error) {
+      } catch {
         toast.error("Failed to save changes");
       } finally {
         setIsSaving(false);

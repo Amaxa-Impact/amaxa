@@ -7,6 +7,7 @@ import { useMutation } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
+import { alertDialog } from "@amaxa/ui/alert-dialog-simple";
 import { Button } from "@amaxa/ui/button";
 import {
   Card,
@@ -58,9 +59,10 @@ export default function SettingsPageClient() {
         variant: "default",
       });
     } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
       alertDialog({
         title: "Error",
-        description: `Failed to save: ${error instanceof Error ? error.message : "Unknown error"}`,
+        description: `Failed to save: ${message}`,
         variant: "destructive",
       });
     } finally {

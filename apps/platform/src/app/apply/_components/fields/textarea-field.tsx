@@ -15,7 +15,7 @@ interface TextareaFieldProps {
 export function TextareaField({ field, formField }: TextareaFieldProps) {
   const hasError =
     field.state.meta.isTouched && field.state.meta.errors.length > 0;
-  const charCount = (field.state.value ?? "").length;
+  const charCount = (field.state.value ?? "").length as number;
   const showCharCount = formField.max !== undefined;
 
   return (

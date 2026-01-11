@@ -115,7 +115,7 @@ export function AddUserForm({
           id="add-user-form"
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
         >
           <FieldGroup>

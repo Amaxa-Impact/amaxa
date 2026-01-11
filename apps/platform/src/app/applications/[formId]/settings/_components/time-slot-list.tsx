@@ -52,28 +52,40 @@ interface TimeSlotListProps {
   onEdit: (slot: TimeSlot) => void;
 }
 
-export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
-  const slots = useQuery(api.interviewTimeSlots.listByForm, { formId });
-  const deleteSlot = useMutation(api.interviewTimeSlots.remove);
+export const useUsers = () => {
   const [allUsers, setAllUsers] = useState<User>([]);
-  const [deletingSlotId, setDeletingSlotId] =
-    useState<Id<"interviewTimeSlots"> | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch("/api/users");
         if (response.ok) {
-          const data = await response.json();
-          // API returns array directly, not { users: [...] }
-          setAllUsers(Array.isArray(data) ? data : []);
+          const data = (await response.json()) as User;
+          setAllUsers(data);
         }
       } catch (error) {
         console.error("Failed to fetch users:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchUsers();
+    void fetchUsers();
   }, []);
+
+  return {
+    allUsers,
+    isLoading,
+  };
+};
+
+export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
+  const slots = useQuery(api.interviewTimeSlots.listByForm, { formId });
+  const deleteSlot = useMutation(api.interviewTimeSlots.remove);
+  const [deletingSlotId, setDeletingSlotId] =
+    useState<Id<"interviewTimeSlots"> | null>(null);
+
+  const { allUsers } = useUsers();
 
   const getAdminName = (adminId?: string) => {
     if (!adminId) {
