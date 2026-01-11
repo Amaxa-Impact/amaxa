@@ -1,27 +1,14 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 import { env } from "~/env";
-
-const emailSchema = z.object({
-  email: z.string().email("Invalid email address"),
-});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Validate email with Zod
-    const result = emailSchema.safeParse(body);
-
-    if (!result.success) {
-      return NextResponse.json(
-        { error: "Valid email is required" },
-        { status: 400 },
-      );
-    }
-
-    const { email } = result.data;
+    const { email } = body as {
+      email: string;
+    };
 
     // Get Airtable credentials from environment variables
     const airtableApiKey = env.AIRTABLE_API_KEY;

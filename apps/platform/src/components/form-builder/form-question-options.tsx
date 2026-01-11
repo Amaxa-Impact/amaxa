@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { IconCircle, IconPlus, IconSquare, IconX } from "@tabler/icons-react";
 
 import { cn } from "@amaxa/ui";
@@ -12,6 +12,75 @@ interface FormQuestionOptionsProps {
   onOptionsChange: (options: string[]) => void;
   type: "select" | "multiselect";
 }
+
+interface OptionInputProps {
+  value: string;
+  index: number;
+  isEditing: boolean;
+  onUpdate: (index: number, value: string) => void;
+  onFocus: (index: number) => void;
+  onBlur: (index: number, value: string) => void;
+  onKeyDown: (e: React.KeyboardEvent, index: number, value: string) => void;
+  inputRef: (el: HTMLInputElement | null) => void;
+  Icon: typeof IconCircle | typeof IconSquare;
+  canRemove: boolean;
+  onRemove: (index: number) => void;
+}
+
+const OptionInput = memo(function OptionInput({
+  value: initialValue,
+  index,
+  isEditing,
+  onUpdate,
+  onFocus,
+  onBlur,
+  onKeyDown,
+  inputRef,
+  Icon,
+  canRemove,
+  onRemove,
+}: OptionInputProps) {
+  const [localValue, setLocalValue] = useState(initialValue);
+
+  useEffect(() => {
+    setLocalValue(initialValue);
+  }, [initialValue]);
+
+  return (
+    <div className="group flex items-center gap-2">
+      <Icon className="text-muted-foreground h-4 w-4 flex-shrink-0" />
+      <Input
+        className={cn(
+          "focus-visible:border-primary flex-1 rounded-none border-0 border-b px-0 focus-visible:ring-0",
+          isEditing ? "border-primary border-b-2" : "",
+        )}
+        onBlur={() => {
+          onBlur(index, localValue);
+        }}
+        onChange={(e) => {
+          setLocalValue(e.target.value);
+        }}
+        onFocus={() => onFocus(index)}
+        onKeyDown={(e) => onKeyDown(e, index, localValue)}
+        placeholder={`Option ${index + 1}`}
+        ref={inputRef}
+        value={localValue}
+      />
+      {canRemove && (
+        <Button
+          className="opacity-0 transition-opacity group-hover:opacity-100"
+          onClick={() => onRemove(index)}
+          size="icon-sm"
+          title="Remove option"
+          type="button"
+          variant="ghost"
+        >
+          <IconX className="h-4 w-4" />
+        </Button>
+      )}
+    </div>
+  );
+});
 
 export function FormQuestionOptions({
   options,
@@ -34,11 +103,13 @@ export function FormQuestionOptions({
     }, 0);
   }, [options, onOptionsChange]);
 
-  const updateOption = useCallback(
+  const commitOption = useCallback(
     (index: number, value: string) => {
-      const newOptions = [...options];
-      newOptions[index] = value;
-      onOptionsChange(newOptions);
+      if (options[index] !== value) {
+        const newOptions = [...options];
+        newOptions[index] = value;
+        onOptionsChange(newOptions);
+      }
     },
     [options, onOptionsChange],
   );
@@ -54,10 +125,23 @@ export function FormQuestionOptions({
     [options, onOptionsChange],
   );
 
+  const handleFocus = useCallback((index: number) => {
+    setEditingIndex(index);
+  }, []);
+
+  const handleBlur = useCallback(
+    (index: number, value: string) => {
+      setEditingIndex(null);
+      commitOption(index, value);
+    },
+    [commitOption],
+  );
+
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, index: number) => {
+    (e: React.KeyboardEvent, index: number, currentValue: string) => {
       if (e.key === "Enter") {
         e.preventDefault();
+        commitOption(index, currentValue);
         if (index === options.length - 1) {
           addOption();
         } else {
@@ -66,7 +150,7 @@ export function FormQuestionOptions({
         }
       } else if (
         e.key === "Backspace" &&
-        options[index] === "" &&
+        currentValue === "" &&
         options.length > 1
       ) {
         e.preventDefault();
@@ -78,7 +162,7 @@ export function FormQuestionOptions({
         }, 0);
       }
     },
-    [options, addOption, removeOption],
+    [options.length, addOption, removeOption, commitOption],
   );
 
   useEffect(() => {
@@ -90,36 +174,22 @@ export function FormQuestionOptions({
   return (
     <div className="space-y-2">
       {options.map((option, index) => (
-        <div className="group flex items-center gap-2" key={index}>
-          <OptionIcon className="text-muted-foreground h-4 w-4 flex-shrink-0" />
-          <Input
-            className={cn(
-              "focus-visible:border-primary flex-1 rounded-none border-0 border-b px-0 focus-visible:ring-0",
-              editingIndex === index ? "border-primary border-b-2" : "",
-            )}
-            onBlur={() => setEditingIndex(null)}
-            onChange={(e) => updateOption(index, e.target.value)}
-            onFocus={() => setEditingIndex(index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            placeholder={`Option ${index + 1}`}
-            ref={(el) => {
-              inputRefs.current[index] = el;
-            }}
-            value={option}
-          />
-          {options.length > 1 && (
-            <Button
-              className="opacity-0 transition-opacity group-hover:opacity-100"
-              onClick={() => removeOption(index)}
-              size="icon-sm"
-              title="Remove option"
-              type="button"
-              variant="ghost"
-            >
-              <IconX className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
+        <OptionInput
+          Icon={OptionIcon}
+          canRemove={options.length > 1}
+          index={index}
+          inputRef={(el) => {
+            inputRefs.current[index] = el;
+          }}
+          isEditing={editingIndex === index}
+          key={index}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          onRemove={removeOption}
+          onUpdate={commitOption}
+          value={option}
+        />
       ))}
       <Button
         className="text-muted-foreground hover:text-foreground"

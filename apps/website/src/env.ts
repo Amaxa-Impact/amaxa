@@ -1,18 +1,19 @@
 /* eslint-disable no-restricted-properties */
 import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { type } from "arktype";
 
+const optionalString = type("(string > 1) | undefined");
 export const env = createEnv({
   server: {
-    AIRTABLE_API_KEY: z.string().min(1).optional(),
-    AIRTABLE_BASE_ID: z.string().min(1).optional(),
-    AIRTABLE_TABLE_ID: z.string().min(1).optional(),
-    AIRTABLE_TABLE_NAME: z.string().optional(),
-    RESEND_FROM_EMAIL: z.string().min(1).optional(),
+    AIRTABLE_API_KEY: optionalString,
+    AIRTABLE_BASE_ID: optionalString,
+    AIRTABLE_TABLE_ID: optionalString,
+    AIRTABLE_TABLE_NAME: optionalString,
+    RESEND_FROM_EMAIL: optionalString,
   },
   client: {
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1).optional(),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().min(1).optional(),
+    NEXT_PUBLIC_POSTHOG_KEY: optionalString,
+    NEXT_PUBLIC_POSTHOG_HOST: optionalString,
   },
   // Next.js only statically analyzes client-side `process.env` reads.
   experimental__runtimeEnv: {

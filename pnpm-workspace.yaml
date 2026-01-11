@@ -7,6 +7,7 @@ catalog:
   next: 16.1.1
   convex: ^1.27.0
 
+  "@tanstack/react-form": "^1.27.1"
   "@types/node": "^22.13.11"
   "@eslint/js": ^9.38.0
   eslint: ^9.38.0
@@ -15,6 +16,8 @@ catalog:
   tailwindcss: ^4.1.16
   "@tailwindcss/postcss": ^4.1.16
   typescript: ^5.8.2
+
+  arktype: ^2.1.29
 
   zod: ^3.24.2
 

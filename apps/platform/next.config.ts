@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@amaxa/ui", "@amaxa/backend"],
+  transpilePackages: ["@amaxa/ui", "@amaxa/backend", "@amaxa/validators"],
   typescript: {
     ignoreBuildErrors: true,
   },

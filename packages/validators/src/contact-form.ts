@@ -4,12 +4,12 @@ export const contactFormSchema = type({
   name: "string",
   email: "string.email",
   message: "string",
-  formType: type.enumerated("internship", "high-school", "general", "demo"),
-  organization: "string",
-  phone: "string | undefined",
-  preferredDate: "string | undefined",
-  preferredTime: "string | undefined",
-  timezone: "string | undefined",
+  formType: "'internship' | 'high-school' | 'general' | 'demo'",
+  organization: "string?.optional",
+  phone: "string?.optional",
+  preferredDate: "string?.optional",
+  preferredTime: "string?.optional",
+  timezone: "string?.optional",
 });
 
 export type ContactFormData = typeof contactFormSchema.infer;
@@ -22,3 +22,7 @@ export const formTypeLabels: Record<FormType, string> = {
   general: "General Inquiry",
   demo: "Demo/Intro Call Request",
 };
+
+export const emailSchema = type({
+  email: "string.email",
+});

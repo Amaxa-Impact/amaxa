@@ -1,6 +1,14 @@
-import { z } from "zod";
+import { type } from "arktype";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+
+export const fieldTypeSchema = type(
+  "'text' | 'textarea' | 'number' | 'select' | 'multiselect'",
+);
+
+export const inputSchema = type({
+  input: "string",
+});
 
 export const FIELD_TYPES = [
   "text",
@@ -49,18 +57,17 @@ export interface FormData {
   createdBy: string;
 }
 
-// TanStack Form field schema
-export const questionFormSchema = z.object({
-  label: z.string().min(1, "Question text is required"),
-  description: z.string().optional(),
-  type: z.enum(FIELD_TYPES),
-  required: z.boolean(),
-  options: z.array(z.string()).optional(),
-  min: z.number().optional(),
-  max: z.number().optional(),
+export const questionFormSchema = type({
+  label: "string > 1",
+  description: "string?",
+  type: fieldTypeSchema,
+  required: "boolean",
+  options: "string[]?",
+  min: "number?",
+  max: "number?",
 });
 
-export type QuestionFormValues = z.infer<typeof questionFormSchema>;
+export type QuestionFormValues = typeof questionFormSchema.infer;
 
 // For AI field type inference
 export interface FieldTypeInferenceResult {

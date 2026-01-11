@@ -1,104 +1,82 @@
-import { z } from "zod";
+import type { Type } from "arktype";
+import { type } from "arktype";
 
 import type { ApplicationFormField } from "./types";
 
 export function createFieldValidator(field: ApplicationFormField) {
-  let validator: z.ZodTypeAny;
+  let validator: Type;
 
   switch (field.type) {
     case "text":
     case "textarea": {
-      let schema = z.string();
-      if (field.required) {
-        schema = schema.min(1, `${field.label} is required`);
-      }
-      if (field.min !== undefined) {
-        schema = schema.min(
-          field.min,
-          `${field.label} must be at least ${field.min} characters`,
-        );
-      }
-      if (field.max !== undefined) {
-        schema = schema.max(
-          field.max,
-          `${field.label} must be at most ${field.max} characters`,
-        );
-      }
-      validator = field.required ? schema : schema.optional();
+      let schemaString = type("string");
+      if (field.required) schemaString = type("string > 0");
+      if (field.min !== undefined)
+        schemaString = type(`string >= ${field.min}`);
+      if (field.max !== undefined)
+        schemaString = type(`string <= ${field.max}`);
+
+      const schema = type(schemaString);
+      validator = field.required ? schema : schema.or("undefined|''");
       break;
     }
 
     case "number": {
-      let schema = z.coerce.number();
-      if (field.min !== undefined) {
-        schema = schema.min(
-          field.min,
-          `${field.label} must be at least ${field.min}`,
-        );
-      }
-      if (field.max !== undefined) {
-        schema = schema.max(
-          field.max,
-          `${field.label} must be at most ${field.max}`,
-        );
-      }
-      if (field.required) {
-        validator = schema;
-      } else {
-        validator = schema.optional().or(z.literal(""));
-      }
+      let schemaString = type("number");
+      if (field.min !== undefined)
+        schemaString = type(`number >= ${field.min}`);
+      if (field.max !== undefined)
+        schemaString = type(`number <= ${field.max}`);
+
+      const schema = type(schemaString);
+      validator = field.required
+        ? schema
+        : schema
+            .or("undefined|''")
+            .pipe((val) => (val === "" ? undefined : val));
       break;
     }
 
     case "select": {
       const options = field.options ?? [];
-      let schema = z.string();
-      if (options.length > 0) {
-        schema = z.enum(options as [string, ...string[]]);
-      }
-      if (field.required) {
-        validator = schema.refine((val) => val.length > 0, {
-          message: `${field.label} is required`,
-        });
-      } else {
-        validator = schema.optional();
-      }
+
+      const schema =
+        options.length > 0 ? type.enumerated(...options) : type("string");
+
+      validator = field.required ? schema : schema.or("undefined|''");
       break;
     }
 
     case "multiselect": {
-      let schema = z.array(z.string());
+      let schema = type("string[]");
       if (field.required) {
-        schema = schema.min(
-          1,
-          `Please select at least one option for ${field.label}`,
-        );
+        schema = type("string[] >= 1");
       }
       validator = schema;
       break;
     }
 
     default:
-      validator = z.string().optional();
+      validator = type("string|undefined");
   }
 
   return validator;
 }
 
-export const applicantInfoSchema = z.object({
-  applicantName: z.string().min(1, "Name is required"),
-  applicantEmail: z.string().email("Please enter a valid email address"),
+export const applicantInfoSchema = type({
+  applicantName: "string > 0",
+  applicantEmail: "string.email",
 });
 
 export function validateFieldValue(
   field: ApplicationFormField,
-  value: string | string[] | undefined,
+  value: unknown,
 ): string | undefined {
   const validator = createFieldValidator(field);
-  const result = validator.safeParse(value);
+  const result = validator(value);
 
-  if (!result.success) {
-    return result.error.errors[0]!.message as string | undefined;
+  if (result instanceof type.errors) {
+    return result.summary;
   }
 
   return undefined;

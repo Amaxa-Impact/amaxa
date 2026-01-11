@@ -125,7 +125,6 @@ export async function requireSiteAdmin(
   ctx: QueryCtx | MutationCtx
 ): Promise<string> {
   const userId = await requireAuth(ctx);
-  console.log("userId:", userId);
 
   await assertSiteAdmin(ctx, userId);
   return userId;

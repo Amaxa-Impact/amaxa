@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+
 import { mutation, query } from "./_generated/server";
 import { requireSiteAdmin } from "./permissions";
 
@@ -10,14 +11,12 @@ export const listSiteAdmins = query({
     v.object({
       userId: v.string(),
       role: v.union(v.literal("admin"), v.literal("coach")),
-    })
+    }),
   ),
   handler: async (ctx) => {
     await requireSiteAdmin(ctx);
 
     const siteUsers = await ctx.db.query("siteUser").collect();
-
-    console.log(siteUsers);
 
     return siteUsers
       .filter((user) => user.role === "admin")
@@ -46,7 +45,7 @@ export const listByForm = query({
       bookedByResponseId: v.optional(v.id("applicationResponses")),
       createdBy: v.string(),
       createdAt: v.number(),
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
@@ -78,7 +77,7 @@ export const listAvailableByToken = query({
           endTime: v.number(),
           timezone: v.string(),
           assignedAdminId: v.optional(v.string()),
-        })
+        }),
       ),
       applicantName: v.string(),
       formTitle: v.string(),
@@ -88,10 +87,10 @@ export const listAvailableByToken = query({
           startTime: v.number(),
           endTime: v.number(),
           timezone: v.string(),
-        })
+        }),
       ),
     }),
-    v.null()
+    v.null(),
   ),
   handler: async (ctx, args) => {
     const tokenRecord = await ctx.db
@@ -120,7 +119,7 @@ export const listAvailableByToken = query({
     const existingBooking = await ctx.db
       .query("interviewTimeSlots")
       .withIndex("by_booked_response", (q) =>
-        q.eq("bookedByResponseId", tokenRecord.responseId)
+        q.eq("bookedByResponseId", tokenRecord.responseId),
       )
       .unique();
 
@@ -141,7 +140,7 @@ export const listAvailableByToken = query({
     const allSlots = await ctx.db
       .query("interviewTimeSlots")
       .withIndex("by_form_and_booked", (q) =>
-        q.eq("formId", tokenRecord.formId).eq("isBooked", false)
+        q.eq("formId", tokenRecord.formId).eq("isBooked", false),
       )
       .collect();
 
@@ -177,7 +176,7 @@ export const getBookedSlotByResponse = query({
       timezone: v.string(),
       assignedAdminId: v.optional(v.string()),
     }),
-    v.null()
+    v.null(),
   ),
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
@@ -185,7 +184,7 @@ export const getBookedSlotByResponse = query({
     const slot = await ctx.db
       .query("interviewTimeSlots")
       .withIndex("by_booked_response", (q) =>
-        q.eq("bookedByResponseId", args.responseId)
+        q.eq("bookedByResponseId", args.responseId),
       )
       .unique();
 
@@ -226,7 +225,7 @@ export const create = mutation({
 
     if (existingSlots.length >= MAX_SLOTS_PER_FORM) {
       throw new Error(
-        `Maximum of ${MAX_SLOTS_PER_FORM} time slots allowed per form`
+        `Maximum of ${MAX_SLOTS_PER_FORM} time slots allowed per form`,
       );
     }
 
@@ -318,7 +317,7 @@ export const book = mutation({
     const existingBooking = await ctx.db
       .query("interviewTimeSlots")
       .withIndex("by_booked_response", (q) =>
-        q.eq("bookedByResponseId", tokenRecord.responseId)
+        q.eq("bookedByResponseId", tokenRecord.responseId),
       )
       .unique();
 

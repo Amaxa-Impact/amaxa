@@ -14,9 +14,9 @@ import {
 } from "@/components/kibo-ui/combobox";
 import { UserDropdown } from "@/components/user-dropdown";
 import { useForm } from "@tanstack/react-form";
+import { type } from "arktype";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
@@ -37,11 +37,9 @@ import {
   FieldLabel,
 } from "@amaxa/ui/field";
 
-const formSchema = z.object({
-  userId: z.string().min(1, "Please select a user."),
-  role: z.enum(["coach", "member"], {
-    message: "Please select a role.",
-  }),
+const formSchema = type({
+  userId: "string > 1",
+  role: type.enumerated("coach", "member"),
 });
 
 const roleOptions = [

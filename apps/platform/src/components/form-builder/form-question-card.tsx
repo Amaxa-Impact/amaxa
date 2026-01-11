@@ -61,7 +61,7 @@ export function FormQuestionCard({
         await updateField({
           fieldId: field._id,
           label: values.label,
-          description: values.description || undefined,
+          description: values.description ?? undefined,
           type: values.type,
           required: values.required,
           options:
@@ -86,7 +86,7 @@ export function FormQuestionCard({
         clearTimeout(saveTimeoutRef.current);
       }
       saveTimeoutRef.current = setTimeout(() => {
-        saveField(values);
+        void saveField(values);
       }, 500);
     },
     [saveField],
@@ -165,7 +165,7 @@ export function FormQuestionCard({
                     name={fieldApi.name}
                     onBlur={() => {
                       fieldApi.handleBlur();
-                      handleLabelBlur();
+                      void handleLabelBlur();
                     }}
                     onChange={(e) => {
                       fieldApi.handleChange(e.target.value);
@@ -222,7 +222,7 @@ export function FormQuestionCard({
                     });
                   }}
                   placeholder="Description (optional)"
-                  value={fieldApi.state.value ?? ""}
+                  value={fieldApi.state.value}
                 />
               </Field>
             )}
@@ -241,7 +241,7 @@ export function FormQuestionCard({
                     options,
                   });
                 }}
-                options={fieldApi.state.value ?? []}
+                options={fieldApi.state.value}
                 type={form.state.values.type as "select" | "multiselect"}
               />
             )}

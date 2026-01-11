@@ -9,12 +9,21 @@ catalogs:
     '@eslint/js':
       specifier: ^9.38.0
       version: 9.39.2
+    '@hookform/resolvers':
+      specifier: ^5.2.2
+      version: 5.2.2
     '@tailwindcss/postcss':
       specifier: ^4.1.16
       version: 4.1.18
+    '@tanstack/react-form':
+      specifier: ^1.27.1
+      version: 1.27.7
     '@types/node':
       specifier: ^22.13.11
       version: 22.19.3
+    arktype:
+      specifier: ^2.1.29
+      version: 2.1.29
     convex:
       specifier: ^1.27.0
       version: 1.31.3
@@ -88,6 +97,9 @@ importers:
       '@amaxa/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@amaxa/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       '@base-ui/react':
         specifier: ^1.0.0
         version: 1.0.0(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -104,7 +116,7 @@ importers:
         specifier: ^3.36.1
         version: 3.36.1(react@19.2.1)
       '@tanstack/react-form':
-        specifier: ^1.27.1
+        specifier: 'catalog:'
         version: 1.27.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@workos-inc/authkit-nextjs':
         specifier: ^2.11.1
@@ -118,6 +130,9 @@ importers:
       ai:
         specifier: ^6.0.6
         version: 6.0.27(zod@4.3.5)
+      arktype:
+        specifier: 'catalog:'
+        version: 2.1.29
       convex:
         specifier: 'catalog:'
         version: 1.31.3(react@19.2.1)
@@ -188,6 +203,9 @@ importers:
       '@amaxa/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@amaxa/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       '@mdx-js/loader':
         specifier: ^3.1.1
         version: 3.1.1
@@ -208,7 +226,13 @@ importers:
         version: 1.2.0
       '@t3-oss/env-nextjs':
         specifier: ^0.13.10
-        version: 0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)
+        version: 0.13.10(arktype@2.1.29)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)
+      '@tanstack/react-form':
+        specifier: 'catalog:'
+        version: 1.27.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      arktype:
+        specifier: 'catalog:'
+        version: 2.1.29
       framer-motion:
         specifier: ^11.18.2
         version: 11.18.2(@emotion/is-prop-valid@1.2.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -334,12 +358,18 @@ importers:
 
   packages/resend:
     dependencies:
+      '@amaxa/validators':
+        specifier: workspace:*
+        version: link:../validators
       '@react-email/components':
         specifier: ^1.0.4
         version: 1.0.4(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@react-email/render':
         specifier: ^2.0.1
         version: 2.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      arktype:
+        specifier: 'catalog:'
+        version: 2.1.29
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -349,9 +379,6 @@ importers:
       resend:
         specifier: ^6.7.0
         version: 6.7.0(@react-email/render@2.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
-      zod:
-        specifier: 'catalog:'
-        version: 3.25.76
     devDependencies:
       '@amaxa/eslint-config':
         specifier: workspace:*
@@ -519,6 +546,34 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 3.25.76
+
+  packages/validators:
+    dependencies:
+      '@hookform/resolvers':
+        specifier: 'catalog:'
+        version: 5.2.2(react-hook-form@7.70.0(react@19.2.1))
+      arktype:
+        specifier: 'catalog:'
+        version: 2.1.29
+    devDependencies:
+      '@amaxa/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@amaxa/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@amaxa/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.2(jiti@2.6.1)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.7.4
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   tooling/eslint:
     dependencies:
@@ -699,6 +754,12 @@ packages:
   '@architect/utils@5.0.2':
     resolution: {integrity: sha512-BNVXWpkXj6kDdIu6iu3Qh+Gbl1Ml0DKIDQ7s/VLaugvUBbvs+0cm7DA+N2xF6RtzBbnUm2NoyYaGvN5/0uYoEQ==}
     engines: {node: '>=20'}
+
+  '@ark/schema@0.56.0':
+    resolution: {integrity: sha512-ECg3hox/6Z/nLajxXqNhgPtNdHWC9zNsDyskwO28WinoFEnWow4IsERNz9AnXRhTZJnYIlAJ4uGn3nlLk65vZA==}
+
+  '@ark/util@0.56.0':
+    resolution: {integrity: sha512-BghfRC8b9pNs3vBoDJhcta0/c1J1rsoS1+HgVUreMFPdhz/CRAKReAu57YEllNaSy98rWAdY1gE+gFup7OXpgA==}
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
@@ -4802,6 +4863,12 @@ packages:
   aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
+
+  arkregex@0.0.5:
+    resolution: {integrity: sha512-ncYjBdLlh5/QnVsAA8De16Tc9EqmYM7y/WU9j+236KcyYNUXogpz3sC4ATIZYzzLxwI+0sEOaQLEmLmRleaEXw==}
+
+  arktype@2.1.29:
+    resolution: {integrity: sha512-jyfKk4xIOzvYNayqnD8ZJQqOwcrTOUbIU4293yrzAjA3O1dWh61j71ArMQ6tS/u4pD7vabSPe7nG3RCyoXW6RQ==}
 
   array-buffer-byte-length@1.0.2:
     resolution: {integrity: sha512-LHE+8BuR7RYGDKvnrmcuSq3tDcKv9OFEXQt/HpbZhY7V6h0zlUXutnAD82GiFx9rdieCMjkvtcsPqBwgUl1Iiw==}
@@ -10129,6 +10196,12 @@ snapshots:
       '@aws-lite/client': 0.21.10
       lambda-runtimes: 2.0.5
 
+  '@ark/schema@0.56.0':
+    dependencies:
+      '@ark/util': 0.56.0
+
+  '@ark/util@0.56.0': {}
+
   '@asamuzakjp/css-color@3.2.0':
     dependencies:
       '@csstools/css-calc': 2.1.4(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)
@@ -13784,16 +13857,18 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)':
+  '@t3-oss/env-core@0.13.10(arktype@2.1.29)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)':
     optionalDependencies:
+      arktype: 2.1.29
       typescript: 5.9.3
       valibot: 1.2.0(typescript@5.9.3)
       zod: 3.25.76
 
-  '@t3-oss/env-nextjs@0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)':
+  '@t3-oss/env-nextjs@0.13.10(arktype@2.1.29)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)':
     dependencies:
-      '@t3-oss/env-core': 0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)
+      '@t3-oss/env-core': 0.13.10(arktype@2.1.29)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@3.25.76)
     optionalDependencies:
+      arktype: 2.1.29
       typescript: 5.9.3
       valibot: 1.2.0(typescript@5.9.3)
       zod: 3.25.76
@@ -14569,6 +14644,16 @@ snapshots:
       tslib: 2.8.1
 
   aria-query@5.3.2: {}
+
+  arkregex@0.0.5:
+    dependencies:
+      '@ark/util': 0.56.0
+
+  arktype@2.1.29:
+    dependencies:
+      '@ark/schema': 0.56.0
+      '@ark/util': 0.56.0
+      arkregex: 0.0.5
 
   array-buffer-byte-length@1.0.2:
     dependencies:

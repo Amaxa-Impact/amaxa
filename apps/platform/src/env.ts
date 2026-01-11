@@ -1,30 +1,30 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import { vercel } from "@t3-oss/env-nextjs/presets-zod";
-import { z } from "zod/v4";
+import { vercel } from "@t3-oss/env-nextjs/presets-arktype";
+import { type } from "arktype";
 
 export const env = createEnv({
   extends: [vercel()],
   shared: {
-    NODE_ENV: z
-      .enum(["development", "production", "test"])
-      .default("development"),
+    NODE_ENV: type.enumerated("development", "production", "test"),
   },
   server: {
-    WORKOS_CLIENT_ID: z.string().min(1),
-    WORKOS_API_KEY: z.string().min(1),
-    WORKOS_COOKIE_PASSWORD: z.string().min(1),
-    WORKOS_REDIRECT_URI: z.url().optional(),
-    CONVEX_DEPLOYMENT: z.string().optional(),
-    RESEND_API_KEY: z.string().min(1),
-    GOOGLE_GENERATIVE_AI_API_KEY: z.string().min(1),
+    WORKOS_CLIENT_ID: type("string > 1"),
+    WORKOS_API_KEY: type("string > 1"),
+    WORKOS_COOKIE_PASSWORD: type("string > 1"),
+    WORKOS_REDIRECT_URI: type("string.url"),
+    CONVEX_DEPLOYMENT: type("string | undefined"),
+    RESEND_API_KEY: type("string"),
+    GOOGLE_GENERATIVE_AI_API_KEY: type("string"),
+    UPLOADTHING_TOKEN: type("string"),
   },
   client: {
-    NEXT_PUBLIC_CONVEX_URL: z.url(),
-    NEXT_PUBLIC_SITE_URL: z.url().optional(),
-    NEXT_PUBLIC_WORKOS_REDIRECT_URI: z.url().optional(),
-    NEXT_PUBLIC_WORKOS_CLIENT_ID: z.string().min(1),
+    NEXT_PUBLIC_CONVEX_URL: type("string.url"),
+    NEXT_PUBLIC_SITE_URL: type("string.url | undefined"),
+    NEXT_PUBLIC_WORKOS_REDIRECT_URI: type("string.url"),
+    NEXT_PUBLIC_WORKOS_CLIENT_ID: type("string > 1"),
   },
   runtimeEnv: {
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

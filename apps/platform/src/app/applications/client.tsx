@@ -4,12 +4,17 @@ import type { Preloaded } from "convex/react";
 import { useRouter } from "next/navigation";
 import { IconForms } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
+import { regex, type } from "arktype";
 import { useMutation, usePreloadedQuery } from "convex/react";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import { api } from "@amaxa/backend/_generated/api";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from "@amaxa/ui/alert-dialog";
 import { Badge } from "@amaxa/ui/badge";
 import { Button } from "@amaxa/ui/button";
 import { Card, CardContent } from "@amaxa/ui/card";
@@ -46,23 +51,17 @@ export function ApplicationsPageClient({
     <div className="flex h-full flex-col">
       <div className="bg-background/95 border-border/50 sticky top-0 z-10 flex flex-row items-center justify-between border-b p-6 backdrop-blur-sm">
         <h1 className="text-xl font-bold">Application Forms</h1>
-        <Dialog>
-          <DialogTrigger
-            render={() => (
-              <Button
-                className="group hover:shadow-primary/20 ml-2 transition-all hover:shadow-sm"
-                size="sm"
-                variant="outline"
-              >
-                <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" />
-                Create Form
-              </Button>
-            )}
-          />
-          <DialogContent>
+        <AlertDialog>
+          <AlertDialogTrigger
+            className={"flex flex-row items-center gap-2 p-1"}
+          >
+            <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" />
+            Create Form
+          </AlertDialogTrigger>
+          <AlertDialogContent>
             <CreateFormDialog />
-          </DialogContent>
-        </Dialog>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       <main className="flex-1 p-6">
@@ -150,19 +149,13 @@ export function ApplicationsPageClient({
   );
 }
 
-const createFormSchema = z.object({
-  title: z.string().min(1, "Title is required.").trim(),
-  description: z.string(),
-  slug: z
-    .string()
-    .min(1, "Slug is required.")
-    .regex(
-      /^[a-z0-9-]+$/,
-      "Slug can only contain lowercase letters, numbers, and hyphens",
-    ),
+const createFormSchema = type({
+  title: "string > 1",
+  description: "string",
+  slug: regex("[a-z0-9-]"),
 });
 
-type CreateFormSchema = z.infer<typeof createFormSchema>;
+type CreateFormSchema = typeof createFormSchema.infer;
 
 function CreateFormDialog() {
   const createForm = useMutation(api.applicationForms.create);
@@ -209,7 +202,7 @@ function CreateFormDialog() {
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        form.handleSubmit();
+        void form.handleSubmit();
       }}
     >
       <DialogHeader>

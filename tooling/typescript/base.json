@@ -19,6 +19,7 @@
     /** Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
     "checkJs": true,
 
     /** Transpile using Bundler (not tsc) */

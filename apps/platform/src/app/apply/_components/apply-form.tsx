@@ -219,6 +219,7 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
               <div className="flex justify-end border-t pt-6">
                 <Button
                   className="min-w-32"
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   disabled={!canSubmit || isSubmitting}
                   size="lg"
                   type="submit"

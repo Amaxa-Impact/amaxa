@@ -2,8 +2,8 @@
 
 import { useApplicationForm } from "@/components/application/context";
 import { useForm } from "@tanstack/react-form";
+import { type } from "arktype";
 import { useMutation } from "convex/react";
-import { z } from "zod";
 
 import { api } from "@amaxa/backend/_generated/api";
 import {
@@ -23,9 +23,9 @@ export default function SettingsPageClient() {
       isPublished: applicationFormData.isPublished,
     },
     validators: {
-      onChange: z.object({
-        slug: z.string().min(1),
-        isPublished: z.boolean(),
+      onChange: type({
+        slug: "string > 1",
+        isPublished: "boolean",
       }),
     },
     onSubmit: async ({ value }) => {
