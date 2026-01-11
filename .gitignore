@@ -53,8 +53,40 @@ dist/
 
 .content-collections/
 
-
 .pnpm-store/
 
 **/.cache
 
+
+# START Ruler Generated Files
+/AGENTS.md
+/AGENTS.md.bak
+/CLAUDE.md
+/CLAUDE.md.bak
+/apps/landing/AGENTS.md
+/apps/landing/AGENTS.md.bak
+/apps/landing/CLAUDE.md
+/apps/landing/CLAUDE.md.bak
+/apps/landing/opencode.json
+/apps/landing/opencode.json.bak
+/apps/platform/AGENTS.md
+/apps/platform/AGENTS.md.bak
+/apps/platform/CLAUDE.md
+/apps/platform/CLAUDE.md.bak
+/apps/platform/opencode.json
+/apps/platform/opencode.json.bak
+/opencode.json
+/opencode.json.bak
+/packages/backend/AGENTS.md
+/packages/backend/AGENTS.md.bak
+/packages/backend/CLAUDE.md
+/packages/backend/CLAUDE.md.bak
+/packages/backend/opencode.json
+/packages/backend/opencode.json.bak
+/packages/validators/AGENTS.md
+/packages/validators/AGENTS.md.bak
+/packages/validators/CLAUDE.md
+/packages/validators/CLAUDE.md.bak
+/packages/validators/opencode.json
+/packages/validators/opencode.json.bak
+# END Ruler Generated Files

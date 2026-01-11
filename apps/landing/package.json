@@ -1,0 +1,44 @@
+{
+  "name": "@amaxa/landing",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm with-env astro dev",
+    "build": "pnpm with-env astro build",
+    "preview": "pnpm with-env astro preview",
+    "astro": "astro",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "@amaxa/resend": "workspace:*",
+    "@amaxa/ui": "workspace:*",
+    "@astrojs/react": "^4.4.2",
+    "@fontsource-variable/geist": "^5.2.8",
+    "@fontsource-variable/geist-mono": "^5.2.7",
+    "@sanity/astro": "^3.2.11",
+    "@sanity/client": "^7.14.0",
+    "@tailwindcss/vite": "catalog:",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "arkenv": "^0.8.3",
+    "arktype": "catalog:",
+    "astro": "^5.16.8",
+    "astro-portabletext": "^0.13.0",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-is": "catalog:react19",
+    "sanity": "^5.2.0",
+    "styled-components": "^6.3.5",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@amaxa/eslint-config": "workspace:*",
+    "@amaxa/prettier-config": "workspace:*",
+    "@amaxa/tailwind-config": "workspace:*",
+    "@amaxa/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@amaxa/prettier-config"
+}

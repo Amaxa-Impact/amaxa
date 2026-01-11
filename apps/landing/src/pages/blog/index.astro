@@ -1,0 +1,174 @@
+---
+import { BlogHeader } from "@/components/blog/header";
+import { BlogSearch } from "@/components/blog/search";
+import AppLayout from "@/layouts/app-layout.astro";
+import { sanityFetch, urlFor } from "@/lib/sanity";
+import { Image } from "astro:assets";
+
+import { Card, CardContent } from "@amaxa/ui/card";
+
+type PostPreview = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  body: any;
+  mainImage?: { asset: { _ref: string } };
+  publishedAt: string;
+  author?: { name: string };
+  featured?: boolean;
+};
+
+function extractPlainText(body: any, maxLength = 200): string {
+  if (!body || !Array.isArray(body)) return "";
+
+  const text = body
+    .filter((block: any) => block._type === "block")
+    .map(
+      (block: any) =>
+        block.children
+          ?.filter((child: any) => child._type === "span")
+          .map((span: any) => span.text)
+          .join("") || "",
+    )
+    .join(" ")
+    .trim();
+
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + "...";
+}
+
+const posts = await sanityFetch<PostPreview[]>({
+  query: `*[_type == "post"] | order(featured desc, publishedAt desc){
+      _id,
+      title,
+      slug,
+      mainImage,
+      body,
+      publishedAt,
+      author->{name},
+      featured
+    }`,
+});
+
+const featuredPost = posts.find((post) => post.featured);
+const otherPosts = posts.filter((post) => post._id !== featuredPost?._id);
+
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+---
+
+<AppLayout>
+  <div class="bg-background min-h-screen">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:px-16 md:py-24 lg:px-20">
+      <BlogHeader client:load />
+
+      {
+        featuredPost && (
+          <a
+            href={`/blog/${featuredPost.slug.current}`}
+            class="group mb-12 block"
+          >
+            <Card className="border-border bg-card flex flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg md:flex-row">
+              {featuredPost.mainImage?.asset && (
+                <div class="relative h-64 w-full overflow-hidden md:h-96 md:w-1/2">
+                  <img
+                    src={urlFor(featuredPost.mainImage.asset).width(1200).url()}
+                    alt={featuredPost.title}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <CardContent className="flex flex-col justify-center p-8 md:w-1/2 md:p-10">
+                <h2 class="text-foreground group-hover:text-muted-foreground mb-4 text-3xl font-semibold transition-colors duration-300 md:text-4xl">
+                  {featuredPost.title}
+                </h2>
+                {featuredPost.author && (
+                  <p class="text-muted-foreground mb-4 text-sm">
+                    By {featuredPost.author.name} •{" "}
+                    {formatDate(featuredPost.publishedAt)}
+                  </p>
+                )}
+                <p class="text-muted-foreground line-clamp-4">
+                  {extractPlainText(featuredPost.body, 300)}
+                </p>
+              </CardContent>
+            </Card>
+          </a>
+        )
+      }
+
+      <!-- Search Bar -->
+      <div class="mb-12">
+        <BlogSearch client:load posts={posts} />
+      </div>
+
+      <!-- Other Posts Grid -->
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {
+          otherPosts.map((post) => (
+            <a href={`/blog/${post.slug.current}`} class="group block">
+              <Card className="border-border bg-card flex h-full flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg">
+                {post.mainImage?.asset ? (
+                  <div class="relative h-64 w-full overflow-hidden">
+                    <img
+                      src={urlFor(post.mainImage.asset).width(800).url()}
+                      alt={post.title}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div class="from-muted to-background relative flex h-64 w-full items-center justify-center bg-gradient-to-br">
+                    <Image
+                      src="/icon.png"
+                      alt="Ámaxa logo"
+                      width={150}
+                      height={50}
+                      class="opacity-40"
+                    />
+                  </div>
+                )}
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <h2 class="text-foreground group-hover:text-muted-foreground mb-3 text-2xl leading-tight font-semibold transition-colors duration-300">
+                    {post.title}
+                  </h2>
+                  {post.author && (
+                    <p class="text-muted-foreground mb-3 text-sm">
+                      By {post.author.name} • {formatDate(post.publishedAt)}
+                    </p>
+                  )}
+                  <p class="text-muted-foreground mb-4 line-clamp-3 flex-1 text-sm">
+                    {extractPlainText(post.body, 150)}
+                  </p>
+                  <div class="mt-auto">
+                    <span class="text-foreground inline-flex items-center gap-2 text-sm font-medium">
+                      Read more
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        class="transition-transform duration-300 group-hover:translate-x-1"
+                      >
+                        <path
+                          d="M6 3L11 8L6 13"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</AppLayout>

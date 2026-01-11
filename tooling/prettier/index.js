@@ -6,14 +6,14 @@
 const config = {
   plugins: [
     "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss", // Must be last to sort classes in .astro & .ts files
   ],
   tailwindFunctions: ["cn", "cva"],
   importOrder: [
     "<TYPES>",
-    "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
+    "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
-    "^(expo(.*)$)|^(expo$)",
     "<THIRD_PARTY_MODULES>",
     "",
     "<TYPES>^@amaxa",
@@ -28,15 +28,21 @@ const config = {
   importOrderTypeScriptVersion: "5.0.0",
   overrides: [
     {
-      files: "*.json.hbs",
+      files: "*.astro",
+      options: {
+        parser: "astro",
+      },
+    },
+    {
+      files: ["*.json.hbs"],
       options: {
         parser: "json",
       },
     },
     {
-      files: "*.ts.hbs",
+      files: ["*.ts.hbs"],
       options: {
-        parser: "babel",
+        parser: "babel", // Changed from babel to typescript for better TS support
       },
     },
   ],

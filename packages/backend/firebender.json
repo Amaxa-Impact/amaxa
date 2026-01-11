@@ -1,0 +1,8 @@
+{
+  "rules": [
+    {
+      "filePathMatches": "**/*",
+      "rulesPaths": ".ruler/backend.md"
+    }
+  ]
+}

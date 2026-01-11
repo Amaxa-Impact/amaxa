@@ -1,0 +1,15 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+
+interface CodeValue {
+  _type: "code";
+  code: string;
+  language?: string;
+}
+
+type Props = $<CodeValue>;
+
+const { node } = Astro.props;
+---
+
+<pre class="bg-muted text-foreground my-6 overflow-x-auto rounded p-4"><code>{node.code}</code></pre>

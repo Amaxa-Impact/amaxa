@@ -1,0 +1,59 @@
+---
+import Posthog from "@/components/posthog.astro";
+
+import "../styles/global.css";
+
+import Navbar from "@/components/navbar/index.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Posthog />
+  </head>
+  <body class="bg-background min-h-screen">
+    <Navbar />
+    <div
+      class="mx-auto w-full max-w-[1600px] px-4 py-8 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20"
+    >
+      <!-- Breadcrumb Area -->
+      <slot name="breadcrumb" />
+
+      <div class="flex gap-8">
+        <article
+          class="border-border bg-card flex-1 overflow-hidden rounded-2xl border shadow-xl"
+        >
+          <!-- Main Image -->
+          <slot name="image" />
+
+          <!-- Header / Meta -->
+          <header
+            class="border-border bg-card border-b px-6 py-8 sm:px-8 sm:py-10"
+          >
+            <slot name="header" />
+          </header>
+
+          <!-- Content Body -->
+          <div class="bg-card px-6 py-8 sm:px-8 sm:py-12">
+            <div class="article-content">
+              <slot />
+            </div>
+          </div>
+        </article>
+
+        <!-- Sidebar / TOC -->
+        <aside class="hidden lg:block lg:w-64">
+          <slot name="sidebar" />
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

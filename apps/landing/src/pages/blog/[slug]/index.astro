@@ -1,0 +1,111 @@
+---
+import { portableTextComponents } from "@/components/blog/portable/index";
+import { TableOfContents } from "@/components/blog/toc";
+import BlogLayout from "@/layouts/blog-layout.astro";
+import { sanityFetch, urlFor } from "@/lib/sanity";
+import { PortableText } from "astro-portabletext";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@amaxa/ui/breadcrumb";
+
+const { slug } = Astro.params;
+
+type Post = {
+  title: string;
+  mainImage: any;
+  body: any[];
+  publishedAt: string;
+  author: {
+    name: string;
+  };
+};
+
+const post = await sanityFetch<Post>({
+  query: `*[_type == "post" && slug.current == $slug][0]{
+    title,
+    mainImage,
+    body,
+    publishedAt,
+    author->{name}
+  }`,
+  params: { slug },
+});
+
+if (!post) return Astro.redirect("/404");
+
+const createId = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const extractHeadings = (body: any[]) => {
+  if (!Array.isArray(body)) return [];
+  return body
+    .filter((block) => block._type === "block" && /^h[2-4]$/.test(block.style))
+    .map((block) => {
+      const text = block.children.map((c: any) => c.text).join("");
+      return {
+        id: createId(text),
+        text,
+        level: parseInt(block.style.replace("h", "")),
+      };
+    });
+};
+
+const headings = extractHeadings(post.body);
+---
+
+<BlogLayout title={post.title}>
+  <!-- 1. Breadcrumb Slot -->
+  <Breadcrumb slot="breadcrumb" className="mb-8">
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <a href="/blog" class="text-muted-foreground hover:text-foreground"
+          >Back to Blogs</a
+        >
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <span class="text-foreground">{post.title}</span>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+
+  <!-- 2. Image Slot -->
+  {
+    post.mainImage && (
+      <div
+        slot="image"
+        class="bg-muted relative h-[300px] w-full overflow-hidden sm:h-[400px] md:h-[450px]"
+      >
+        <img
+          src={urlFor(post.mainImage).url()}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    )
+  }
+
+  <!-- 3. Header Slot -->
+  <Fragment slot="header">
+    <h1 class="text-foreground mb-4 text-3xl font-bold sm:text-5xl">
+      {post.title}
+    </h1>
+    <div class="text-muted-foreground flex items-center gap-3 text-sm">
+      <span class="text-card-foreground font-medium">{post.author?.name}</span>
+      <span class="text-border">•</span>
+      <time>{new Date(post.publishedAt).toLocaleDateString()}</time>
+    </div>
+  </Fragment>
+
+  <!-- 4. Default Slot (The Body) -->
+  <PortableText value={post.body} components={portableTextComponents} />
+
+  <!-- 5. Sidebar Slot -->
+  <TableOfContents slot="sidebar" headings={headings} client:load />
+</BlogLayout>
