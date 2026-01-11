@@ -7,12 +7,12 @@
   },
   "exports": {
     "./*": {
-      "types": "./convex/*",
-      "default": "./convex/*"
+      "types": "./convex/*.d.ts",
+      "default": "./convex/*.js"
     },
     "./_generated/*": {
-      "types": "./convex/_generated/*",
-      "default": "./convex/_generated/*"
+      "types": "./convex/_generated/*.d.ts",
+      "default": "./convex/_generated/*.js"
     }
   },
   "author": "",
