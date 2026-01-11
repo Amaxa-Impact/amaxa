@@ -30,14 +30,6 @@ onlyBuiltDependencies:
   - "@tailwindcss/oxide"
   - esbuild
 
-peerDependencyRules:
-  allowedVersions:
-    react: "19"
-    react-dom: "19"
-  ignoreMissing:
-    - react
-    - react-dom
-
 publicHoistPattern:
   - "@ianvs/prettier-plugin-sort-imports"
   - prettier-plugin-tailwindcss
