@@ -12,11 +12,12 @@ import AppLayout from "@/layouts/app-layout.astro";
 import { projectCards } from "@/lib/project-cards";
 
 const seoTitle = "Our Projects";
-const seoDescription = "Explore ámaxa's high-impact projects. We partner with innovative nonprofits in Palestine, Liberia, and Uganda, and create our own initiatives for mental health, feminism, and LGBTQ+ representation.";
+const seoDescription =
+  "Explore ámaxa's high-impact projects. We partner with innovative nonprofits in Palestine, Liberia, and Uganda, and create our own initiatives for mental health, feminism, and LGBTQ+ representation.";
+---
 
 <AppLayout>
   <main>
-    <!-- Hero Section -->
     <section class="bg-background w-full px-6 pt-16 md:pt-24">
       <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
         <div class="flex flex-col items-center overflow-visible">
@@ -33,7 +34,6 @@ const seoDescription = "Explore ámaxa's high-impact projects. We partner with i
       </div>
     </section>
 
-    <!-- Projects Cards Section -->
     <section class="container mx-auto px-6 py-5 md:px-16 lg:px-20">
       <div class="mx-auto max-w-7xl text-center">
         <div class="flex flex-col items-center gap-5 text-center md:gap-10">
@@ -54,7 +54,6 @@ const seoDescription = "Explore ámaxa's high-impact projects. We partner with i
       </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="bg-accent w-full py-16 md:py-24 lg:py-32">
       <div class="mx-auto max-w-4xl px-6 md:px-16 lg:px-20">
         <div class="mb-12 text-center">
@@ -76,4 +75,4 @@ const seoDescription = "Explore ámaxa's high-impact projects. We partner with i
       </div>
     </section>
   </main>
-</AppLayout>
+</AppLayout>;

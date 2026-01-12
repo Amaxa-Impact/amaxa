@@ -4,7 +4,6 @@ import { TableOfContents } from "@/components/blog/toc";
 import BlogLayout from "@/layouts/blog-layout.astro";
 import { sanityFetch, urlFor } from "@/lib/sanity";
 import { PortableText } from "astro-portabletext";
-import { Fragment } from "astro";
 
 import {
   Breadcrumb,
@@ -72,16 +71,17 @@ const extractHeadings = (body: any[]) => {
 const headings = extractHeadings(post.body);
 
 const seoTitle = post.title;
-const seoDescription = post.body
-  ?.filter((block) => block._type === "block")
-  .map((block) => block.children?.map((c) => c.text).join("") || "")
-  .join(" ")
-  .trim()
-  .slice(0, 160) || "";
+const seoDescription =
+  post.body
+    ?.filter((block) => block._type === "block")
+    .map((block) => block.children?.map((c) => c.text).join("") || "")
+    .join(" ")
+    .trim()
+    .slice(0, 160) || "";
 const seoImage = post.mainImage ? urlFor(post.mainImage).url() : undefined;
 ---
 
-<BlogLayout title={seoTitle} description={seoDescription} image={seoImage}>
+<BlogLayout title={seoTitle} description={seoDescription}>
   <!-- 1. Breadcrumb Slot -->
   <Breadcrumb slot="breadcrumb" className="mb-8">
     <BreadcrumbList>
