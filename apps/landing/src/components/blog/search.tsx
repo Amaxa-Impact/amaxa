@@ -87,7 +87,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
-                  className="text-muted-foreground flex-shrink-0"
+                  className="text-muted-foreground shrink-0"
                 >
                   <circle
                     cx="8"
@@ -115,7 +115,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
             </div>
 
             {searchText && (
-              <div className="border-border bg-card max-h-[400px] overflow-y-auto rounded-b-3xl border-t">
+              <div className="border-border bg-card max-h-100 overflow-y-auto rounded-b-3xl border-t">
                 {results.length === 0 ? (
                   <div className="text-muted-foreground p-8 text-center">
                     No blogs found for "{searchText}"
