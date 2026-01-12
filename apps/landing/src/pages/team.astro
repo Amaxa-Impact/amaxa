@@ -16,7 +16,8 @@ import { AnimatedTitle } from "@/components/custom-animations/animated-title";
 import AppLayout from "@/layouts/app-layout.astro";
 
 const seoTitle = "Meet Our Team";
-const seoDescription = "Meet the passionate people behind ámaxa who work every day to help changemakers turn ideas into impact. Our leadership team, employees, coaches, and interns are dedicated to removing barriers for anyone who wants to make a difference.";
+const seoDescription =
+  "Meet the passionate people behind ámaxa who work every day to help changemakers turn ideas into impact. Our leadership team, employees, coaches, and interns are dedicated to removing barriers for anyone who wants to make a difference.";
 
 // Types for team members
 interface Executive {
@@ -39,22 +40,28 @@ interface TeamMember {
 // Executives with excerpts (CEO, CTO, COO)
 const executives: Executive[] = [
   {
-    name: "Ani Saxena",
+    name: "TBD",
     role: "Chief Executive Officer",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
-    excerpt: "I believe that everyone has the power to make a difference. My mission with Ámaxa is to remove the barriers that prevent people from turning their passion into tangible impact.",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    excerpt:
+      "I believe that everyone has the power to make a difference. My mission with Ámaxa is to remove the barriers that prevent people from turning their passion into tangible impact.",
   },
   {
     name: "TBD",
     role: "Chief Technology Officer",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
-    excerpt: "Technology should empower communities, not complicate them. We're building tools that make project management accessible to changemakers everywhere.",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    excerpt:
+      "Technology should empower communities, not complicate them. We're building tools that make project management accessible to changemakers everywhere.",
   },
   {
     name: "TBD",
     role: "Chief Operating Officer",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
-    excerpt: "Operations is about creating systems that let people focus on what matters most - making an impact. Every process we build is designed to support our community's success.",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    excerpt:
+      "Operations is about creating systems that let people focus on what matters most - making an impact. Every process we build is designed to support our community's success.",
   },
 ];
 
@@ -63,12 +70,14 @@ const employees: TeamMember[] = [
   {
     name: "Team Member 1",
     role: "Program Manager",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
   },
   {
     name: "Team Member 2",
     role: "Community Lead",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
   },
   // Add more employees here
 ];
@@ -78,12 +87,14 @@ const coaches: TeamMember[] = [
   {
     name: "Coach 1",
     role: "Team Coach",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
   },
   {
     name: "Coach 2",
     role: "Team Coach",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
   },
   // Add more coaches here
 ];
@@ -93,12 +104,14 @@ const interns: TeamMember[] = [
   {
     name: "Intern 1",
     role: "Program Intern",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
   },
   {
     name: "Intern 2",
     role: "Marketing Intern",
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
   },
   // Add more interns here
 ];
@@ -111,7 +124,9 @@ const interns: TeamMember[] = [
     <!-- Hero Section -->
     <section class="w-full bg-white px-6 py-16 md:py-24">
       <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
-        <div class="flex flex-col items-center justify-center gap-4 text-center">
+        <div
+          class="flex flex-col items-center justify-center gap-12 text-center"
+        >
           <AnimatedTitle
             beforeText="Meet"
             underlinedText="Our Team"
@@ -134,158 +149,166 @@ const interns: TeamMember[] = [
         </h2>
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
-          {executives.map((exec) => (
-            <article class="group">
-              {/* Image */}
-              <div class="relative mb-6 aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200">
-                <img
-                  src={exec.image}
-                  alt={exec.name}
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
+          {
+            executives.map((exec) => (
+              <article class="group">
+                {/* Image */}
+                <div class="relative mb-6 aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200">
+                  <img
+                    src={exec.image}
+                    alt={exec.name}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
 
-              {/* Info */}
-              <div class="space-y-3">
-                <div>
-                  <h3 class="text-xl font-medium text-[#3B3B3B] md:text-2xl">
-                    {exec.name}
-                  </h3>
-                  <p class="text-sm font-medium uppercase tracking-wide text-[#BCD96C]">
-                    {exec.role}
+                {/* Info */}
+                <div class="space-y-3">
+                  <div>
+                    <h3 class="text-xl font-medium text-[#3B3B3B] md:text-2xl">
+                      {exec.name}
+                    </h3>
+                    <p class="text-sm font-medium tracking-wide text-[#BCD96C] uppercase">
+                      {exec.role}
+                    </p>
+                  </div>
+                  <p class="text-base leading-relaxed text-neutral-600 italic">
+                    "{exec.excerpt}"
                   </p>
                 </div>
-                <p class="text-base leading-relaxed text-neutral-600 italic">
-                  "{exec.excerpt}"
-                </p>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))
+          }
         </div>
       </div>
     </section>
 
     <!-- Employees Section -->
-    {employees.length > 0 && (
-      <section class="w-full bg-white px-6 py-16 md:py-24">
-        <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
-          <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
-            Our Team
-          </h2>
+    {
+      employees.length > 0 && (
+        <section class="w-full bg-white px-6 py-16 md:py-24">
+          <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+            <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
+              Our Team
+            </h2>
 
-          <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-8">
-            {employees.map((member) => (
-              <article class="group text-center">
-                {/* Image */}
-                <div class="relative mx-auto mb-4 aspect-square w-full max-w-[180px] overflow-hidden rounded-xl bg-neutral-200">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    loading="lazy"
-                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
+            <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-8">
+              {employees.map((member) => (
+                <article class="group text-center">
+                  {/* Image */}
+                  <div class="relative mx-auto mb-4 aspect-square w-full max-w-[180px] overflow-hidden rounded-xl bg-neutral-200">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
 
-                {/* Info */}
-                <h3 class="text-base font-medium text-[#3B3B3B]">
-                  {member.name}
-                </h3>
-                <p class="text-sm text-neutral-500">
-                  {member.role}
-                </p>
-              </article>
-            ))}
+                  {/* Info */}
+                  <h3 class="text-base font-medium text-[#3B3B3B]">
+                    {member.name}
+                  </h3>
+                  <p class="text-sm text-neutral-500">{member.role}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     <!-- Coaches Section -->
-    {coaches.length > 0 && (
-      <section class="w-full bg-neutral-50 px-6 py-16 md:py-24">
-        <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
-          <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
-            Coaches
-          </h2>
-          <p class="mb-8 max-w-2xl text-lg text-neutral-600">
-            Our coaches guide teams through the project journey, providing mentorship
-            and support every step of the way.
-          </p>
+    {
+      coaches.length > 0 && (
+        <section class="w-full bg-neutral-50 px-6 py-16 md:py-24">
+          <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+            <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
+              Coaches
+            </h2>
+            <p class="mb-8 max-w-2xl text-lg text-neutral-600">
+              Our coaches guide teams through the project journey, providing
+              mentorship and support every step of the way.
+            </p>
 
-          <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-8">
-            {coaches.map((coach) => (
-              <article class="group text-center">
-                {/* Image */}
-                <div class="relative mx-auto mb-4 aspect-square w-full max-w-[140px] overflow-hidden rounded-xl bg-neutral-200">
-                  <img
-                    src={coach.image}
-                    alt={coach.name}
-                    loading="lazy"
-                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
+            <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-8">
+              {coaches.map((coach) => (
+                <article class="group text-center">
+                  {/* Image */}
+                  <div class="relative mx-auto mb-4 aspect-square w-full max-w-[140px] overflow-hidden rounded-xl bg-neutral-200">
+                    <img
+                      src={coach.image}
+                      alt={coach.name}
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
 
-                {/* Info */}
-                <h3 class="text-sm font-medium text-[#3B3B3B]">
-                  {coach.name}
-                </h3>
-                <p class="text-xs text-neutral-500">
-                  {coach.role}
-                </p>
-              </article>
-            ))}
+                  {/* Info */}
+                  <h3 class="text-sm font-medium text-[#3B3B3B]">
+                    {coach.name}
+                  </h3>
+                  <p class="text-xs text-neutral-500">{coach.role}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     <!-- Interns Section -->
-    {interns.length > 0 && (
-      <section class="w-full bg-white px-6 py-16 md:py-24">
-        <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
-          <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
-            Interns
-          </h2>
-          <p class="mb-8 max-w-2xl text-lg text-neutral-600">
-            Our interns bring fresh perspectives and energy to everything we do.
-          </p>
+    {
+      interns.length > 0 && (
+        <section class="w-full bg-white px-6 py-16 md:py-24">
+          <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+            <h2 class="mb-12 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
+              Interns
+            </h2>
+            <p class="mb-8 max-w-2xl text-lg text-neutral-600">
+              Our interns bring fresh perspectives and energy to everything we
+              do.
+            </p>
 
-          <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-8">
-            {interns.map((intern) => (
-              <article class="group text-center">
-                {/* Image */}
-                <div class="relative mx-auto mb-4 aspect-square w-full max-w-[140px] overflow-hidden rounded-xl bg-neutral-200">
-                  <img
-                    src={intern.image}
-                    alt={intern.name}
-                    loading="lazy"
-                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
+            <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-8">
+              {interns.map((intern) => (
+                <article class="group text-center">
+                  {/* Image */}
+                  <div class="relative mx-auto mb-4 aspect-square w-full max-w-[140px] overflow-hidden rounded-xl bg-neutral-200">
+                    <img
+                      src={intern.image}
+                      alt={intern.name}
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
 
-                {/* Info */}
-                <h3 class="text-sm font-medium text-[#3B3B3B]">
-                  {intern.name}
-                </h3>
-                <p class="text-xs text-neutral-500">
-                  {intern.role}
-                </p>
-              </article>
-            ))}
+                  {/* Info */}
+                  <h3 class="text-sm font-medium text-[#3B3B3B]">
+                    {intern.name}
+                  </h3>
+                  <p class="text-xs text-neutral-500">{intern.role}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     <!-- CTA Section -->
     <section class="w-full bg-[#BCD96C]/10 px-6 py-16 md:py-24">
-      <div class="container mx-auto max-w-7xl px-6 text-center md:px-16 lg:px-20">
-        <h2 class="mb-6 text-2xl font-medium text-[#3B3B3B] md:text-3xl lg:text-4xl">
+      <div
+        class="container mx-auto max-w-7xl px-6 text-center md:px-16 lg:px-20"
+      >
+        <h2
+          class="mb-6 text-2xl font-medium text-[#3B3B3B] md:text-3xl lg:text-4xl"
+        >
           Want to join our team?
         </h2>
         <p class="mb-8 text-lg text-neutral-600">
-          We're always looking for passionate people who want to make a difference.
+          We're always looking for passionate people who want to make a
+          difference.
         </p>
         <a
           href="/careers"
