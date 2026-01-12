@@ -11,34 +11,34 @@
  * 6. Final CTA
  */
 import type { SpotlightData } from "@/lib/projects";
-import { FocusCards } from "@/components/custom-animations/focus-cards";
 import { HeroCarousel, ProjectsSection } from "@/components/home";
 import SpotlightCard from "@/components/home/spotlight-card.astro";
+import { PathwayGrid } from "@/components/pathway-card";
 import AppLayout from "@/layouts/app-layout.astro";
 
 // Pathways cards data
 const pathwaysCards = [
   {
     title: "Ámaxa Cohorts",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOLTq5DHnAaWi0jLFr2BdSClosPxeIvEGUbwKy",
     link: "/pathways/cohorts",
     description: "for high school students",
   },
   {
     title: "Ámaxa Research",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOTXSksZrPvV4ygRa57DXtJwU9SfhC1qxONmlA",
     link: "/pathways/research",
     description: "for undergrad & postgrad students",
   },
   {
     title: "Ámaxa Partnerships",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOLWqVFDnAaWi0jLFr2BdSClosPxeIvEGUbwKy",
     link: "/pathways/partnerships",
     description: "for professionals",
   },
   {
     title: "Ámaxa Network",
-    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOoa5xMjSL3mZjlWdfcY9Iy45VMUbTa0Ehv6H8",
     link: "/pathways/network",
     description: "for students & professionals in Colorado",
   },
@@ -132,20 +132,15 @@ const spotlights: SpotlightData[] = [
     <section class="relative py-16">
       <div class="container mx-auto max-w-7xl px-6 py-16 md:px-16 lg:px-20">
         <h2
-          class="mb-8 text-3xl leading-tight font-semibold text-black md:text-4xl lg:text-5xl"
+          class="mb-4 text-3xl leading-tight font-semibold text-black md:text-4xl lg:text-5xl"
         >
           Ámaxa Pathways takes you from start to finish of what's needed to
           truly effect change.
         </h2>
-        <p class="mb-6 max-w-3xl text-lg">
-          <strong>Hover or click</strong> below to explore the pathway right for you.
+        <p class="mb-10 max-w-3xl text-lg text-neutral-600">
+          Find the pathway that fits your stage and goals.
         </p>
-        <FocusCards
-          client:visible
-          cards={pathwaysCards}
-          columns={4}
-          showDescription={true}
-        />
+        <PathwayGrid pathways={pathwaysCards} />
       </div>
     </section>
 

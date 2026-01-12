@@ -1,0 +1,272 @@
+---
+/**
+ * Careers Page - Open positions at Ámaxa
+ *
+ * Job postings are managed through Sanity CMS.
+ *
+ * To add job postings in Sanity:
+ * 1. Create a new document type called "jobPosting" with these fields:
+ *    - title (string)
+ *    - slug (slug)
+ *    - department (string) - e.g., "Engineering", "Operations", "Programs"
+ *    - location (string) - e.g., "Remote", "Denver, CO"
+ *    - type (string) - e.g., "Full-time", "Part-time", "Internship"
+ *    - description (portable text/block content)
+ *    - requirements (array of strings)
+ *    - isActive (boolean)
+ *    - publishedAt (datetime)
+ *
+ * 2. Create job postings in your Sanity Studio
+ * 3. They will automatically appear on this page
+ */
+
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+import AppLayout from "@/layouts/app-layout.astro";
+import { sanityFetch } from "@/lib/sanity";
+import { Briefcase, MapPin, Clock } from "lucide-react";
+
+// Type for job posting from Sanity
+interface JobPosting {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  department: string;
+  location: string;
+  type: string;
+  description: any; // Portable text
+  requirements?: string[];
+  publishedAt: string;
+}
+
+// Fetch active job postings from Sanity
+// If the jobPosting type doesn't exist yet, this will return an empty array
+let jobs: JobPosting[] = [];
+
+try {
+  jobs = await sanityFetch<JobPosting[]>({
+    query: `*[_type == "jobPosting" && isActive == true] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      department,
+      location,
+      type,
+      description,
+      requirements,
+      publishedAt
+    }`,
+  });
+} catch (error) {
+  // If the query fails (e.g., type doesn't exist yet), use empty array
+  jobs = [];
+}
+
+// Helper to extract plain text from portable text for preview
+function extractPlainText(body: any, maxLength = 200): string {
+  if (!body || !Array.isArray(body)) return "";
+
+  const text = body
+    .filter((block: any) => block._type === "block")
+    .map(
+      (block: any) =>
+        block.children
+          ?.filter((child: any) => child._type === "span")
+          .map((span: any) => span.text)
+          .join("") || "",
+    )
+    .join(" ")
+    .trim();
+
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + "...";
+}
+
+// Group jobs by department
+const jobsByDepartment = jobs.reduce<Record<string, JobPosting[]>>((acc, job) => {
+  const dept = job.department || "General";
+  if (!acc[dept]) {
+    acc[dept] = [];
+  }
+  acc[dept].push(job);
+  return acc;
+}, {});
+
+const departments = Object.keys(jobsByDepartment).sort();
+---
+
+<AppLayout>
+  <main>
+    <!-- Hero Section -->
+    <section class="w-full bg-white px-6 py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="flex flex-col items-center justify-center gap-4 text-center">
+          <AnimatedTitle
+            beforeText="Join"
+            underlinedText="Our Team"
+            color="#BCD96C"
+            client:load
+          />
+          <p class="max-w-2xl text-lg text-neutral-600 md:text-xl">
+            Help us build a world where anyone who wants to help can do it.
+            We're looking for passionate people to join our mission.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Join Section -->
+    <section class="w-full bg-neutral-50 px-6 py-16 md:py-20">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <h2 class="mb-10 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
+          Why work at Ámaxa?
+        </h2>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div class="space-y-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#BCD96C]/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#3B3B3B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-[#3B3B3B]">Global Impact</h3>
+            <p class="text-neutral-600">
+              Work on projects that affect communities in 48+ countries. Your work
+              directly enables changemakers around the world.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#BCD96C]/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#3B3B3B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-[#3B3B3B]">Flexible Work</h3>
+            <p class="text-neutral-600">
+              We're a remote-first organization. Work from anywhere and set your
+              own schedule while staying connected with a passionate team.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#BCD96C]/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#3B3B3B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-[#3B3B3B]">Growth Mindset</h3>
+            <p class="text-neutral-600">
+              We're a startup, which means lots of opportunities to learn, lead,
+              and shape the future of social impact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Open Positions Section -->
+    <section class="w-full bg-white px-6 py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <h2 class="mb-4 text-2xl font-medium text-[#3B3B3B] md:text-3xl">
+          Open Positions
+        </h2>
+        <p class="mb-10 text-lg text-neutral-600">
+          {jobs.length > 0
+            ? `We have ${jobs.length} open position${jobs.length === 1 ? '' : 's'}. Find one that matches your skills and passion.`
+            : "We don't have any open positions right now, but we're always looking for talented people."
+          }
+        </p>
+
+        {jobs.length > 0 ? (
+          <div class="space-y-12">
+            {departments.map((department) => (
+              <div>
+                <h3 class="mb-6 text-lg font-medium uppercase tracking-wide text-[#BCD96C]">
+                  {department}
+                </h3>
+                <div class="space-y-4">
+                  {jobsByDepartment[department].map((job) => (
+                    <a
+                      href={`/careers/${job.slug.current}`}
+                      class="group block rounded-xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:border-[#BCD96C] hover:shadow-md"
+                    >
+                      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div class="space-y-2">
+                          <h4 class="text-xl font-medium text-[#3B3B3B] transition-colors group-hover:text-black">
+                            {job.title}
+                          </h4>
+                          <div class="flex flex-wrap items-center gap-4 text-sm text-neutral-500">
+                            <span class="flex items-center gap-1.5">
+                              <MapPin className="h-4 w-4" />
+                              {job.location}
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                              <Clock className="h-4 w-4" />
+                              {job.type}
+                            </span>
+                          </div>
+                          {job.description && (
+                            <p class="mt-2 text-neutral-600 line-clamp-2">
+                              {extractPlainText(job.description, 150)}
+                            </p>
+                          )}
+                        </div>
+                        <div class="shrink-0">
+                          <span class="inline-flex items-center gap-2 text-sm font-medium text-[#3B3B3B] transition-colors group-hover:text-[#BCD96C]">
+                            View Details
+                            <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <!-- Empty State -->
+          <div class="rounded-2xl border-2 border-dashed border-neutral-200 bg-neutral-50 p-12 text-center">
+            <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#BCD96C]/20">
+              <Briefcase className="h-8 w-8 text-[#3B3B3B]" />
+            </div>
+            <h3 class="mb-2 text-xl font-medium text-[#3B3B3B]">
+              No open positions right now
+            </h3>
+            <p class="mb-6 text-neutral-600">
+              We don't have any openings at the moment, but we're always interested
+              in hearing from talented people who share our mission.
+            </p>
+            <a
+              href="/contact-us"
+              class="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-6 py-3 text-sm font-medium text-[#3B3B3B] transition-colors hover:bg-neutral-50"
+            >
+              Get in Touch
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- General Application CTA -->
+    <section class="w-full bg-[#BCD96C]/10 px-6 py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 text-center md:px-16 lg:px-20">
+        <h2 class="mb-6 text-2xl font-medium text-[#3B3B3B] md:text-3xl lg:text-4xl">
+          Don't see the right role?
+        </h2>
+        <p class="mb-8 max-w-2xl mx-auto text-lg text-neutral-600">
+          We're always looking for passionate people. Send us your resume and tell us
+          how you'd like to contribute to our mission.
+        </p>
+        <a
+          href="mailto:careers@amaxaimpact.org"
+          class="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-[#BCD96C] px-8 py-3 text-base font-medium text-[#3B3B3B] transition-colors hover:bg-[#a8c55f]"
+        >
+          Send General Application
+        </a>
+      </div>
+    </section>
+  </main>
+</AppLayout>

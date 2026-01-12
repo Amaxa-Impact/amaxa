@@ -12,6 +12,7 @@ interface AnimatedUnderlineProps {
 }
 
 interface AnimatedTitleProps {
+  className?: string;
   beforeText?: string;
   underlinedText: string;
   color?: string;
@@ -55,13 +56,19 @@ export function AnimatedTitle({
   beforeText,
   underlinedText,
   color = "#BCD96C",
+  className = "",
 }: AnimatedTitleProps) {
   const fullText = beforeText
     ? `${beforeText} ${underlinedText}`
     : underlinedText;
 
   return (
-    <h1 className="mb-0 overflow-visible pb-3 text-center text-2xl leading-tight font-bold whitespace-nowrap text-black md:text-3xl lg:text-5xl">
+    <h1
+      className={cn(
+        "mb-0 overflow-visible pb-3 text-center text-2xl leading-tight font-bold whitespace-nowrap text-black md:text-3xl lg:text-5xl",
+        className,
+      )}
+    >
       <span className="relative inline-block overflow-visible font-bold">
         {fullText}
         <AnimatedUnderline color={color} />

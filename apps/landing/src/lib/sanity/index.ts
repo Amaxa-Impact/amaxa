@@ -3,7 +3,7 @@ import type { SanityImageSource } from "@sanity/image-url";
 import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 
-import { sanityConfig } from "./env";
+import { sanityConfig } from "../env";
 
 export const sanityClient = createClient({
   projectId: sanityConfig.projectId,

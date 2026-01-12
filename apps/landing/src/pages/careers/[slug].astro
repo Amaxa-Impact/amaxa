@@ -1,0 +1,217 @@
+---
+/**
+ * Individual Job Posting Page
+ *
+ * Dynamic route that displays full job details from Sanity.
+ * URL pattern: /careers/[slug]
+ */
+
+import AppLayout from "@/layouts/app-layout.astro";
+import { sanityFetch } from "@/lib/sanity";
+import { PortableText } from "astro-portabletext";
+import { ArrowLeft, MapPin, Clock, Briefcase } from "lucide-react";
+
+// Type for job posting
+interface JobPosting {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  department: string;
+  location: string;
+  type: string;
+  description: any;
+  requirements?: string[];
+  publishedAt: string;
+}
+
+// Get all job slugs for static generation
+export async function getStaticPaths() {
+  let jobs: JobPosting[] = [];
+
+  try {
+    jobs = await sanityFetch<JobPosting[]>({
+      query: `*[_type == "jobPosting" && isActive == true] {
+        slug
+      }`,
+    });
+  } catch (error) {
+    jobs = [];
+  }
+
+  return jobs.map((job) => ({
+    params: { slug: job.slug.current },
+  }));
+}
+
+const { slug } = Astro.params;
+
+// Fetch the specific job
+let job: JobPosting | null = null;
+
+try {
+  const result = await sanityFetch<JobPosting[]>({
+    query: `*[_type == "jobPosting" && slug.current == $slug && isActive == true][0] {
+      _id,
+      title,
+      slug,
+      department,
+      location,
+      type,
+      description,
+      requirements,
+      publishedAt
+    }`,
+    params: { slug },
+  });
+  job = Array.isArray(result) ? result[0] : result;
+} catch (error) {
+  job = null;
+}
+
+// Redirect to careers page if job not found
+if (!job) {
+  return Astro.redirect("/careers");
+}
+
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+---
+
+<AppLayout>
+  <main>
+    <!-- Back Link -->
+    <section class="w-full bg-white px-6 pt-8">
+      <div class="container mx-auto max-w-4xl px-6 md:px-16 lg:px-20">
+        <a
+          href="/careers"
+          class="inline-flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-[#3B3B3B]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to all positions
+        </a>
+      </div>
+    </section>
+
+    <!-- Job Header -->
+    <section class="w-full bg-white px-6 py-12 md:py-16">
+      <div class="container mx-auto max-w-4xl px-6 md:px-16 lg:px-20">
+        <div class="mb-4">
+          <span class="text-sm font-medium uppercase tracking-wide text-[#BCD96C]">
+            {job.department}
+          </span>
+        </div>
+
+        <h1 class="mb-6 text-3xl font-medium text-[#3B3B3B] md:text-4xl lg:text-5xl">
+          {job.title}
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-6 text-neutral-600">
+          <span class="flex items-center gap-2">
+            <MapPin className="h-5 w-5" />
+            {job.location}
+          </span>
+          <span class="flex items-center gap-2">
+            <Clock className="h-5 w-5" />
+            {job.type}
+          </span>
+          <span class="flex items-center gap-2">
+            <Briefcase className="h-5 w-5" />
+            Posted {formatDate(job.publishedAt)}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Job Content -->
+    <section class="w-full bg-neutral-50 px-6 py-12 md:py-16">
+      <div class="container mx-auto max-w-4xl px-6 md:px-16 lg:px-20">
+        <div class="grid gap-12 lg:grid-cols-3">
+          <!-- Main Content -->
+          <div class="lg:col-span-2">
+            {job.description && (
+              <div class="prose prose-neutral prose-lg max-w-none">
+                <h2 class="text-xl font-medium text-[#3B3B3B] mb-4">About the Role</h2>
+                <div class="text-neutral-600 space-y-4">
+                  <PortableText value={job.description} />
+                </div>
+              </div>
+            )}
+
+            {job.requirements && job.requirements.length > 0 && (
+              <div class="mt-10">
+                <h2 class="text-xl font-medium text-[#3B3B3B] mb-4">Requirements</h2>
+                <ul class="space-y-3">
+                  {job.requirements.map((req) => (
+                    <li class="flex items-start gap-3 text-neutral-600">
+                      <svg class="mt-1.5 h-4 w-4 shrink-0 text-[#BCD96C]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      {req}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-8 rounded-2xl border border-neutral-200 bg-white p-6">
+              <h3 class="mb-4 text-lg font-medium text-[#3B3B3B]">
+                Apply for this role
+              </h3>
+              <p class="mb-6 text-sm text-neutral-600">
+                Interested in this position? Send us your application and we'll get back to you soon.
+              </p>
+              <a
+                href={`mailto:careers@amaxaimpact.org?subject=Application for ${job.title}`}
+                class="block w-full rounded-full border border-[#3B3B3B] bg-[#BCD96C] px-6 py-3 text-center text-base font-medium text-[#3B3B3B] transition-colors hover:bg-[#a8c55f]"
+              >
+                Apply Now
+              </a>
+
+              <hr class="my-6 border-neutral-200" />
+
+              <div class="space-y-4 text-sm">
+                <div>
+                  <span class="block text-neutral-500">Department</span>
+                  <span class="font-medium text-[#3B3B3B]">{job.department}</span>
+                </div>
+                <div>
+                  <span class="block text-neutral-500">Location</span>
+                  <span class="font-medium text-[#3B3B3B]">{job.location}</span>
+                </div>
+                <div>
+                  <span class="block text-neutral-500">Type</span>
+                  <span class="font-medium text-[#3B3B3B]">{job.type}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Positions CTA -->
+    <section class="w-full bg-white px-6 py-12 md:py-16">
+      <div class="container mx-auto max-w-4xl px-6 text-center md:px-16 lg:px-20">
+        <h2 class="mb-4 text-xl font-medium text-[#3B3B3B] md:text-2xl">
+          Not the right fit?
+        </h2>
+        <p class="mb-6 text-neutral-600">
+          Check out our other open positions or send us a general application.
+        </p>
+        <a
+          href="/careers"
+          class="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-6 py-3 text-sm font-medium text-[#3B3B3B] transition-colors hover:bg-neutral-50"
+        >
+          View All Positions
+        </a>
+      </div>
+    </section>
+  </main>
+</AppLayout>

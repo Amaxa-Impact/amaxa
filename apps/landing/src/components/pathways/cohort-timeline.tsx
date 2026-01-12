@@ -10,80 +10,71 @@
 
 import { FileText, Handshake, Users, Video } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@amaxa/ui/card";
-
 const COHORT_STEPS = [
   {
     icon: FileText,
-    number: "Step 1",
-    heading: "Apply to the next cohort.",
+    number: "01",
+    heading: "Apply to the next cohort",
     text: "Click on the application link to view the next cohort deadline.",
   },
   {
     icon: Users,
-    number: "Step 2",
-    heading: "Attend an interview.",
-    text: "Tell us more about your interests, time availability, & projects or initiatives you're most interested in.",
+    number: "02",
+    heading: "Attend an interview",
+    text: "Tell us about your interests, availability, and which projects excite you most.",
   },
   {
     icon: Handshake,
-    number: "Step 3",
-    heading: "We match you to a project, team, and coach!",
-    text: "We aim to match you to a project you are passionate about with a team that meets in a time that you indicated works for you consistently.",
+    number: "03",
+    heading: "Get matched to a team",
+    text: "We match you to a project you're passionate about with a team that meets at times that work for you.",
   },
   {
     icon: Video,
-    number: "Step 4",
-    heading: "Meet remotely with your team weekly for 3 months.",
-    text: "Meetings last about one hour each week. Your coach will guide you in project management methodologies designed specifically for our cohorts. Each meeting, coaches will lead you in planning, brainstorming, status checks, problem solving, and more.",
+    number: "04",
+    heading: "Meet weekly for 3 months",
+    text: "One-hour weekly meetings with your coach guiding you through planning, problem solving, and execution.",
   },
 ];
 
 export function CohortTimeline() {
-  const steps = COHORT_STEPS.map((step) => {
-    const StepIcon = step.icon;
-
-    return (
-      <Card
-        key={step.number}
-        className="rounded-2xl transition-shadow hover:shadow-md"
-      >
-        <CardHeader>
-          <div className="bg-brand-green mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
-            <StepIcon className="text-foreground h-8 w-8" />
-          </div>
-          <CardTitle className="text-xl lg:text-2xl">{step.number}</CardTitle>
-          <CardTitle className="text-lg font-semibold">
-            {step.heading}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription className="text-sm leading-relaxed lg:text-base">
-            {step.text}
-          </CardDescription>
-        </CardContent>
-      </Card>
-    );
-  });
-
   return (
-    <section className="bg-background w-full py-16 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+    <section className="bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-12 lg:py-28">
         <div className="mb-12 md:mb-16">
-          <h2 className="from-foreground to-foreground/60 bg-gradient-to-br bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
+          <h2 className="text-foreground text-3xl font-semibold tracking-tight md:text-4xl">
             How Cohorts Work
           </h2>
-          <div className="bg-brand-green mt-4 h-1 w-24 rounded-full" />
+          <div className="bg-brand-green mt-4 h-1 w-16 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {steps}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {COHORT_STEPS.map((step) => {
+            const StepIcon = step.icon;
+
+            return (
+              <div
+                key={step.number}
+                className="border-border bg-card group rounded-xl border p-6 transition-shadow hover:shadow-md"
+              >
+                <div className="bg-brand-green mb-5 flex h-12 w-12 items-center justify-center rounded-xl">
+                  <StepIcon className="text-foreground h-6 w-6" />
+                </div>
+
+                <p className="text-brand-green text-sm font-bold tracking-wider">
+                  STEP {step.number}
+                </p>
+
+                <h3 className="text-foreground mt-2 text-lg font-semibold leading-snug">
+                  {step.heading}
+                </h3>
+
+                <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+                  {step.text}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

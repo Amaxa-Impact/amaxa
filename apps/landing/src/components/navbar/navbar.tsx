@@ -5,11 +5,13 @@ import { DesktopMenu } from "./desktop";
 import { MobileMenu } from "./mobile";
 
 const navItems = [
-  { href: "/project", label: "Discover Projects" },
-  { href: "/pathways", label: "Explore Our Pathways" },
-  { href: "/project-stories", label: "Read Ámaxa Stories" },
-  { href: "/contact-us", label: "Contact Us" },
+  { href: "/pathways", label: "Our Pathways" },
+  { href: "/project", label: "Projects" },
+  { href: "/project-stories", label: "Read Àmaxa Stories" },
+  { href: "/team", label: "Team" },
+  { href: "/careers", label: "Careers" },
   { href: "/blog", label: "Blog" },
+  { href: "/contact-us", label: "Contact" },
 ];
 
 export function Navbar() {

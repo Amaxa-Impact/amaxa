@@ -13,6 +13,7 @@
     "@amaxa/resend": "workspace:*",
     "@amaxa/ui": "workspace:*",
     "@astrojs/react": "^4.4.2",
+    "@astrojs/vercel": "^9.0.3",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource-variable/geist-mono": "^5.2.7",
     "@sanity/astro": "^3.2.11",
