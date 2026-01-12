@@ -16,6 +16,9 @@ import SpotlightCard from "@/components/home/spotlight-card.astro";
 import { PathwayGrid } from "@/components/pathway-card";
 import AppLayout from "@/layouts/app-layout.astro";
 
+const seoTitle = "amaxa";
+const seoDescription = "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.";
+
 // Pathways cards data
 const pathwaysCards = [
   {
@@ -102,7 +105,7 @@ const spotlights: SpotlightData[] = [
     <HeroCarousel client:load />
 
     <!-- Mission Section -->
-    <section class="w-full py-16 md:py-24">
+    <section class="w-full bg-[#F5F2F2] py-16 md:py-24">
       <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
         <div
           class="flex flex-col items-start justify-between md:flex-row md:items-center"

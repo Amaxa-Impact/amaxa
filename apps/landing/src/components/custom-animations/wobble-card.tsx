@@ -13,6 +13,7 @@
 import type React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import { cn } from "@amaxa/ui";
 
 interface WobbleCardProps {
@@ -51,8 +52,8 @@ export function WobbleCard({
       }}
       style={{
         transform: isHovering
-          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1, 1, 1)`
-          : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
+          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1,1,1)`
+          : "translate3d(0, 0, 0) scale3d(1, 1, 1)",
         transition: "transform 0.1s ease-out",
       }}
       className={cn(
@@ -72,7 +73,7 @@ export function WobbleCard({
           style={{
             transform: isHovering
               ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
+              : "translate3d(0, 0, 0) scale3d(1, 1, 1)",
             transition: "transform 0.1s ease-out",
           }}
           className={cn("h-full px-4 py-20 sm:px-10", className)}

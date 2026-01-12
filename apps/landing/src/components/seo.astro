@@ -1,0 +1,77 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  canonicalURL?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+}
+
+const {
+  title = "amaxa",
+  description = "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
+  image = "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+  type = "website",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  keywords = [
+    "nonprofits",
+    "communities",
+    "the world",
+    "your passion",
+    "social impact",
+    "volunteering",
+    "ámaxa",
+    "amaxa",
+    "amaxaimpact",
+    "impact",
+    "college admissions",
+    "college",
+    "college application",
+  ],
+  noIndex = false,
+} = Astro.props;
+
+const fullTitle = `${title === "amaxa" ? "amaxa" : `amaxa | ${title}`}`;
+
+const imageURL = new URL(image, "https://www.amaxaimpact.org").href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+
+<link rel="canonical" href={canonicalURL} />
+<meta name="keywords" content={keywords.join(", ")} />
+
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="amaxa" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+
+<!-- Additional SEO -->
+<meta
+  name="googlebot"
+  content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+/>
+<meta name="theme-color" content="#000000" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/icon.png" />
+<link rel="apple-touch-icon" href="/icon.png" />

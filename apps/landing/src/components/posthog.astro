@@ -1,5 +1,5 @@
 ---
-import { env } from "@/env";
+
 ---
 
 <script is:inline>
@@ -52,7 +52,7 @@ import { env } from "@/env";
       }),
       (e.__SV = 1));
   })(document, window.posthog || []);
-  posthog.init(env.PUBLIC_POSTHOG_KEY, {
+  posthog.init(process.env.PUBLIC_POSTHOG_KEY, {
     api_host: "/ph",
     ui_host: "https://us.posthog.com",
     defaults: "2025-11-30",

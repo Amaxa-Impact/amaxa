@@ -3,16 +3,44 @@ import { Suspense } from "react";
 import Navbar from "@/components/navbar/index.astro";
 
 import PostHog from "../components/posthog.astro";
+import SEO from "../components/seo.astro";
 
 import "@/styles/global.css";
 
 import { Footer } from "@/components/shared/footer";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  canonicalURL?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+}
+
+const {
+  title = "amaxa",
+  description,
+  image,
+  type = "website",
+  canonicalURL,
+  keywords,
+  noIndex = false,
+} = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      canonicalURL={canonicalURL}
+      keywords={keywords}
+      noIndex={noIndex}
+    />
     <PostHog />
   </head>
   <body>

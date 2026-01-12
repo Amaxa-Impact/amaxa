@@ -39,6 +39,7 @@
     "@amaxa/prettier-config": "workspace:*",
     "@amaxa/tailwind-config": "workspace:*",
     "@amaxa/tsconfig": "workspace:*",
+    "@astrojs/sitemap": "^3.6.1",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
