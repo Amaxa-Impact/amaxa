@@ -24,6 +24,8 @@
     "arktype": "catalog:",
     "astro": "^5.16.8",
     "astro-portabletext": "^0.13.0",
+    "framer-motion": "^11.18.2",
+    "lucide-react": "catalog:",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-is": "catalog:react19",

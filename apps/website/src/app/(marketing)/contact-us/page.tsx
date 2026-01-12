@@ -346,7 +346,10 @@ export function ContactForm({
 export default function ContactUsPage() {
   return (
     <div className="container mx-auto max-w-2xl px-4 py-12">
-      <ContactForm title="Contact Us" description="Get in touch with our team" />
+      <ContactForm
+        title="Contact Us"
+        description="Get in touch with our team"
+      />
     </div>
   );
 }

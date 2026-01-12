@@ -1,9 +1,183 @@
 ---
+/**
+ * Homepage - Main landing page for amaxaimpact.org
+ *
+ * Sections:
+ * 1. Hero with typewriter effect and image carousel
+ * 2. Mission statement
+ * 3. Pathways overview with focus cards
+ * 4. Projects carousel
+ * 5. Stories/Spotlights
+ * 6. Final CTA
+ */
+import type { SpotlightData } from "@/lib/projects";
+import { FocusCards } from "@/components/custom-animations/focus-cards";
+import { HeroCarousel, ProjectsSection } from "@/components/home";
+import SpotlightCard from "@/components/home/spotlight-card.astro";
 import AppLayout from "@/layouts/app-layout.astro";
+
+// Pathways cards data
+const pathwaysCards = [
+  {
+    title: "Ámaxa Cohorts",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3",
+    link: "/pathways/cohorts",
+    description: "for high school students",
+  },
+  {
+    title: "Ámaxa Research",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVscvGzWL0MYRHUetxwcyzJn3h7alsSdIDAKf",
+    link: "/pathways/research",
+    description: "for undergrad & postgrad students",
+  },
+  {
+    title: "Ámaxa Partnerships",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToO1yec3BZuh38756znQ1WsobkyBqTCiLE0ramM",
+    link: "/pathways/partnerships",
+    description: "for professionals",
+  },
+  {
+    title: "Ámaxa Network",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaVg3qCIBDGmcbISEzQYZx81iL0rWJ43h2T9d",
+    link: "/pathways/network",
+    description: "for students & professionals in Colorado",
+  },
+];
+
+// Spotlight stories for the homepage
+const spotlights: SpotlightData[] = [
+  {
+    heading: "Member Spotlight",
+    name: "How An Nhi Sequestered Carbon by Planting Trees",
+    ageLocation: "Vietnam",
+    paragraphs: [
+      `
+  Her team planted three trees native to their communities in the US, Vietnam, and Turkey.  They completed measurements on the tree, and started the process of calculating the CO2 sequestration.
+  `,
+      `
+  Guided by their coach, they implemented the project management techniques ámaxa developed based on 2 years of research and project iterations.
+  `,
+      `
+  By meeting remotely every week for 3 months, they raised the funds to purchase the seedlings for each tree. Then, they identified a suitable place to plant it. Finally, they measured the tree and calculated the CO2 each sequesters.
+  `,
+    ],
+    teammates: "Teammates: Mohamed (Turkey) & Lauryn (USA)",
+    videoUrl:
+      "https://player.vimeo.com/video/1069899673?h=0ef231b81a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+    imageUrl: "",
+  },
+  {
+    heading: "TEAM SPOTLIGHT",
+    name: "How Isabella and Zobia's Love for Music Changed Lives in Gaza",
+    ageLocation: "USA",
+    paragraphs: [
+      '"Change, in any capacity, can and should start with us." -Isabella',
+      `
+  Through ámaxa’s student impact fellowship, and a partnership with the nonprofit Gaza Champions, Isabella, Zobia, and their program coach Delilah created Alliance Academy’s first “Melody of Alliance Fall Charity Concert”. After being told that the brainstormed event could happen in just two weeks, the team jumped into action. They had spent the few weeks prior getting an idea of their timeline based on their before-winter-break goal and now they’d met a crunch point where all tasks were vital to make the concert the best it could be. Isabella and Zobia worked together in and outside of the weekly meetings arranged by their coach to contact sponsors for the event’s raffle, create awesome marketing material, and make sure everything was approved by school authority. At the event, they had 20 attendants, 3 raffle prizes awarded, and almost $200 USD raised. The team reflected that they believe that they did an awesome job with the limited job they were given. A huge takeaway was to focus on what you are in control of.
+  `,
+    ],
+    teammates: "",
+    videoUrl:
+      "https://player.vimeo.com/video/1069887902?h=acd24c8d11&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
+    imageUrl: "",
+  },
+  // {
+  //   heading: "TEAM SPOTLIGHT",
+  //   name: "Meet Panshul, Jad, and Yueqi.",
+  //   ageLocation: "UAE, LEBANON, & CHINA",
+  //   paragraphs: [
+  //     `“Since almost all students in Palestine have access to the Web, we aim to create an interactive, educational website where students can find pre-recorded lessons by tutors who will be recruited by our team.” Driven by their combined passions for education and technology, Zhao (16, China), Jad (16, Lebanon), Noor (16, Qatar), and Panshul (14, UAE), led by coach Sibel, created Accessifyed, which now offers 16 math lessons and 10 English lessons with tutoring`,
+  //     `Panshul, Jad, and Zhao are now Ámaxa Student Ambassadors. The ámaxa leadership team will provide 1-1 coaching and guidance to expand Accessifyed from an MVP to a scaled solution for all of ISNAD’s students.`,
+  //     `“My team members proved to be some of the most ambitious people with a strong wish to make a change. They approached the project wholeheartedly and wanted to put in the work to make something that would stay an important part of online, accessible education.” -Sibel, Team Coach`,
+  //   ],
+  //   teammates: "",
+  //   videoUrl: "",
+  // },
+];
 ---
 
 <AppLayout>
-  <body>
-    <h1>Astro</h1>
-  </body>
+  <main>
+    <!-- Hero Section with Typewriter + Image Carousel -->
+    <HeroCarousel client:load />
+
+    <!-- Mission Section -->
+    <section class="w-full py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div
+          class="flex flex-col items-start justify-between md:flex-row md:items-center"
+        >
+          <div class="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+            <p class="font-strong mb-8 max-w-3xl text-2xl">OUR MISSION</p>
+            <p class="mb-8 max-w-3xl text-2xl font-light">
+              For the first time in history, we can see in crystal clear detail
+              the challenges faced by others across the world, and we can change
+              that person's life across the world easier than ever before.
+              <span class="italic">
+                Yet, it's still too hard for people who want to make a
+                difference to actually do it.
+              </span>
+            </p>
+            <h2
+              class="text-4xl leading-tight text-black md:text-4xl lg:text-6xl"
+            >
+              We are changing that.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pathways Section -->
+    <section class="relative py-16">
+      <div class="container mx-auto max-w-7xl px-6 py-16 md:px-16 lg:px-20">
+        <h2
+          class="mb-8 text-3xl leading-tight font-semibold text-black md:text-4xl lg:text-5xl"
+        >
+          Ámaxa Pathways takes you from start to finish of what's needed to
+          truly effect change.
+        </h2>
+        <p class="mb-6 max-w-3xl text-lg">
+          <strong>Hover or click</strong> below to explore the pathway right for you.
+        </p>
+        <FocusCards
+          client:visible
+          cards={pathwaysCards}
+          columns={4}
+          showDescription={true}
+        />
+      </div>
+    </section>
+
+    <!-- Projects Carousel Section -->
+    <section class="relative w-full py-16">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <ProjectsSection client:visible />
+      </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section class="py-16 md:py-24 lg:py-32">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <h2
+          class="font-sans text-xl font-bold text-neutral-800 md:text-5xl dark:text-neutral-200"
+        >
+          Ámaxa Stories
+        </h2>
+
+        {
+          spotlights.map((spotlight) => (
+            <SpotlightCard spotlightData={spotlight} />
+          ))
+        }
+
+        <a
+          href="/project-stories"
+          class="box-border inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-white px-6 py-3 text-base font-normal text-[#3B3B3B] transition-colors hover:bg-gray-100 md:text-lg"
+        >
+          View All Stories →
+        </a>
+      </div>
+    </section>
+  </main>
 </AppLayout>

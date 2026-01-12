@@ -12,6 +12,17 @@ import {
   BreadcrumbSeparator,
 } from "@amaxa/ui/breadcrumb";
 
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  const posts = await sanityFetch<{ slug: string }[]>({
+    query: `*[_type == "post"]{ "slug": slug.current }`,
+  });
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
 const { slug } = Astro.params;
 
 type Post = {

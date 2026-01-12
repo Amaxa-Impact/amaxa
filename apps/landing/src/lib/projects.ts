@@ -23,10 +23,6 @@ export interface HomePageData {
 }
 
 export const projects: HomePageData[] = [
-  //***ORIGINAL INITIATIVES***
-  ///////////////////////////
-
-  //MHFA
   {
     id: "mhfa",
     headerTitle:
@@ -352,3 +348,5 @@ Through ámaxa’s student impact fellowship, and a partnership with the nonprof
     },
   },
 ];
+
+export type ProjectData = (typeof projects)[number];

@@ -1,0 +1,271 @@
+---
+/**
+ * Ámaxa Partnerships - Professional pathway
+ *
+ * For professionals with tools, skills, and networks
+ * who want to effect large-scale change through corporate partnerships.
+ */
+
+import AppLayout from "@/layouts/app-layout.astro";
+import { ApplyButton } from "@/components/shared/apply-button";
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+---
+
+<AppLayout>
+  <main>
+    <!-- Hero Section -->
+    <section class="w-full bg-background px-6 py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="flex flex-col items-start justify-between md:flex-row md:items-center">
+          <div class="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+            <h1 class="text-4xl leading-tight font-light text-foreground md:text-4xl lg:text-6xl">
+              Ámaxa{" "}
+              <span class="font-normal text-foreground">
+                Partnerships
+              </span>
+            </h1>
+
+            <!-- Green wavy line -->
+            <div class="relative -mt-2 ml-auto h-6 w-48 md:-mt-4 md:w-64 lg:w-200">
+              <svg
+                viewBox="0 6 325 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-full"
+              >
+                <path
+                  d="M1 41C1 41 54 10 81 41C108 72 162 10 189 41C216 72 270 41 270 41"
+                  stroke="#BCD96C"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content -->
+      <section class="w-full px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+        <div class="mx-auto max-w-7xl space-y-16 md:space-y-20">
+          <!-- Introduction -->
+          <div class="space-y-8 md:space-y-10">
+            <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+              This pathway provides a new model for effecting large-scale change
+              for those with the tools, skills, and networks of years in
+              professional world.
+            </h2>
+            <p class="text-lg leading-relaxed font-normal text-foreground md:text-xl lg:text-2xl">
+              The core idea in Ámaxa Partnerships is recognizing that the
+              greatest capacity for tangible change professionals possess is the
+              ability to raise funds through corporate partnerships and
+              donations via each of their professional networks.
+            </p>
+            <p class="text-lg leading-relaxed font-normal text-foreground md:text-xl lg:text-2xl">
+              Ámaxa Partnerships relies on the evidence-based model we have
+              iterated on for 2 years: effecting change through remote project
+              meetings with peers and a coach, aided by fine-tuned project
+              management methodologies and custom-built online tools.
+            </p>
+            <p class="text-lg leading-relaxed font-normal text-foreground md:text-xl lg:text-2xl">
+              {" "}
+              As this is a new pathway, we will accept applications on a rolling
+              basis and reach out to applicants if we believe it will be a good
+              fit.{" "}
+            </p>
+            <div>
+              <ApplyButton variant="color">Apply Today →</ApplyButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stories CTA -->
+      <section class="w-full bg-accent py-16 md:py-24 lg:py-32">
+        <div class="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+          <div class="mb-12 max-w-4xl md:mb-16 lg:mb-20 lg:max-w-5xl">
+            <h2 class="text-3xl leading-tight font-normal text-foreground md:text-4xl lg:text-5xl xl:text-6xl">
+              Read stories of past students to learn about diverse types of
+              projects cohorts undertake.
+            </h2>
+          </div>
+
+          <div>
+            <a
+              href="/project-stories"
+              class="border-border bg-card text-foreground hover:bg-accent inline-flex items-center justify-center rounded-full border px-7 py-3 text-base transition-colors md:text-lg"
+            >
+              Ámaxa Stories →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- What makes us different -->
+      <section class="w-full px-6 py-16 md:px-16 md:py-24 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-7xl">
+          <h2 class="mb-6 text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            What makes us different?
+          </h2>
+
+          <p class="mb-16 max-w-4xl text-lg text-foreground md:text-xl">
+            We take you from "I wish I could" to "Here's how I did." To
+            accomplish this, we spent the last two years iterating, improving,
+            and learning. Here's some things we do different than everyone else:
+          </p>
+
+          <div class="space-y-16 md:space-y-24">
+            <!-- Feature 1 -->
+            <div class="flex flex-col gap-4 md:flex-row md:gap-8">
+              <div class="flex-shrink-0">
+                <svg
+                  class="text-brand-green h-8 w-8 md:h-10 md:w-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-foreground mb-4 text-2xl font-normal md:text-3xl">
+                  We built an online platform designed to amplify impact of
+                  our teams.
+                </h3>
+                <p class="mb-6 max-w-3xl text-lg text-foreground">
+                  With each new cohort, we more precisely understand teams'
+                  challenges, and over time, this data will fuel AI-driven
+                  tools, giving each team lessons of all teams before them.
+                </p>
+                <a
+                  href="/platform"
+                  class="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
+                >
+                  Learn more about our platform →
+                </a>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="flex flex-col gap-4 md:flex-row md:gap-8">
+              <div class="flex-shrink-0">
+                <svg
+                  class="text-brand-green h-8 w-8 md:h-10 md:w-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-foreground mb-4 text-2xl font-normal md:text-3xl">
+                  We are accessible across income and location.
+                </h3>
+                <p class="mb-6 max-w-3xl text-lg text-foreground">
+                  The ability to effect change should not be limited by your
+                  home or your income. That's why we strive to make our
+                  community accessible and inclusive, so everyone who wants to
+                  make an impact can join. Our cohorts are 100% remote, and we
+                  offer scholarships to anyone who is unable to pay our annual
+                  $150 membership fee. After we receive funding, we aim to
+                  remove the fee altogether.
+                </p>
+                <a
+                  href="/mission"
+                  class="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
+                >
+                  Read more about our mission →
+                </a>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="flex flex-col gap-4 md:flex-row md:gap-8">
+              <div class="flex-shrink-0">
+                <svg
+                  class="text-brand-green h-8 w-8 md:h-10 md:w-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-foreground mb-4 text-2xl font-normal md:text-3xl">
+                  We are more than a 'program'. We are a community.
+                </h3>
+                <p class="mb-6 max-w-3xl text-lg text-foreground">
+                  Members leave a cohort with friends around the world. Whether
+                  becoming close to your team members and coach, or meeting
+                  others through our remote events, ámaxa aims to forge
+                  connections that last well beyond the 3-month project.
+                </p>
+                <a
+                  href="/project-stories"
+                  class="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
+                >
+                  Read stories of our members →
+                </a>
+              </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="flex flex-col gap-4 md:flex-row md:gap-8">
+              <div class="flex-shrink-0">
+                <svg
+                  class="text-brand-green h-8 w-8 md:h-10 md:w-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-foreground mb-4 text-2xl font-normal md:text-3xl">
+                  Our projects and initiatives are high-impact.
+                </h3>
+                <p class="mb-6 max-w-3xl text-lg text-foreground">
+                  Our projects are high-impact, innovative, and
+                  community-driven. We have partnered with nonprofits in
+                  Palestine, Liberia, and Uganda whose community-founded
+                  solutions are innovative in their fields, such as ISNAD
+                  Community Center's approach to community-based learning,
+                  first in its area, and Nyaka School's holistic approach to
+                  supporting AIDS-affected communities.
+                </p>
+                <p class="mb-6 max-w-3xl text-lg text-foreground">
+                  Where we spotted gaps in high-impact projects that our members
+                  wanted to work on, we created our own. Led by Head of Programs
+                  Alexi Jones, we have launched three new initiatives in 2024,
+                  focusing on mental health, feminism, and LGBTQ+
+                  representation.
+                </p>
+                <a
+                  href="/projects"
+                  class="inline-flex items-center justify-center rounded-full bg-[#BCD96C] px-6 py-2 text-[#3B3B3B] transition-colors hover:bg-[#a9c55a]"
+                >
+                  Explore All Projects →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  </main>
+</AppLayout>

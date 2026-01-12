@@ -33,6 +33,9 @@ catalogs:
     eslint:
       specifier: ^9.38.0
       version: 9.39.2
+    lucide-react:
+      specifier: ^0.556.0
+      version: 0.556.0
     next:
       specifier: 16.1.1
       version: 16.1.1
@@ -135,6 +138,12 @@ importers:
       astro-portabletext:
         specifier: ^0.13.0
         version: 0.13.0(astro@5.16.8(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2))
+      framer-motion:
+        specifier: ^11.18.2
+        version: 11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      lucide-react:
+        specifier: 'catalog:'
+        version: 0.556.0(react@19.2.3)
       react:
         specifier: catalog:react19
         version: 19.2.3

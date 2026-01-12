@@ -1,0 +1,170 @@
+---
+import { ApplyButton } from "../shared/apply-button";
+---
+
+<section
+  id="hero"
+  class="relative mx-auto mt-32 max-w-[80rem] px-6 text-center md:px-8"
+>
+  <div
+    class="animate-fade-in group inline-flex h-7 translate-y-[-1rem] items-center justify-between gap-1 rounded-full border border-white/5 bg-white/10 px-3 text-xs text-white opacity-0 backdrop-filter-[12px] transition-all ease-in hover:cursor-pointer hover:bg-white/20 dark:text-black"
+    role="button"
+    tabindex="0"
+    aria-label="Apply now for our beta"
+  >
+    <div class="inline-flex items-center justify-center">
+      <span>✨ Apply now for our beta!</span>
+      <svg
+        class="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M5 12h14M13 5l7 7-7 7"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </div>
+
+  <h1
+    class="animate-fade-in translate-y-[-1rem] bg-gradient-to-br from-black from-30% to-black/40 bg-clip-text py-6 text-5xl leading-none font-medium tracking-tighter text-balance text-transparent opacity-0 [--animation-delay:200ms] sm:text-6xl md:text-7xl lg:text-8xl dark:from-white dark:to-white/40"
+  >
+    A Personalized Platform for
+    <br class="hidden md:block" /> Making Impact
+  </h1>
+
+  <p
+    class="animate-fade-in mb-12 translate-y-[-1rem] text-lg tracking-tight text-balance opacity-0 [--animation-delay:400ms] md:text-xl"
+  >
+    Explore our platform which we've spent hundreds of hours crafting to amplify
+    <br class="hidden md:block" /> what you can achive.
+  </p>
+
+  <div class="mb-6">
+    <!-- If ApplyButton is an Astro component, this renders server-side -->
+    <ApplyButton variant="color">Apply Now</ApplyButton>
+
+    <!-- If using a React ApplyButton as an island, use:
+         <ApplyButton client:load variant="color">Apply Now</ApplyButton>
+    -->
+  </div>
+
+  <div
+    id="platform-hero-image-wrapper"
+    class="relative mt-[8rem] opacity-0 [--animation-delay:400ms] [perspective:2000px] after:absolute after:inset-0 after:z-50 after:[background:linear-gradient(to_top,hsl(var(--background))_30%,transparent)]"
+  >
+    <div
+      id="image-card"
+      class="bg-opacity-[0.01] relative overflow-hidden rounded-xl border border-white/10 bg-white before:absolute before:top-0 before:bottom-1/2 before:left-0 before:h-full before:w-full before:opacity-0 before:[filter:blur(180px)]"
+    >
+      <!-- Use picture/source if you have different assets for dark/light -->
+      <img
+        src="/platform-dark.png"
+        alt="Hero Image"
+        width="1200"
+        height="800"
+        class="relative block h-full w-full rounded-[inherit] border object-contain"
+        decoding="async"
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  <script type="module">
+    const wrapper = document.getElementById("platform-hero-image-wrapper");
+    const imageCard = document.getElementById("image-card");
+
+    if (wrapper && imageCard && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              wrapper.classList.add("is-in-view");
+              wrapper.style.opacity = "1";
+              imageCard.classList.add("is-in-view");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { root: null, rootMargin: "-100px", threshold: 0 },
+      );
+
+      observer.observe(wrapper);
+    } else {
+      // fallback: reveal immediately
+      wrapper && (wrapper.style.opacity = "1");
+      imageCard && imageCard.classList.add("is-in-view");
+    }
+  </script>
+
+  <style>
+    .text-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .text-shimmer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 100%
+      );
+      transform: translateX(-100%);
+      transition: transform 0.8s ease-in-out;
+    }
+    .group:hover .text-shimmer::after {
+      transform: translateX(100%);
+    }
+
+    @keyframes image-glow {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.02);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    #image-card.is-in-view::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 50%;
+      left: 0;
+      width: 100%;
+      background-image: linear-gradient(
+        to bottom,
+        var(--primary, rgba(99, 102, 241, 0.65)),
+        var(--primary, rgba(99, 102, 241, 0.35)),
+        transparent 40%
+      );
+      filter: blur(180px);
+      opacity: 1;
+      animation: image-glow 2200ms ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ensure elements driven by Tailwind's animation classes become visible */
+    .animate-fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</section>

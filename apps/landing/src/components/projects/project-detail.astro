@@ -1,0 +1,214 @@
+---
+import type { ProjectData } from "@/lib/projects";
+import { ApplyButton } from "@/components/shared/apply-button";
+
+interface Props {
+   project: ProjectData;
+ }
+
+ const { project } = Astro.props
+
+if (!project) {
+  throw new Error('ProjectDetail: missing required prop "project"');
+}
+
+const headerFrom = project.headerBgFrom ?? "#000";
+const headerTo = project.headerBgTo ?? "#333";
+const headerTitle = project.headerTitle ?? project.solutionTitle ?? "Project";
+const imageSrc = project.imageSrc ?? "";
+const imageAlt = project.imageAlt ?? headerTitle;
+const solutionParagraphs = project.solutionParagraphs ?? [];
+const spotlight = project.spotlightData ?? null;
+const spotlight1 = project.spotlightData1 ?? null;
+---
+
+<div class="min-h-screen w-full">
+  <!-- Header with gradient background -->
+  <section
+    class="relative h-64 w-full"
+    style={`background: linear-gradient(to right, ${headerFrom}, ${headerTo})`}
+  >
+    <div class="container mx-auto h-full px-6 md:px-16 lg:px-20">
+      <div class="flex h-full items-center">
+        <div class="max-w-5xl">
+          <h1 class="text-3xl leading-tight font-semibold text-white md:text-4xl lg:text-5xl">
+            {headerTitle}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Image -->
+  <section class="w-full py-16">
+    <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="mx-auto h-auto max-h-[500px] w-full object-cover"
+          loading="eager"
+        />
+      ) : (
+        <div class="mx-auto h-[300px] max-h-[500px] w-full rounded bg-gray-100" />
+      )}
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="w-full py-16 px-6 md:px-16 md:py-24 lg:px-20 lg:py-32">
+    <div class="mx-auto max-w-7xl">
+      <div class="space-y-6">
+        <h2 class="text-3xl font-semibold text-foreground md:text-4xl lg:text-5xl">
+          {project.solutionTitle}
+        </h2>
+        {project.solutionSubtitle && (
+          <h3 class="text-2xl font-normal text-foreground md:text-3xl lg:text-4xl">
+            {project.solutionSubtitle}
+          </h3>
+        )}
+
+        {solutionParagraphs.map((paragraph, idx) => (
+          <p
+            key={idx}
+            class="text-lg leading-relaxed text-foreground md:text-xl lg:text-2xl"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Primary Spotlight Section -->
+  {spotlight && (
+    <section class="w-full py-16 px-6 md:px-16 lg:px-20">
+      <div class="container mx-auto max-w-7xl">
+        <div class="flex flex-col gap-5 md:flex-row md:items-start md:gap-8">
+          <!-- Left: Text content -->
+          <div class="flex-1">
+            {spotlight.heading && (
+              <h4 class="mb-4 text-sm font-bold uppercase text-gray-500">
+                {spotlight.heading}
+              </h4>
+            )}
+            <h2 class="mb-4 text-4xl font-semibold text-foreground md:text-5xl">
+              {spotlight.name}
+            </h2>
+            {spotlight.ageLocation && (
+              <p class="mb-4 text-sm text-gray-600">{spotlight.ageLocation}</p>
+            )}
+            {(spotlight.paragraphs ?? []).map((paragraph, idx) => (
+              <p key={idx} class="mb-4 text-gray-700">
+                {paragraph}
+              </p>
+            ))}
+            {spotlight.teammates && (
+              <p class="mt-4 font-semibold text-gray-700">
+                {spotlight.teammates}
+              </p>
+            )}
+          </div>
+
+          <!-- Right: Video or Image -->
+          <div class="flex-1 flex justify-center">
+            <div class="relative h-64 w-full md:h-96">
+              {spotlight.videoUrl ? (
+                <iframe
+                  src={spotlight.videoUrl}
+                  class="w-full h-full"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              ) : spotlight.imageUrl ? (
+                <img
+                  src={spotlight.imageUrl}
+                  alt={spotlight.name ?? "Spotlight media"}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+                  No media available
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Secondary Spotlight -->
+  {spotlight1 && (
+    <section class="w-full py-16 px-6 md:px-16 lg:px-20">
+      <div class="container mx-auto max-w-7xl">
+        <div class="flex flex-col gap-5 md:flex-row md:items-start md:gap-8">
+          <div class="flex-1">
+            {spotlight1.heading && (
+              <h4 class="mb-4 text-sm font-bold uppercase text-gray-500">
+                {spotlight1.heading}
+              </h4>
+            )}
+            <h2 class="mb-4 text-4xl font-semibold text-foreground md:text-5xl">
+              {spotlight1.name}
+            </h2>
+            {spotlight1.ageLocation && (
+              <p class="mb-4 text-sm text-gray-600">
+                {spotlight1.ageLocation}
+              </p>
+            )}
+            {(spotlight1.paragraphs ?? []).map((paragraph, idx) => (
+              <p key={idx} class="mb-4 text-gray-700">
+                {paragraph}
+              </p>
+            ))}
+            {spotlight1.teammates && (
+              <p class="mt-4 font-semibold text-gray-700">
+                {spotlight1.teammates}
+              </p>
+            )}
+          </div>
+
+          <div class="flex-1 flex justify-center">
+            <div class="relative h-64 w-full md:h-96">
+              {spotlight1.videoUrl ? (
+                <iframe
+                  src={spotlight1.videoUrl}
+                  class="w-full h-full"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              ) : spotlight1.imageUrl ? (
+                <img
+                  src={spotlight1.imageUrl}
+                  alt={spotlight1.name ?? "Spotlight media"}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+                  No media available
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="w-full py-16 md:py-24 lg:py-32">
+    <div class="mx-auto max-w-4xl px-6 md:px-16 lg:px-20 text-center">
+      <h2 class="mb-6 text-3xl font-semibold text-foreground md:text-4xl lg:text-5xl">
+        Ready to make an impact?
+      </h2>
+      <p class="mb-10 text-lg text-muted-foreground md:text-xl">
+        Join hundreds of students from around the world who are creating meaningful
+        change through Ámaxa.
+      </p>
+      <ApplyButton variant="color">Apply Now →</ApplyButton>
+    </div>
+  </section>
+</div>

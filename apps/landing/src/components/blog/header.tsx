@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatedHeading } from "@/components/animated-heading";
+import { AnimatedHeading } from "@/components/custom-animations/animated-heading";
 
 export function BlogHeader() {
   return (

@@ -1,0 +1,328 @@
+---
+/**
+ * Who We Are - Consolidated about page
+ *
+ * Sections:
+ * 1. Hero with title and image
+ * 2. About section - what Ámaxa is about
+ * 3. Pathways cards (cohorts, research, partnerships, network)
+ * 4. Student Impact - what we do for students
+ * 5. Testimonials - member/stories
+ * 6. Vision - our vision and impact
+ * 7. CTA
+ */
+
+import AppLayout from "@/layouts/app-layout.astro";
+import { WobbleCard } from "@/components/custom-animations/wobble-card";
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+---
+
+<AppLayout>
+  <main>
+    <!-- Hero Section -->
+    <section class="w-full bg-background px-6 py-16 md:py-24">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="flex flex-col items-center justify-center gap-8 md:flex-row md:items-center md:gap-12">
+          <div class="max-w-3xl text-center md:max-w-4xl md:text-left lg:text-left">
+            <h1 class="text-4xl leading-tight font-light text-foreground md:text-5xl lg:text-7xl">
+              Who We Are
+            </h1>
+            <AnimatedTitle
+              beforeText="We are"
+              underlinedText="Ámaxa"
+              color="#BCD96C"
+              client:load
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="w-full py-16 px-6 md:px-16 lg:px-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="space-y-16 md:space-y-24">
+          <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            ámaxa takes chance out of making change.
+          </h2>
+          <p class="mb-6 max-w-4xl text-lg text-foreground md:text-xl lg:text-2xl">
+            Through Ámaxa Pathways, we match you to a project with a clear goal
+            at one of our 9 partner nonprofits & initiatives, a team of passionate
+            peers, and a trained coach. The program is 100% remote. Then, over 3 months,
+            you meet weekly on Zoom to plan & accomplish your project in a way that
+            best highlights your team's passions & strengths.
+          </p>
+          <p class="mb-6 max-w-4xl text-lg text-foreground md:text-xl lg:text-2xl">
+            Along the way, you implement project management methodologies designed specifically
+            for Ámaxa projects & utilize tools and resources in our custom online
+            platform. After 3 months, you don't just have a project under your belt—you have
+            project management experience that will serve you for years to come.
+          </p>
+          <p class="mb-6 max-w-4xl text-lg text-foreground md:text-xl lg:text-2xl">
+            Whether you want to be an engineer, doctor, artist, entrepreneur, or social
+            worker, Ámaxa provides a pathway to make an impact.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pathways Cards Section -->
+    <section class="w-full bg-accent py-16 px-6 md:px-16 lg:px-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            Ámaxa Pathways
+          </h2>
+        </div>
+
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:gap-16">
+          <!-- Cohorts Card -->
+          <a href="/pathways/cohorts">
+            <WobbleCard
+              client:visible
+              containerClassName="col-span-1 lg:col-span-1 max-h-[320px]"
+              className=""
+            >
+              <div class="absolute inset-0 -z-20 rounded-2xl bg-[#BCD96C]/40"></div>
+              <img
+                src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOVJDCilWL0MYRHUetxwcyzJn3h7alsSdIDAKf"
+                width="500"
+                height="500"
+                alt="linear demo image"
+                class="absolute -right-10 -bottom-40 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[30%]"
+              />
+              <div class="absolute inset-0 -z-10 max-w-sm">
+                <h2 class="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
+                  Ámaxa Cohorts
+                </h2>
+                <p class="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+                  End-to-end support to turn ideas into change.
+                </p>
+              </div>
+            </WobbleCard>
+          </a>
+
+          <!-- Research Card -->
+          <a href="/pathways/research">
+            <WobbleCard
+              client:visible
+              containerClassName="col-span-1 lg:col-span-1 max-h-[320px]"
+              className=""
+            >
+              <div class="absolute inset-0 -z-20 rounded-2xl bg-[#BCD96C]/40"></div>
+              <img
+                src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOaLemsuIBDGmcbISEzQYZx81iL0rWJ43h2T9d"
+                width="500"
+                height="500"
+                alt="linear demo image"
+                class="absolute -right-10 -bottom-40 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[30%]"
+              />
+              <div class="absolute inset-0 -z-10 max-w-sm">
+                <h2 class="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
+                  Ámaxa Research
+                </h2>
+                <p class="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+                  Real research for real change.
+                </p>
+              </div>
+            </WobbleCard>
+          </a>
+
+          <!-- Partnerships Card -->
+          <a href="/pathways/partnerships">
+            <WobbleCard
+              client:visible
+              containerClassName="col-span-1 lg:col-span-1 max-h-[320px]"
+              className=""
+            >
+              <div class="absolute inset-0 -z-20 rounded-2xl bg-[#BCD96C]/40"></div>
+              <img
+                src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOjxcCpDmYZFtMKdGCwhkEePg27zV39qyDB0mr"
+                width="500"
+                height="500"
+                alt="linear demo image"
+                class="absolute -right-10 -bottom-40 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[10%]"
+              />
+              <div class="absolute inset-0 -z-10 max-w-sm">
+                <h2 class="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
+                  Ámaxa Partnerships
+                </h2>
+                <p class="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+                  Unlock your capacity to change.
+                </p>
+              </div>
+            </WobbleCard>
+          </a>
+
+          <!-- Network Card -->
+          <a href="/pathways/network">
+            <WobbleCard
+              client:visible
+              containerClassName="col-span-1 lg:col-span-1 max-h-[320px]"
+              className=""
+            >
+              <div class="absolute inset-0 -z-20 rounded-2xl bg-[#BCD96C]/40"></div>
+              <img
+                src="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToONU0PJlDesbBzAkMUD2VgJC8t15PQoqpLNrjf"
+                width="500"
+                height="500"
+                alt="linear demo image"
+                class="absolute -right-10 -bottom-40 rounded-2xl object-contain brightness-75 filter md:-right-[70%] lg:-right-[10%]"
+              />
+              <div class="absolute inset-0 -z-10 max-w-sm">
+                <h2 class="max-w-sm text-left text-base font-semibold tracking-[-0.015em] text-balance text-white md:max-w-lg md:text-xl lg:text-3xl">
+                  Ámaxa Network
+                </h2>
+                <p class="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
+                  Connect with changemakers in Colorado.
+                </p>
+              </div>
+            </WobbleCard>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Impact Section -->
+    <section class="w-full py-16 px-6 md:px-16 lg:px-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="space-y-8 md:space-y-12">
+          <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            Student Impact
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="mb-4 text-2xl font-semibold text-foreground md:text-3xl">
+                For Students
+              </h3>
+              <p class="text-lg text-muted-foreground md:text-xl">
+                Gain real-world project management experience that sets you apart in college
+                applications and beyond. Learn to plan, lead teams, and execute
+                complex projects.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="mb-4 text-2xl font-semibold text-foreground md:text-3xl">
+                For Our Community
+              </h3>
+              <p class="text-lg text-muted-foreground md:text-xl">
+                Connect with a global community of changemakers across 48+ countries and
+                build lasting friendships while making an impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="w-full bg-accent py-16 px-6 md:px-16 lg:px-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="space-y-12 md:space-y-16">
+          <div class="mb-12">
+            <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+              Ámaxa Stories
+            </h2>
+            <p class="mb-6 max-w-4xl text-lg text-muted-foreground md:text-xl">
+              Don't just take our word for it. Read stories from our members
+              who have turned their passion into tangible change for communities around the
+              world.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <h3 class="mb-4 text-2xl font-semibold text-foreground md:text-3xl">
+                An Nhi
+              </h3>
+              <p class="text-lg text-muted-foreground">
+                "Her team planted three trees in US, Vietnam, and Turkey. They
+                measured the CO2 sequestration. Guided by a coach, they raised
+                funds, planted trees, and calculated carbon impact."
+              </p>
+              <p class="text-sm text-foreground">
+                — Cohorts Participant
+              </p>
+            </div>
+
+            <div class="space-y-6">
+              <h3 class="mb-4 text-2xl font-semibold text-foreground md:text-3xl">
+                Katelyn & Saachi
+              </h3>
+              <p class="text-lg text-muted-foreground">
+                "They led Mental Health First Aid workshops at their school. Katelyn
+                created a customized presentation for her classmates. Saachi organized
+                a workshop for 60 students and teachers on OneLove module about
+                toxic relationships, getting certified through the 18-hour training,
+                and successfully advertising and delivering the workshop."
+              </p>
+              <p class="text-sm text-foreground">
+                — Cohorts Participants
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="w-full py-16 px-6 md:px-16 lg:px-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="space-y-12 md:space-y-16">
+          <h2 class="text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            Our Vision
+          </h2>
+
+          <div class="space-y-8 md:space-y-12">
+            <p class="text-lg text-muted-foreground md:text-xl max-w-4xl">
+              We aim to build a world where anyone who wants to help the world
+              can do it. Not just "I wish I could"—but "Here's how I did."
+            </p>
+
+            <p class="text-lg text-muted-foreground md:text-xl max-w-4xl">
+              To accomplish this, we're building a global community of changemakers
+              supported by training, tools, and resources. We provide proven project
+              management methodologies, a collaborative online platform, and opportunities
+              to grow skills and networks.
+            </p>
+
+            <p class="text-lg text-muted-foreground md:text-xl max-w-4xl">
+              Our projects create tangible impact in communities around the world—from Gaza
+              to Uganda, from Palestine to Liberia. We're continuously
+              iterating, learning, and improving to maximize our effectiveness.
+            </p>
+
+            <p class="text-lg text-muted-foreground md:text-xl max-w-4xl">
+              Together, we're not just completing projects—we're building a
+              movement of informed, passionate changemakers who are ready to tackle the world's
+              most pressing challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="w-full bg-accent py-16 md:px-16 lg:py-32">
+      <div class="mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="text-center">
+          <h2 class="mb-6 text-3xl font-normal text-foreground md:text-4xl lg:text-5xl">
+            Ready to make a difference?
+          </h2>
+          <p class="mb-10 max-w-4xl text-lg text-muted-foreground md:text-xl">
+            Join thousands of changemakers who are creating meaningful change
+            through Ámaxa Pathways.
+          </p>
+          <a
+            href="/pathways"
+            class="inline-flex items-center justify-center rounded-full border border-[#3B3B3B] bg-[#BCD96C] px-6 py-3 text-sm font-light text-[#3B3B3B] transition-colors hover:bg-[#a8c55f] md:text-base"
+          >
+            Explore Ámaxa Pathways →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</AppLayout>

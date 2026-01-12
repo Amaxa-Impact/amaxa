@@ -1,0 +1,33 @@
+---
+import type { ProjectData } from "@/lib/projects";
+import ProjectDetail from "@/components/projects/project-detail.astro";
+import AppLayout from "@/layouts/app-layout.astro";
+import { projects } from "@/lib/projects";
+
+/**
+ * Project Listing Page - Dynamic route for all projects
+ *
+ * Generates individual project pages from projects data
+ * Each project gets its own page at /projects/[id]
+ */
+
+const { id } = Astro.params;
+
+export async function getStaticPaths() {
+  const { projects } = await import("@/lib/projects");
+
+  return projects.map((project: ProjectData) => ({
+    params: { id: project.id },
+  }));
+}
+
+const project = projects.find((project: ProjectData) => project.id === id);
+
+if (!project) {
+  throw new Error("ProjectDetail: can not find id or project");
+}
+---
+
+<AppLayout>
+  <ProjectDetail client:load project={project} />
+</AppLayout>
