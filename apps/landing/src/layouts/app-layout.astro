@@ -1,0 +1,23 @@
+---
+import { Suspense } from "react";
+import Navbar from "@/components/navbar/index.astro";
+
+import PostHog from "../components/posthog.astro";
+
+import "@/styles/global.css";
+
+import { Footer } from "@/components/shared/footer";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <PostHog />
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <Footer client:visible />
+  </body>
+</html>

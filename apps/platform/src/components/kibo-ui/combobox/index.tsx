@@ -42,11 +42,17 @@ const ComboboxContext = createContext<ComboboxContextType>({
   value: "",
   onValueChange: () => {},
   open: false,
-  onOpenChange: () => { return; },
+  onOpenChange: () => {
+    return;
+  },
   width: 200,
-  setWidth: () => { return; },
+  setWidth: () => {
+    return;
+  },
   inputValue: "",
-  setInputValue: () => { return; },
+  setInputValue: () => {
+    return;
+  },
 });
 
 export type ComboboxProps = ComponentProps<typeof Popover> & {

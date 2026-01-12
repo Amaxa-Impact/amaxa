@@ -1,0 +1,82 @@
+---
+/**
+ * Pathways Hub - Main pathways landing page
+ *
+ * Shows all available pathways for different audiences:
+ * - Ámaxa Cohorts (high school students)
+ * - Ámaxa Research (undergrad & postgrad)
+ * - Ámaxa Partnerships (professionals)
+ * - Ámaxa Network (Colorado students & professionals)
+ */
+
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+import { PathwayGrid } from "@/components/pathway-card";
+import AppLayout from "@/layouts/app-layout.astro";
+
+// Pathways cards data
+const cards = [
+  {
+    title: "Ámaxa Cohorts",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOLTq5DHnAaWi0jLFr2BdSClosPxeIvEGUbwKy",
+    link: "/pathways/cohorts",
+    description: "for high school students",
+  },
+  {
+    title: "Ámaxa Research",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOTXSksZrPvV4ygRa57DXtJwU9SfhC1qxONmlA",
+    link: "/pathways/research",
+    description: "for undergrad & postgrad students",
+  },
+  {
+    title: "Ámaxa Partnerships",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOLWqVFDnAaWi0jLFr2BdSClosPxeIvEGUbwKy",
+    link: "/pathways/partnerships",
+    description: "for professionals",
+  },
+  {
+    title: "Ámaxa Network",
+    src: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOoa5xMjSL3mZjlWdfcY9Iy45VMUbTa0Ehv6H8",
+    link: "/pathways/network",
+    description: "for students & professionals in Colorado",
+  },
+];
+---
+
+<AppLayout>
+  <main>
+    <!-- Hero Section with Animated Title -->
+    <section class="bg-white pt-5 md:pt-10">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="flex flex-col items-center justify-center">
+          <div class="mb-12 max-w-full">
+            <AnimatedTitle
+              beforeText="Explore"
+              underlinedText="Our Pathways"
+              color="#BCD96C"
+              client:load
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pathways Cards Section -->
+    <section class="container mx-auto max-w-7xl pt-12">
+      <div
+        class="flex flex-col gap-8 px-6 py-10 text-[#3B3B3B] md:px-16 lg:px-20"
+      >
+        <div class="mx-auto w-full max-w-7xl">
+          <h2 class="mb-4 text-2xl font-normal text-[#3B3B3B] md:text-3xl">
+            Our community provides ways for people of all ages and interests to
+            effect real change.
+          </h2>
+          <p class="mb-10 max-w-3xl text-lg text-neutral-600">
+            Select a pathway below to learn more about how you can get involved.
+          </p>
+
+          <PathwayGrid pathways={cards} />
+        </div>
+      </div>
+    </section>
+  </main>
+</AppLayout>

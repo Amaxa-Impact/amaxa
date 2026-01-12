@@ -1,0 +1,104 @@
+---
+/**
+ * Ámaxa Partnerships - Professional pathway
+ *
+ * For professionals with tools, skills, and networks
+ * who want to effect large-scale change through corporate partnerships.
+ */
+
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+import StudentStories from "@/components/pathways/student-stories.astro";
+import WhatMakesUsDifferent from "@/components/pathways/what-makes-us-different.astro";
+import { ApplyButton } from "@/components/shared/apply-button";
+import AppLayout from "@/layouts/app-layout.astro";
+---
+
+<AppLayout>
+  <main class="text-foreground">
+    <!-- Hero Section -->
+    <section class="bg-accent">
+      <div class="mx-auto max-w-6xl px-6 py-5 md:px-12 lg:py-10">
+        <div class="flex max-w-3xl flex-col items-start">
+          <p
+            class="text-brand-green mb-4 text-sm font-semibold tracking-widest uppercase"
+          >
+            For Professionals
+          </p>
+          <AnimatedTitle
+            beforeText="Ámaxa"
+            underlinedText="Partnerships"
+            className="text-foreground text-4xl font-semibold md:text-5xl lg:text-6xl"
+            client:load
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="bg-background">
+      <div class="mx-auto max-w-6xl px-6 py-10 md:px-12 lg:py-18">
+        <div class="w-full space-y-6">
+          <h2
+            class="text-foreground text-2xl leading-snug font-semibold tracking-tight md:text-3xl"
+          >
+            This pathway provides a new model for effecting large-scale change
+            for those with the tools, skills, and networks of years in
+            professional world.
+          </h2>
+
+          <p class="text-muted-foreground text-lg leading-relaxed">
+            The core idea in Ámaxa Partnerships is recognizing that the greatest
+            capacity for tangible change professionals possess is the ability to
+            raise funds through corporate partnerships and donations via each of
+            their professional networks.
+          </p>
+
+          <p class="text-muted-foreground text-lg leading-relaxed">
+            Ámaxa Partnerships relies on the evidence-based model we have
+            iterated on for 2 years: effecting change through remote project
+            meetings with peers and a coach, aided by fine-tuned project
+            management methodologies and custom-built online tools.
+          </p>
+
+          <p class="text-muted-foreground text-lg leading-relaxed">
+            As this is a new pathway, we will accept applications on a rolling
+            basis and reach out to applicants if we believe it will be a good
+            fit.
+          </p>
+
+          <div class="pt-4">
+            <ApplyButton variant="color">Apply Today</ApplyButton>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Stories CTA -->
+    <StudentStories />
+
+    <WhatMakesUsDifferent />
+
+    <!-- Final CTA -->
+    <section class="bg-brand-green">
+      <div class="mx-auto max-w-6xl px-6 py-20 text-center md:px-12 lg:py-24">
+        <h2
+          class="text-foreground text-3xl font-semibold tracking-tight md:text-4xl"
+        >
+          Ready to leverage your professional network for impact?
+        </h2>
+        <p class="text-foreground/80 mx-auto mt-4 max-w-xl text-lg">
+          Join Ámaxa Partnerships and use your professional skills and
+          connections to create meaningful change.
+        </p>
+        <div class="mt-8">
+          <a
+            href="https://forms.gle/apply"
+            class="border-foreground text-foreground hover:bg-foreground hover:text-brand-green inline-flex items-center rounded-full border-2 bg-transparent px-8 py-3 font-semibold transition-colors"
+          >
+            Apply Now
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</AppLayout>

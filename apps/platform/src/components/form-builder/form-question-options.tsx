@@ -22,7 +22,7 @@ interface OptionInputProps {
   onBlur: (index: number, value: string) => void;
   onKeyDown: (e: React.KeyboardEvent, index: number, value: string) => void;
   inputRef: (el: HTMLInputElement | null) => void;
-  Icon: typeof IconCircle | typeof IconSquare;
+  Icon: typeof IconCircle  ;
   canRemove: boolean;
   onRemove: (index: number) => void;
 }

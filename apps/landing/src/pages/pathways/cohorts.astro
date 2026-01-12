@@ -1,0 +1,181 @@
+---
+/**
+ * Ámaxa Cohorts - High school student pathway page
+ *
+ * Sections:
+ * 1. Hero with stats (100% remote, 48+ countries, 240+ students)
+ * 2. How cohorts work (timeline)
+ * 3. What makes us different
+ * 4. Student stories CTA
+ * 5. FAQ
+ * 6. Download brochure
+ * 7. Final CTA
+ */
+
+import { CohortTimeline } from "@/components/pathways/cohort-timeline";
+import { DownloadBrochure } from "@/components/pathways/download-brochure";
+import FinalCTA from "@/components/pathways/final-cta.astro";
+import StudentStories from "@/components/pathways/student-stories.astro";
+import { ApplyButton } from "@/components/shared/apply-button";
+import AppLayout from "@/layouts/app-layout.astro";
+---
+
+<AppLayout>
+  <main class="text-foreground">
+    <!-- Hero Section -->
+    <section class="bg-accent">
+      <div class="mx-auto max-w-6xl px-6 py-20 md:px-12 lg:py-28">
+        <div class="max-w-3xl">
+          <p
+            class="text-brand-green mb-4 text-sm font-semibold tracking-widest uppercase"
+          >
+            For High School Students
+          </p>
+          <h1
+            class="text-foreground text-4xl leading-[1.1] font-semibold tracking-tight md:text-5xl lg:text-6xl"
+          >
+            Ámaxa Cohorts
+          </h1>
+
+          <!-- Wavy accent line -->
+          <svg
+            viewBox="0 0 200 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="mt-4 h-4 w-36 md:w-44"
+          >
+            <path
+              d="M2 12C2 12 22 2 42 12C62 22 82 2 102 12C122 22 142 12 162 12C182 12 198 12 198 12"
+              stroke="#BCD96C"
+              stroke-width="4"
+              stroke-linecap="round"
+              fill="none"></path>
+          </svg>
+
+          <p class="text-foreground/80 mt-8 max-w-2xl text-lg leading-relaxed">
+            We believe high school students are capable of effecting change at a
+            large scale. Join a global community making real impact.
+          </p>
+
+          <div class="mt-10">
+            <ApplyButton variant="color">Apply Today</ApplyButton>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
+          <div class="border-border bg-card rounded-xl border p-6">
+            <p class="text-brand-green text-3xl font-bold">100%</p>
+            <p class="text-foreground mt-1 font-medium">Remote</p>
+            <p class="text-muted-foreground mt-1 text-sm">
+              Accessible from anywhere in the world
+            </p>
+          </div>
+
+          <div class="border-border bg-card rounded-xl border p-6">
+            <p class="text-brand-green text-3xl font-bold">48+</p>
+            <p class="text-foreground mt-1 font-medium">Countries</p>
+            <p class="text-muted-foreground mt-1 text-sm">
+              Students joining from around the globe
+            </p>
+          </div>
+
+          <div class="border-border bg-card rounded-xl border p-6">
+            <p class="text-brand-green text-3xl font-bold">240+</p>
+            <p class="text-foreground mt-1 font-medium">Students</p>
+            <p class="text-muted-foreground mt-1 text-sm">
+              eadeady making an impact
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How Cohorts Work -->
+    <CohortTimeline client:load />
+
+    <StudentStories />
+    <!-- FAQ Section -->
+    <section class="bg-accent">
+      <div class="mx-auto max-w-6xl px-6 py-20 md:px-12 lg:py-28">
+        <h2
+          class="text-foreground mb-12 text-2xl font-semibold tracking-tight md:mb-16 md:text-3xl"
+        >
+          Frequently Asked Questions
+        </h2>
+
+        <div class="space-y-8">
+          <div class="grid gap-4 md:grid-cols-3 md:gap-8">
+            <div>
+              <h3 class="text-foreground text-lg font-semibold">
+                What are cohorts?
+              </h3>
+            </div>
+            <div class="md:col-span-2">
+              <p class="text-muted-foreground leading-relaxed">
+                Through our 3-month remote program, you work in a team of peers,
+                guided by a coach, to effect measurable change through one of
+                our 9 partner nonprofits or original initiatives.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-border border-t"></div>
+
+          <div class="grid gap-4 md:grid-cols-3 md:gap-8">
+            <div>
+              <h3 class="text-foreground text-lg font-semibold">
+                Who can join?
+              </h3>
+            </div>
+            <div class="md:col-span-2">
+              <p class="text-muted-foreground leading-relaxed">
+                High school students aged 14-18, from anywhere in the world.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-border border-t"></div>
+
+          <div class="grid gap-4 md:grid-cols-3 md:gap-8">
+            <div>
+              <h3 class="text-foreground text-lg font-semibold">
+                Is there a cost?
+              </h3>
+            </div>
+            <div class="md:col-span-2">
+              <p class="text-muted-foreground leading-relaxed">
+                Members pay an annual fee of $150. We provide full and partial
+                scholarships to anyone in need. After we receive funding, we
+                hope to lower or remove this fee.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-border border-t"></div>
+
+          <div class="grid gap-4 md:grid-cols-3 md:gap-8">
+            <div>
+              <h3 class="text-foreground text-lg font-semibold">
+                What's the time commitment?
+              </h3>
+            </div>
+            <div class="md:col-span-2">
+              <p class="text-muted-foreground leading-relaxed">
+                Cohorts meet remotely for about one hour each week for 3 months.
+                You'll also spend time working on your project between meetings.
+                Total commitment is 3-5 hours per week, flexible to your
+                schedule.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Brochure -->
+    <DownloadBrochure client:load />
+
+    <FinalCTA />
+  </main>
+</AppLayout>

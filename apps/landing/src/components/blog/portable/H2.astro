@@ -1,0 +1,23 @@
+---
+import type { Block, Props as $ } from "astro-portabletext/types";
+
+type Props = $<Block>;
+
+const { node } = Astro.props;
+
+const createId = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const text = node.children?.map((c) => c.text).join("") ?? "";
+const id = createId(text);
+---
+
+<h2
+  id={id}
+  class="text-foreground mt-10 mb-6 scroll-mt-24 text-3xl font-semibold"
+>
+  <slot />
+</h2>

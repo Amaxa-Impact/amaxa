@@ -1,0 +1,93 @@
+---
+/**
+ * Ámaxa Research - Undergraduate & postgrad student pathway
+ *
+ * For intellectually curious undergraduates and Masters/PhD students
+ * who want to refine research skills or utilize research skills
+ * for tangible social change.
+ */
+
+import { AnimatedTitle } from "@/components/custom-animations";
+import FinalCTA from "@/components/pathways/final-cta.astro";
+import StudentStories from "@/components/pathways/student-stories.astro";
+import WhatMakesUsDifferent from "@/components/pathways/what-makes-us-different.astro";
+import { ApplyButton } from "@/components/shared/apply-button";
+import AppLayout from "@/layouts/app-layout.astro";
+---
+
+<AppLayout>
+  <main class="text-foreground">
+    <!-- Hero Section -->
+    <section class="bg-accent">
+      <div class="mx-auto max-w-6xl px-6 py-20 md:px-12 lg:py-18">
+        <div class="flex max-w-3xl flex-col items-start">
+          <p
+            class="text-brand-green mb-4 text-sm font-semibold tracking-widest uppercase"
+          >
+            For Undergrad & Postgrad Students
+          </p>
+          <AnimatedTitle
+            beforeText="Ámaxa "
+            underlinedText="Research"
+            className="text-foreground text-4xl font-semibold md:text-5xl lg:text-6xl"
+            client:load
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="bg-background">
+      <div class="mx-auto max-w-6xl px-6 py-10 md:px-12 lg:py-18">
+        <div class="w-full space-y-6">
+          <h2
+            class="text-foreground text-2xl leading-snug font-semibold tracking-tight md:text-3xl"
+          >
+            We are launching a new pathway to build a grassroots research
+            capacity that will support and amplify work of our partner
+            nonprofits.
+          </h2>
+
+          <p class="text-muted-foreground leading-relaxed">
+            This pathway is designed for intellectually curious undergraduate
+            students eager to finetune their research skills and for Masters or
+            PhD students who are eager to utilise their research skills to
+            effect tangible social change.
+          </p>
+
+          <p class="text-muted-foreground leading-relaxed">
+            Our mission is to conduct, write, and publish original research on
+            questions critical to work of our partner nonprofits and
+            initiatives. Short-term objectives are to identify gaps in research
+            pertaining to our 9 projects and their related topics and conduct
+            research over 3-6 months. At a minimum, your work will be published
+            on the ámaxa site, as we aim for our site to grow as a resource for
+            robust non-academic research. However, we have already begun work to
+            partner with academics who can offer mentorship in publishing ámaxa
+            research pieces on think tanks, media outlets, and peer-reviewed
+            journals. A long-term objective of this pathway is to conduct field
+            research at sites of our partners in Uganda, Liberia,
+            Poland/Ukraine, and Palestine.
+          </p>
+
+          <p class="text-muted-foreground leading-relaxed">
+            As this is a new pathway, we will accept applications on a rolling
+            basis and reach out to applicants if we believe it will be a good
+            fit.
+          </p>
+
+          <div class="pt-4">
+            <ApplyButton variant="color">Apply Today</ApplyButton>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Makes Us Different -->
+    <WhatMakesUsDifferent />
+
+    <StudentStories />
+
+    <FinalCTA />
+  </main>
+</AppLayout>

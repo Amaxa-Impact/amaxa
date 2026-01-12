@@ -5,7 +5,8 @@
   "exports": {
     "./base": "./base.ts",
     "./nextjs": "./nextjs.ts",
-    "./react": "./react.ts"
+    "./react": "./react.ts",
+    "./astro": "./astro.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo node_modules",
@@ -16,6 +17,7 @@
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "catalog:",
     "@next/eslint-plugin-next": "^16.0.0",
+    "eslint-plugin-astro": "^1.5.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",

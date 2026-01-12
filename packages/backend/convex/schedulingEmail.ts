@@ -3,6 +3,7 @@
 import { Resend } from "@convex-dev/resend";
 import { render } from "@react-email/render";
 import { v } from "convex/values";
+
 import { components, internal } from "./_generated/api";
 import { action } from "./_generated/server";
 import { RejectionEmail } from "./emails/RejectionEmail";
@@ -31,12 +32,12 @@ export const sendSchedulingEmail = action({
           applicantName: args.applicantName,
           formTitle: args.formTitle,
           schedulingUrl: args.schedulingUrl,
-        })
+        }),
       );
 
       await resend.sendEmail(ctx, {
         from:
-          process.env.RESEND_FROM_EMAIL ||
+          process.env.RESEND_FROM_EMAIL ??
           "Amaxa <noreply@updates.amaxaimpact.org>",
         to: args.to,
         subject: `Schedule your interview for ${args.formTitle}`,
@@ -74,7 +75,7 @@ export const sendRejectionEmail = action({
         RejectionEmail({
           applicantName: args.applicantName,
           formTitle: args.formTitle,
-        })
+        }),
       );
 
       await resend.sendEmail(ctx, {

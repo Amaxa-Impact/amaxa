@@ -1,0 +1,20 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+import { urlFor } from "@/lib/sanity";
+
+interface ImageValue {
+  _type: "image";
+  asset: { _ref: string };
+  alt?: string;
+}
+
+type Props = $<ImageValue>;
+
+const { node } = Astro.props;
+const src = urlFor(node.asset).width(1200).url();
+const alt = node.alt ?? "Image";
+---
+
+<div class="my-8">
+  <img src={src} alt={alt} class="w-full rounded-xl object-cover shadow-md" />
+</div>

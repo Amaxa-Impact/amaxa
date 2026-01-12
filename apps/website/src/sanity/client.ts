@@ -17,8 +17,6 @@ interface FetchArgs<QueryString extends string> {
   tags?: string[];
 }
 
-// Helper that mirrors the official next-sanity pattern so we can attach
-// Next.js caching metadata in a single place.
 export async function sanityFetch<
   QueryResult = unknown,
   const QueryString extends string = string,
