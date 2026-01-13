@@ -11,6 +11,9 @@ import { api } from "@amaxa/backend/_generated/api";
 export default function FormEditorClient() {
   const { formId } = useParams<{ formId: Id<"applicationForms"> }>();
   const fields = useQuery(api.applicationFormFields.listByFormId, { formId });
+  const sections = useQuery(api.applicationFormSections.listByFormId, {
+    formId,
+  });
   const form = useApplicationForm();
 
   return (
@@ -19,7 +22,7 @@ export default function FormEditorClient() {
         <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
           <FormHeader form={form} formId={formId} />
 
-          <FormBuilder fields={fields} formId={formId} />
+          <FormBuilder fields={fields} formId={formId} sections={sections} />
         </div>
       </main>
     </div>

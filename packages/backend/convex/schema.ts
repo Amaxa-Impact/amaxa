@@ -104,8 +104,29 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_published", ["isPublished"]),
 
+  applicationFormSections: defineTable({
+    formId: v.id("applicationForms"),
+    title: v.string(),
+    description: v.optional(v.string()),
+    order: v.number(),
+    condition: v.optional(
+      v.object({
+        sourceFieldId: v.id("applicationFormFields"),
+        operator: v.union(
+          v.literal("equals"),
+          v.literal("notEquals"),
+          v.literal("contains")
+        ),
+        value: v.union(v.string(), v.array(v.string())),
+      })
+    ),
+  })
+    .index("by_form", ["formId"])
+    .index("by_form_and_order", ["formId", "order"]),
+
   applicationFormFields: defineTable({
     formId: v.id("applicationForms"),
+    sectionId: v.optional(v.id("applicationFormSections")),
     label: v.string(),
     description: v.optional(v.string()),
     type: v.union(
@@ -113,16 +134,36 @@ export default defineSchema({
       v.literal("textarea"),
       v.literal("number"),
       v.literal("select"),
-      v.literal("multiselect")
+      v.literal("multiselect"),
+      v.literal("file")
     ),
     required: v.boolean(),
     order: v.number(),
     options: v.optional(v.array(v.string())),
     min: v.optional(v.number()),
     max: v.optional(v.number()),
+    fileConfig: v.optional(
+      v.object({
+        maxSizeBytes: v.number(),
+        allowedMimeTypes: v.array(v.string()),
+        maxFiles: v.optional(v.number()),
+      })
+    ),
+    condition: v.optional(
+      v.object({
+        sourceFieldId: v.id("applicationFormFields"),
+        operator: v.union(
+          v.literal("equals"),
+          v.literal("notEquals"),
+          v.literal("contains")
+        ),
+        value: v.union(v.string(), v.array(v.string())),
+      })
+    ),
   })
     .index("by_form", ["formId"])
-    .index("by_form_and_order", ["formId", "order"]),
+    .index("by_form_and_order", ["formId", "order"])
+    .index("by_section", ["sectionId"]),
 
   applicationResponses: defineTable({
     formId: v.id("applicationForms"),
@@ -143,8 +184,34 @@ export default defineSchema({
   applicationFieldResponses: defineTable({
     responseId: v.id("applicationResponses"),
     fieldId: v.id("applicationFormFields"),
-    value: v.union(v.string(), v.array(v.string())),
+    value: v.union(
+      v.string(),
+      v.array(v.string()),
+      v.object({
+        type: v.literal("file"),
+        files: v.array(
+          v.object({
+            s3Key: v.string(),
+            filename: v.string(),
+            contentType: v.string(),
+            sizeBytes: v.number(),
+          })
+        ),
+      })
+    ),
   }).index("by_response", ["responseId"]),
+
+  applicationFileUploads: defineTable({
+    s3Key: v.string(),
+    filename: v.string(),
+    contentType: v.string(),
+    sizeBytes: v.number(),
+    uploadedAt: v.number(),
+    uploadToken: v.string(),
+    expiresAt: v.number(),
+  })
+    .index("by_s3Key", ["s3Key"])
+    .index("by_uploadToken", ["uploadToken"]),
 
   interviewTimeSlots: defineTable({
     formId: v.id("applicationForms"),

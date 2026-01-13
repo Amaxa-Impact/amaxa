@@ -1,0 +1,17 @@
+{
+  "CORSRules": [
+    {
+      "AllowedOrigins": [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://localhost:3000",
+        "https://www.amaxaimpact.org",
+        "https://app.amaxaimpact.org"
+      ],
+      "AllowedMethods": ["GET", "PUT", "POST", "HEAD", "OPTIONS"],
+      "AllowedHeaders": ["*"],
+      "ExposeHeaders": ["ETag", "Content-Length"],
+      "MaxAgeSeconds": 3000
+    }
+  ]
+}

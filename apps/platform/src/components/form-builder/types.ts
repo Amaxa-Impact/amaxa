@@ -3,7 +3,7 @@ import { type } from "arktype";
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 
 export const fieldTypeSchema = type(
-  "'text' | 'textarea' | 'number' | 'select' | 'multiselect'",
+  "'text' | 'textarea' | 'number' | 'select' | 'multiselect' | 'file'",
 );
 
 export const inputSchema = type({
@@ -16,6 +16,7 @@ export const FIELD_TYPES = [
   "number",
   "select",
   "multiselect",
+  "file",
 ] as const;
 export type FieldType = (typeof FIELD_TYPES)[number];
 
@@ -25,6 +26,7 @@ export const fieldTypeLabels: Record<FieldType, string> = {
   number: "Number",
   select: "Dropdown",
   multiselect: "Checkboxes",
+  file: "File Upload",
 };
 
 export const fieldTypeIcons: Record<FieldType, string> = {
@@ -33,11 +35,36 @@ export const fieldTypeIcons: Record<FieldType, string> = {
   number: "hash",
   select: "circle-dot",
   multiselect: "square-check",
+  file: "upload",
 };
+
+export interface FileConfig {
+  maxSizeBytes: number;
+  allowedMimeTypes: string[];
+  maxFiles?: number;
+}
+
+export type ConditionOperator = "equals" | "notEquals" | "contains";
+
+export interface FieldCondition {
+  sourceFieldId: Id<"applicationFormFields">;
+  operator: ConditionOperator;
+  value: string | string[];
+}
+
+export interface FormSection {
+  _id: Id<"applicationFormSections">;
+  formId: Id<"applicationForms">;
+  title: string;
+  description?: string;
+  order: number;
+  condition?: FieldCondition;
+}
 
 export interface FormField {
   _id: Id<"applicationFormFields">;
   formId: Id<"applicationForms">;
+  sectionId?: Id<"applicationFormSections">;
   label: string;
   description?: string;
   type: FieldType;
@@ -46,6 +73,8 @@ export interface FormField {
   options?: string[];
   min?: number;
   max?: number;
+  fileConfig?: FileConfig;
+  condition?: FieldCondition;
 }
 
 export interface FormData {
@@ -65,6 +94,11 @@ export const questionFormSchema = type({
   options: "string[]?",
   min: "number?",
   max: "number?",
+  fileConfig: type({
+    maxSizeBytes: "number",
+    allowedMimeTypes: "string[]",
+    maxFiles: "number?",
+  }).optional(),
 });
 
 export type QuestionFormValues = typeof questionFormSchema.infer;
@@ -73,4 +107,47 @@ export type QuestionFormValues = typeof questionFormSchema.infer;
 export interface FieldTypeInferenceResult {
   fieldType: FieldType;
   reasoning: string;
+  suggestedOptions?: string[];
 }
+
+// Default file config values
+export const DEFAULT_FILE_CONFIG: FileConfig = {
+  maxSizeBytes: 5 * 1024 * 1024, // 5 MB
+  allowedMimeTypes: [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ],
+  maxFiles: 1,
+};
+
+// Mime type presets for file config editor
+export const MIME_TYPE_PRESETS = {
+  images: ["image/jpeg", "image/png", "image/gif", "image/webp"],
+  documents: [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ],
+  all: [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ],
+} as const;
+
+// File size presets in bytes
+export const FILE_SIZE_PRESETS = {
+  "1 MB": 1 * 1024 * 1024,
+  "5 MB": 5 * 1024 * 1024,
+  "10 MB": 10 * 1024 * 1024,
+  "25 MB": 25 * 1024 * 1024,
+} as const;

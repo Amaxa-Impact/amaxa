@@ -1,12 +1,15 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { IconCheck, IconLoader2, IconSend } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-store";
+import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
+import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
 import { Button } from "@amaxa/ui/button";
 import {
@@ -19,10 +22,19 @@ import {
 import { Input } from "@amaxa/ui/input";
 import { Label } from "@amaxa/ui/label";
 
+import {
+  evaluateCondition,
+  createFieldIdMap,
+  type Condition,
+  type FormValues,
+} from "@/lib/condition-evaluator";
+
 import type {
   ApplicationForm,
   ApplicationFormField,
+  ApplicationFormSection,
   FieldResponse,
+  FileUploadValue,
 } from "./types";
 import { FormFieldRenderer } from "./form-field-renderer";
 import { validateFieldValue } from "./validation";
@@ -30,27 +42,72 @@ import { validateFieldValue } from "./validation";
 interface ApplyFormProps {
   form: ApplicationForm;
   fields: ApplicationFormField[];
+  sections?: ApplicationFormSection[];
+  slug: string;
 }
 
-export function ApplyForm({ form, fields }: ApplyFormProps) {
+export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { user } = useAuth();
   const submitApplication = useMutation(api.applicationResponses.submit);
+
+  // Create field ID to form key mapping for condition evaluation
+  const fieldIdMap = useMemo(() => {
+    const map: Record<Id<"applicationFormFields">, string> = {} as Record<
+      Id<"applicationFormFields">,
+      string
+    >;
+    fields.forEach((field) => {
+      map[field._id] = field._id;
+    });
+    return map;
+  }, [fields]);
+
+  const getDefaultValue = (field: ApplicationFormField) => {
+    if (field.type === "multiselect") return [];
+    if (field.type === "file") return undefined;
+    return "";
+  };
 
   const tanstackForm = useForm({
     defaultValues: {
-      applicantName: "",
-      applicantEmail: "",
+      applicantName: `${user?.firstName} ${user?.lastName}`,
+      applicantEmail: `${user?.email}`,
       ...Object.fromEntries(
-        fields.map((field) => [
-          field._id,
-          field.type === "multiselect" ? [] : "",
-        ]),
+        fields.map((field) => [field._id, getDefaultValue(field)])
       ),
     },
     onSubmit: async ({ value }) => {
-      const fieldResponses: FieldResponse[] = fields.map((field) => ({
+      // Get visible fields only (skip hidden fields)
+      const visibleFields = fields.filter((field) => {
+        // Check if field's section is visible
+        if (field.sectionId && sections) {
+          const section = sections.find((s) => s._id === field.sectionId);
+          if (
+            section?.condition &&
+            !evaluateCondition(
+              section.condition as Condition,
+              value as FormValues,
+              fieldIdMap
+            )
+          ) {
+            return false;
+          }
+        }
+        // Check if field itself is visible
+        if (field.condition) {
+          return evaluateCondition(
+            field.condition as Condition,
+            value as FormValues,
+            fieldIdMap
+          );
+        }
+        return true;
+      });
+
+      const fieldResponses: FieldResponse[] = visibleFields.map((field) => ({
         fieldId: field._id,
-        value: value[field._id] as string | string[],
+        value: value[field._id] as string | string[] | FileUploadValue,
       }));
 
       try {
@@ -67,11 +124,75 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
         toast.error(
           error instanceof Error
             ? error.message
-            : "Failed to submit application",
+            : "Failed to submit application"
         );
       }
     },
   });
+
+  // Compute visibility for sections and fields based on current form values
+  const formValues = useStore(tanstackForm.store, (state) => state.values);
+
+  const isFieldVisible = (field: ApplicationFormField): boolean => {
+    // Check if field's section is visible
+    if (field.sectionId && sections) {
+      const section = sections.find((s) => s._id === field.sectionId);
+      if (
+        section?.condition &&
+        !evaluateCondition(
+          section.condition as Condition,
+          formValues as FormValues,
+          fieldIdMap
+        )
+      ) {
+        return false;
+      }
+    }
+    // Check if field itself is visible
+    if (field.condition) {
+      return evaluateCondition(
+        field.condition as Condition,
+        formValues as FormValues,
+        fieldIdMap
+      );
+    }
+    return true;
+  };
+
+  const isSectionVisible = (section: ApplicationFormSection): boolean => {
+    if (!section.condition) return true;
+    return evaluateCondition(
+      section.condition as Condition,
+      formValues as FormValues,
+      fieldIdMap
+    );
+  };
+
+  // Group fields by section
+  const fieldsBySection = useMemo(() => {
+    const grouped: Record<
+      Id<"applicationFormSections"> | "unsectioned",
+      ApplicationFormField[]
+    > = {
+      unsectioned: [],
+    };
+
+    sections?.forEach((s) => {
+      grouped[s._id] = [];
+    });
+
+    fields.forEach((field) => {
+      if (field.sectionId && grouped[field.sectionId]) {
+        grouped[field.sectionId].push(field);
+      } else {
+        grouped.unsectioned.push(field);
+      }
+    });
+
+    return grouped;
+  }, [fields, sections]);
+
+  const hasSections = sections && sections.length > 0;
 
   if (isSubmitted) {
     return (
@@ -89,6 +210,59 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
       </Card>
     );
   }
+
+  const renderField = (formField: ApplicationFormField) => {
+    const visible = isFieldVisible(formField);
+
+    if (!visible) return null;
+
+    return (
+      <tanstackForm.Field
+        children={(field) => (
+          <FormFieldRenderer
+            field={field}
+            formField={formField}
+            formSlug={slug}
+          />
+        )}
+        key={formField._id}
+        name={formField._id}
+        validators={{
+          onChange: ({ value }) => {
+            // Skip validation for hidden fields
+            if (!isFieldVisible(formField)) return undefined;
+            return validateFieldValue(
+              formField,
+              value as string | string[] | FileUploadValue | undefined
+            );
+          },
+        }}
+      />
+    );
+  };
+
+  const renderSection = (section: ApplicationFormSection) => {
+    if (!isSectionVisible(section)) return null;
+
+    const sectionFields = fieldsBySection[section._id] ?? [];
+    if (sectionFields.length === 0) return null;
+
+    return (
+      <div key={section._id} className="space-y-6">
+        <div className="border-b pb-2">
+          <h3 className="text-base font-semibold">{section.title}</h3>
+          {section.description && (
+            <p className="text-muted-foreground text-sm">
+              {section.description}
+            </p>
+          )}
+        </div>
+        <div className="space-y-6">
+          {sectionFields.map((formField) => renderField(formField))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Card className="mx-auto max-w-2xl">
@@ -192,24 +366,33 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
 
           {/* Dynamic Form Fields */}
           {fields.length > 0 && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <h3 className="text-muted-foreground text-sm font-medium">
                 Application Questions
               </h3>
 
-              {fields.map((formField) => (
-                <tanstackForm.Field
-                  children={(field) => (
-                    <FormFieldRenderer field={field} formField={formField} />
+              {/* Render sections if they exist */}
+              {hasSections && (
+                <div className="space-y-8">
+                  {sections.map((section) => renderSection(section))}
+                </div>
+              )}
+
+              {/* Render unsectioned fields */}
+              {fieldsBySection.unsectioned.length > 0 && (
+                <div className="space-y-6">
+                  {fieldsBySection.unsectioned.map((formField) =>
+                    renderField(formField)
                   )}
-                  key={formField._id}
-                  name={formField._id}
-                  validators={{
-                    onChange: ({ value }) =>
-                      validateFieldValue(formField, value as string | string[]),
-                  }}
-                />
-              ))}
+                </div>
+              )}
+
+              {/* Fallback for forms without sections */}
+              {!hasSections && fieldsBySection.unsectioned.length === 0 && (
+                <div className="space-y-6">
+                  {fields.map((formField) => renderField(formField))}
+                </div>
+              )}
             </div>
           )}
 

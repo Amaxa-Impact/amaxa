@@ -56,6 +56,7 @@ export function useFieldTypeInference(
             const result: FieldTypeInferenceResult = {
               fieldType: data.fieldType as FieldType,
               reasoning: data.reasoning ?? "",
+              suggestedOptions: data.suggestedOptions as string[] | undefined,
             };
 
             setLastResult(result);

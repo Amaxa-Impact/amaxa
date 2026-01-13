@@ -9,6 +9,7 @@
  */
 
 import type * as applicationFormFields from "../applicationFormFields.js";
+import type * as applicationFormSections from "../applicationFormSections.js";
 import type * as applicationForms from "../applicationForms.js";
 import type * as applicationResponses from "../applicationResponses.js";
 import type * as auth from "../auth.js";
@@ -16,6 +17,7 @@ import type * as dashboard from "../dashboard.js";
 import type * as edges from "../edges.js";
 import type * as emails_RejectionEmail from "../emails/RejectionEmail.js";
 import type * as emails_SchedulingEmail from "../emails/SchedulingEmail.js";
+import type * as fileUpload from "../fileUpload.js";
 import type * as graph from "../graph.js";
 import type * as interviewTimeSlots from "../interviewTimeSlots.js";
 import type * as migrations from "../migrations.js";
@@ -37,6 +39,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   applicationFormFields: typeof applicationFormFields;
+  applicationFormSections: typeof applicationFormSections;
   applicationForms: typeof applicationForms;
   applicationResponses: typeof applicationResponses;
   auth: typeof auth;
@@ -44,6 +47,7 @@ declare const fullApi: ApiFromModules<{
   edges: typeof edges;
   "emails/RejectionEmail": typeof emails_RejectionEmail;
   "emails/SchedulingEmail": typeof emails_SchedulingEmail;
+  fileUpload: typeof fileUpload;
   graph: typeof graph;
   interviewTimeSlots: typeof interviewTimeSlots;
   migrations: typeof migrations;

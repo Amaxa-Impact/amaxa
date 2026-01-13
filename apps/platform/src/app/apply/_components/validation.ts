@@ -22,18 +22,34 @@ export function createFieldValidator(field: ApplicationFormField) {
     }
 
     case "number": {
-      let schemaString = type("number");
-      if (field.min !== undefined)
-        schemaString = type(`number >= ${field.min}`);
-      if (field.max !== undefined)
-        schemaString = type(`number <= ${field.max}`);
+      // HTML inputs return strings, so we need to parse them
+      const parseNumber = type("string | number").pipe((val) => {
+        if (typeof val === "number") return val;
+        if (val === "" || val === undefined) return undefined;
+        const parsed = Number(val);
+        if (Number.isNaN(parsed)) return undefined;
+        return parsed;
+      });
 
-      const schema = type(schemaString);
-      validator = field.required
-        ? schema
-        : schema
-            .or("undefined|''")
-            .pipe((val) => (val === "" ? undefined : val));
+      let numberValidator = type("number");
+      if (field.min !== undefined) {
+        numberValidator = type(`number >= ${field.min}`);
+      }
+      if (field.max !== undefined) {
+        numberValidator = type(`number <= ${field.max}`);
+      }
+
+      if (field.required) {
+        validator = parseNumber.pipe((val) => {
+          if (val === undefined) return type.errors.from("This field is required");
+          return numberValidator(val);
+        });
+      } else {
+        validator = parseNumber.pipe((val) => {
+          if (val === undefined) return val;
+          return numberValidator(val);
+        });
+      }
       break;
     }
 
@@ -53,6 +69,28 @@ export function createFieldValidator(field: ApplicationFormField) {
         schema = type("string[] >= 1");
       }
       validator = schema;
+      break;
+    }
+
+    case "file": {
+      // File validation: check if files array exists and has items if required
+      const fileSchema = type({
+        type: "'file'",
+        files: type({
+          s3Key: "string",
+          filename: "string",
+          contentType: "string",
+          sizeBytes: "number",
+        }).array(),
+      });
+
+      if (field.required) {
+        // Required: must have at least one file
+        validator = fileSchema.narrow((val) => val.files.length > 0);
+      } else {
+        // Optional: can be undefined or have files
+        validator = fileSchema.or("undefined");
+      }
       break;
     }
 

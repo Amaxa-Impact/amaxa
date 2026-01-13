@@ -10,6 +10,7 @@ export const astroConfig = defineConfig([
     languageOptions: {
       parserOptions: {
         parser: tsParser,
+        project: null,
         extraFileExtensions: [".astro"],
         sourceType: "module",
       },

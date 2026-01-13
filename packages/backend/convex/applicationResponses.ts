@@ -10,6 +10,24 @@ const statusValidator = v.union(
   v.literal("rejected")
 );
 
+const fileValueValidator = v.object({
+  type: v.literal("file"),
+  files: v.array(
+    v.object({
+      s3Key: v.string(),
+      filename: v.string(),
+      contentType: v.string(),
+      sizeBytes: v.number(),
+    })
+  ),
+});
+
+const fieldResponseValueValidator = v.union(
+  v.string(),
+  v.array(v.string()),
+  fileValueValidator
+);
+
 export const submit = mutation({
   args: {
     formId: v.id("applicationForms"),
@@ -18,7 +36,7 @@ export const submit = mutation({
     fieldResponses: v.array(
       v.object({
         fieldId: v.id("applicationFormFields"),
-        value: v.union(v.string(), v.array(v.string())),
+        value: fieldResponseValueValidator,
       })
     ),
   },
@@ -129,7 +147,7 @@ export const get = query({
           fieldId: v.id("applicationFormFields"),
           fieldLabel: v.string(),
           fieldType: v.string(),
-          value: v.union(v.string(), v.array(v.string())),
+          value: fieldResponseValueValidator,
         })
       ),
     }),

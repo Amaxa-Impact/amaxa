@@ -19,8 +19,11 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
   const fields = useQuery(api.applicationFormFields.listByForm, {
     slug: formId,
   });
+  const sections = useQuery(api.applicationFormSections.listByFormSlug, {
+    slug: formId,
+  });
 
-  if (form === undefined || fields === undefined) {
+  if (form === undefined || fields === undefined || sections === undefined) {
     return <ApplyFormSkeleton />;
   }
 
@@ -64,7 +67,12 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
   return (
     <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
-        <ApplyForm fields={fields} form={form} />
+        <ApplyForm
+          slug={form.slug}
+          fields={fields}
+          form={form}
+          sections={sections}
+        />
       </div>
     </div>
   );

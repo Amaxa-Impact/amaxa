@@ -17,6 +17,13 @@ export async function generateMetadata({
   const { formId } = await params;
   const { accessToken } = await withAuth();
 
+  if (!accessToken) {
+    return {
+      title: "Form Settings",
+      description: "Manage application form settings",
+    };
+  }
+
   try {
     const form = await fetchQuery(
       api.applicationForms.get,

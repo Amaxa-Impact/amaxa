@@ -8,6 +8,7 @@ export const env = createEnv({
     NODE_ENV: type.enumerated("development", "production", "test"),
   },
   server: {
+    BUCKET: type("string"),
     WORKOS_CLIENT_ID: type("string > 1"),
     WORKOS_API_KEY: type("string > 1"),
     WORKOS_COOKIE_PASSWORD: type("string > 1"),
@@ -15,6 +16,11 @@ export const env = createEnv({
     CONVEX_DEPLOYMENT: type("string | undefined"),
     RESEND_API_KEY: type("string"),
     GOOGLE_GENERATIVE_AI_API_KEY: type("string"),
+    RAILWAY_ENDPOINT_URL: type("string.url"),
+    RAILWAY_REGION: type("string"),
+    RAILWAY_BUCKET_NAME: type("string"),
+    RAILWAY_ACCESS_ID_KEY: type("string"),
+    RAILWAY_ACCESS_SECRET_KEY: type("string"),
     UPLOADTHING_TOKEN: type("string"),
   },
   client: {
@@ -38,6 +44,12 @@ export const env = createEnv({
     CONVEX_DEPLOYMENT: process.env.CONVEX_DEPLOYMENT,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+    RAILWAY_ENDPOINT_URL: process.env.RAILWAY_ENDPOINT_URL,
+    RAILWAY_REGION: process.env.RAILWAY_REGION,
+    RAILWAY_BUCKET_NAME: process.env.RAILWAY_BUCKET_NAME,
+    RAILWAY_ACCESS_ID_KEY: process.env.RAILWAY_ACCESS_ID_KEY,
+    RAILWAY_ACCESS_SECRET_KEY: process.env.RAILWAY_ACCESS_SECRET_KEY,
+    BUCKET: process.env.BUCKET,
   },
   skipValidation:
     !!process.env.CI || process.env.npm_lifecycle_event === "lint",

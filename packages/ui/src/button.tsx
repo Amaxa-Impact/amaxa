@@ -2,6 +2,7 @@
 
 import type { VariantProps } from "class-variance-authority";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import { IconLoader2 } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 
 import { cn } from "@amaxa/ui";
@@ -43,18 +44,34 @@ const buttonVariants = cva(
   },
 );
 
+type ButtonProps = ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & {
+    isLoading?: boolean;
+  };
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  isLoading = false,
+  children,
+  disabled,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
   return (
     <ButtonPrimitive
       data-slot="button"
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      disabled={disabled || isLoading}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {isLoading ? (
+        <IconLoader2 className="bg-foreground animate-spin" />
+      ) : (
+        children
+      )}
+    </ButtonPrimitive>
   );
 }
 
