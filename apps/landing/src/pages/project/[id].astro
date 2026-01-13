@@ -26,8 +26,23 @@ const project = projects.find((project: ProjectData) => project.id === id);
 if (!project) {
   throw new Error("ProjectDetail: can not find id or project");
 }
+
+// SEO: Generate page-specific metadata from project data
+const seoTitle = project.solutionSubtitle;
+const seoDescription = project.solutionParagraphs[0].slice(0, 160);
+const seoImage = project.imageSrc;
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: seoTitle,
+    description: seoDescription,
+    image: seoImage,
+    type: "website",
+    canonicalURL: `https://www.amaxaimpact.org/project/${id}`,
+    keywords: ["amaxa", "project", project.solutionSubtitle],
+    noIndex: false,
+  }}
+>
   <ProjectDetail client:load project={project} />
 </AppLayout>

@@ -1,6 +1,7 @@
 ---
 import Posthog from "@/components/posthog.astro";
 import SEO from "@/components/seo.astro";
+import JsonLd from "@/components/json-ld.astro";
 
 import "../styles/global.css";
 
@@ -10,14 +11,29 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  articleSchema?: Record<string, unknown>;
+  breadcrumbSchema?: Record<string, unknown>;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image, articleSchema, breadcrumbSchema } =
+  Astro.props;
+
+// Organization schema (included on all blog pages)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "amaxa",
+  url: "https://www.amaxaimpact.org",
+  logo: "https://www.amaxaimpact.org/icon.png",
+};
 ---
 
 <html lang="en">
   <head>
-    <SEO title={title} description={description} type="article" />
+    <SEO title={title} description={description} image={image} type="article" />
+    <JsonLd data={organizationSchema} />
+    {articleSchema && <JsonLd data={articleSchema} />}
+    {breadcrumbSchema && <JsonLd data={breadcrumbSchema} />}
     <Posthog />
   </head>
   <body class="bg-background min-h-screen">

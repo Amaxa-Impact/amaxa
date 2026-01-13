@@ -7,6 +7,7 @@
  */
 
 import AppLayout from "@/layouts/app-layout.astro";
+import JsonLd from "@/components/json-ld.astro";
 import { sanityFetch } from "@/lib/sanity";
 import { PortableText } from "astro-portabletext";
 import { ArrowLeft, MapPin, Clock, Briefcase } from "lucide-react";
@@ -79,9 +80,56 @@ const formatDate = (date: string) =>
     day: "numeric",
     year: "numeric",
   });
+
+// SEO: Generate page-specific metadata from job data
+const seoTitle = job.title;
+const seoDescription = `Join amaxa as ${job.title} - ${job.type} position in ${job.location}. ${job.department} department.`;
+
+// Map job.type to Schema.org employmentType values
+const employmentTypeMap: Record<string, string> = {
+  "Full-time": "FULL_TIME",
+  "Part-time": "PART_TIME",
+  Internship: "INTERN",
+  Contract: "CONTRACTOR",
+  Volunteer: "VOLUNTEER",
+};
+
+// JobPosting structured data for careers pages
+const jobPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  title: job.title,
+  description: seoDescription,
+  datePosted: job.publishedAt,
+  employmentType: employmentTypeMap[job.type] || "OTHER",
+  jobLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: job.location,
+    },
+  },
+  hiringOrganization: {
+    "@type": "Organization",
+    name: "amaxa",
+    sameAs: "https://www.amaxaimpact.org",
+    logo: "https://www.amaxaimpact.org/icon.png",
+  },
+};
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: seoTitle,
+    description: seoDescription,
+    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    type: "website",
+    canonicalURL: `https://www.amaxaimpact.org/careers/${slug}`,
+    keywords: ["amaxa", "careers", job.title, job.department],
+    noIndex: false,
+  }}
+>
+  <JsonLd data={jobPostingSchema} />
   <main>
     <!-- Back Link -->
     <section class="w-full bg-white px-6 pt-8">

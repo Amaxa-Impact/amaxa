@@ -16,7 +16,17 @@ const seoDescription =
   "Explore ámaxa's high-impact projects. We partner with innovative nonprofits in Palestine, Liberia, and Uganda, and create our own initiatives for mental health, feminism, and LGBTQ+ representation.";
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: seoTitle,
+    description: seoDescription,
+    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    type: "website",
+    canonicalURL: "https://www.amaxaimpact.org/project",
+    keywords: ["amaxa", "projects", "nonprofits", "Palestine", "Liberia", "Uganda"],
+    noIndex: false,
+  }}
+>
   <main>
     <section class="bg-background w-full px-6 pt-16 md:pt-24">
       <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">

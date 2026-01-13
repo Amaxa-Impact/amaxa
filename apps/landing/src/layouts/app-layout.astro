@@ -1,46 +1,62 @@
 ---
-import { Suspense } from "react";
 import Navbar from "@/components/navbar/index.astro";
 
+import JsonLd from "../components/json-ld.astro";
 import PostHog from "../components/posthog.astro";
 import SEO from "../components/seo.astro";
 
 import "@/styles/global.css";
 
+import type { SeoProps } from "@/lib/seo";
 import { Footer } from "@/components/shared/footer";
 
+// Organization structured data for all pages
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "amaxa",
+  url: "https://www.amaxaimpact.org",
+  logo: "https://www.amaxaimpact.org/icon.png",
+  description:
+    "An organization dedicated to removing barriers for anyone who wants to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education.",
+  sameAs: [
+    "https://twitter.com/amaxaimpact",
+    "https://www.instagram.com/amaxaimpact/",
+    "https://www.linkedin.com/company/amaxaimpact/",
+  ],
+};
+
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  type?: "website" | "article";
-  canonicalURL?: string;
-  keywords?: string[];
-  noIndex?: boolean;
+  seo?: SeoProps;
 }
 
-const {
-  title = "amaxa",
-  description,
-  image,
-  type = "website",
-  canonicalURL,
-  keywords,
-  noIndex = false,
-} = Astro.props;
+const homePage: SeoProps = {
+  title: "Ámaxa",
+  description:
+    "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.",
+  image:
+    "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+  type: "website",
+  canonicalURL: organizationSchema.url,
+  keywords: ["amaxa", "impact"],
+  noIndex: false,
+};
+
+const { seo } = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <SEO
-      title={title}
-      description={description}
-      image={image}
-      type={type}
-      canonicalURL={canonicalURL}
-      keywords={keywords}
-      noIndex={noIndex}
+      title={seo?.title ?? homePage.title}
+      description={seo?.description ?? homePage.description}
+      image={seo?.image ?? homePage.image}
+      type={seo?.type ?? homePage.type}
+      canonicalURL={seo?.canonicalURL ?? homePage.canonicalURL}
+      keywords={seo?.keywords ?? homePage.keywords}
+      noIndex={seo?.noIndex ?? homePage.noIndex}
     />
+    <JsonLd data={organizationSchema} />
     <PostHog />
   </head>
   <body>

@@ -1,0 +1,22 @@
+---
+/**
+ * JSON-LD Structured Data Component
+ *
+ * Renders Schema.org structured data for SEO.
+ * Use this to add rich snippets for Google Search results.
+ *
+ * @example
+ * <JsonLd data={{
+ *   "@context": "https://schema.org",
+ *   "@type": "Organization",
+ *   "name": "amaxa"
+ * }} />
+ */
+interface Props {
+  data: Record<string, unknown>;
+}
+
+const { data } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

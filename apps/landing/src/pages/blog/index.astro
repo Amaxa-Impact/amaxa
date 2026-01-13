@@ -64,7 +64,17 @@ const formatDate = (date: string) =>
   });
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: seoTitle,
+    description: seoDescription,
+    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    type: "website",
+    canonicalURL: "https://www.amaxaimpact.org/blog",
+    keywords: ["amaxa", "blog", "stories", "news", "updates"],
+    noIndex: false,
+  }}
+>
   <div class="bg-background min-h-screen">
     <div class="mx-auto max-w-7xl px-6 py-16 md:px-16 md:py-24 lg:px-20">
       <BlogHeader client:load />

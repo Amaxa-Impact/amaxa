@@ -15,11 +15,12 @@
 import { AnimatedTitle } from "@/components/custom-animations/animated-title";
 import AppLayout from "@/layouts/app-layout.astro";
 
-const seoTitle = "Meet Our Team";
-const seoDescription =
-  "Meet the passionate people behind ámaxa who work every day to help changemakers turn ideas into impact. Our leadership team, employees, coaches, and interns are dedicated to removing barriers for anyone who wants to make a difference.";
+const seo = {
+  title: "Meet Our Team",
+  description:
+    "Meet the passionate people behind ámaxa who work every day to help changemakers turn ideas into impact. Our leadership team, employees, coaches, and interns are dedicated to removing barriers for anyone who wants to make a difference.",
+};
 
-// Types for team members
 interface Executive {
   name: string;
   role: string;
@@ -33,11 +34,6 @@ interface TeamMember {
   image: string;
 }
 
-// =============================================================================
-// TEAM DATA - Edit these arrays to update the team page
-// =============================================================================
-
-// Executives with excerpts (CEO, CTO, COO)
 const executives: Executive[] = [
   {
     name: "TBD",
@@ -119,7 +115,17 @@ const interns: TeamMember[] = [
 // =============================================================================
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: seo.title,
+    description: seo.description,
+    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    type: "website",
+    canonicalURL: "https://www.amaxaimpact.org/team",
+    keywords: ["amaxa", "team", "leadership", "coaches", "staff"],
+    noIndex: false,
+  }}
+>
   <main>
     <!-- Hero Section -->
     <section class="w-full bg-white px-6 py-16 md:py-24">
