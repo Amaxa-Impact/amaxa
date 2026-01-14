@@ -58,10 +58,12 @@ export function SectionCard({
 }: SectionCardProps) {
   const updateSection = useMutation(api.applicationFormSections.update);
   const deleteSection = useMutation(api.applicationFormSections.remove);
-  const clearCondition = useMutation(api.applicationFormSections.clearCondition);
+  const clearCondition = useMutation(
+    api.applicationFormSections.clearCondition,
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [showConditionEditor, setShowConditionEditor] = useState(
-    !!section.condition
+    !!section.condition,
   );
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -87,7 +89,7 @@ export function SectionCard({
         setIsSaving(false);
       }
     },
-    [section._id, updateSection]
+    [section._id, updateSection],
   );
 
   const debouncedSave = useCallback(
@@ -99,7 +101,7 @@ export function SectionCard({
         void saveSection(values);
       }, 500);
     },
-    [saveSection]
+    [saveSection],
   );
 
   const handleConditionChange = useCallback(
@@ -122,12 +124,14 @@ export function SectionCard({
         }
       }
     },
-    [section._id, updateSection, clearCondition]
+    [section._id, updateSection, clearCondition],
   );
 
   const handleDelete = useCallback(async () => {
     if (fields.length > 0) {
-      toast.error("Cannot delete section with questions. Move or delete questions first.");
+      toast.error(
+        "Cannot delete section with questions. Move or delete questions first.",
+      );
       return;
     }
     try {
@@ -143,7 +147,7 @@ export function SectionCard({
     (f) =>
       (f.type === "select" || f.type === "multiselect") &&
       f.sectionId !== section._id &&
-      f.order < (fields[0]?.order ?? Infinity)
+      f.order < (fields[0]?.order ?? Infinity),
   );
 
   return (
@@ -157,14 +161,14 @@ export function SectionCard({
             <IconGripVertical className="text-muted-foreground h-5 w-5" />
           </div>
 
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="icon-sm">
-              {isExpanded ? (
-                <IconChevronUp className="h-4 w-4" />
-              ) : (
-                <IconChevronDown className="h-4 w-4" />
-              )}
-            </Button>
+          <CollapsibleTrigger
+            render={() => <Button variant="ghost" size="icon-sm" />}
+          >
+            {isExpanded ? (
+              <IconChevronUp className="h-4 w-4" />
+            ) : (
+              <IconChevronDown className="h-4 w-4" />
+            )}
           </CollapsibleTrigger>
 
           <div className="flex-1">
@@ -173,7 +177,7 @@ export function SectionCard({
               children={(fieldApi) => (
                 <Input
                   className={cn(
-                    "focus-visible:border-primary rounded-none border-0 border-b px-0 font-semibold focus-visible:ring-0"
+                    "focus-visible:border-primary rounded-none border-0 border-b px-0 font-semibold focus-visible:ring-0",
                   )}
                   value={fieldApi.state.value}
                   onChange={(e) => {
@@ -204,9 +208,7 @@ export function SectionCard({
             size="icon-sm"
             onClick={() => setShowConditionEditor(!showConditionEditor)}
             title="Add condition"
-            className={cn(
-              showConditionEditor && "text-primary"
-            )}
+            className={cn(showConditionEditor && "text-primary")}
           >
             <IconGitBranch className="h-4 w-4" />
           </Button>
