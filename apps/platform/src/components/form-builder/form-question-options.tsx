@@ -1,13 +1,13 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  IconCheck,
   IconCircle,
   IconPlus,
+  IconSparkles,
   IconSquare,
   IconX,
-  IconSparkles,
-  IconCheck,
 } from "@tabler/icons-react";
 
 import { cn } from "@amaxa/ui";
@@ -40,7 +40,6 @@ const OptionInput = memo(function OptionInput({
   value: initialValue,
   index,
   isEditing,
-  onUpdate,
   onFocus,
   onBlur,
   onKeyDown,
@@ -57,18 +56,14 @@ const OptionInput = memo(function OptionInput({
 
   return (
     <div className="group flex items-center gap-2">
-      <Icon className="text-muted-foreground h-4 w-4 flex-shrink-0" />
+      <Icon className="text-muted-foreground h-4 w-4 shrink-0" />
       <Input
         className={cn(
           "focus-visible:border-primary flex-1 rounded-none border-0 border-b px-0 focus-visible:ring-0",
-          isEditing ? "border-primary border-b-2" : ""
+          isEditing ? "border-primary border-b-2" : "",
         )}
-        onBlur={() => {
-          onBlur(index, localValue);
-        }}
-        onChange={(e) => {
-          setLocalValue(e.target.value);
-        }}
+        onBlur={() => onBlur(index, localValue)}
+        onChange={(e) => setLocalValue(e.target.value)}
         onFocus={() => onFocus(index)}
         onKeyDown={(e) => onKeyDown(e, index, localValue)}
         placeholder={`Option ${index + 1}`}
@@ -99,21 +94,24 @@ export function FormQuestionOptions({
   onDismissSuggestions,
 }: FormQuestionOptionsProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [showSuggestions, setShowSuggestions] = useState(true);
+  const [suggestionsDismissed, setSuggestionsDismissed] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const OptionIcon = type === "select" ? IconCircle : IconSquare;
 
-  // Filter out suggestions that are already in the options
-  const availableSuggestions =
-    suggestedOptions?.filter(
-      (suggestion) =>
-        !options.some(
-          (opt) => opt.toLowerCase() === suggestion.toLowerCase()
-        )
-    ) ?? [];
+  const availableSuggestions = useMemo(() => {
+    return (
+      suggestedOptions?.filter(
+        (suggestion) =>
+          !options.some(
+            (opt) => opt.toLowerCase() === suggestion.toLowerCase(),
+          ),
+      ) ?? []
+    );
+  }, [suggestedOptions, options]);
 
-  const hasSuggestions = showSuggestions && availableSuggestions.length > 0;
+  const hasSuggestions =
+    !suggestionsDismissed && availableSuggestions.length > 0;
 
   const addOption = useCallback(() => {
     const newOptions = [...options, `Option ${options.length + 1}`];
@@ -134,18 +132,15 @@ export function FormQuestionOptions({
         onOptionsChange(newOptions);
       }
     },
-    [options, onOptionsChange]
+    [options, onOptionsChange],
   );
 
   const removeOption = useCallback(
     (index: number) => {
-      if (options.length <= 1) {
-        return;
-      }
-      const newOptions = options.filter((_, i) => i !== index);
-      onOptionsChange(newOptions);
+      if (options.length <= 1) return;
+      onOptionsChange(options.filter((_, i) => i !== index));
     },
-    [options, onOptionsChange]
+    [options, onOptionsChange],
   );
 
   const handleFocus = useCallback((index: number) => {
@@ -157,7 +152,7 @@ export function FormQuestionOptions({
       setEditingIndex(null);
       commitOption(index, value);
     },
-    [commitOption]
+    [commitOption],
   );
 
   const handleKeyDown = useCallback(
@@ -185,34 +180,33 @@ export function FormQuestionOptions({
         }, 0);
       }
     },
-    [options.length, addOption, removeOption, commitOption]
+    [options.length, addOption, removeOption, commitOption],
   );
 
   const handleAcceptSuggestion = useCallback(
     (suggestion: string) => {
-      // If options only has "Option 1", replace it
+      setSuggestionsDismissed(false);
       if (options.length === 1 && options[0] === "Option 1") {
         onOptionsChange([suggestion]);
       } else {
         onOptionsChange([...options, suggestion]);
       }
     },
-    [options, onOptionsChange]
+    [options, onOptionsChange],
   );
 
   const handleAcceptAllSuggestions = useCallback(() => {
-    // If options only has "Option 1", replace it
+    setSuggestionsDismissed(true);
+    onDismissSuggestions?.();
     if (options.length === 1 && options[0] === "Option 1") {
       onOptionsChange(availableSuggestions);
     } else {
       onOptionsChange([...options, ...availableSuggestions]);
     }
-    setShowSuggestions(false);
-    onDismissSuggestions?.();
   }, [options, availableSuggestions, onOptionsChange, onDismissSuggestions]);
 
   const handleDismissSuggestions = useCallback(() => {
-    setShowSuggestions(false);
+    setSuggestionsDismissed(true);
     onDismissSuggestions?.();
   }, [onDismissSuggestions]);
 
@@ -222,16 +216,8 @@ export function FormQuestionOptions({
     }
   }, [options, onOptionsChange]);
 
-  // Reset suggestions visibility when new suggestions come in
-  useEffect(() => {
-    if (suggestedOptions && suggestedOptions.length > 0) {
-      setShowSuggestions(true);
-    }
-  }, [suggestedOptions]);
-
   return (
     <div className="space-y-3">
-      {/* AI Suggestions */}
       {hasSuggestions && (
         <div className="rounded-lg border border-dashed border-purple-300 bg-purple-50 p-3 dark:border-purple-700 dark:bg-purple-950/20">
           <div className="mb-2 flex items-center justify-between">
@@ -276,7 +262,6 @@ export function FormQuestionOptions({
         </div>
       )}
 
-      {/* Current Options */}
       <div className="space-y-2">
         {options.map((option, index) => (
           <OptionInput

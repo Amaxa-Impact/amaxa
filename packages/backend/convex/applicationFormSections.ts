@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+
 import { mutation, query } from "./_generated/server";
 import { requireSiteAdmin } from "./permissions";
 
@@ -7,7 +8,7 @@ const conditionValidator = v.object({
   operator: v.union(
     v.literal("equals"),
     v.literal("notEquals"),
-    v.literal("contains")
+    v.literal("contains"),
   ),
   value: v.union(v.string(), v.array(v.string())),
 });
@@ -35,7 +36,7 @@ export const create = mutation({
 
     const maxOrder = existingSections.reduce(
       (max, section) => Math.max(max, section.order),
-      -1
+      -1,
     );
 
     return await ctx.db.insert("applicationFormSections", {
@@ -53,6 +54,7 @@ export const update = mutation({
     sectionId: v.id("applicationFormSections"),
     title: v.optional(v.string()),
     description: v.optional(v.string()),
+    order: v.optional(v.number()),
     condition: v.optional(conditionValidator),
   },
   returns: v.null(),
@@ -119,7 +121,7 @@ export const remove = mutation({
 
     if (fields.length > 0) {
       throw new Error(
-        "Cannot delete section with fields. Move or delete fields first."
+        "Cannot delete section with fields. Move or delete fields first.",
       );
     }
 
@@ -159,7 +161,7 @@ export const listByFormId = query({
       description: v.optional(v.string()),
       order: v.number(),
       condition: v.optional(conditionValidator),
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
@@ -191,7 +193,7 @@ export const listByFormSlug = query({
       description: v.optional(v.string()),
       order: v.number(),
       condition: v.optional(conditionValidator),
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     const form = await ctx.db

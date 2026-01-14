@@ -1,5 +1,6 @@
 "use client";
 
+import { Checkbox } from "@amaxa/ui/checkbox";
 import { Label } from "@amaxa/ui/label";
 import {
   Select,
@@ -8,13 +9,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@amaxa/ui/select";
-import { Checkbox } from "@amaxa/ui/checkbox";
 
+import type { FileConfig } from "./types";
 import {
   DEFAULT_FILE_CONFIG,
   FILE_SIZE_PRESETS,
   MIME_TYPE_PRESETS,
-  type FileConfig,
 } from "./types";
 
 interface FileConfigEditorProps {
@@ -63,7 +63,7 @@ export function FileConfigEditor({ value, onChange }: FileConfigEditorProps) {
 
   const getCurrentSizeLabel = () => {
     const entry = Object.entries(FILE_SIZE_PRESETS).find(
-      ([, bytes]) => bytes === config.maxSizeBytes
+      ([, bytes]) => bytes === config.maxSizeBytes,
     );
     return entry?.[0] ?? "5 MB";
   };
@@ -74,10 +74,16 @@ export function FileConfigEditor({ value, onChange }: FileConfigEditorProps) {
         File Upload Settings
       </div>
 
-      {/* Max file size */}
       <div className="space-y-1.5">
         <Label className="text-xs">Maximum File Size</Label>
-        <Select value={getCurrentSizeLabel()} onValueChange={handleSizeChange}>
+        <Select
+          value={getCurrentSizeLabel()}
+          onValueChange={(e) => {
+            if (!e) return;
+
+            void handleSizeChange(e);
+          }}
+        >
           <SelectTrigger className="h-8">
             <SelectValue />
           </SelectTrigger>
@@ -120,7 +126,6 @@ export function FileConfigEditor({ value, onChange }: FileConfigEditorProps) {
           </button>
         </div>
 
-        {/* Individual type toggles */}
         <div className="grid grid-cols-1 gap-2">
           {Object.entries(mimeTypeLabels).map(([mimeType, label]) => (
             <div key={mimeType} className="flex items-center gap-2">

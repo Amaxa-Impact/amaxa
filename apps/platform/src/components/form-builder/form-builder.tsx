@@ -1,15 +1,14 @@
 "use client";
 
+import type { DragEndEvent } from "@dnd-kit/core";
 import { useCallback, useMemo, useState } from "react";
-import { IconPlus, IconLayoutList } from "@tabler/icons-react";
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
-  type DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -19,6 +18,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { IconLayoutList, IconPlus } from "@tabler/icons-react";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
@@ -100,7 +100,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
   const [activeFieldId, setActiveFieldId] =
     useState<Id<"applicationFormFields"> | null>(null);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(sections?.map((s) => s._id) ?? [])
+    new Set(sections?.map((s) => s._id) ?? []),
   );
 
   const createField = useMutation(api.applicationFormFields.create);
@@ -113,7 +113,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   // Group fields by section
@@ -131,7 +131,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
 
     fields?.forEach((field) => {
       if (field.sectionId && grouped[field.sectionId]) {
-        grouped[field.sectionId].push(field);
+        grouped[field.sectionId]?.push(field);
       } else {
         grouped.unsectioned.push(field);
       }
@@ -143,7 +143,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
   const hasSections = sections && sections.length > 0;
   const sectionIds = useMemo(
     () => sections?.map((s) => s._id) ?? [],
-    [sections]
+    [sections],
   );
 
   const handleSectionDragEnd = useCallback(
@@ -173,7 +173,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         toast.error("Failed to reorder sections");
       }
     },
-    [sections, formId, reorderSections]
+    [sections, formId, reorderSections],
   );
 
   const handleAddSection = useCallback(async () => {
@@ -192,20 +192,30 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
   const handleAddField = useCallback(
     async (sectionId?: Id<"applicationFormSections">) => {
       try {
-        const newFieldId = await createField({
-          formId,
-          label: "Untitled Question",
-          type: "text",
-          required: false,
-          sectionId,
-        });
+        let newFieldId: Id<"applicationFormFields">;
+        if (!sectionId) {
+          newFieldId = await createField({
+            formId,
+            label: "Untitled Question",
+            type: "text",
+            required: false,
+          });
+        } else {
+          newFieldId = await createField({
+            formId,
+            label: "Untitled Question",
+            type: "text",
+            required: false,
+            sectionId,
+          });
+        }
         setActiveFieldId(newFieldId);
         toast.success("Question added");
       } catch {
         toast.error("Failed to add question");
       }
     },
-    [formId, createField]
+    [formId, createField],
   );
 
   const handleDeleteField = useCallback(
@@ -220,7 +230,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         toast.error("Failed to delete question");
       }
     },
-    [deleteField, activeFieldId]
+    [deleteField, activeFieldId],
   );
 
   const handleDuplicateField = useCallback(
@@ -229,14 +239,18 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         const newFieldId = await createField({
           formId,
           label: `${field.label} (copy)`,
-          description: field.description,
           type: field.type,
           required: field.required,
-          options: field.options,
-          min: field.min,
-          max: field.max,
-          sectionId: field.sectionId,
-          fileConfig: field.fileConfig,
+          ...(field.description !== undefined && {
+            description: field.description,
+          }),
+          ...(field.options !== undefined && { options: field.options }),
+          ...(field.min !== undefined && { min: field.min }),
+          ...(field.max !== undefined && { max: field.max }),
+          ...(field.sectionId !== undefined && { sectionId: field.sectionId }),
+          ...(field.fileConfig !== undefined && {
+            fileConfig: field.fileConfig,
+          }),
         });
         setActiveFieldId(newFieldId);
         toast.success("Question duplicated");
@@ -244,7 +258,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         toast.error("Failed to duplicate question");
       }
     },
-    [formId, createField]
+    [formId, createField],
   );
 
   const toggleSectionExpanded = useCallback(
@@ -259,7 +273,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         return next;
       });
     },
-    []
+    [],
   );
 
   const handleDragStart = useCallback(
@@ -267,7 +281,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
       e.dataTransfer.setData("fieldId", fieldId);
       e.dataTransfer.effectAllowed = "move";
     },
-    []
+    [],
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -276,13 +290,10 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
   }, []);
 
   const handleDrop = useCallback(
-    async (
-      e: React.DragEvent,
-      targetFieldId: Id<"applicationFormFields">
-    ) => {
+    async (e: React.DragEvent, targetFieldId: Id<"applicationFormFields">) => {
       e.preventDefault();
       const sourceFieldId = e.dataTransfer.getData(
-        "fieldId"
+        "fieldId",
       ) as Id<"applicationFormFields">;
 
       if (sourceFieldId === targetFieldId) {
@@ -309,7 +320,7 @@ export function FormBuilder({ formId, fields, sections }: FormBuilderProps) {
         toast.error("Failed to reorder questions");
       }
     },
-    [fields, formId, reorderFields]
+    [fields, formId, reorderFields],
   );
 
   // Render unsectioned fields (backward compatible mode or fields without section)

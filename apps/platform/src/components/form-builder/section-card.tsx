@@ -22,7 +22,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@amaxa/ui/collapsible";
-import { Field, FieldLabel } from "@amaxa/ui/field";
+import { Field } from "@amaxa/ui/field";
 import { Input } from "@amaxa/ui/input";
 
 import type { FieldCondition, FormField, FormSection } from "./types";
@@ -81,7 +81,7 @@ export function SectionCard({
         await updateSection({
           sectionId: section._id,
           title: values.title,
-          description: values.description || undefined,
+          description: values.description,
         });
       } catch {
         toast.error("Failed to save section");
@@ -160,6 +160,34 @@ export function SectionCard({
           >
             <IconGripVertical className="text-muted-foreground h-5 w-5" />
           </div>
+          <Button
+            variant={"ghost"}
+            className={
+              "cursor-grab opacity-0 transition-opacity group-hover:opacity-100"
+            }
+            size={"icon"}
+            onClick={() => {
+              void updateSection({
+                sectionId: section._id,
+                order: section.order - 1,
+              });
+            }}
+          >
+            <IconChevronDown className="h-4 w-4" />
+          </Button>
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            className="cursor-grab opacity-0 transition-opacity group-hover:opacity-100"
+            onClick={() => {
+              void updateSection({
+                sectionId: section._id,
+                order: section.order + 1,
+              });
+            }}
+          >
+            <IconChevronUp className="h-4 w-4" />
+          </Button>
 
           <CollapsibleTrigger
             render={() => <Button variant="ghost" size="icon-sm" />}
@@ -226,11 +254,13 @@ export function SectionCard({
 
         {showConditionEditor && (
           <div className="border-t px-4 py-3">
-            <ConditionEditor
-              condition={section.condition}
-              availableFields={availableSourceFields}
-              onChange={handleConditionChange}
-            />
+            {section.condition && (
+              <ConditionEditor
+                condition={section.condition}
+                availableFields={availableSourceFields}
+                onChange={handleConditionChange}
+              />
+            )}
           </div>
         )}
 

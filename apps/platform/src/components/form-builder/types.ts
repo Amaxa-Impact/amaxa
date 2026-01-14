@@ -1,5 +1,7 @@
+import type { FunctionReturnType } from "convex/server";
 import { type } from "arktype";
 
+import type { api } from "@amaxa/backend/_generated/api";
 import type { Id } from "@amaxa/backend/_generated/dataModel";
 
 export const fieldTypeSchema = type(
@@ -52,30 +54,13 @@ export interface FieldCondition {
   value: string | string[];
 }
 
-export interface FormSection {
-  _id: Id<"applicationFormSections">;
-  formId: Id<"applicationForms">;
-  title: string;
-  description?: string;
-  order: number;
-  condition?: FieldCondition;
-}
+export type FormSection = FunctionReturnType<
+  typeof api.applicationFormSections.listByFormId
+>[number];
 
-export interface FormField {
-  _id: Id<"applicationFormFields">;
-  formId: Id<"applicationForms">;
-  sectionId?: Id<"applicationFormSections">;
-  label: string;
-  description?: string;
-  type: FieldType;
-  required: boolean;
-  order: number;
-  options?: string[];
-  min?: number;
-  max?: number;
-  fileConfig?: FileConfig;
-  condition?: FieldCondition;
-}
+export type FormField = FunctionReturnType<
+  typeof api.applicationFormFields.listByFormId
+>[number];
 
 export interface FormData {
   _id?: Id<"applicationForms">;

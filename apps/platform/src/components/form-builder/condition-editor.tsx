@@ -14,10 +14,10 @@ import {
   SelectValue,
 } from "@amaxa/ui/select";
 
-import type { FieldCondition, ConditionOperator, FormField } from "./types";
+import type { ConditionOperator, FieldCondition, FormField } from "./types";
 
 interface ConditionEditorProps {
-  condition?: FieldCondition;
+  condition: FieldCondition;
   availableFields: FormField[];
   onChange: (condition: FieldCondition | undefined) => void;
 }
@@ -33,19 +33,17 @@ export function ConditionEditor({
   availableFields,
   onChange,
 }: ConditionEditorProps) {
-  // Filter to only select/multiselect fields that can be condition sources
   const sourceFields = useMemo(
     () =>
       availableFields.filter(
-        (f) => f.type === "select" || f.type === "multiselect"
+        (f) => f.type === "select" || f.type === "multiselect",
       ),
-    [availableFields]
+    [availableFields],
   );
 
-  const selectedSourceField = useMemo(() => {
-    if (!condition?.sourceFieldId) return undefined;
-    return availableFields.find((f) => f._id === condition.sourceFieldId);
-  }, [condition?.sourceFieldId, availableFields]);
+  const selectedSourceField = condition.sourceFieldId
+    ? availableFields.find((f) => f._id === condition.sourceFieldId)
+    : undefined;
 
   const handleSourceChange = (fieldId: string) => {
     const field = availableFields.find((f) => f._id === fieldId);
@@ -59,7 +57,6 @@ export function ConditionEditor({
   };
 
   const handleOperatorChange = (operator: string) => {
-    if (!condition) return;
     onChange({
       ...condition,
       operator: operator as ConditionOperator,
@@ -67,9 +64,10 @@ export function ConditionEditor({
   };
 
   const handleValueChange = (value: string) => {
-    if (!condition) return;
-    // For contains operator with multiselect, we store as array
-    if (condition.operator === "contains" && selectedSourceField?.type === "multiselect") {
+    if (
+      condition.operator === "contains" &&
+      selectedSourceField?.type === "multiselect"
+    ) {
       onChange({
         ...condition,
         value: value ? [value] : [],
@@ -103,11 +101,14 @@ export function ConditionEditor({
           <Field>
             <FieldLabel className="text-xs">Show when</FieldLabel>
             <Select
-              value={condition?.sourceFieldId ?? ""}
-              onValueChange={handleSourceChange}
+              value={condition.sourceFieldId}
+              onValueChange={(e) => {
+                if (!e) return;
+                void handleSourceChange(e);
+              }}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select a field" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {sourceFields.map((field) => (
@@ -119,13 +120,16 @@ export function ConditionEditor({
             </Select>
           </Field>
 
-          {condition?.sourceFieldId && (
+          {condition.sourceFieldId && (
             <>
               <Field>
                 <FieldLabel className="text-xs">Condition</FieldLabel>
                 <Select
                   value={condition.operator}
-                  onValueChange={handleOperatorChange}
+                  onValueChange={(e) => {
+                    if (!e) return;
+                    void handleOperatorChange(e);
+                  }}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -145,13 +149,16 @@ export function ConditionEditor({
                 <Select
                   value={
                     Array.isArray(condition.value)
-                      ? condition.value[0] ?? ""
+                      ? (condition.value[0] ?? "")
                       : condition.value
                   }
-                  onValueChange={handleValueChange}
+                  onValueChange={(e) => {
+                    if (!e) return;
+                    handleValueChange(e);
+                  }}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a value" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {selectedSourceField?.options?.map((option) => (
@@ -166,17 +173,15 @@ export function ConditionEditor({
           )}
         </div>
 
-        {condition && (
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            onClick={handleClear}
-            className="mt-5"
-            title="Remove condition"
-          >
-            <IconX className="h-4 w-4" />
-          </Button>
-        )}
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          onClick={handleClear}
+          className="mt-5"
+          title="Remove condition"
+        >
+          <IconX className="h-4 w-4" />
+        </Button>
       </div>
     </div>
   );
