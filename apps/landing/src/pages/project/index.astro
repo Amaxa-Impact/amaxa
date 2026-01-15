@@ -7,9 +7,10 @@
  */
 
 import { AnimatedTitle } from "@/components/custom-animations/animated-title";
-import { FocusCards } from "@/components/custom-animations/focus-cards";
+import { ProjectsFilter } from "@/components/projects/projects-filter";
 import AppLayout from "@/layouts/app-layout.astro";
 import { projectCards } from "@/lib/project-cards";
+
 
 const seoTitle = "Our Projects";
 const seoDescription =
@@ -49,10 +50,12 @@ const seoDescription =
               holistic approach to supporting AIDS-affected communities.
             </p>
           </div>
-          <FocusCards client:visible cards={projectCards} />
+          <ProjectsFilter client:visible cards={projectCards} />
         </div>
       </div>
     </section>
+
+
 
     <section class="bg-accent w-full py-16 md:py-24 lg:py-32">
       <div class="mx-auto max-w-4xl px-6 md:px-16 lg:px-20">
