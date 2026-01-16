@@ -1,0 +1,9 @@
+import { ADMIN_AUTH_STATE, test, TEST_USERS } from "../fixtures";
+
+test("authenticate as site admin", async ({ page, signIn }) => {
+  await signIn({
+    user: TEST_USERS.ADMIN,
+    storageStatePath: ADMIN_AUTH_STATE,
+    followUpUrl: "/applications",
+  });
+});

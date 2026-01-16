@@ -21,7 +21,20 @@ export const env = createEnv({
     RAILWAY_BUCKET_NAME: type("string"),
     RAILWAY_ACCESS_ID_KEY: type("string"),
     RAILWAY_ACCESS_SECRET_KEY: type("string"),
+    ADMIN_USER_EMAIL: type("string"),
+    ADMIN_USER_PASSWORD: type("string"),
+
+    COACH_USER_EMAIL: type("string"),
+    COACH_USER_PASSWORD: type("string"),
+
+    MEMBER_USER_EMAIL: type("string"),
+    MEMBER_USER_PASSWORD: type("string"),
+
+    USER_EMAIL: type("string"),
+    USER_PASSWORD: type("string"),
+
     UPLOADTHING_TOKEN: type("string"),
+    E2E_TESTS_ENABLED: type("string | undefined"),
   },
   client: {
     NEXT_PUBLIC_CONVEX_URL: type("string.url"),
@@ -30,7 +43,16 @@ export const env = createEnv({
     NEXT_PUBLIC_WORKOS_CLIENT_ID: type("string > 1"),
   },
   runtimeEnv: {
+    ADMIN_USER_EMAIL: process.env.ADMIN_USER_EMAIL,
+    ADMIN_USER_PASSWORD: process.env.ADMIN_USER_PASSWORD,
+    COACH_USER_EMAIL: process.env.COACH_USER_EMAIL,
+    COACH_USER_PASSWORD: process.env.COACH_USER_PASSWORD,
+    MEMBER_USER_EMAIL: process.env.MEMBER_USER_EMAIL,
+    MEMBER_USER_PASSWORD: process.env.MEMBER_USER_PASSWORD,
+    USER_EMAIL: process.env.USER_EMAIL,
+    USER_PASSWORD: process.env.USER_PASSWORD,
     UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
+    E2E_TESTS_ENABLED: process.env.E2E_TESTS_ENABLED,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
