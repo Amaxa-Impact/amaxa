@@ -136,4 +136,12 @@ export async function requireSiteAdmin(
 
 export async function requireSiteAdminAction(
   ctx: HttpActionCtx,
-): Promise<boolean> {}
+): Promise<boolean> {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity?.subject) {
+    return false;
+  }
+
+  const status = await ctx.runQuery(api.auth.getCurrentUserStatus);
+  return status.isAdmin === true;
+}

@@ -71,9 +71,6 @@ const AUTH_HELPER_URL = "/api/test/auth";
 
 async function waitForSessionReady(page: Page, followUpUrl?: string) {
   await page.goto(followUpUrl ?? "/");
-  await page.waitForURL(/\/(?:$|project|applications|apply)/, {
-    timeout: 20000,
-  });
 }
 
 export const test = base.extend<{

@@ -20,8 +20,7 @@ registerRoutes(http, components.fs, fs, {
     return identity !== null;
   },
   downloadAuth: async (ctx) => {
-    const status = await requireSiteAdminAction(ctx);
-    return status;
+    return await requireSiteAdminAction(ctx);
   },
 });
 

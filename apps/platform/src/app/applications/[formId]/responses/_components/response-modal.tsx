@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  IconCheck,
-  IconDownload,
-  IconFile,
-  IconMail,
-  IconMailForward,
-} from "@tabler/icons-react";
+import { IconCheck, IconMail, IconMailForward } from "@tabler/icons-react";
 import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 
@@ -15,7 +9,6 @@ import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
 import { cn } from "@amaxa/ui";
 import { Badge } from "@amaxa/ui/badge";
-import { Button } from "@amaxa/ui/button";
 import { Card, CardHeader, CardTitle } from "@amaxa/ui/card";
 import {
   Select,
@@ -23,6 +16,8 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@amaxa/ui/select";
+
+import { FileList } from "./file-preview";
 
 interface FileValue {
   type: "file";
@@ -43,49 +38,6 @@ function isFileValue(value: unknown): value is FileValue {
     value.type === "file" &&
     "files" in value &&
     Array.isArray(value.files)
-  );
-}
-
-function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function FileDownloadButton({
-  file,
-}: {
-  file: FileValue["files"][number];
-}) {
-  const fileUrl = useQuery(api.files.getApplicationFileUrl, {
-    blobId: file.blobId,
-    path: file.path,
-  });
-
-  const handleDownload = () => {
-    if (fileUrl) {
-      window.open(fileUrl, "_blank");
-    }
-  };
-
-  return (
-    <div className="bg-muted flex items-center justify-between rounded-md border p-2">
-      <div className="flex items-center gap-2">
-        <IconFile className="text-muted-foreground h-4 w-4" />
-        <span className="text-sm">{file.filename}</span>
-        <span className="text-muted-foreground text-xs">
-          ({formatFileSize(file.sizeBytes)})
-        </span>
-      </div>
-      <Button
-        disabled={!fileUrl}
-        onClick={handleDownload}
-        size="sm"
-        variant="ghost"
-      >
-        <IconDownload className="h-4 w-4" />
-      </Button>
-    </div>
   );
 }
 
@@ -329,11 +281,7 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
                   </span>
                   <div className="mt-2">
                     {isFileValue(fr.value) ? (
-                      <div className="space-y-2">
-                        {fr.value.files.map((file) => (
-                          <FileDownloadButton file={file} key={file.blobId} />
-                        ))}
-                      </div>
+                      <FileList files={fr.value.files} />
                     ) : Array.isArray(fr.value) ? (
                       <div className="flex flex-wrap gap-1">
                         {fr.value.map((v, i) => (

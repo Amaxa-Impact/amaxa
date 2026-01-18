@@ -69,15 +69,69 @@ export const getFileUrl = query({
   },
 });
 
-export const getApplicationFileUrl = query({
+export const getApplicationFileUrl = action({
   args: {
     blobId: v.string(),
     path: v.string(),
   },
   returns: v.union(v.string(), v.null()),
   handler: async (ctx, args) => {
-    await requireSiteAdmin(ctx);
-    return buildDownloadUrl(CONVEX_SITE_URL, "/fs", args.blobId, args.path);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.subject) {
+      throw new Error("Not authorized");
+    }
+
+    const status = await ctx.runQuery(api.auth.getCurrentUserStatus);
+    if (!status.isAdmin) {
+      throw new Error("Not authorized");
+    }
+
+    const file = await fs.stat(ctx, args.path);
+    if (!file || file.blobId !== args.blobId) {
+      return null;
+    }
+
+    return await fs.getDownloadUrl(ctx, args.blobId);
+  },
+});
+
+export const getApplicationFilePreview = action({
+  args: {
+    blobId: v.string(),
+    path: v.string(),
+  },
+  returns: v.union(
+    v.object({
+      data: v.bytes(),
+      contentType: v.string(),
+    }),
+    v.null(),
+  ),
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.subject) {
+      throw new Error("Not authorized");
+    }
+
+    const status = await ctx.runQuery(api.auth.getCurrentUserStatus);
+    if (!status.isAdmin) {
+      throw new Error("Not authorized");
+    }
+
+    const file = await fs.stat(ctx, args.path);
+    if (!file || file.blobId !== args.blobId) {
+      return null;
+    }
+
+    const result = await fs.getFile(ctx, args.path);
+    if (!result) {
+      return null;
+    }
+
+    return {
+      data: result.data,
+      contentType: result.contentType,
+    };
   },
 });
 
@@ -109,7 +163,7 @@ export const listOrphanedBlobs = internalQuery({
     }
 
     // Paginate through all blobs in /applications/
-    const orphanedBlobs: Array<{ blobId: string; path: string }> = [];
+    const orphanedBlobs: { blobId: string; path: string }[] = [];
     let cursor: string | null = null;
     let isDone = false;
 

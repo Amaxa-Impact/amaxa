@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "pnpm with-env next build",
-    "test:e2e": "playwright test",
+    "test:e2e": "pnpm with-env node ./scripts/playwright-e2e.mjs",
     "clean": "git clean -xdf .next .turbo node_modules",
     "dev": "pnpm with-env next dev",
     "format": "prettier --check . --ignore-path ../../.gitignore",
