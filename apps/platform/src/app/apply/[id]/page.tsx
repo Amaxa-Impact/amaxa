@@ -27,11 +27,11 @@ export async function generateMetadata({
     return {
       title: form.title,
       description:
-        form.description || `Submit your application for ${form.title}`,
+        form.description ?? `Submit your application for ${form.title}`,
       openGraph: {
         title: form.title,
         description:
-          form.description || `Submit your application for ${form.title}`,
+          form.description ?? `Submit your application for ${form.title}`,
       },
     };
   } catch {

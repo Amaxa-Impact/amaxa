@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import {
   Breadcrumb,
@@ -24,15 +24,14 @@ const PAGE_NAMES: Record<string, string> = {
 
 export function BreadcrumbHeader() {
   const { project } = useDashboardContext();
+  const projectId = project.id;
   const pathname = usePathname();
-  const { projectId } = useParams();
 
   const pathParts = pathname.split("/").filter(Boolean);
-  const projectIdFromPath = pathParts[1];
   const currentPageFromPath = pathParts[2];
 
-  const currentPage = currentPageFromPath || "";
-  const pageName = PAGE_NAMES[currentPage] || currentPage;
+  const currentPage = currentPageFromPath ?? "";
+  const pageName = PAGE_NAMES[currentPage] ?? currentPage;
 
   return (
     <header className="border-border bg-background sticky top-0 z-10 border-b">
@@ -49,10 +48,8 @@ export function BreadcrumbHeader() {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                href={`/project/${projectId ?? projectIdFromPath}`}
-                render={
-                  <Link href={`/project/${projectId ?? projectIdFromPath}`} />
-                }
+                href={`/project/${projectId}`}
+                render={<Link href={`/project/${projectId}`} />}
               >
                 {project.name || "No Project Found"}
               </BreadcrumbLink>

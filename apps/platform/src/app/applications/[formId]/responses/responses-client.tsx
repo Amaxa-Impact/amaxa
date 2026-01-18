@@ -263,7 +263,10 @@ function ResponseRow({
       </TableCell>
       <TableCell>
         <Select
-          onValueChange={(v) => handleStatusChange(v!)}
+          onValueChange={(v) => {
+            if (!v) return;
+            void handleStatusChange(v);
+          }}
           value={response.status}
         >
           <SelectTrigger className="w-32">

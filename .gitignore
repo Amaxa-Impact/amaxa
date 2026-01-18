@@ -90,3 +90,10 @@ dist/
 /packages/validators/opencode.json
 /packages/validators/opencode.json.bak
 # END Ruler Generated Files
+
+**/test-results/
+**/playwright-report/
+**/blob-report/
+**/playwright/.cache/
+**/playwright/.auth/
+**/opensrc/

@@ -1,5 +1,6 @@
 import type { Type } from "arktype";
 import { type } from "arktype";
+import { Result } from "better-result";
 
 import type { ApplicationFormField } from "./types";
 
@@ -22,18 +23,36 @@ export function createFieldValidator(field: ApplicationFormField) {
     }
 
     case "number": {
-      let schemaString = type("number");
-      if (field.min !== undefined)
-        schemaString = type(`number >= ${field.min}`);
-      if (field.max !== undefined)
-        schemaString = type(`number <= ${field.max}`);
+      // HTML inputs return strings, so we need to parse them
+      const parseNumber = type("string | number").pipe((val) => {
+        if (typeof val === "number") return val;
+        if (val === "") return undefined;
+        const parsed = Number(val);
+        if (Number.isNaN(parsed)) return undefined;
+        return parsed;
+      });
 
-      const schema = type(schemaString);
-      validator = field.required
-        ? schema
-        : schema
-            .or("undefined|''")
-            .pipe((val) => (val === "" ? undefined : val));
+      let numberValidator = type("number");
+      if (field.min !== undefined) {
+        numberValidator = type(`number >= ${field.min}`);
+      }
+      if (field.max !== undefined) {
+        numberValidator = type(`number <= ${field.max}`);
+      }
+
+      if (field.required) {
+        validator = parseNumber.pipe((val) => {
+          if (val === undefined) {
+            return numberValidator(undefined as never);
+          }
+          return numberValidator(val);
+        });
+      } else {
+        validator = parseNumber.pipe((val) => {
+          if (val === undefined) return val;
+          return numberValidator(val);
+        });
+      }
       break;
     }
 
@@ -56,6 +75,29 @@ export function createFieldValidator(field: ApplicationFormField) {
       break;
     }
 
+    case "file": {
+      // File validation: check if files array exists and has items if required
+      const fileSchema = type({
+        type: "'file'",
+        files: type({
+          blobId: "string",
+          path: "string",
+          filename: "string",
+          contentType: "string",
+          sizeBytes: "number",
+        }).array(),
+      });
+
+      if (field.required) {
+        // Required: must have at least one file
+        validator = fileSchema.narrow((val) => val.files.length > 0);
+      } else {
+        // Optional: can be undefined or have files
+        validator = fileSchema.or("undefined");
+      }
+      break;
+    }
+
     default:
       validator = type("string|undefined");
   }
@@ -71,13 +113,13 @@ export const applicantInfoSchema = type({
 export function validateFieldValue(
   field: ApplicationFormField,
   value: unknown,
-): string | undefined {
+): Result<unknown, string> {
   const validator = createFieldValidator(field);
   const result = validator(value);
 
   if (result instanceof type.errors) {
-    return result.summary;
+    return Result.err(result.summary);
   }
 
-  return undefined;
+  return Result.ok(result);
 }

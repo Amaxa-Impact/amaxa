@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { omitUndefined } from "@/lib/omit-undefined";
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { ChevronsUpDownIcon, PlusIcon } from "lucide-react";
 
@@ -40,7 +41,9 @@ const ComboboxContext = createContext<ComboboxContextType>({
   data: [],
   type: "item",
   value: "",
-  onValueChange: () => {},
+  onValueChange: () => {
+    /* empty */
+  },
   open: false,
   onOpenChange: () => {
     return;
@@ -76,16 +79,20 @@ export const Combobox = ({
   onOpenChange: controlledOnOpenChange,
   ...props
 }: ComboboxProps) => {
-  const [value, onValueChange] = useControllableState({
-    defaultProp: defaultValue ?? "",
-    prop: controlledValue,
-    onChange: controlledOnValueChange,
-  });
-  const [open, onOpenChange] = useControllableState({
-    defaultProp: defaultOpen,
-    prop: controlledOpen,
-    onChange: controlledOnOpenChange,
-  });
+  const [value, onValueChange] = useControllableState(
+    omitUndefined({
+      defaultProp: defaultValue ?? "",
+      prop: controlledValue,
+      onChange: controlledOnValueChange,
+    }),
+  );
+  const [open, onOpenChange] = useControllableState(
+    omitUndefined({
+      defaultProp: defaultOpen,
+      prop: controlledOpen,
+      onChange: controlledOnOpenChange,
+    }),
+  );
   const [width, setWidth] = useState(200);
   const [inputValue, setInputValue] = useState("");
 
@@ -123,7 +130,7 @@ export const ComboboxTrigger = ({
       for (const entry of entries) {
         const newWidth = (entry.target as HTMLElement).offsetWidth;
         if (newWidth) {
-          void setWidth?.(newWidth);
+          void setWidth(newWidth);
         }
       }
     });
@@ -138,7 +145,7 @@ export const ComboboxTrigger = ({
   }, [setWidth]);
 
   return (
-    <PopoverTrigger render={<Button variant="outline" {...props} ref={ref} />}>
+    <PopoverTrigger render={<Button variant="outline" {...props} />}>
       {children ?? (
         <span className="flex w-full items-center justify-between gap-2">
           {value
@@ -280,7 +287,7 @@ export const ComboboxCreateNew = ({
   return (
     <button
       className={cn(
-        "aria-selected:bg-accent aria-selected:text-accent-foreground relative flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "aria-selected:bg-accent aria-selected:text-accent-foreground relative flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
       onClick={handleCreateNew}

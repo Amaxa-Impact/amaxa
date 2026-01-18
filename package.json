@@ -15,6 +15,7 @@
     "dev": "turbo watch dev",
     "dev:next": "turbo watch dev -F @amaxa/nextjs...",
     "dev:platform": "turbo watch dev -F @amaxa/platform...",
+    "dev:landing": "turbo watch dev -F @amaxa/landing...",
     "format": "turbo run format --continue -- --cache --cache-location node_modules/.cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location node_modules/.cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-strategy content --cache-location node_modules/.cache/.eslintcache",

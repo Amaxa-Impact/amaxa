@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
 import type { UserOption } from "@/components/user-dropdown";
-import type { User } from "@/lib/workos";
+import type { WorkOsError } from "@/lib/errors";
+import type { User } from "@workos-inc/node";
 import type {
   Connection,
   Edge,
@@ -10,12 +12,14 @@ import type {
   NodeMouseHandler,
   Viewport,
 } from "@xyflow/react";
+import type { Result } from "better-result";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { Cursor } from "@/components/dashboard/cursor";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import usePresence from "@/hooks/use-presence";
+import { omitUndefined } from "@/lib/omit-undefined";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
   addEdge,
@@ -34,7 +38,11 @@ import { TasksGraph } from "./tasks-graph";
 import { TasksHeader } from "./tasks-header";
 import { getStableUserId, getUserColor } from "./utils";
 
-export function TasksFlowContent({ allUsers }: { allUsers: User }) {
+export function TasksFlowContent({
+  allUsers,
+}: {
+  allUsers: Result<User[], WorkOsError>;
+}) {
   const { projectId } = useParams<{ projectId: Id<"projects"> }>();
   const { project, userRole } = useDashboardContext();
   const { isAuthenticated } = useConvexAuth();
@@ -64,9 +72,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
   const removeEdge = useMutation(api.edges.remove);
 
   const userIdRef = useRef<string | null>(null);
-  if (userIdRef.current === null) {
-    userIdRef.current = getStableUserId();
-  }
+  userIdRef.current ??= getStableUserId();
   const userId = userIdRef.current;
 
   const roomId = `project:${projectId}:tasks`;
@@ -141,14 +147,16 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
       if (connection.source && connection.target) {
         setEdges((eds) => addEdge(connection, eds));
 
-        await createEdge({
-          projectId,
-          source: connection.source as Id<"tasks">,
-          target: connection.target as Id<"tasks">,
-          type: "smoothstep",
-          sourceHandle: connection.sourceHandle ?? undefined,
-          targetHandle: connection.targetHandle ?? undefined,
-        });
+        await createEdge(
+          omitUndefined({
+            projectId,
+            source: connection.source as Id<"tasks">,
+            target: connection.target as Id<"tasks">,
+            type: "smoothstep",
+            sourceHandle: connection.sourceHandle ?? undefined,
+            targetHandle: connection.targetHandle ?? undefined,
+          }),
+        );
       }
     },
     [setEdges, createEdge, projectId],
@@ -166,6 +174,9 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
 
   const handleStatusChange = useCallback(
     async (taskId: string, status: TaskNodeData["status"]) => {
+      if (!status) {
+        return;
+      }
       await updateTaskData({
         taskId: taskId as Id<"tasks">,
         data: { status },
@@ -289,12 +300,20 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
           onDataChange: (data: Partial<TaskNodeData>) =>
             handleDataChange(n.id, data),
           projectMembers: projectMembers?.map((member) => {
-            const workosUser = allUsers.find((u) => u.id === member.userId);
+            if (allUsers.status === "ok") {
+              const workosUser = allUsers.value.find(
+                (u) => u.id === member.userId,
+              );
+              return {
+                userId: member.userId,
+                name: workosUser
+                  ? getUserDisplayName(workosUser as UserOption)
+                  : member.userId,
+              };
+            }
             return {
               userId: member.userId,
-              name: workosUser
-                ? getUserDisplayName(workosUser as UserOption)
-                : member.userId,
+              name: member.userId,
             };
           }),
         },
@@ -334,7 +353,7 @@ export function TasksFlowContent({ allUsers }: { allUsers: User }) {
     <div style={layoutStyle}>
       <TasksHeader
         onAddTask={() => addNewTask()}
-        othersPresence={othersPresence || []}
+        othersPresence={othersPresence ?? []}
         projectName={project.name || "Project"}
         userRole={userRole}
       />

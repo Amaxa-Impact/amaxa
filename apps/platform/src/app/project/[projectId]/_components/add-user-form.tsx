@@ -1,6 +1,8 @@
 "use client";
 
-import type { User } from "@/lib/workos";
+import type { WorkOsError } from "@/lib/errors";
+import type { User } from "@workos-inc/node";
+import type { Result } from "better-result";
 import { useEffect } from "react";
 import {
   Combobox,
@@ -54,7 +56,7 @@ export function AddUserForm({
   onOpenChange,
   existingUserIds,
 }: {
-  allUsers: User;
+  allUsers: Result<User[], WorkOsError>;
   projectId: Id<"projects">;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -129,11 +131,11 @@ export function AddUserForm({
                       aria-invalid={isInvalid}
                       className="w-full"
                       emptyMessage="No users found."
-                      excludeUserIds={existingUserIds}
+                      excludeUserIds={existingUserIds ?? []}
                       id="add-user-form-userId"
                       onValueChange={field.handleChange}
                       placeholder="Search users..."
-                      users={allUsers}
+                      users={allUsers.status === "ok" ? allUsers.value : []}
                       value={field.state.value}
                     />
                     <FieldDescription>

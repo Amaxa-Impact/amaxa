@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
-
-import type { AnyFieldApi } from "@tanstack/react-form";
 
 import { Label } from "@amaxa/ui/label";
 import {
@@ -14,8 +11,21 @@ import {
 
 import type { ApplicationFormField } from "../types";
 
+interface FormFieldApi<TValue> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      isTouched: boolean;
+      errors: string[];
+    };
+  };
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+}
+
 interface SelectFieldProps {
-  field: AnyFieldApi;
+  field: FormFieldApi<string>;
   formField: ApplicationFormField;
 }
 
@@ -35,10 +45,10 @@ export function SelectField({ field, formField }: SelectFieldProps) {
       )}
       <Select
         onValueChange={(value) => {
-          field.handleChange(value);
+          field.handleChange(value ?? "");
           field.handleBlur();
         }}
-        value={field.state.value ?? ""}
+        value={field.state.value}
       >
         <SelectTrigger aria-invalid={hasError} className="w-full">
           <SelectValue />

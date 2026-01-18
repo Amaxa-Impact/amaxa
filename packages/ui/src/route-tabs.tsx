@@ -81,7 +81,7 @@ function RouterTab({
         className,
       )}
       data-slot="tabs-trigger"
-      {...(props as any)}
+      {...(props as TabsPrimitive.Tab.Props)}
     >
       <Link href={href}>{children}</Link>
     </TabsPrimitive.Tab>

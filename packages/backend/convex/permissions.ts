@@ -1,14 +1,18 @@
+import type { GenericActionCtx, GenericDataModel } from "convex/server";
+
 import type { Id } from "./_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
+import { api } from "./_generated/api";
 
 export type UserRole = "coach" | "member";
+type HttpActionCtx = GenericActionCtx<GenericDataModel>;
 
 /**
  * Get the authenticated user's ID from the context
  * Throws an error if the user is not authenticated
  */
 export async function requireAuth(
-  ctx: QueryCtx | MutationCtx
+  ctx: QueryCtx | MutationCtx,
 ): Promise<string> {
   const identity = await ctx.auth.getUserIdentity();
   if (!identity?.subject) {
@@ -24,12 +28,12 @@ export async function requireAuth(
 export async function getUserRole(
   ctx: QueryCtx | MutationCtx,
   userId: string,
-  projectId: Id<"projects">
+  projectId: Id<"projects">,
 ): Promise<UserRole | null> {
   const assignment = await ctx.db
     .query("userToProject")
     .withIndex("by_userId_and_projectId", (q) =>
-      q.eq("userId", userId).eq("projectId", projectId)
+      q.eq("userId", userId).eq("projectId", projectId),
     )
     .unique();
 
@@ -47,7 +51,7 @@ export async function getUserRole(
 export async function assertUserInProject(
   ctx: QueryCtx | MutationCtx,
   userId: string,
-  projectId: Id<"projects">
+  projectId: Id<"projects">,
 ): Promise<void> {
   const role = await getUserRole(ctx, userId, projectId);
   if (role === null) {
@@ -62,7 +66,7 @@ export async function assertUserInProject(
 export async function assertUserIsCoach(
   ctx: QueryCtx | MutationCtx,
   userId: string,
-  projectId: Id<"projects">
+  projectId: Id<"projects">,
 ): Promise<void> {
   const role = await getUserRole(ctx, userId, projectId);
   if (role !== "coach") {
@@ -76,7 +80,7 @@ export async function assertUserIsCoach(
 export async function hasAccess(
   ctx: QueryCtx | MutationCtx,
   userId: string,
-  projectId: Id<"projects">
+  projectId: Id<"projects">,
 ): Promise<boolean> {
   const role = await getUserRole(ctx, userId, projectId);
   return role !== null;
@@ -88,7 +92,7 @@ export async function hasAccess(
 export async function isCoach(
   ctx: QueryCtx | MutationCtx,
   userId: string,
-  projectId: Id<"projects">
+  projectId: Id<"projects">,
 ): Promise<boolean> {
   const role = await getUserRole(ctx, userId, projectId);
   return role === "coach";
@@ -105,7 +109,7 @@ export async function getSiteUser(ctx: QueryCtx | MutationCtx, userId: string) {
 
 export async function isSiteAdmin(
   ctx: QueryCtx | MutationCtx,
-  userId: string
+  userId: string,
 ): Promise<boolean> {
   const siteUser = await getSiteUser(ctx, userId);
   return siteUser?.role === "admin";
@@ -113,7 +117,7 @@ export async function isSiteAdmin(
 
 export async function assertSiteAdmin(
   ctx: QueryCtx | MutationCtx,
-  userId: string
+  userId: string,
 ): Promise<void> {
   const isAdmin = await isSiteAdmin(ctx, userId);
   if (!isAdmin) {
@@ -122,10 +126,22 @@ export async function assertSiteAdmin(
 }
 
 export async function requireSiteAdmin(
-  ctx: QueryCtx | MutationCtx
+  ctx: QueryCtx | MutationCtx,
 ): Promise<string> {
   const userId = await requireAuth(ctx);
 
   await assertSiteAdmin(ctx, userId);
   return userId;
+}
+
+export async function requireSiteAdminAction(
+  ctx: HttpActionCtx,
+): Promise<boolean> {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity?.subject) {
+    return false;
+  }
+
+  const status = await ctx.runQuery(api.auth.getCurrentUserStatus);
+  return status.isAdmin === true;
 }

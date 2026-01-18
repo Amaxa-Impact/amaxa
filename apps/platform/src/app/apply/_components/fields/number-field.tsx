@@ -1,15 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
-
-import type { AnyFieldApi } from "@tanstack/react-form";
 
 import { Input } from "@amaxa/ui/input";
 import { Label } from "@amaxa/ui/label";
 
 import type { ApplicationFormField } from "../types";
 
+interface FormFieldApi<TValue> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      isTouched: boolean;
+      errors: string[];
+    };
+  };
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+}
+
 interface NumberFieldProps {
-  field: AnyFieldApi;
+  field: FormFieldApi<string | number | undefined>;
   formField: ApplicationFormField;
 }
 

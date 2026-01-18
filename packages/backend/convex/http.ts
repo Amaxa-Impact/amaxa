@@ -1,0 +1,30 @@
+import { registerRoutes } from "convex-fs";
+import { httpRouter } from "convex/server";
+
+import { components } from "./_generated/api";
+import { fs } from "./fs";
+import { requireSiteAdminAction } from "./permissions";
+
+const http = httpRouter();
+
+/* Possibly...
+you have other routes here */
+
+// Mount ConvexFS routes at /fs:
+// - POST /fs/upload - Upload proxy for Bunny.net storage
+// - GET /fs/blobs/{blobId} - Returns 302 redirect to signed CDN URL
+registerRoutes(http, components.fs, fs, {
+  pathPrefix: "/fs",
+  uploadAuth: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    return identity !== null;
+  },
+  downloadAuth: async (ctx) => {
+    return await requireSiteAdminAction(ctx);
+  },
+});
+
+/* Possibly...
+you have other routes here */
+
+export default http;

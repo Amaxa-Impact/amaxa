@@ -1,12 +1,19 @@
-/** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 "use client";
 
-import { useState } from "react";
+import type {
+  Condition,
+  FormValues as ConditionFormValues,
+} from "@/lib/condition-evaluator";
+import { useMemo, useState } from "react";
+import { evaluateCondition } from "@/lib/condition-evaluator";
 import { IconCheck, IconLoader2, IconSend } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-store";
+import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
+import type { Id } from "@amaxa/backend/_generated/dataModel";
 import { api } from "@amaxa/backend/_generated/api";
 import { Button } from "@amaxa/ui/button";
 import {
@@ -22,36 +29,85 @@ import { Label } from "@amaxa/ui/label";
 import type {
   ApplicationForm,
   ApplicationFormField,
+  ApplicationFormSection,
   FieldResponse,
+  FileUploadValue,
 } from "./types";
 import { FormFieldRenderer } from "./form-field-renderer";
-import { validateFieldValue } from "./validation";
+import { buildFieldSchema } from "./form-schema";
 
 interface ApplyFormProps {
   form: ApplicationForm;
   fields: ApplicationFormField[];
+  sections?: ApplicationFormSection[];
+  slug: string;
 }
 
-export function ApplyForm({ form, fields }: ApplyFormProps) {
+export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { user } = useAuth();
   const submitApplication = useMutation(api.applicationResponses.submit);
+
+  const fieldIdMap = useMemo(() => {
+    const map: Record<Id<"applicationFormFields">, string> = {} as Record<
+      Id<"applicationFormFields">,
+      string
+    >;
+    fields.forEach((field) => {
+      map[field._id] = `fieldResponses.${field._id}`;
+    });
+    return map;
+  }, [fields]);
+
+  const getDefaultValue = (
+    field: ApplicationFormField,
+  ): string | string[] | undefined => {
+    if (field.type === "multiselect") return [];
+    if (field.type === "file") return undefined;
+    return "";
+  };
 
   const tanstackForm = useForm({
     defaultValues: {
-      applicantName: "",
-      applicantEmail: "",
-      ...Object.fromEntries(
-        fields.map((field) => [
-          field._id,
-          field.type === "multiselect" ? [] : "",
-        ]),
+      applicantName: `${user?.firstName ?? ""} ${user?.lastName ?? ""}`,
+      applicantEmail: `${user?.email ?? ""}`,
+      fieldResponses: Object.fromEntries(
+        fields.map((field) => [field._id, getDefaultValue(field)]),
       ),
     },
     onSubmit: async ({ value }) => {
-      const fieldResponses: FieldResponse[] = fields.map((field) => ({
-        fieldId: field._id,
-        value: value[field._id] as string | string[],
-      }));
+      const visibleFields = fields.filter((field) => {
+        if (field.sectionId && sections) {
+          const section = sections.find((s) => s._id === field.sectionId);
+          if (
+            section?.condition &&
+            !evaluateCondition(
+              section.condition as Condition,
+              value as ConditionFormValues,
+              fieldIdMap,
+            )
+          ) {
+            return false;
+          }
+        }
+        if (field.condition) {
+          return evaluateCondition(
+            field.condition as Condition,
+            value as ConditionFormValues,
+            fieldIdMap,
+          );
+        }
+        return true;
+      });
+
+      const fieldResponses: FieldResponse[] = visibleFields.map((field) => {
+        const fieldValue = value.fieldResponses[field._id];
+
+        return {
+          fieldId: field._id,
+          value: fieldValue as string | string[] | FileUploadValue,
+        };
+      });
 
       try {
         await submitApplication({
@@ -73,6 +129,75 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
     },
   });
 
+  // Compute visibility for sections and fields based on current form values
+  const formValues = useStore(tanstackForm.store, (state) => state.values);
+
+  const isFieldVisible = (field: ApplicationFormField): boolean => {
+    // Check if field's section is visible
+    if (field.sectionId && sections) {
+      const section = sections.find((s) => s._id === field.sectionId);
+      if (
+        section?.condition &&
+        !evaluateCondition(
+          section.condition as Condition,
+          formValues as ConditionFormValues,
+          fieldIdMap,
+        )
+      ) {
+        return false;
+      }
+    }
+    // Check if field itself is visible
+    if (field.condition) {
+      return evaluateCondition(
+        field.condition as Condition,
+        formValues as ConditionFormValues,
+        fieldIdMap,
+      );
+    }
+    return true;
+  };
+
+  const isSectionVisible = (section: ApplicationFormSection): boolean => {
+    if (!section.condition) return true;
+    return evaluateCondition(
+      section.condition as Condition,
+      formValues as ConditionFormValues,
+      fieldIdMap,
+    );
+  };
+
+  // Group fields by section
+  const fieldsBySection = useMemo(() => {
+    const grouped: Record<
+      Id<"applicationFormSections"> | "unsectioned",
+      ApplicationFormField[]
+    > = {
+      unsectioned: [],
+    };
+
+    sections?.forEach((s) => {
+      grouped[s._id] = [];
+    });
+
+    fields.forEach((field) => {
+      if (field.sectionId) {
+        const section = grouped[field.sectionId];
+        if (section) {
+          section.push(field);
+        } else {
+          grouped.unsectioned.push(field);
+        }
+      } else {
+        grouped.unsectioned.push(field);
+      }
+    });
+
+    return grouped;
+  }, [fields, sections]);
+
+  const hasSections = sections && sections.length > 0;
+
   if (isSubmitted) {
     return (
       <Card className="mx-auto max-w-2xl">
@@ -89,6 +214,52 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
       </Card>
     );
   }
+
+  const renderField = (formField: ApplicationFormField) => {
+    const visible = isFieldVisible(formField);
+
+    if (!visible) return null;
+
+    return (
+      <tanstackForm.Field
+        children={(field) => (
+          <FormFieldRenderer
+            field={field}
+            formField={formField}
+            formSlug={slug}
+          />
+        )}
+        key={formField._id}
+        name={`fieldResponses.${formField._id}` as const}
+        validators={{
+          onChange: buildFieldSchema(formField),
+        }}
+      />
+    );
+  };
+
+  const renderSection = (section: ApplicationFormSection) => {
+    if (!isSectionVisible(section)) return null;
+
+    const sectionFields = fieldsBySection[section._id] ?? [];
+    if (sectionFields.length === 0) return null;
+
+    return (
+      <div key={section._id} className="space-y-6">
+        <div className="border-b pb-2">
+          <h3 className="text-base font-semibold">{section.title}</h3>
+          {section.description && (
+            <p className="text-muted-foreground text-sm">
+              {section.description}
+            </p>
+          )}
+        </div>
+        <div className="space-y-6">
+          {sectionFields.map((formField) => renderField(formField))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Card className="mx-auto max-w-2xl">
@@ -192,53 +363,64 @@ export function ApplyForm({ form, fields }: ApplyFormProps) {
 
           {/* Dynamic Form Fields */}
           {fields.length > 0 && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <h3 className="text-muted-foreground text-sm font-medium">
                 Application Questions
               </h3>
 
-              {fields.map((formField) => (
-                <tanstackForm.Field
-                  children={(field) => (
-                    <FormFieldRenderer field={field} formField={formField} />
+              {/* Render sections if they exist */}
+              {hasSections && (
+                <div className="space-y-8">
+                  {sections.map((section) => renderSection(section))}
+                </div>
+              )}
+
+              {/* Render unsectioned fields */}
+              {fieldsBySection.unsectioned.length > 0 && (
+                <div className="space-y-6">
+                  {fieldsBySection.unsectioned.map((formField) =>
+                    renderField(formField),
                   )}
-                  key={formField._id}
-                  name={formField._id}
-                  validators={{
-                    onChange: ({ value }) =>
-                      validateFieldValue(formField, value as string | string[]),
-                  }}
-                />
-              ))}
+                </div>
+              )}
+
+              {/* Fallback for forms without sections */}
+              {!hasSections && fieldsBySection.unsectioned.length === 0 && (
+                <div className="space-y-6">
+                  {fields.map((formField) => renderField(formField))}
+                </div>
+              )}
             </div>
           )}
 
           {/* Submit Button */}
           <tanstackForm.Subscribe
-            children={([canSubmit, isSubmitting]) => (
-              <div className="flex justify-end border-t pt-6">
-                <Button
-                  className="min-w-32"
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                  disabled={!canSubmit || isSubmitting}
-                  size="lg"
-                  type="submit"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      <IconSend className="mr-2 h-4 w-4" />
-                      Submit Application
-                    </>
-                  )}
-                </Button>
-              </div>
-            )}
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
+            selector={(state) => [state.canSubmit, state.isSubmitting] as const}
+            children={(values) => {
+              const [canSubmit, isSubmitting] = values;
+              return (
+                <div className="flex justify-end border-t pt-6">
+                  <Button
+                    className="min-w-32"
+                    disabled={!canSubmit || isSubmitting}
+                    size="lg"
+                    type="submit"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <IconSend className="mr-2 h-4 w-4" />
+                        Submit Application
+                      </>
+                    )}
+                  </Button>
+                </div>
+              );
+            }}
           />
         </form>
       </CardContent>

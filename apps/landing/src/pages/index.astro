@@ -16,10 +16,6 @@ import SpotlightCard from "@/components/home/spotlight-card.astro";
 import { PathwayGrid } from "@/components/pathway-card";
 import AppLayout from "@/layouts/app-layout.astro";
 
-const seoTitle = "amaxa";
-const seoDescription = "We are ámaxa: an organization dedicated to removing barriers for anyone who want to effect positive change in the world through focused initiatives centered on sustainability, human rights, equity and education. Join us today.";
-
-// Pathways cards data
 const pathwaysCards = [
   {
     title: "Ámaxa Cohorts",
@@ -110,7 +106,9 @@ const spotlights: SpotlightData[] = [
         <div
           class="flex flex-col items-start justify-between md:flex-row md:items-center"
         >
-          <div class="mb-12 max-w-full md:mb-0 md:max-w-3xl lg:max-w-4xl">
+          <div
+            class="mb-12 max-w-full text-black md:mb-0 md:max-w-3xl lg:max-w-4xl dark:text-black"
+          >
             <p class="font-strong mb-8 max-w-3xl text-2xl">OUR MISSION</p>
             <p class="mb-8 max-w-3xl text-2xl font-light">
               For the first time in history, we can see in crystal clear detail

@@ -25,6 +25,30 @@ import {
   SelectTrigger,
 } from "@amaxa/ui/select";
 
+import { FileList } from "./file-preview";
+
+interface FileValue {
+  type: "file";
+  files: {
+    blobId: string;
+    path: string;
+    filename: string;
+    contentType: string;
+    sizeBytes: number;
+  }[];
+}
+
+function isFileValue(value: unknown): value is FileValue {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "type" in value &&
+    value.type === "file" &&
+    "files" in value &&
+    Array.isArray(value.files)
+  );
+}
+
 type ResponseStatus = "pending" | "reviewed" | "accepted" | "rejected";
 
 const statusStyles: Record<ResponseStatus, string> = {
@@ -277,7 +301,9 @@ export function ResponseDetailPage({
                       {fr.fieldLabel}
                     </span>
                     <div className="mt-2">
-                      {Array.isArray(fr.value) ? (
+                      {isFileValue(fr.value) ? (
+                        <FileList files={fr.value.files} />
+                      ) : Array.isArray(fr.value) ? (
                         <div className="flex flex-wrap gap-1">
                           {fr.value.map((v, i) => (
                             <Badge

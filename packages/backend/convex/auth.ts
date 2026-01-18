@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+
 import { query } from "./_generated/server";
 import { isSiteAdmin } from "./permissions";
 
@@ -10,7 +11,6 @@ export const getCurrentUserStatus = query({
   }),
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-
     if (!identity?.subject) {
       return { isAdmin: false, userId: null };
     }

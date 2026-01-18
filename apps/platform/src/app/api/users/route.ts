@@ -1,9 +1,17 @@
-import { env } from "node:process";
-import { WorkOS } from "@workos-inc/node";
+import { listUsers } from "@/lib/workos";
 
 export async function GET() {
-  const workos = new WorkOS(env.WORKOS_API_KEY);
-  const users = await workos.userManagement.listUsers();
+  const result = await listUsers();
 
-  return new Response(JSON.stringify(users.data), { status: 200 });
+  if (result.status === "ok") {
+    return new Response(JSON.stringify(result.value), { status: 200 });
+  }
+
+  return new Response(
+    JSON.stringify({
+      error: result.error.message,
+      operation: result.error.operation,
+    }),
+    { status: 500 },
+  );
 }

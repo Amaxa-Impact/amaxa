@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { omitUndefined } from "@/lib/omit-undefined";
 import { IconCopy, IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
@@ -14,8 +15,10 @@ import { Input } from "@amaxa/ui/input";
 import { Switch } from "@amaxa/ui/switch";
 
 import type { FormField, QuestionFormValues } from "./types";
+import { FileConfigEditor } from "./file-config-editor";
 import { FormFieldTypeSelector } from "./form-field-type-selector";
 import { FormQuestionOptions } from "./form-question-options";
+import { DEFAULT_FILE_CONFIG } from "./types";
 import { useFieldTypeInference } from "./use-field-type-inference";
 
 interface FormQuestionCardProps {
@@ -37,6 +40,10 @@ export function FormQuestionCard({
 }: FormQuestionCardProps) {
   const updateField = useMutation(api.applicationFormFields.update);
   const [isSaving, setIsSaving] = useState(false);
+  const [typeManuallyChanged, setTypeManuallyChanged] = useState(false);
+  const [suggestedOptions, setSuggestedOptions] = useState<
+    string[] | undefined
+  >(undefined);
   const labelInputRef = useRef<HTMLInputElement>(null);
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -51,6 +58,7 @@ export function FormQuestionCard({
       options: field.options ?? [],
       min: field.min,
       max: field.max,
+      fileConfig: field.fileConfig ?? DEFAULT_FILE_CONFIG,
     },
   });
 
@@ -58,19 +66,22 @@ export function FormQuestionCard({
     async (values: QuestionFormValues) => {
       setIsSaving(true);
       try {
-        await updateField({
-          fieldId: field._id,
-          label: values.label,
-          description: values.description ?? undefined,
-          type: values.type,
-          required: values.required,
-          options:
-            values.type === "select" || values.type === "multiselect"
-              ? values.options
-              : undefined,
-          min: values.type === "number" ? values.min : undefined,
-          max: values.type === "number" ? values.max : undefined,
-        });
+        await updateField(
+          omitUndefined({
+            fieldId: field._id,
+            label: values.label,
+            description: values.description ?? undefined,
+            type: values.type,
+            required: values.required,
+            options:
+              values.type === "select" || values.type === "multiselect"
+                ? values.options
+                : undefined,
+            min: values.type === "number" ? values.min : undefined,
+            max: values.type === "number" ? values.max : undefined,
+            fileConfig: values.type === "file" ? values.fileConfig : undefined,
+          }),
+        );
       } catch {
         toast.error("Failed to save changes");
       } finally {
@@ -101,18 +112,28 @@ export function FormQuestionCard({
   }, []);
 
   const handleLabelBlur = useCallback(async () => {
+    if (typeManuallyChanged) {
+      return;
+    }
+
     const label = form.getFieldValue("label");
     if (label && label.length > 3) {
       const result = await inferFieldType(label);
       if (result) {
         form.setFieldValue("type", result.fieldType);
-        debouncedSave({
-          ...form.state.values,
-          type: result.fieldType,
-        });
+        // Set suggested options if available
+        if (result.suggestedOptions && result.suggestedOptions.length > 0) {
+          setSuggestedOptions(result.suggestedOptions);
+        }
+        debouncedSave(
+          omitUndefined({
+            ...form.state.values,
+            type: result.fieldType,
+          }),
+        );
       }
     }
-  }, [form, inferFieldType, debouncedSave]);
+  }, [form, inferFieldType, debouncedSave, typeManuallyChanged]);
 
   useEffect(() => {
     if (isActive && labelInputRef.current) {
@@ -125,6 +146,8 @@ export function FormQuestionCard({
     form.state.values.type === "multiselect";
 
   const showNumberConfig = form.state.values.type === "number";
+
+  const showFileConfig = form.state.values.type === "file";
 
   return (
     <div
@@ -169,10 +192,8 @@ export function FormQuestionCard({
                     }}
                     onChange={(e) => {
                       fieldApi.handleChange(e.target.value);
-                      debouncedSave({
-                        ...form.state.values,
-                        label: e.target.value,
-                      });
+                      setTypeManuallyChanged(false);
+                      debouncedSave(omitUndefined({ ...form.state.values }));
                     }}
                     placeholder="Question"
                     ref={labelInputRef}
@@ -193,10 +214,14 @@ export function FormQuestionCard({
                 disabled={isInferring}
                 onChange={(value) => {
                   fieldApi.handleChange(value);
-                  debouncedSave({
-                    ...form.state.values,
-                    type: value,
-                  });
+                  setTypeManuallyChanged(true);
+                  setSuggestedOptions(undefined);
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      type: value,
+                    }),
+                  );
                 }}
                 value={fieldApi.state.value}
               />
@@ -216,10 +241,12 @@ export function FormQuestionCard({
                   onBlur={fieldApi.handleBlur}
                   onChange={(e) => {
                     fieldApi.handleChange(e.target.value);
-                    debouncedSave({
-                      ...form.state.values,
-                      description: e.target.value,
-                    });
+                    debouncedSave(
+                      omitUndefined({
+                        ...form.state.values,
+                        description: e.target.value,
+                      }),
+                    );
                   }}
                   placeholder="Description (optional)"
                   value={fieldApi.state.value}
@@ -236,13 +263,17 @@ export function FormQuestionCard({
               <FormQuestionOptions
                 onOptionsChange={(options) => {
                   fieldApi.setValue(options);
-                  debouncedSave({
-                    ...form.state.values,
-                    options,
-                  });
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      options,
+                    }),
+                  );
                 }}
                 options={fieldApi.state.value}
                 type={form.state.values.type as "select" | "multiselect"}
+                suggestedOptions={suggestedOptions ?? []}
+                onDismissSuggestions={() => setSuggestedOptions(undefined)}
               />
             )}
             mode="array"
@@ -265,10 +296,12 @@ export function FormQuestionCard({
                         ? Number.parseFloat(e.target.value)
                         : undefined;
                       fieldApi.handleChange(value);
-                      debouncedSave({
-                        ...form.state.values,
-                        min: value,
-                      });
+                      debouncedSave(
+                        omitUndefined({
+                          ...form.state.values,
+                          min: value,
+                        }),
+                      );
                     }}
                     placeholder="No minimum"
                     type="number"
@@ -291,10 +324,12 @@ export function FormQuestionCard({
                         ? Number.parseFloat(e.target.value)
                         : undefined;
                       fieldApi.handleChange(value);
-                      debouncedSave({
-                        ...form.state.values,
-                        max: value,
-                      });
+                      debouncedSave(
+                        omitUndefined({
+                          ...form.state.values,
+                          max: value,
+                        }),
+                      );
                     }}
                     placeholder="No maximum"
                     type="number"
@@ -305,6 +340,26 @@ export function FormQuestionCard({
               name="max"
             />
           </div>
+        )}
+
+        {showFileConfig && isActive && (
+          <form.Field
+            children={(fieldApi) => (
+              <FileConfigEditor
+                value={fieldApi.state.value}
+                onChange={(config) => {
+                  fieldApi.handleChange(config);
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      fileConfig: config,
+                    }),
+                  );
+                }}
+              />
+            )}
+            name="fileConfig"
+          />
         )}
 
         <div className="flex items-center justify-between border-t pt-2">
@@ -322,10 +377,12 @@ export function FormQuestionCard({
                   id={`field-${field._id}-required`}
                   onCheckedChange={(checked) => {
                     fieldApi.handleChange(checked);
-                    debouncedSave({
-                      ...form.state.values,
-                      required: checked,
-                    });
+                    debouncedSave(
+                      omitUndefined({
+                        ...form.state.values,
+                        required: checked,
+                      }),
+                    );
                   }}
                 />
               </Field>

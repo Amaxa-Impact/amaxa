@@ -45,7 +45,7 @@ export async function generateMetadata({
 }
 
 export default async function UsersPage() {
-  const allUsers = await listUsers();
+  const allUsersResult = await listUsers();
 
-  return <UsersPageContent allUsers={allUsers} />;
+  return <UsersPageContent allUsers={allUsersResult} />;
 }

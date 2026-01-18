@@ -4,6 +4,7 @@ import type { AnyFieldApi } from "@tanstack/react-form";
 import { memo } from "react";
 
 import type { ApplicationFormField } from "./types";
+import { FileField } from "./fields/file-field";
 import { MultiselectField } from "./fields/multiselect-field";
 import { NumberField } from "./fields/number-field";
 import { SelectField } from "./fields/select-field";
@@ -13,11 +14,13 @@ import { TextareaField } from "./fields/textarea-field";
 interface FormFieldRendererProps {
   field: AnyFieldApi;
   formField: ApplicationFormField;
+  formSlug: string;
 }
 
 function FormFieldRendererComponent({
   field,
   formField,
+  formSlug,
 }: FormFieldRendererProps) {
   switch (formField.type) {
     case "text":
@@ -30,6 +33,8 @@ function FormFieldRendererComponent({
       return <SelectField field={field} formField={formField} />;
     case "multiselect":
       return <MultiselectField field={field} formField={formField} />;
+    case "file":
+      return <FileField field={field} formField={formField} formSlug={formSlug} />;
     default:
       return <TextField field={field} formField={formField} />;
   }

@@ -11,15 +11,39 @@ import { api } from "@amaxa/backend/_generated/api";
 export default function FormEditorClient() {
   const { formId } = useParams<{ formId: Id<"applicationForms"> }>();
   const fields = useQuery(api.applicationFormFields.listByFormId, { formId });
+  const sections = useQuery(api.applicationFormSections.listByFormId, {
+    formId,
+  });
+
   const form = useApplicationForm();
 
+  if (!fields) {
+    return (
+      <div className="flex h-screen flex-col">
+        <main className="bg-background flex-1 overflow-auto">
+          <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
+            <div className="text-muted-foreground text-center">
+              <p className="mb-2 text-lg">Loading form...</p>
+              <p className="mb-4 text-sm">
+                This may take a few seconds. Please do not close this page.
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
   return (
     <div className="flex h-screen flex-col">
       <main className="bg-background flex-1 overflow-auto">
         <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
           <FormHeader form={form} formId={formId} />
 
-          <FormBuilder fields={fields} formId={formId} />
+          <FormBuilder
+            fields={fields}
+            formId={formId}
+            sections={sections ?? []}
+          />
         </div>
       </main>
     </div>

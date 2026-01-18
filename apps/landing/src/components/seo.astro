@@ -46,6 +46,10 @@ const imageURL = new URL(image, "https://www.amaxaimpact.org").href;
 <link rel="canonical" href={canonicalURL} />
 <meta name="keywords" content={keywords.join(", ")} />
 
+<!-- Preconnect hints for external resources -->
+<link rel="preconnect" href="https://cdn.sanity.io" />
+<link rel="dns-prefetch" href="https://cdn.sanity.io" />
+
 {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
 <!-- Open Graph -->
@@ -56,14 +60,17 @@ const imageURL = new URL(image, "https://www.amaxaimpact.org").href;
 <meta property="og:image" content={imageURL} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content="amaxa" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@amaxaimpact" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={title} />
 
 <!-- Additional SEO -->
 <meta

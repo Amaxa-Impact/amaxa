@@ -7,12 +7,30 @@ const fieldTypeValidator = v.union(
   v.literal("textarea"),
   v.literal("number"),
   v.literal("select"),
-  v.literal("multiselect")
+  v.literal("multiselect"),
+  v.literal("file")
 );
+
+const fileConfigValidator = v.object({
+  maxSizeBytes: v.number(),
+  allowedMimeTypes: v.array(v.string()),
+  maxFiles: v.optional(v.number()),
+});
+
+const conditionValidator = v.object({
+  sourceFieldId: v.id("applicationFormFields"),
+  operator: v.union(
+    v.literal("equals"),
+    v.literal("notEquals"),
+    v.literal("contains")
+  ),
+  value: v.union(v.string(), v.array(v.string())),
+});
 
 export const create = mutation({
   args: {
     formId: v.id("applicationForms"),
+    sectionId: v.optional(v.id("applicationFormSections")),
     label: v.string(),
     description: v.optional(v.string()),
     type: fieldTypeValidator,
@@ -20,6 +38,8 @@ export const create = mutation({
     options: v.optional(v.array(v.string())),
     min: v.optional(v.number()),
     max: v.optional(v.number()),
+    fileConfig: v.optional(fileConfigValidator),
+    condition: v.optional(conditionValidator),
   },
   returns: v.id("applicationFormFields"),
   handler: async (ctx, args) => {
@@ -42,6 +62,7 @@ export const create = mutation({
 
     const fieldId = await ctx.db.insert("applicationFormFields", {
       formId: args.formId,
+      sectionId: args.sectionId,
       label: args.label,
       description: args.description,
       type: args.type,
@@ -50,6 +71,8 @@ export const create = mutation({
       options: args.options,
       min: args.min,
       max: args.max,
+      fileConfig: args.fileConfig,
+      condition: args.condition,
     });
 
     return fieldId;
@@ -59,6 +82,7 @@ export const create = mutation({
 export const update = mutation({
   args: {
     fieldId: v.id("applicationFormFields"),
+    sectionId: v.optional(v.id("applicationFormSections")),
     label: v.optional(v.string()),
     description: v.optional(v.string()),
     type: v.optional(fieldTypeValidator),
@@ -66,6 +90,8 @@ export const update = mutation({
     options: v.optional(v.array(v.string())),
     min: v.optional(v.number()),
     max: v.optional(v.number()),
+    fileConfig: v.optional(fileConfigValidator),
+    condition: v.optional(conditionValidator),
   },
   returns: v.null(),
   handler: async (ctx, args) => {
@@ -147,6 +173,7 @@ export const listByForm = query({
       _id: v.id("applicationFormFields"),
       _creationTime: v.number(),
       formId: v.id("applicationForms"),
+      sectionId: v.optional(v.id("applicationFormSections")),
       label: v.string(),
       description: v.optional(v.string()),
       type: fieldTypeValidator,
@@ -155,6 +182,8 @@ export const listByForm = query({
       options: v.optional(v.array(v.string())),
       min: v.optional(v.number()),
       max: v.optional(v.number()),
+      fileConfig: v.optional(fileConfigValidator),
+      condition: v.optional(conditionValidator),
     })
   ),
   handler: async (ctx, args) => {
@@ -188,6 +217,7 @@ export const listByFormId = query({
       _id: v.id("applicationFormFields"),
       _creationTime: v.number(),
       formId: v.id("applicationForms"),
+      sectionId: v.optional(v.id("applicationFormSections")),
       label: v.string(),
       description: v.optional(v.string()),
       type: fieldTypeValidator,
@@ -196,6 +226,8 @@ export const listByFormId = query({
       options: v.optional(v.array(v.string())),
       min: v.optional(v.number()),
       max: v.optional(v.number()),
+      fileConfig: v.optional(fileConfigValidator),
+      condition: v.optional(conditionValidator),
     })
   ),
   handler: async (ctx, args) => {

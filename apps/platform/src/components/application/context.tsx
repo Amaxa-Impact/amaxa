@@ -58,9 +58,5 @@ export const ApplicationFormProvider = ({
 export const useApplicationForm = () => {
   const context = useContext(FormContext);
 
-  if (!context) {
-    throw new Error("useApplicationForm must be used within a FormProvider");
-  }
-
   return context;
 };

@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+
 import { mutation, query } from "./_generated/server";
 import { assertUserInProject, requireAuth } from "./permissions";
 
@@ -10,13 +11,13 @@ const taskDataValidator = v.object({
       v.literal("todo"),
       v.literal("in_progress"),
       v.literal("completed"),
-      v.literal("blocked")
-    )
+      v.literal("blocked"),
+    ),
   ),
   assignedTo: v.optional(v.string()),
   dueDate: v.optional(v.number()),
   priority: v.optional(
-    v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
+    v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
   ),
 });
 
@@ -39,13 +40,13 @@ export const create = mutation({
           v.literal("todo"),
           v.literal("in_progress"),
           v.literal("completed"),
-          v.literal("blocked")
-        )
+          v.literal("blocked"),
+        ),
       ),
       assignedTo: v.optional(v.string()),
       dueDate: v.optional(v.number()),
       priority: v.optional(
-        v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
+        v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
       ),
     }),
     width: v.optional(v.number()),
@@ -57,7 +58,7 @@ export const create = mutation({
     await assertUserInProject(ctx, userId, args.projectId);
 
     const type = args.type.trim() === "" ? "task" : args.type;
-    const label = args.data.label || "New Task";
+    const label = args.data.label ?? "New Task";
 
     const taskId = await ctx.db.insert("tasks", {
       projectId: args.projectId,
@@ -105,9 +106,9 @@ export const listForProject = query({
           backgroundColor: v.optional(v.string()),
           borderColor: v.optional(v.string()),
           color: v.optional(v.string()),
-        })
+        }),
       ),
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     const taskNodes = await ctx.db
@@ -138,7 +139,7 @@ export const listForProject = query({
           height: node.height,
           style: node.style,
         };
-      })
+      }),
     );
 
     return results.filter((r): r is NonNullable<typeof r> => r !== null);
@@ -218,13 +219,13 @@ export const updateData = mutation({
           v.literal("todo"),
           v.literal("in_progress"),
           v.literal("completed"),
-          v.literal("blocked")
-        )
+          v.literal("blocked"),
+        ),
       ),
       assignedTo: v.optional(v.string()),
       dueDate: v.optional(v.number()),
       priority: v.optional(
-        v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
+        v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
       ),
     }),
   },
@@ -355,7 +356,7 @@ export const batchUpdatePositions = mutation({
           x: v.number(),
           y: v.number(),
         }),
-      })
+      }),
     ),
   },
   returns: v.null(),

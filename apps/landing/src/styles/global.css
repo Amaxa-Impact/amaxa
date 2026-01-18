@@ -21,6 +21,10 @@
   }
 }
 
+@theme {
+  --color-brand-green: #BCD96C;
+}
+
 @layer base {
   :root {
     --font-geist-sans: "Geist Variable";

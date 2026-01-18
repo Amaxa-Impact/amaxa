@@ -16,15 +16,19 @@ import AppLayout from "@/layouts/app-layout.astro";
 import { WobbleCard } from "@/components/custom-animations/wobble-card";
 import { AnimatedTitle } from "@/components/custom-animations/animated-title";
 
-const seoTitle = "Who We Are";
-const seoDescription = "ámaxa takes chance out of making change. Through our pathways, we match you to a project with a clear goal, a team of passionate peers, and a trained coach. Gain real-world project management experience while making an impact.";
-
-import AppLayout from "@/layouts/app-layout.astro";
-import { WobbleCard } from "@/components/custom-animations/wobble-card";
-import { AnimatedTitle } from "@/components/custom-animations/animated-title";
 ---
 
-<AppLayout>
+<AppLayout
+  seo={{
+    title: "Who We Are",
+    description: "ámaxa takes chance out of making change. Through our pathways, we match you to a project with a clear goal, a team of passionate peers, and a trained coach. Gain real-world project management experience while making an impact.",
+    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    type: "website",
+    canonicalURL: "https://www.amaxaimpact.org/who-we-are",
+    keywords: ["amaxa", "about", "mission", "pathways", "impact"],
+    noIndex: false,
+  }}
+>
   <main>
     <!-- Hero Section -->
     <section class="w-full bg-background px-6 py-16 md:py-24">

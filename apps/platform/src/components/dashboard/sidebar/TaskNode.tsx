@@ -83,8 +83,8 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
       if (taskData.onDataChange) {
         taskData.onDataChange({
           label: value.label,
-          description: value.description ?? undefined,
-          assignedTo: value.assignedTo ?? undefined,
+          description: value.description,
+          assignedTo: value.assignedTo,
           priority: value.priority,
         });
       }
@@ -142,7 +142,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
     return (
       <div
         className={
-          "nodrag nopan bg-card text-card-foreground min-w-[280px] rounded-lg border-2 px-3 py-3 shadow-md"
+          "nodrag nopan bg-card text-card-foreground min-w-70 rounded-lg border-2 px-3 py-3 shadow-md"
         }
         onKeyDown={handleKeyDown}
       >
@@ -215,7 +215,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                     </FieldLabel>
                     <FieldContent>
                       <Textarea
-                        className="min-h-[60px]"
+                        className="min-h-15"
                         id={`task-${id}-description`}
                         name={field.name}
                         onBlur={field.handleBlur}
@@ -326,7 +326,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
 
   return (
     <div
-      className={`text-foreground min-w-[200px] rounded-lg border-2 px-3 py-2.5 shadow-md ${statusColors[status]}`}
+      className={`text-foreground min-w-50 rounded-lg border-2 px-3 py-2.5 shadow-md ${statusColors[status]}`}
     >
       <Handle className="h-3 w-3" position={Position.Left} type="target" />
 

@@ -1,6 +1,8 @@
 "use client";
 
+import type { WorkOsError } from "@/lib/errors";
 import type { User } from "@workos-inc/node";
+import type { Result } from "better-result";
 import { useEffect, useMemo, useState } from "react";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import { usePaginatedQuery, useQuery } from "convex/react";
@@ -30,7 +32,7 @@ import {
 
 interface TasksTableProps {
   projectId: Id<"projects">;
-  allUsers: User[];
+  allUsers: Result<User[], WorkOsError>;
 }
 
 type TaskStatus = "todo" | "in_progress" | "completed" | "blocked";
@@ -82,16 +84,16 @@ function TableSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <TableRow key={i}>
           <TableCell>
-            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-50" />
           </TableCell>
           <TableCell>
-            <Skeleton className="h-4 w-[80px]" />
+            <Skeleton className="h-4 w-20" />
           </TableCell>
           <TableCell>
-            <Skeleton className="h-4 w-[120px]" />
+            <Skeleton className="h-4 w-30" />
           </TableCell>
           <TableCell>
-            <Skeleton className="h-5 w-[80px]" />
+            <Skeleton className="h-5 w-20" />
           </TableCell>
         </TableRow>
       ))}
@@ -108,25 +110,30 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
 
   const debouncedSearch = useDebounce(filters.searchLabel, 300);
 
+  const args = {
+    projectId,
+    ...(filters.status && { status: filters.status }),
+    ...(filters.assignedTo && { assignedTo: filters.assignedTo }),
+    ...(debouncedSearch && { searchLabel: debouncedSearch }),
+  };
+
   const { results, status, loadMore } = usePaginatedQuery(
     api.dashboard.listTasksPaginated,
-    {
-      projectId,
-      status: filters.status,
-      assignedTo: filters.assignedTo,
-      searchLabel: debouncedSearch || undefined,
-    },
+    args,
     { initialNumItems: PAGE_SIZE },
   );
 
   const projectUsers = useQuery(api.dashboard.getProjectUsers, { projectId });
 
   const userMap = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const user of allUsers) {
-      map.set(user.id, getUserDisplayName(user));
+    if (allUsers.status === "ok") {
+      const map = new Map<string, string>();
+      for (const user of allUsers.value) {
+        map.set(user.id, getUserDisplayName(user));
+      }
+      return map;
     }
-    return map;
+    return undefined;
   }, [allUsers]);
 
   const formatDate = (timestamp: number | null) => {
@@ -148,7 +155,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
       <CardContent className="space-y-4">
         <div className="flex flex-wrap gap-3">
           <Input
-            className="w-[200px]"
+            className="w-50"
             onChange={(e) =>
               setFilters((prev) => ({ ...prev, searchLabel: e.target.value }))
             }
@@ -165,7 +172,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
             }
             value={filters.status ?? "all"}
           >
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-35">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -188,20 +195,20 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
             }}
             value={filters.assignedTo ?? "all"}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-45">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Users</SelectItem>
               {projectUsers?.map((user) => (
                 <SelectItem key={user.userId} value={user.userId}>
-                  {userMap.get(user.userId) ?? user.userId}
+                  {userMap?.get(user.userId) ?? user.userId}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          {(filters.status || filters.assignedTo || filters.searchLabel) && (
+          {(filters.status ?? filters.assignedTo ?? filters.searchLabel) && (
             <Button
               onClick={() =>
                 setFilters({
@@ -246,7 +253,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
                     <TableCell>{formatDate(task.dueDate)}</TableCell>
                     <TableCell>
                       {task.assignedTo
-                        ? (userMap.get(task.assignedTo) ?? "Unknown")
+                        ? (userMap?.get(task.assignedTo) ?? "Unknown")
                         : "-"}
                     </TableCell>
                     <TableCell>

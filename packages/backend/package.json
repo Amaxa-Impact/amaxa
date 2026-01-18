@@ -21,11 +21,13 @@
   "devDependencies": {
     "@amaxa/eslint-config": "workspace:*",
     "@types/node": "catalog:",
+    "patch-package": "^8.0.1",
     "typescript": "catalog:"
   },
   "dependencies": {
     "@convex-dev/migrations": "^0.2.9",
     "convex": "catalog:",
+    "convex-fs": "^0.2.0",
     "convex-helpers": "^0.1.106"
   }
 }
