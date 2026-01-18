@@ -28,7 +28,7 @@
   "devDependencies": {
     "@amaxa/prettier-config": "workspace:*",
     "@turbo/gen": "^2.6.3",
-    "eslint": "catalog:",
+    "dotenv-cli": "^10.0.0",
     "prettier": "catalog:",
     "turbo": "^2.6.3",
     "typescript": "catalog:"
