@@ -14,7 +14,8 @@ const fileValueValidator = v.object({
   type: v.literal("file"),
   files: v.array(
     v.object({
-      s3Key: v.string(),
+      blobId: v.string(),
+      path: v.string(),
       filename: v.string(),
       contentType: v.string(),
       sizeBytes: v.number(),

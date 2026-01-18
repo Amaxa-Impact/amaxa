@@ -1,12 +1,22 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { omitUndefined } from "@/lib/omit-undefined";
+import { parseJson } from "@/lib/parse-json-safe";
+import { type } from "arktype";
+import { Result } from "better-result";
 
-import type { FieldType, FieldTypeInferenceResult } from "./types";
+import type { FieldTypeInferenceResult } from "./types";
+import { fieldTypeSchema } from "./types";
 
 interface UseFieldTypeInferenceOptions {
   debounceMs?: number;
 }
+const responseValidator = type({
+  fieldType: fieldTypeSchema,
+  reasoning: "string | undefined ",
+  suggestedOptions: "string[] | undefined",
+});
 
 export function useFieldTypeInference(
   options: UseFieldTypeInferenceOptions = {},
@@ -21,10 +31,8 @@ export function useFieldTypeInference(
 
   const inferFieldType = useCallback(
     async (questionText: string): Promise<FieldTypeInferenceResult | null> => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-
+      // cancel in-flight work
+      abortControllerRef.current?.abort();
       if (debounceTimeoutRef.current) {
         clearTimeout(debounceTimeoutRef.current);
       }
@@ -34,49 +42,67 @@ export function useFieldTypeInference(
       }
 
       return new Promise<FieldTypeInferenceResult | null>((resolve) => {
-        debounceTimeoutRef.current = setTimeout(async () => {
-          setIsInferring(true);
-          abortControllerRef.current = new AbortController();
+        debounceTimeoutRef.current = setTimeout(() => {
+          void (async () => {
+            setIsInferring(true);
+            abortControllerRef.current = new AbortController();
 
-          try {
-            const response = await fetch("/api/field-type", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ input: questionText.trim() }),
-              signal: abortControllerRef.current.signal,
+            const result = await Result.gen(async function* () {
+              const response = yield* Result.await(
+                Result.tryPromise(() =>
+                  fetch("/api/field-type", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ input: questionText.trim() }),
+                    signal: abortControllerRef.current?.signal ?? null,
+                  }),
+                ),
+              );
+
+              if (!response.ok) {
+                return Result.err(new Error("Failed to infer field type"));
+              }
+
+              const json = yield* Result.await(
+                Result.tryPromise(() => response.json() as Promise<unknown>),
+              );
+
+              const parsed = parseJson(responseValidator, json);
+
+              if (Result.isError(parsed)) {
+                console.error(parsed.error);
+                return Result.err(parsed.error);
+              }
+
+              return Result.ok(parsed.value);
             });
 
-            if (!response.ok) {
-              throw new Error("Failed to infer field type");
-            }
+            result.match({
+              ok: (data) => {
+                const finalResult: FieldTypeInferenceResult = omitUndefined({
+                  fieldType: data.fieldType,
+                  reasoning: data.reasoning ?? "",
+                  suggestedOptions: data.suggestedOptions,
+                });
 
-            const data = await response.json();
-            const result: FieldTypeInferenceResult = {
-              fieldType: data.fieldType as FieldType,
-              reasoning: data.reasoning ?? "",
-              suggestedOptions: data.suggestedOptions as string[] | undefined,
-            };
+                setLastResult(finalResult);
+                resolve(finalResult);
+              },
+              err: (error) => {
+                if ((error as Error).name !== "AbortError") {
+                  console.error("Field type inference error:", error);
+                }
+                resolve(null);
+              },
+            });
 
-            setLastResult(result);
-            resolve(result);
-          } catch (error) {
-            if ((error as Error).name === "AbortError") {
-              resolve(null);
-              return;
-            }
-            console.error("Field type inference error:", error);
-            resolve(null);
-          } finally {
             setIsInferring(false);
-          }
+          })();
         }, debounceMs);
       });
     },
     [debounceMs],
   );
-
   const cancelInference = useCallback(() => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();

@@ -1,14 +1,25 @@
 "use client";
 
-import type { AnyFieldApi } from "@tanstack/react-form";
-
 import { Checkbox } from "@amaxa/ui/checkbox";
 import { Label } from "@amaxa/ui/label";
 
 import type { ApplicationFormField } from "../types";
 
+interface FormFieldApi<TValue> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      isTouched: boolean;
+      errors: string[];
+    };
+  };
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+}
+
 interface MultiselectFieldProps {
-  field: AnyFieldApi;
+  field: FormFieldApi<string[]>;
   formField: ApplicationFormField;
 }
 
@@ -17,7 +28,7 @@ export function MultiselectField({ field, formField }: MultiselectFieldProps) {
     field.state.meta.isTouched && field.state.meta.errors.length > 0;
   const options = formField.options ?? [];
   const selectedValues: string[] = Array.isArray(field.state.value)
-    ? (field.state.value as string[])
+    ? field.state.value
     : [];
 
   const handleToggle = (option: string, checked: boolean) => {

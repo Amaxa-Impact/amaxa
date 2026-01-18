@@ -46,6 +46,7 @@
     "@xyflow/react": "^12.10.0",
     "ai": "^6.0.6",
     "arktype": "catalog:",
+    "better-result": "^2.1.0",
     "convex": "catalog:",
     "next": "catalog:",
     "next-themes": "catalog:",

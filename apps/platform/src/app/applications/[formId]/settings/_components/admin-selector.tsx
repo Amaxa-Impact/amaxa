@@ -1,7 +1,5 @@
 "use client";
 
-import type { User } from "@/lib/workos";
-import { useEffect, useState } from "react";
 import { UserDropdown } from "@/components/user-dropdown";
 import { useQuery } from "convex/react";
 
@@ -38,11 +36,10 @@ export function AdminSelector({
 
   return (
     <UserDropdown
-      className={className}
+      className={className ?? ""}
       emptyMessage="No admins found."
       onValueChange={onValueChange}
       placeholder="Select admin..."
-      searchPlaceholder="Search admins..."
       users={adminUsers}
       value={value}
     />

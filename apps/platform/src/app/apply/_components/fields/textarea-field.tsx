@@ -1,23 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
-
-import type { AnyFieldApi } from "@tanstack/react-form";
 
 import { Label } from "@amaxa/ui/label";
 import { Textarea } from "@amaxa/ui/textarea";
 
 import type { ApplicationFormField } from "../types";
 
+interface FormFieldApi<TValue> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      isTouched: boolean;
+      errors: string[];
+    };
+  };
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+}
+
 interface TextareaFieldProps {
-  field: AnyFieldApi;
+  field: FormFieldApi<string>;
   formField: ApplicationFormField;
 }
 
 export function TextareaField({ field, formField }: TextareaFieldProps) {
   const hasError =
     field.state.meta.isTouched && field.state.meta.errors.length > 0;
-  const charCount = (field.state.value ?? "").length as number;
+  const charCount = field.state.value.length;
   const showCharCount = formField.max !== undefined;
 
   return (
@@ -47,7 +56,7 @@ export function TextareaField({ field, formField }: TextareaFieldProps) {
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
         placeholder={`Enter ${formField.label.toLowerCase()}`}
-        value={field.state.value ?? ""}
+        value={field.state.value}
       />
       {hasError && (
         <p className="text-destructive text-xs">

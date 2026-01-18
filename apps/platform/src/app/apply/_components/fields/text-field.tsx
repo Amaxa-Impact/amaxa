@@ -1,15 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
-
-import type { AnyFieldApi } from "@tanstack/react-form";
 
 import { Input } from "@amaxa/ui/input";
 import { Label } from "@amaxa/ui/label";
 
 import type { ApplicationFormField } from "../types";
 
+interface FormFieldApi<TValue> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      isTouched: boolean;
+      errors: string[];
+    };
+  };
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+}
+
 interface TextFieldProps {
-  field: AnyFieldApi;
+  field: FormFieldApi<string>;
   formField: ApplicationFormField;
 }
 
@@ -34,7 +44,7 @@ export function TextField({ field, formField }: TextFieldProps) {
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
         placeholder={`Enter ${formField.label.toLowerCase()}`}
-        value={field.state.value ?? ""}
+        value={field.state.value}
       />
       {hasError && (
         <p className="text-destructive text-xs">

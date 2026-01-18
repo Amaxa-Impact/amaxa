@@ -62,9 +62,8 @@ const TasksGraphInner = memo(function TasksGraphInner({
 }: TasksGraphProps) {
   const reactFlowInstance = useReactFlow();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Only run once when reactFlowInstance becomes available
   useEffect(() => {
-    if (onFlowInstanceReady && reactFlowInstance) {
+    if (onFlowInstanceReady) {
       onFlowInstanceReady(reactFlowInstance);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -6,7 +6,8 @@
         "http://127.0.0.1:3000",
         "https://localhost:3000",
         "https://www.amaxaimpact.org",
-        "https://app.amaxaimpact.org"
+        "https://app.amaxaimpact.org",
+        "https://good-mongoose-472.convex.cloud"
       ],
       "AllowedMethods": ["GET", "PUT", "POST", "HEAD", "OPTIONS"],
       "AllowedHeaders": ["*"],

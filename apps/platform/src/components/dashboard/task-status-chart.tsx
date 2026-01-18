@@ -81,12 +81,12 @@ export function TaskStatusChart({
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         {total === 0 ? (
-          <div className="flex h-[250px] items-center justify-center">
+          <div className="flex h-62.5 items-center justify-center">
             <p className="text-muted-foreground text-sm">No tasks</p>
           </div>
         ) : (
           <ChartContainer
-            className="mx-auto aspect-square max-h-[250px]"
+            className="mx-auto aspect-square max-h-62.5"
             config={chartConfig}
           >
             <PieChart>

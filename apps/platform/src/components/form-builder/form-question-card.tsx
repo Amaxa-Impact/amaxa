@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { omitUndefined } from "@/lib/omit-undefined";
 import { IconCopy, IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "convex/react";
@@ -40,9 +41,9 @@ export function FormQuestionCard({
   const updateField = useMutation(api.applicationFormFields.update);
   const [isSaving, setIsSaving] = useState(false);
   const [typeManuallyChanged, setTypeManuallyChanged] = useState(false);
-  const [suggestedOptions, setSuggestedOptions] = useState<string[] | undefined>(
-    undefined
-  );
+  const [suggestedOptions, setSuggestedOptions] = useState<
+    string[] | undefined
+  >(undefined);
   const labelInputRef = useRef<HTMLInputElement>(null);
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -65,20 +66,22 @@ export function FormQuestionCard({
     async (values: QuestionFormValues) => {
       setIsSaving(true);
       try {
-        await updateField({
-          fieldId: field._id,
-          label: values.label,
-          description: values.description ?? undefined,
-          type: values.type,
-          required: values.required,
-          options:
-            values.type === "select" || values.type === "multiselect"
-              ? values.options
-              : undefined,
-          min: values.type === "number" ? values.min : undefined,
-          max: values.type === "number" ? values.max : undefined,
-          fileConfig: values.type === "file" ? values.fileConfig : undefined,
-        });
+        await updateField(
+          omitUndefined({
+            fieldId: field._id,
+            label: values.label,
+            description: values.description ?? undefined,
+            type: values.type,
+            required: values.required,
+            options:
+              values.type === "select" || values.type === "multiselect"
+                ? values.options
+                : undefined,
+            min: values.type === "number" ? values.min : undefined,
+            max: values.type === "number" ? values.max : undefined,
+            fileConfig: values.type === "file" ? values.fileConfig : undefined,
+          }),
+        );
       } catch {
         toast.error("Failed to save changes");
       } finally {
@@ -122,10 +125,12 @@ export function FormQuestionCard({
         if (result.suggestedOptions && result.suggestedOptions.length > 0) {
           setSuggestedOptions(result.suggestedOptions);
         }
-        debouncedSave({
-          ...form.state.values,
-          type: result.fieldType,
-        });
+        debouncedSave(
+          omitUndefined({
+            ...form.state.values,
+            type: result.fieldType,
+          }),
+        );
       }
     }
   }, [form, inferFieldType, debouncedSave, typeManuallyChanged]);
@@ -188,10 +193,7 @@ export function FormQuestionCard({
                     onChange={(e) => {
                       fieldApi.handleChange(e.target.value);
                       setTypeManuallyChanged(false);
-                      debouncedSave({
-                        ...form.state.values,
-                        label: e.target.value,
-                      });
+                      debouncedSave(omitUndefined({ ...form.state.values }));
                     }}
                     placeholder="Question"
                     ref={labelInputRef}
@@ -214,10 +216,12 @@ export function FormQuestionCard({
                   fieldApi.handleChange(value);
                   setTypeManuallyChanged(true);
                   setSuggestedOptions(undefined);
-                  debouncedSave({
-                    ...form.state.values,
-                    type: value,
-                  });
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      type: value,
+                    }),
+                  );
                 }}
                 value={fieldApi.state.value}
               />
@@ -237,10 +241,12 @@ export function FormQuestionCard({
                   onBlur={fieldApi.handleBlur}
                   onChange={(e) => {
                     fieldApi.handleChange(e.target.value);
-                    debouncedSave({
-                      ...form.state.values,
-                      description: e.target.value,
-                    });
+                    debouncedSave(
+                      omitUndefined({
+                        ...form.state.values,
+                        description: e.target.value,
+                      }),
+                    );
                   }}
                   placeholder="Description (optional)"
                   value={fieldApi.state.value}
@@ -257,14 +263,16 @@ export function FormQuestionCard({
               <FormQuestionOptions
                 onOptionsChange={(options) => {
                   fieldApi.setValue(options);
-                  debouncedSave({
-                    ...form.state.values,
-                    options,
-                  });
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      options,
+                    }),
+                  );
                 }}
                 options={fieldApi.state.value}
                 type={form.state.values.type as "select" | "multiselect"}
-                suggestedOptions={suggestedOptions}
+                suggestedOptions={suggestedOptions ?? []}
                 onDismissSuggestions={() => setSuggestedOptions(undefined)}
               />
             )}
@@ -288,10 +296,12 @@ export function FormQuestionCard({
                         ? Number.parseFloat(e.target.value)
                         : undefined;
                       fieldApi.handleChange(value);
-                      debouncedSave({
-                        ...form.state.values,
-                        min: value,
-                      });
+                      debouncedSave(
+                        omitUndefined({
+                          ...form.state.values,
+                          min: value,
+                        }),
+                      );
                     }}
                     placeholder="No minimum"
                     type="number"
@@ -314,10 +324,12 @@ export function FormQuestionCard({
                         ? Number.parseFloat(e.target.value)
                         : undefined;
                       fieldApi.handleChange(value);
-                      debouncedSave({
-                        ...form.state.values,
-                        max: value,
-                      });
+                      debouncedSave(
+                        omitUndefined({
+                          ...form.state.values,
+                          max: value,
+                        }),
+                      );
                     }}
                     placeholder="No maximum"
                     type="number"
@@ -337,10 +349,12 @@ export function FormQuestionCard({
                 value={fieldApi.state.value}
                 onChange={(config) => {
                   fieldApi.handleChange(config);
-                  debouncedSave({
-                    ...form.state.values,
-                    fileConfig: config,
-                  });
+                  debouncedSave(
+                    omitUndefined({
+                      ...form.state.values,
+                      fileConfig: config,
+                    }),
+                  );
                 }}
               />
             )}
@@ -363,10 +377,12 @@ export function FormQuestionCard({
                   id={`field-${field._id}-required`}
                   onCheckedChange={(checked) => {
                     fieldApi.handleChange(checked);
-                    debouncedSave({
-                      ...form.state.values,
-                      required: checked,
-                    });
+                    debouncedSave(
+                      omitUndefined({
+                        ...form.state.values,
+                        required: checked,
+                      }),
+                    );
                   }}
                 />
               </Field>

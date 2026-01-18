@@ -18,6 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { projectId } = await params;
   const { accessToken } = await withAuth();
+  if (!accessToken) {
+    return {
+      title: "Project",
+      description: "View and manage project details",
+    };
+  }
 
   try {
     const project = await fetchQuery(

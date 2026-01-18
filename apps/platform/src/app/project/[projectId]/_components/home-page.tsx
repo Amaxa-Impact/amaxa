@@ -1,6 +1,8 @@
 "use client";
 
+import type { WorkOsError } from "@/lib/errors";
 import type { User } from "@workos-inc/node";
+import type { Result } from "better-result";
 import type { Preloaded } from "convex/react";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { TaskStatusChart } from "@/components/dashboard/task-status-chart";
@@ -13,7 +15,7 @@ export function HomePage({
   allUsers,
   statusCountsPrefetched,
 }: {
-  allUsers: User[];
+  allUsers: Result<User[], WorkOsError>;
   statusCountsPrefetched: Preloaded<typeof api.dashboard.getTaskStatusCounts>;
 }) {
   const { project } = useDashboardContext();
@@ -29,16 +31,16 @@ export function HomePage({
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <TaskStatusChart
-          data={statusCounts?.allTasks}
+          data={statusCounts.allTasks}
           description="Task breakdown by status"
           title="All Tasks"
-          total={statusCounts?.totalAll}
+          total={statusCounts.totalAll}
         />
         <TaskStatusChart
-          data={statusCounts?.userTasks}
+          data={statusCounts.userTasks}
           description="Your assigned tasks by status"
           title="My Tasks"
-          total={statusCounts?.totalUser}
+          total={statusCounts.totalUser}
         />
       </div>
 

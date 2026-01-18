@@ -14,11 +14,14 @@ import type * as applicationForms from "../applicationForms.js";
 import type * as applicationResponses from "../applicationResponses.js";
 import type * as auth from "../auth.js";
 import type * as dashboard from "../dashboard.js";
+import type * as e2eTestData from "../e2eTestData.js";
 import type * as edges from "../edges.js";
 import type * as emails_RejectionEmail from "../emails/RejectionEmail.js";
 import type * as emails_SchedulingEmail from "../emails/SchedulingEmail.js";
-import type * as fileUpload from "../fileUpload.js";
+import type * as files from "../files.js";
+import type * as fs from "../fs.js";
 import type * as graph from "../graph.js";
+import type * as http from "../http.js";
 import type * as interviewTimeSlots from "../interviewTimeSlots.js";
 import type * as migrations from "../migrations.js";
 import type * as permissions from "../permissions.js";
@@ -44,11 +47,14 @@ declare const fullApi: ApiFromModules<{
   applicationResponses: typeof applicationResponses;
   auth: typeof auth;
   dashboard: typeof dashboard;
+  e2eTestData: typeof e2eTestData;
   edges: typeof edges;
   "emails/RejectionEmail": typeof emails_RejectionEmail;
   "emails/SchedulingEmail": typeof emails_SchedulingEmail;
-  fileUpload: typeof fileUpload;
+  files: typeof files;
+  fs: typeof fs;
   graph: typeof graph;
+  http: typeof http;
   interviewTimeSlots: typeof interviewTimeSlots;
   migrations: typeof migrations;
   permissions: typeof permissions;
@@ -89,6 +95,570 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
+  fs: {
+    lib: {
+      commitFiles: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          files: Array<{
+            attributes?: { expiresAt?: number };
+            basis?: null | string;
+            blobId: string;
+            path: string;
+          }>;
+        },
+        null
+      >;
+      copyByPath: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          destPath: string;
+          sourcePath: string;
+        },
+        null
+      >;
+      deleteByPath: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          path: string;
+        },
+        null
+      >;
+      getDownloadUrl: FunctionReference<
+        "action",
+        "internal",
+        {
+          blobId: string;
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          extraParams?: Record<string, string>;
+        },
+        string
+      >;
+      list: FunctionReference<
+        "query",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          paginationOpts: {
+            cursor: string | null;
+            endCursor?: string | null;
+            id?: number;
+            maximumBytesRead?: number;
+            maximumRowsRead?: number;
+            numItems: number;
+          };
+          prefix?: string;
+        },
+        {
+          continueCursor: string;
+          isDone: boolean;
+          page: Array<{
+            attributes?: { expiresAt?: number };
+            blobId: string;
+            contentType: string;
+            path: string;
+            size: number;
+          }>;
+        }
+      >;
+      moveByPath: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          destPath: string;
+          sourcePath: string;
+        },
+        null
+      >;
+      registerPendingUpload: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          blobId: string;
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          contentType: string;
+          size: number;
+        },
+        null
+      >;
+      stat: FunctionReference<
+        "query",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          path: string;
+        },
+        null | {
+          attributes?: { expiresAt?: number };
+          blobId: string;
+          contentType: string;
+          path: string;
+          size: number;
+        }
+      >;
+      transact: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          ops: Array<
+            | {
+                dest: { basis?: null | string; path: string };
+                op: "move";
+                source: {
+                  attributes?: { expiresAt?: number };
+                  blobId: string;
+                  contentType: string;
+                  path: string;
+                  size: number;
+                };
+              }
+            | {
+                dest: { basis?: null | string; path: string };
+                op: "copy";
+                source: {
+                  attributes?: { expiresAt?: number };
+                  blobId: string;
+                  contentType: string;
+                  path: string;
+                  size: number;
+                };
+              }
+            | {
+                op: "delete";
+                source: {
+                  attributes?: { expiresAt?: number };
+                  blobId: string;
+                  contentType: string;
+                  path: string;
+                  size: number;
+                };
+              }
+            | {
+                attributes: { expiresAt?: null | number };
+                op: "setAttributes";
+                source: {
+                  attributes?: { expiresAt?: number };
+                  blobId: string;
+                  contentType: string;
+                  path: string;
+                  size: number;
+                };
+              }
+          >;
+        },
+        null
+      >;
+    };
+    ops: {
+      basics: {
+        copyByPath: FunctionReference<
+          "mutation",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            destPath: string;
+            sourcePath: string;
+          },
+          null
+        >;
+        deleteByPath: FunctionReference<
+          "mutation",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            path: string;
+          },
+          null
+        >;
+        list: FunctionReference<
+          "query",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            paginationOpts: {
+              cursor: string | null;
+              endCursor?: string | null;
+              id?: number;
+              maximumBytesRead?: number;
+              maximumRowsRead?: number;
+              numItems: number;
+            };
+            prefix?: string;
+          },
+          {
+            continueCursor: string;
+            isDone: boolean;
+            page: Array<{
+              attributes?: { expiresAt?: number };
+              blobId: string;
+              contentType: string;
+              path: string;
+              size: number;
+            }>;
+          }
+        >;
+        moveByPath: FunctionReference<
+          "mutation",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            destPath: string;
+            sourcePath: string;
+          },
+          null
+        >;
+        stat: FunctionReference<
+          "query",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            path: string;
+          },
+          null | {
+            attributes?: { expiresAt?: number };
+            blobId: string;
+            contentType: string;
+            path: string;
+            size: number;
+          }
+        >;
+      };
+      transact: {
+        commitFiles: FunctionReference<
+          "mutation",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            files: Array<{
+              attributes?: { expiresAt?: number };
+              basis?: null | string;
+              blobId: string;
+              path: string;
+            }>;
+          },
+          null
+        >;
+        transact: FunctionReference<
+          "mutation",
+          "internal",
+          {
+            config: {
+              blobGracePeriod?: number;
+              downloadUrlTtl?: number;
+              storage:
+                | {
+                    apiKey: string;
+                    cdnHostname: string;
+                    region?: string;
+                    storageZoneName: string;
+                    tokenKey?: string;
+                    type: "bunny";
+                  }
+                | { type: "test" };
+            };
+            ops: Array<
+              | {
+                  dest: { basis?: null | string; path: string };
+                  op: "move";
+                  source: {
+                    attributes?: { expiresAt?: number };
+                    blobId: string;
+                    contentType: string;
+                    path: string;
+                    size: number;
+                  };
+                }
+              | {
+                  dest: { basis?: null | string; path: string };
+                  op: "copy";
+                  source: {
+                    attributes?: { expiresAt?: number };
+                    blobId: string;
+                    contentType: string;
+                    path: string;
+                    size: number;
+                  };
+                }
+              | {
+                  op: "delete";
+                  source: {
+                    attributes?: { expiresAt?: number };
+                    blobId: string;
+                    contentType: string;
+                    path: string;
+                    size: number;
+                  };
+                }
+              | {
+                  attributes: { expiresAt?: null | number };
+                  op: "setAttributes";
+                  source: {
+                    attributes?: { expiresAt?: number };
+                    blobId: string;
+                    contentType: string;
+                    path: string;
+                    size: number;
+                  };
+                }
+            >;
+          },
+          null
+        >;
+      };
+    };
+    transfer: {
+      getDownloadUrl: FunctionReference<
+        "action",
+        "internal",
+        {
+          blobId: string;
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          extraParams?: Record<string, string>;
+        },
+        string
+      >;
+      registerPendingUpload: FunctionReference<
+        "mutation",
+        "internal",
+        {
+          blobId: string;
+          config: {
+            blobGracePeriod?: number;
+            downloadUrlTtl?: number;
+            storage:
+              | {
+                  apiKey: string;
+                  cdnHostname: string;
+                  region?: string;
+                  storageZoneName: string;
+                  tokenKey?: string;
+                  type: "bunny";
+                }
+              | { type: "test" };
+          };
+          contentType: string;
+          size: number;
+        },
+        null
+      >;
+    };
+  };
   resend: {
     lib: {
       cancelEmail: FunctionReference<

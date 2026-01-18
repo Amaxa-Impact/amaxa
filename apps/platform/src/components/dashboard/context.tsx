@@ -29,8 +29,7 @@ export const DashboardContext = createContext<{
   project: {
     name: "",
     description: "",
-    //@ts-expect-error - This is a workaround to fix the linting error.
-    id: "",
+    id: "" as Id<"projects">,
   },
   userRole: null,
 });
@@ -83,8 +82,8 @@ export const DashboardProvider = ({
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-1 pb-0">
-                <div className="mx-auto flex aspect-square max-h-[250px] items-center justify-center">
-                  <Skeleton className="h-[200px] w-[200px] rounded-full" />
+                <div className="mx-auto flex aspect-square max-h-62.5 items-center justify-center">
+                  <Skeleton className="h-50 w-50 rounded-full" />
                 </div>
               </CardContent>
             </Card>

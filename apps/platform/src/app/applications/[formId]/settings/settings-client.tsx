@@ -49,9 +49,7 @@ export default function SettingsPageClient() {
       }
     },
   });
-  const { isSubmitting, isDirty } = form.state;
-
-  const isDisabled = !isDirty || isSubmitting;
+  const { isSubmitting } = form.state;
 
   return (
     <main className="container mx-auto flex h-full flex-col p-4">

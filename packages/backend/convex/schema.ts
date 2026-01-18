@@ -191,7 +191,8 @@ export default defineSchema({
         type: v.literal("file"),
         files: v.array(
           v.object({
-            s3Key: v.string(),
+            blobId: v.string(),
+            path: v.string(),
             filename: v.string(),
             contentType: v.string(),
             sizeBytes: v.number(),
@@ -200,18 +201,6 @@ export default defineSchema({
       })
     ),
   }).index("by_response", ["responseId"]),
-
-  applicationFileUploads: defineTable({
-    s3Key: v.string(),
-    filename: v.string(),
-    contentType: v.string(),
-    sizeBytes: v.number(),
-    uploadedAt: v.number(),
-    uploadToken: v.string(),
-    expiresAt: v.number(),
-  })
-    .index("by_s3Key", ["s3Key"])
-    .index("by_uploadToken", ["uploadToken"]),
 
   interviewTimeSlots: defineTable({
     formId: v.id("applicationForms"),

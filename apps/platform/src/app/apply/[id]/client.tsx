@@ -65,7 +65,7 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
   }
 
   return (
-    <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
+    <div className="from-background to-muted/20 min-h-screen bg-linear-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
         <ApplyForm
           slug={form.slug}
@@ -80,7 +80,7 @@ export function ApplyPageClient({ formId }: ApplyPageClientProps) {
 
 function ApplyFormSkeleton() {
   return (
-    <div className="from-background to-muted/20 min-h-screen bg-gradient-to-b py-8 md:py-12">
+    <div className="from-background to-muted/20 min-h-screen bg-linear-to-b py-8 md:py-12">
       <div className="container mx-auto px-4">
         <Card className="mx-auto max-w-2xl">
           <CardHeader className="border-b">

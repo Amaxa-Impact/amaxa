@@ -161,6 +161,7 @@ export function SectionCard({
             <IconGripVertical className="text-muted-foreground h-5 w-5" />
           </div>
           <Button
+            aria-label="Move section down"
             variant={"ghost"}
             className={
               "cursor-grab opacity-0 transition-opacity group-hover:opacity-100"
@@ -176,6 +177,7 @@ export function SectionCard({
             <IconChevronDown className="h-4 w-4" />
           </Button>
           <Button
+            aria-label="Move section up"
             variant={"ghost"}
             size={"icon"}
             className="cursor-grab opacity-0 transition-opacity group-hover:opacity-100"

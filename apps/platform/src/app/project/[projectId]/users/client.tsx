@@ -1,7 +1,9 @@
 "use client";
 
 import type { UserOption } from "@/components/user-dropdown";
-import type { User } from "@/lib/workos";
+import type { WorkOsError } from "@/lib/errors";
+import type { User } from "@workos-inc/node";
+import type { Result } from "better-result";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
@@ -23,7 +25,11 @@ import { confirmDialog } from "@amaxa/ui/confirm-dialog";
 
 import { AddUserForm } from "../_components/add-user-form";
 
-export function UsersPageContent({ allUsers }: { allUsers: User }) {
+export function UsersPageContent({
+  allUsers,
+}: {
+  allUsers: Result<User[], WorkOsError>;
+}) {
   const { projectId } = useParams<{ projectId: Id<"projects"> }>();
   const { userRole } = useDashboardContext();
   const isCoach = userRole === "coach";
@@ -75,7 +81,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
           <h1 className="mb-2 text-3xl font-bold">Project Users</h1>
           <p className="text-muted-foreground">
             Manage users and their roles in this project. Your role:{" "}
-            <strong>{userRole || "None"}</strong>
+            <strong>{userRole ?? "None"}</strong>
           </p>
         </div>
 
@@ -88,7 +94,7 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
             </div>
             <AddUserForm
               allUsers={allUsers}
-              existingUserIds={existingUserIds}
+              existingUserIds={existingUserIds ?? []}
               onOpenChange={setIsAddUserDialogOpen}
               open={isAddUserDialogOpen}
               projectId={projectId}
@@ -118,12 +124,15 @@ export function UsersPageContent({ allUsers }: { allUsers: User }) {
                   <div>
                     <p className="font-medium">
                       {(() => {
-                        const workosUser = allUsers.find(
-                          (u) => u.id === user.userId,
-                        );
-                        return workosUser
-                          ? getUserDisplayName(workosUser as UserOption)
-                          : user.userId;
+                        if (allUsers.status === "ok") {
+                          const workosUser = allUsers.value.find(
+                            (u) => u.id === user.userId,
+                          );
+                          return workosUser
+                            ? getUserDisplayName(workosUser as UserOption)
+                            : user.userId;
+                        }
+                        return user.userId;
                       })()}
                     </p>
                     <p className="text-muted-foreground text-sm">

@@ -122,7 +122,7 @@ export default function SettingsPageClient() {
               Description
             </label>
             <textarea
-              className="min-h-[100px] w-full rounded-md border px-3 py-2"
+              className="min-h-25 w-full rounded-md border px-3 py-2"
               id="description"
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter project description"

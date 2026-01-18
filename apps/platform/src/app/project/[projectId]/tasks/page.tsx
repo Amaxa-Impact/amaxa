@@ -44,7 +44,7 @@ export async function generateMetadata({
 }
 
 export default async function RouteComponent() {
-  const allUsers = await listUsers();
+  const allUsersResult = await listUsers();
 
-  return <TasksFlowContent allUsers={allUsers} />;
+  return <TasksFlowContent allUsers={allUsersResult} />;
 }

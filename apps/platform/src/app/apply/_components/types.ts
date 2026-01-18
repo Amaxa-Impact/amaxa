@@ -64,12 +64,13 @@ export interface ApplicationForm {
 
 export interface FileUploadValue {
   type: "file";
-  files: Array<{
-    s3Key: string;
+  files: {
+    blobId: string;
+    path: string;
     filename: string;
     contentType: string;
     sizeBytes: number;
-  }>;
+  }[];
 }
 
 export interface FieldResponse {

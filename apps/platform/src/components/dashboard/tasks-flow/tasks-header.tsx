@@ -23,7 +23,7 @@ export function TasksHeader({
     <div className="flex items-center justify-between border-b px-6 py-4">
       <h1 className="text-2xl font-bold">{projectName}</h1>
       <div className="flex items-center gap-4">
-        {othersPresence?.length ? (
+        {othersPresence.length ? (
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-sm">
               {othersPresence.length} other
@@ -32,7 +32,7 @@ export function TasksHeader({
             <div className="flex -space-x-2">
               {othersPresence.slice(0, 5).map((p) => {
                 const data = p.data as CursorPresenceData;
-                const name = data.name ?? `User ${p.user.slice(0, 4)}`;
+                const name = data.name;
                 const initials =
                   name
                     .split(" ")

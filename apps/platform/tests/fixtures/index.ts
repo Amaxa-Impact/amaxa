@@ -18,9 +18,8 @@ import {
   TEST_USERS,
   USER_AUTH_STATE,
 } from "./auth.fixture";
-import { test as convexTest, createTestDataTracker } from "./convex.fixture";
 
-export const test = mergeTests(authTest, convexTest);
+export const test = mergeTests(authTest);
 export {
   expect,
   TEST_USERS,
@@ -29,6 +28,5 @@ export {
   COACH_AUTH_STATE,
   MEMBER_AUTH_STATE,
   signInUser,
-  createTestDataTracker,
   type TestUser,
 };

@@ -18,6 +18,13 @@ export async function generateMetadata({
   const { projectId } = await params;
   const { accessToken } = await withAuth();
 
+  if (!accessToken) {
+    return {
+      title: "Project Dashboard",
+      description: "View project dashboard and task overview",
+    };
+  }
+
   try {
     const project = await fetchQuery(
       api.projects.get,
@@ -54,7 +61,10 @@ export default async function Page({
   const projectId = (await params).projectId;
 
   const { accessToken } = await withAuth();
-  const [allUsers, preloadedData] = await Promise.all([
+  if (!accessToken) {
+    return null;
+  }
+  const [allUsersResult, preloadedData] = await Promise.all([
     listUsers(),
     preloadQuery(
       api.dashboard.getTaskStatusCounts,
@@ -66,6 +76,9 @@ export default async function Page({
   ]);
 
   return (
-    <HomePage allUsers={allUsers} statusCountsPrefetched={preloadedData} />
+    <HomePage
+      allUsers={allUsersResult}
+      statusCountsPrefetched={preloadedData}
+    />
   );
 }

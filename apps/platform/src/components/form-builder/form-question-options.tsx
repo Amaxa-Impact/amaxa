@@ -100,13 +100,10 @@ export function FormQuestionOptions({
   const OptionIcon = type === "select" ? IconCircle : IconSquare;
 
   const availableSuggestions = useMemo(() => {
-    return (
-      suggestedOptions?.filter(
-        (suggestion) =>
-          !options.some(
-            (opt) => opt.toLowerCase() === suggestion.toLowerCase(),
-          ),
-      ) ?? []
+    if (!suggestedOptions) return [];
+    return suggestedOptions.filter(
+      (suggestion) =>
+        !options.some((opt) => opt.toLowerCase() === suggestion.toLowerCase()),
     );
   }, [suggestedOptions, options]);
 

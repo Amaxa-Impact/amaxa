@@ -1,3 +1,4 @@
+import type { CursorPresenceData } from "@/components/dashboard/tasks-flow/types";
 import { useCallback, useEffect, useRef } from "react";
 import { useMutation, useQuery } from "convex/react";
 
@@ -20,14 +21,14 @@ const CURSOR_UPDATE_THROTTLE = 50; // 50ms = 20 updates per second max
  * Uses Convex's real-time subscriptions for live updates.
  * Throttles cursor updates to prevent overwhelming the server.
  */
-export const usePresence = <T extends Record<string, unknown>>(
+export const usePresence = (
   room: string,
   user: string,
-  initialData: T,
+  initialData: CursorPresenceData,
 ) => {
-  const dataRef = useRef<T>(initialData);
+  const dataRef = useRef<CursorPresenceData>(initialData);
   const lastUpdateRef = useRef<number>(0);
-  const pendingUpdateRef = useRef<T | null>(null);
+  const pendingUpdateRef = useRef<CursorPresenceData | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const presence = useQuery(api.presence.list, { room });
@@ -36,8 +37,8 @@ export const usePresence = <T extends Record<string, unknown>>(
     ?.filter((p) => p.user !== user && p.present)
     .map((p) => ({
       ...p,
-      data: p.data as T,
-    })) as PresenceData<T>[] | undefined;
+      data: p.data,
+    })) as PresenceData<CursorPresenceData>[] | undefined;
 
   const updatePresenceMutation = useMutation(api.presence.update);
   const heartbeatMutation = useMutation(api.presence.heartbeat);
@@ -45,7 +46,9 @@ export const usePresence = <T extends Record<string, unknown>>(
   useEffect(() => {
     void updatePresenceMutation({ room, user, data: initialData });
 
-    return () => {};
+    return () => {
+      /* empty */
+    };
   }, [room, user, initialData, updatePresenceMutation]);
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export const usePresence = <T extends Record<string, unknown>>(
   }, [heartbeatMutation, room, user]);
 
   const updateData = useCallback(
-    (patch: Partial<T>) => {
+    (patch: Partial<CursorPresenceData>) => {
       const newData = { ...dataRef.current, ...patch };
       dataRef.current = newData;
 
@@ -66,24 +69,22 @@ export const usePresence = <T extends Record<string, unknown>>(
 
       if (timeSinceLastUpdate >= CURSOR_UPDATE_THROTTLE) {
         lastUpdateRef.current = now;
-        updatePresenceMutation({ room, user, data: newData });
+        void updatePresenceMutation({ room, user, data: newData });
       } else {
         pendingUpdateRef.current = newData;
 
-        if (!timeoutRef.current) {
-          timeoutRef.current = setTimeout(() => {
-            if (pendingUpdateRef.current) {
-              lastUpdateRef.current = Date.now();
-              void updatePresenceMutation({
-                room,
-                user,
-                data: pendingUpdateRef.current,
-              });
-              pendingUpdateRef.current = null;
-            }
-            timeoutRef.current = null;
-          }, CURSOR_UPDATE_THROTTLE - timeSinceLastUpdate);
-        }
+        timeoutRef.current ??= setTimeout(() => {
+          if (pendingUpdateRef.current) {
+            lastUpdateRef.current = Date.now();
+            void updatePresenceMutation({
+              room,
+              user,
+              data: pendingUpdateRef.current,
+            });
+            pendingUpdateRef.current = null;
+          }
+          timeoutRef.current = null;
+        }, CURSOR_UPDATE_THROTTLE - timeSinceLastUpdate);
       }
     },
     [room, user, updatePresenceMutation],

@@ -28,5 +28,5 @@ export function getUserColor(userId: string): string {
   const hash = userId
     .split("")
     .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return colors[hash % colors.length];
+  return colors[hash % colors.length] ?? "#ffffff";
 }

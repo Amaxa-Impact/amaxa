@@ -27,7 +27,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
   );
 }
 
-function useAuthFromAuthKit() {
+export function useAuthFromAuthKit() {
   const { user, loading: isLoading } = useAuth();
   const { getAccessToken, refresh } = useAccessToken();
 

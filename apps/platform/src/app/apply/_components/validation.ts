@@ -1,5 +1,6 @@
 import type { Type } from "arktype";
 import { type } from "arktype";
+import { Result } from "better-result";
 
 import type { ApplicationFormField } from "./types";
 
@@ -25,7 +26,7 @@ export function createFieldValidator(field: ApplicationFormField) {
       // HTML inputs return strings, so we need to parse them
       const parseNumber = type("string | number").pipe((val) => {
         if (typeof val === "number") return val;
-        if (val === "" || val === undefined) return undefined;
+        if (val === "") return undefined;
         const parsed = Number(val);
         if (Number.isNaN(parsed)) return undefined;
         return parsed;
@@ -41,7 +42,9 @@ export function createFieldValidator(field: ApplicationFormField) {
 
       if (field.required) {
         validator = parseNumber.pipe((val) => {
-          if (val === undefined) return type.errors.from("This field is required");
+          if (val === undefined) {
+            return numberValidator(undefined as never);
+          }
           return numberValidator(val);
         });
       } else {
@@ -77,7 +80,8 @@ export function createFieldValidator(field: ApplicationFormField) {
       const fileSchema = type({
         type: "'file'",
         files: type({
-          s3Key: "string",
+          blobId: "string",
+          path: "string",
           filename: "string",
           contentType: "string",
           sizeBytes: "number",
@@ -109,13 +113,13 @@ export const applicantInfoSchema = type({
 export function validateFieldValue(
   field: ApplicationFormField,
   value: unknown,
-): string | undefined {
+): Result<unknown, string> {
   const validator = createFieldValidator(field);
   const result = validator(value);
 
   if (result instanceof type.errors) {
-    return result.summary;
+    return Result.err(result.summary);
   }
 
-  return undefined;
+  return Result.ok(result);
 }

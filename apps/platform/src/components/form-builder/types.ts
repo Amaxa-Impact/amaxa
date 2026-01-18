@@ -20,6 +20,7 @@ export const FIELD_TYPES = [
   "multiselect",
   "file",
 ] as const;
+
 export type FieldType = (typeof FIELD_TYPES)[number];
 
 export const fieldTypeLabels: Record<FieldType, string> = {
