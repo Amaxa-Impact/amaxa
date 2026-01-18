@@ -1,10 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { useAuthFromAuthKit } from "@/components/convex-client-provider";
-import { env } from "@/env";
 import { IconFile, IconUpload, IconX } from "@tabler/icons-react";
-import { useAccessToken } from "@workos-inc/authkit-nextjs/components";
 import { useAction } from "convex/react";
 
 import { api } from "@amaxa/backend/_generated/api";
@@ -40,13 +37,7 @@ interface UploadedFile {
   sizeBytes: number;
 }
 
-const CONVEX_SITE_URL = env.NEXT_PUBLIC_CONVEX_URL.replace(
-  ".convex.cloud",
-  ".convex.site",
-);
-
 export function FileField({ field, formField, formSlug }: FileFieldProps) {
-  const authInstance = useAuthFromAuthKit();
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -113,12 +104,6 @@ export function FileField({ field, formField, formSlug }: FileFieldProps) {
       setUploadProgress(0);
 
       try {
-        const accessToken = await authInstance.fetchAccessToken();
-
-        if (!accessToken) {
-          throw new Error("No access token available");
-        }
-
         const uploadResponse = await fetch(`/api/fs/upload`, {
           method: "POST",
           headers: {

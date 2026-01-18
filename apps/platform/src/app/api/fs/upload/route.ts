@@ -38,6 +38,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const result = await uploadResponse.json();
+  const result: unknown = await uploadResponse.json();
   return NextResponse.json(result);
 }
