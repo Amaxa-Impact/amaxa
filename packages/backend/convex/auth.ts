@@ -11,17 +11,12 @@ export const getCurrentUserStatus = query({
   }),
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    console.log("getCurrentUserStatus identity", identity);
-
     if (!identity?.subject) {
-      console.log("getCurrentUserStatus: not authenticated");
       return { isAdmin: false, userId: null };
     }
 
     const userId = identity.subject;
-    console.log("getCurrentUserStatus: userId", userId);
     const isAdmin = await isSiteAdmin(ctx, userId);
-    console.log("getCurrentUserStatus: isAdmin", isAdmin);
 
     return { isAdmin, userId };
   },
