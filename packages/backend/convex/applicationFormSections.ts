@@ -113,7 +113,6 @@ export const remove = mutation({
       throw new Error("Section not found");
     }
 
-    // Check if section has fields
     const fields = await ctx.db
       .query("applicationFormFields")
       .withIndex("by_section", (q) => q.eq("sectionId", args.sectionId))

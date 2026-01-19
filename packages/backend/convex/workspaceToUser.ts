@@ -1,30 +1,26 @@
 import { v } from "convex/values";
 
 import type { Id } from "./_generated/dataModel";
-import { mutation, query } from "./_generated/server";
+import { mutation, query  } from "./_generated/server";
+import type {QueryCtx} from "./_generated/server";
 import { isSiteAdmin, requireAuth } from "./permissions";
 
-// Workspace role type
 export type WorkspaceRole = "owner" | "admin" | "member";
 
-// Role hierarchy for permission checks
 const ROLE_HIERARCHY: Record<WorkspaceRole, number> = {
   owner: 3,
   admin: 2,
   member: 1,
 };
 
-/**
- * Helper to get user's role in a workspace
- */
 async function getWorkspaceRole(
-  ctx: { db: { query: (table: "workspaceToUser") => any } },
+  ctx: QueryCtx,
   userId: string,
   workspaceId: Id<"workspaces">
 ): Promise<WorkspaceRole | null> {
   const membership = await ctx.db
     .query("workspaceToUser")
-    .withIndex("by_userId_and_workspaceId", (q: any) =>
+    .withIndex("by_userId_and_workspaceId", (q) =>
       q.eq("userId", userId).eq("workspaceId", workspaceId)
     )
     .unique();
@@ -32,10 +28,6 @@ async function getWorkspaceRole(
   return membership?.role ?? null;
 }
 
-/**
- * Add a user to a workspace
- * Requires admin+ role or site admin
- */
 export const addUser = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -46,13 +38,11 @@ export const addUser = mutation({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Check workspace exists
     const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
-    // Check permissions
     const isAdmin = await isSiteAdmin(ctx, currentUserId);
     if (!isAdmin) {
       const currentRole = await getWorkspaceRole(ctx, currentUserId, args.workspaceId);
@@ -61,7 +51,6 @@ export const addUser = mutation({
       }
     }
 
-    // Check if user already in workspace
     const existing = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -73,7 +62,6 @@ export const addUser = mutation({
       throw new Error("User is already a member of this workspace");
     }
 
-    // Add user
     return await ctx.db.insert("workspaceToUser", {
       workspaceId: args.workspaceId,
       userId: args.userId,
@@ -82,11 +70,6 @@ export const addUser = mutation({
   },
 });
 
-/**
- * Remove a user from a workspace
- * Requires admin+ role or site admin
- * Cannot remove the last owner
- */
 export const removeUser = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -96,13 +79,11 @@ export const removeUser = mutation({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Check workspace exists
     const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
-    // Get the membership to remove
     const membership = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -114,7 +95,6 @@ export const removeUser = mutation({
       throw new Error("User is not a member of this workspace");
     }
 
-    // Check permissions
     const isAdmin = await isSiteAdmin(ctx, currentUserId);
     if (!isAdmin) {
       const currentRole = await getWorkspaceRole(ctx, currentUserId, args.workspaceId);
@@ -122,13 +102,11 @@ export const removeUser = mutation({
         throw new Error("You must be a workspace admin to remove users");
       }
 
-      // Non-site-admins cannot remove owners
       if (membership.role === "owner") {
         throw new Error("Cannot remove workspace owner. Transfer ownership first.");
       }
     }
 
-    // Prevent removing the last owner
     if (membership.role === "owner") {
       const owners = await ctx.db
         .query("workspaceToUser")
@@ -146,11 +124,6 @@ export const removeUser = mutation({
   },
 });
 
-/**
- * Update a user's role in a workspace
- * Owner promotion requires owner role
- * Cannot demote the last owner
- */
 export const updateRole = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -161,13 +134,11 @@ export const updateRole = mutation({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Check workspace exists
     const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
-    // Get the membership to update
     const membership = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -179,33 +150,27 @@ export const updateRole = mutation({
       throw new Error("User is not a member of this workspace");
     }
 
-    // No change needed
     if (membership.role === args.role) {
       return null;
     }
 
-    // Check permissions
     const isAdmin = await isSiteAdmin(ctx, currentUserId);
     if (!isAdmin) {
       const currentRole = await getWorkspaceRole(ctx, currentUserId, args.workspaceId);
 
-      // Promoting to owner requires owner role
       if (args.role === "owner" && currentRole !== "owner") {
         throw new Error("Only owners can promote users to owner");
       }
 
-      // Admin+ required for any role changes
       if (!currentRole || ROLE_HIERARCHY[currentRole] < ROLE_HIERARCHY.admin) {
         throw new Error("You must be a workspace admin to update roles");
       }
 
-      // Cannot change roles of users with higher/equal role (except site admins)
       if (ROLE_HIERARCHY[membership.role] >= ROLE_HIERARCHY[currentRole]) {
         throw new Error("Cannot modify the role of a user with equal or higher permissions");
       }
     }
 
-    // Prevent demoting the last owner
     if (membership.role === "owner" && args.role !== "owner") {
       const owners = await ctx.db
         .query("workspaceToUser")
@@ -223,10 +188,6 @@ export const updateRole = mutation({
   },
 });
 
-/**
- * Transfer workspace ownership to another user
- * Current owner is demoted to admin
- */
 export const transferOwnership = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -236,13 +197,11 @@ export const transferOwnership = mutation({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Check workspace exists
     const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
-    // Check current user is owner (or site admin)
     const isAdmin = await isSiteAdmin(ctx, currentUserId);
     const currentMembership = await ctx.db
       .query("workspaceToUser")
@@ -251,11 +210,10 @@ export const transferOwnership = mutation({
       )
       .unique();
 
-    if (!isAdmin && (!currentMembership || currentMembership.role !== "owner")) {
+    if (!isAdmin && (!currentMembership?.role !== "owner")) {
       throw new Error("Only owners can transfer ownership");
     }
 
-    // Get new owner's membership
     const newOwnerMembership = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -267,16 +225,13 @@ export const transferOwnership = mutation({
       throw new Error("New owner must be a member of the workspace");
     }
 
-    // Already owner
     if (newOwnerMembership.role === "owner") {
       return null;
     }
 
-    // Promote new owner
     await ctx.db.patch(newOwnerMembership._id, { role: "owner" });
 
-    // Demote current owner to admin (only if they have a membership, i.e., not site admin)
-    if (currentMembership && currentMembership.role === "owner") {
+    if (currentMembership?.role === "owner") {
       await ctx.db.patch(currentMembership._id, { role: "admin" });
     }
 
@@ -284,10 +239,6 @@ export const transferOwnership = mutation({
   },
 });
 
-/**
- * List all users in a workspace
- * Requires membership or site admin
- */
 export const listUsersForWorkspace = query({
   args: {
     workspaceId: v.id("workspaces"),
@@ -302,13 +253,11 @@ export const listUsersForWorkspace = query({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Check workspace exists
     const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
-    // Check permissions
     const isAdmin = await isSiteAdmin(ctx, currentUserId);
     if (!isAdmin) {
       const membership = await ctx.db
@@ -336,9 +285,6 @@ export const listUsersForWorkspace = query({
   },
 });
 
-/**
- * Get current user's role in a workspace
- */
 export const getUserRole = query({
   args: {
     workspaceId: v.id("workspaces"),
@@ -352,7 +298,6 @@ export const getUserRole = query({
   handler: async (ctx, args) => {
     const currentUserId = await requireAuth(ctx);
 
-    // Site admins have implicit owner access
     if (await isSiteAdmin(ctx, currentUserId)) {
       return "owner";
     }
@@ -368,10 +313,6 @@ export const getUserRole = query({
   },
 });
 
-/**
- * Leave a workspace (remove self)
- * Owners cannot leave - must transfer ownership first
- */
 export const leaveWorkspace = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -391,7 +332,6 @@ export const leaveWorkspace = mutation({
       throw new Error("You are not a member of this workspace");
     }
 
-    // Owners cannot leave
     if (membership.role === "owner") {
       throw new Error("Owners cannot leave the workspace. Transfer ownership first.");
     }

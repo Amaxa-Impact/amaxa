@@ -121,7 +121,6 @@ export function FormQuestionCard({
       const result = await inferFieldType(label);
       if (result) {
         form.setFieldValue("type", result.fieldType);
-        // Set suggested options if available
         if (result.suggestedOptions && result.suggestedOptions.length > 0) {
           setSuggestedOptions(result.suggestedOptions);
         }

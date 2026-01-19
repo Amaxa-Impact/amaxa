@@ -21,9 +21,6 @@ const taskDataValidator = v.object({
   ),
 });
 
-/**
- * Create a new task with its node data
- */
 export const create = mutation({
   args: {
     projectId: v.id("projects"),
@@ -83,9 +80,7 @@ export const create = mutation({
   },
 });
 
-/**
- * Get all tasks for a project with their node data (returns React Flow nodes format)
- */
+/** Returns React Flow nodes format */
 export const listForProject = query({
   args: {
     projectId: v.id("projects"),
@@ -146,9 +141,6 @@ export const listForProject = query({
   },
 });
 
-/**
- * Get a single task by ID
- */
 export const get = query({
   args: {
     taskId: v.id("tasks"),
@@ -171,9 +163,6 @@ export const get = query({
   },
 });
 
-/**
- * Update task position (for drag operations) - real-time
- */
 export const updatePosition = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -205,9 +194,6 @@ export const updatePosition = mutation({
   },
 });
 
-/**
- * Update task data (label, description, status, etc.)
- */
 export const updateData = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -265,9 +251,6 @@ export const updateData = mutation({
   },
 });
 
-/**
- * Update task style
- */
 export const updateStyle = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -300,9 +283,6 @@ export const updateStyle = mutation({
   },
 });
 
-/**
- * Delete a task and its node
- */
 export const remove = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -344,9 +324,6 @@ export const remove = mutation({
   },
 });
 
-/**
- * Batch update task positions (for better performance when dragging multiple nodes)
- */
 export const batchUpdatePositions = mutation({
   args: {
     updates: v.array(

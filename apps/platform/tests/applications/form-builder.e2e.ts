@@ -27,9 +27,6 @@ test.describe("application form builder CRUD", () => {
     await page.close();
   });
 
-  /**
-   * Opens the create form dialog and submits the form.
-   */
   const createForm = async (page: Page) => {
     await page.getByText("Create Form").first().click();
     await expect(
@@ -44,9 +41,6 @@ test.describe("application form builder CRUD", () => {
     await expect(page.getByText(formTitle)).toBeVisible();
   };
 
-  /**
-   * Opens the form editor for the created form.
-   */
   const openFormEditor = async (page: Page) => {
     await page.getByText(formTitle).click();
     await expect(page.getByPlaceholder("Form title")).toBeVisible();

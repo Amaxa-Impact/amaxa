@@ -16,9 +16,6 @@ test.describe("application scheduling admin", () => {
     await page.close();
   });
 
-  /**
-   * Opens the time slot modal.
-   */
   const openTimeSlotModal = async (page: Page) => {
     await page.getByRole("button", { name: "Add Slot" }).click();
     await expect(
@@ -26,18 +23,12 @@ test.describe("application scheduling admin", () => {
     ).toBeVisible();
   };
 
-  /**
-   * Selects the first available date.
-   */
   const selectDate = async (page: Page) => {
     const dateTrigger = page.getByText("Pick a date");
     await dateTrigger.click();
     await page.getByRole("gridcell").first().click();
   };
 
-  /**
-   * Sets time and timezone for the slot.
-   */
   const setTimeDetails = async (page: Page) => {
     await page.getByLabel("Time").fill("10:00");
     const dialog = page.getByRole("dialog");

@@ -8,7 +8,6 @@ describe("sample test", () => {
   it("should create and retrieve a project", async () => {
     const t = convexTest(schema, modules);
 
-    // Insert a project directly into the test database
     const projectId = await t.run(async (ctx) => {
       return await ctx.db.insert("projects", {
         name: "Test Project",
@@ -16,7 +15,6 @@ describe("sample test", () => {
       });
     });
 
-    // Retrieve and verify the project
     const project = await t.run(async (ctx) => {
       return await ctx.db.get(projectId);
     });
@@ -29,8 +27,8 @@ describe("sample test", () => {
   it("should verify test infrastructure is working", async () => {
     const t = convexTest(schema, modules);
 
-    // Simple assertion to verify vitest is working
-    const result = await t.run(() => {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    const result = await t.run(async () => {
       return 1 + 1;
     });
 

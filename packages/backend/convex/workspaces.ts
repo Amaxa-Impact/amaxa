@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
 
+import type { Doc } from "./_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
-import { Doc, Id } from "./_generated/dataModel";
 import { internalQuery, mutation, query } from "./_generated/server";
 import { isSiteAdmin, requireAuth } from "./permissions";
 
@@ -23,13 +23,6 @@ const RESERVED_SLUGS = [
 const WORKSPACE_CREATE_LIMIT = 5;
 const WORKSPACE_CREATE_WINDOW_MS = 3600000; // 1 hour
 const RATE_LIMIT_ACTION = "workspaceCreate" as const;
-
-type RateLimitError = {
-  code: "RATE_LIMIT_EXCEEDED";
-  limit: number;
-  windowMs: number;
-  remainingMs: number;
-};
 
 async function checkRateLimit(
   ctx: MutationCtx,
@@ -67,7 +60,7 @@ async function checkRateLimit(
 
   if (existing.count >= maxCount) {
     const remainingMs = existing.windowStart + windowMs - now;
-    throw new ConvexError<RateLimitError>({
+    throw new ConvexError({
       code: "RATE_LIMIT_EXCEEDED",
       limit: maxCount,
       windowMs,
@@ -109,10 +102,8 @@ function validateSlug(slug: string): { valid: boolean; error?: string } {
   return { valid: true };
 }
 
-// Workspace role type
 export type WorkspaceRole = "owner" | "admin" | "member";
 
-// Return validator for workspace document
 const workspaceValidator = v.object({
   _id: v.id("workspaces"),
   _creationTime: v.number(),
@@ -124,11 +115,6 @@ const workspaceValidator = v.object({
   deletedAt: v.optional(v.number()),
 });
 
-/**
- * Create a new workspace
- * - Validates slug format and uniqueness
- * - Creates owner membership for creator
- */
 export const create = mutation({
   args: {
     name: v.string(),
@@ -138,13 +124,11 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const userId = await requireAuth(ctx);
 
-    // Validate slug format
     const slugValidation = validateSlug(args.slug);
     if (!slugValidation.valid) {
       throw new Error(slugValidation.error);
     }
 
-    // Check rate limit (site admins bypass)
     const isSiteAdminUser = await skipRateLimitForSiteAdmin(ctx, userId);
     if (!isSiteAdminUser) {
       await checkRateLimit(
@@ -156,7 +140,6 @@ export const create = mutation({
       );
     }
 
-    // Check slug uniqueness
     const existing = await ctx.db
       .query("workspaces")
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))
@@ -166,7 +149,6 @@ export const create = mutation({
       throw new Error(`Workspace with slug "${args.slug}" already exists`);
     }
 
-    // Create workspace
     const workspaceId = await ctx.db.insert("workspaces", {
       name: args.name,
       slug: args.slug,
@@ -174,7 +156,6 @@ export const create = mutation({
       createdAt: Date.now(),
     });
 
-    // Add creator as owner
     await ctx.db.insert("workspaceToUser", {
       workspaceId,
       userId,
@@ -185,10 +166,6 @@ export const create = mutation({
   },
 });
 
-/**
- * Get workspace by ID
- * Requires membership or site admin
- */
 export const get = query({
   args: {
     workspaceId: v.id("workspaces"),
@@ -202,12 +179,10 @@ export const get = query({
       return null;
     }
 
-    // Site admins can access any workspace
     if (await isSiteAdmin(ctx, userId)) {
       return workspace;
     }
 
-    // Check membership
     const membership = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -223,10 +198,7 @@ export const get = query({
   },
 });
 
-/**
- * Get workspace by slug
- * Requires membership or site admin
- */
+/** Requires membership or site admin */
 export const getBySlug = query({
   args: {
     slug: v.string(),
@@ -244,12 +216,10 @@ export const getBySlug = query({
       return null;
     }
 
-    // Site admins can access any workspace
     if (await isSiteAdmin(ctx, userId)) {
       return workspace;
     }
 
-    // Check membership
     const membership = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId_and_workspaceId", (q) =>
@@ -265,9 +235,7 @@ export const getBySlug = query({
   },
 });
 
-/**
- * Internal query to get workspace by domain (for middleware)
- */
+/** Internal: for middleware, no auth */
 export const getByDomain = internalQuery({
   args: {
     domain: v.string(),
@@ -287,9 +255,7 @@ export const getByDomain = internalQuery({
   },
 });
 
-/**
- * Internal query to get workspace by slug (for middleware, no auth check)
- */
+/** Internal: for middleware, no auth */
 export const getBySlugInternal = internalQuery({
   args: {
     slug: v.string(),
@@ -309,10 +275,7 @@ export const getBySlugInternal = internalQuery({
   },
 });
 
-/**
- * Update workspace (name only - slug is immutable)
- * Requires admin+ role or site admin
- */
+/** Name/domain only; slug is immutable. Requires admin+ or site admin */
 export const update = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -328,7 +291,6 @@ export const update = mutation({
       throw new Error("Workspace not found");
     }
 
-    // Check permissions (site admin or workspace admin+)
     const isAdmin = await isSiteAdmin(ctx, userId);
     if (!isAdmin) {
       const membership = await ctx.db
@@ -343,13 +305,11 @@ export const update = mutation({
       }
     }
 
-    // Build update object
     const updates: Partial<Doc<"workspaces">> = {};
     if (args.name !== undefined) {
       updates.name = args.name;
     }
     if (args.domain !== undefined) {
-      // Check domain uniqueness if setting
       if (args.domain) {
         const existingDomain = await ctx.db
           .query("workspaces")
@@ -371,10 +331,6 @@ export const update = mutation({
   },
 });
 
-/**
- * Soft delete workspace
- * Requires owner role or site admin
- */
 export const remove = mutation({
   args: {
     workspaceId: v.id("workspaces"),
@@ -388,7 +344,6 @@ export const remove = mutation({
       throw new Error("Workspace not found");
     }
 
-    // Check permissions (site admin or workspace owner)
     const isAdmin = await isSiteAdmin(ctx, userId);
     if (!isAdmin) {
       const membership = await ctx.db
@@ -398,12 +353,11 @@ export const remove = mutation({
         )
         .unique();
 
-      if (!membership || membership.role !== "owner") {
+      if (membership?.role !== "owner") {
         throw new Error("Only the workspace owner can delete a workspace");
       }
     }
 
-    // Soft delete - set deletedAt timestamp
     await ctx.db.patch(args.workspaceId, {
       deletedAt: Date.now(),
     });
@@ -412,23 +366,16 @@ export const remove = mutation({
   },
 });
 
-/**
- * List all workspaces (site admin only)
- */
+/** Site admin only */
 export const list = internalQuery({
   args: {},
   returns: v.array(workspaceValidator),
   handler: async (ctx) => {
     const workspaces = await ctx.db.query("workspaces").order("desc").collect();
-
-    // Filter out soft-deleted workspaces
     return workspaces.filter((w) => !w.deletedAt);
   },
 });
 
-/**
- * List workspaces for current user
- */
 export const listForUser = query({
   args: {},
   returns: v.array(
@@ -444,17 +391,15 @@ export const listForUser = query({
   handler: async (ctx) => {
     const userId = await requireAuth(ctx);
 
-    // Get all memberships for user
     const memberships = await ctx.db
       .query("workspaceToUser")
       .withIndex("by_userId", (q) => q.eq("userId", userId))
       .collect();
 
-    // Fetch workspaces
-    const results: Array<{
+    const results: {
       workspace: Doc<"workspaces">;
       role: WorkspaceRole;
-    }> = [];
+    }[] = [];
 
     for (const membership of memberships) {
       const workspace = await ctx.db.get(membership.workspaceId);
@@ -470,9 +415,6 @@ export const listForUser = query({
   },
 });
 
-/**
- * Check if slug is available
- */
 export const checkSlugAvailable = query({
   args: {
     slug: v.string(),
@@ -482,13 +424,11 @@ export const checkSlugAvailable = query({
     error: v.optional(v.string()),
   }),
   handler: async (ctx, args) => {
-    // Validate format first
     const validation = validateSlug(args.slug);
     if (!validation.valid) {
       return { available: false, error: validation.error };
     }
 
-    // Check if exists
     const existing = await ctx.db
       .query("workspaces")
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))

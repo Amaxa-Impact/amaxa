@@ -2,9 +2,6 @@ import { type } from "arktype";
 
 import type { ApplicationFormField, FileUploadValue } from "./types";
 
-/**
- * Builds a dynamic arktype schema for the entire form based on the fields configuration.
- */
 export function buildFormSchema(fields: ApplicationFormField[]) {
   const fieldResponsesSchema: Record<string, unknown> = {};
 
@@ -19,15 +16,10 @@ export function buildFormSchema(fields: ApplicationFormField[]) {
   });
 }
 
-/**
- * Builds a dynamic arktype schema for a single field based on its configuration.
- * This creates a type-safe validator that TanStack Form can use with Standard Schema support.
- */
 export function buildFieldSchema(field: ApplicationFormField) {
   switch (field.type) {
     case "text":
     case "textarea": {
-      // Build string validation with length constraints
       if (field.required) {
         if (field.min !== undefined && field.max !== undefined) {
           return type(`${field.min}<= string <= ${field.max}`);
@@ -41,7 +33,6 @@ export function buildFieldSchema(field: ApplicationFormField) {
         return type("string > 0");
       }
 
-      // Optional fields
       if (field.min !== undefined && field.max !== undefined) {
         return type(`${field.min} <= string <= ${field.max}`).or("''");
       }
@@ -55,7 +46,6 @@ export function buildFieldSchema(field: ApplicationFormField) {
     }
 
     case "number": {
-      // Build number validation with range constraints
       if (field.min !== undefined && field.max !== undefined) {
         const rangeType = type(`${field.min} <= number <= ${field.max}`);
 
@@ -118,7 +108,6 @@ export function buildFieldSchema(field: ApplicationFormField) {
           .narrow((val): val is number => val !== undefined);
       }
 
-      // Optional number fields
       return type("string|number|undefined").pipe((val) => {
         if (val === undefined || val === "") return undefined;
         if (typeof val === "number") return val;

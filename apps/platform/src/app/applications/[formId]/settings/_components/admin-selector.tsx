@@ -21,7 +21,6 @@ export function AdminSelector({
   const siteAdmins = useQuery(api.interviewTimeSlots.listSiteAdmins);
   const { allUsers, isLoading } = useUsers();
 
-  // Filter users to only show those who are site admins
   const adminUsers = allUsers.filter((user) =>
     siteAdmins?.some((admin) => admin.userId === user.id),
   );

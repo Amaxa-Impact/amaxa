@@ -8,7 +8,6 @@ test.describe("apply form", () => {
   test("supports all custom fields", async ({ page }) => {
     test.skip(!process.env.E2E_FORM_SLUG, "E2E_FORM_SLUG is not set");
 
-    // Mock the convex-fs upload endpoint
     await page.route("**/*.convex.site/fs/upload", async (route) => {
       await route.fulfill({
         json: { blobId: "test-blob-id-" + Date.now() },

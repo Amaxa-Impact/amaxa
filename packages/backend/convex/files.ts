@@ -1,16 +1,14 @@
 import { buildDownloadUrl } from "convex-fs";
 import { v } from "convex/values";
 
-import { api, internal } from "./_generated/api";
+import { api } from "./_generated/api";
 import {
   action,
-  internalAction,
   internalMutation,
   internalQuery,
   query,
 } from "./_generated/server";
 import { fs } from "./fs";
-import { requireSiteAdmin } from "./permissions";
 
 const CONVEX_SITE_URL =
   process.env.CONVEX_SITE_URL ?? "https://good-mongoose-472.convex.cloud";
@@ -87,7 +85,7 @@ export const getApplicationFileUrl = action({
     }
 
     const file = await fs.stat(ctx, args.path);
-    if (!file || file.blobId !== args.blobId) {
+    if (file?.blobId !== args.blobId) {
       return null;
     }
 
@@ -119,7 +117,7 @@ export const getApplicationFilePreview = action({
     }
 
     const file = await fs.stat(ctx, args.path);
-    if (!file || file.blobId !== args.blobId) {
+    if (file?.blobId !== args.blobId) {
       return null;
     }
 
@@ -144,7 +142,6 @@ export const listOrphanedBlobs = internalQuery({
     }),
   ),
   handler: async (ctx) => {
-    // Get all field responses first to find used blobIds
     const allFieldResponses = await ctx.db
       .query("applicationFieldResponses")
       .collect();
@@ -153,8 +150,7 @@ export const listOrphanedBlobs = internalQuery({
     for (const fr of allFieldResponses) {
       if (
         typeof fr.value === "object" &&
-        "type" in fr.value &&
-        fr.value.type === "file"
+        "type" in fr.value 
       ) {
         for (const file of fr.value.files) {
           usedBlobIds.add(file.blobId);
@@ -162,7 +158,6 @@ export const listOrphanedBlobs = internalQuery({
       }
     }
 
-    // Paginate through all blobs in /applications/
     const orphanedBlobs: { blobId: string; path: string }[] = [];
     let cursor: string | null = null;
     let isDone = false;
@@ -174,10 +169,7 @@ export const listOrphanedBlobs = internalQuery({
       });
 
       for (const blob of result.page) {
-        // Check if blob is old enough and not used
         if (!usedBlobIds.has(blob.blobId)) {
-          // For simplicity, we check all uncommitted blobs in the prefix
-          // In a real scenario, you'd want to check createdAt but it's not in the page result
           orphanedBlobs.push({ blobId: blob.blobId, path: blob.path });
         }
       }

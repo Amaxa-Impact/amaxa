@@ -129,11 +129,9 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
     },
   });
 
-  // Compute visibility for sections and fields based on current form values
   const formValues = useStore(tanstackForm.store, (state) => state.values);
 
   const isFieldVisible = (field: ApplicationFormField): boolean => {
-    // Check if field's section is visible
     if (field.sectionId && sections) {
       const section = sections.find((s) => s._id === field.sectionId);
       if (
@@ -147,7 +145,6 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
         return false;
       }
     }
-    // Check if field itself is visible
     if (field.condition) {
       return evaluateCondition(
         field.condition as Condition,
@@ -167,7 +164,6 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
     );
   };
 
-  // Group fields by section
   const fieldsBySection = useMemo(() => {
     const grouped: Record<
       Id<"applicationFormSections"> | "unsectioned",
@@ -361,21 +357,18 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
             />
           </div>
 
-          {/* Dynamic Form Fields */}
           {fields.length > 0 && (
             <div className="space-y-8">
               <h3 className="text-muted-foreground text-sm font-medium">
                 Application Questions
               </h3>
 
-              {/* Render sections if they exist */}
               {hasSections && (
                 <div className="space-y-8">
                   {sections.map((section) => renderSection(section))}
                 </div>
               )}
 
-              {/* Render unsectioned fields */}
               {fieldsBySection.unsectioned.length > 0 && (
                 <div className="space-y-6">
                   {fieldsBySection.unsectioned.map((formField) =>
@@ -384,7 +377,6 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
                 </div>
               )}
 
-              {/* Fallback for forms without sections */}
               {!hasSections && fieldsBySection.unsectioned.length === 0 && (
                 <div className="space-y-6">
                   {fields.map((formField) => renderField(formField))}
@@ -393,7 +385,6 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
             </div>
           )}
 
-          {/* Submit Button */}
           <tanstackForm.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting] as const}
             children={(values) => {

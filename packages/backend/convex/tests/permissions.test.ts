@@ -12,13 +12,11 @@ describe("workspace permissions", () => {
       const asOwner = t.withIdentity({ subject: "owner_user" });
       const asSiteAdmin = t.withIdentity({ subject: "site_admin" });
 
-      // Create a workspace
       const workspaceId = await asOwner.mutation(api.workspaces.create, {
         name: "Private WS",
         slug: "private-ws",
       });
 
-      // Create site admin
       await t.run(async (ctx) => {
         await ctx.db.insert("siteUser", {
           userId: "site_admin",
@@ -26,7 +24,6 @@ describe("workspace permissions", () => {
         });
       });
 
-      // Site admin should be able to access
       const workspace = await asSiteAdmin.query(api.workspaces.get, {
         workspaceId,
       });
@@ -120,7 +117,6 @@ describe("workspace permissions", () => {
         slug: "role-test-2",
       });
 
-      // Add admin
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
           workspaceId,
@@ -148,7 +144,6 @@ describe("workspace permissions", () => {
         slug: "role-test-3",
       });
 
-      // Add member
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
           workspaceId,
@@ -176,7 +171,6 @@ describe("workspace permissions", () => {
         slug: "promote-test",
       });
 
-      // Add admin and member
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
           workspaceId,
@@ -190,7 +184,6 @@ describe("workspace permissions", () => {
         });
       });
 
-      // Admin trying to promote to owner should fail
       await expect(
         asAdmin.mutation(api.workspaceToUser.updateRole, {
           workspaceId,
@@ -199,7 +192,6 @@ describe("workspace permissions", () => {
         }),
       ).rejects.toThrow(/owner/i);
 
-      // Owner can promote to owner
       await asOwner.mutation(api.workspaceToUser.updateRole, {
         workspaceId,
         userId: "member_user",
@@ -230,7 +222,6 @@ describe("workspace permissions", () => {
         slug: "last-owner-1",
       });
 
-      // Create site admin to bypass permission check
       await t.run(async (ctx) => {
         await ctx.db.insert("siteUser", {
           userId: "site_admin",
@@ -300,7 +291,6 @@ describe("workspace permissions", () => {
         },
       );
 
-      // Add new user as admin
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
           workspaceId,
@@ -309,13 +299,11 @@ describe("workspace permissions", () => {
         });
       });
 
-      // Transfer ownership
       await asOriginalOwner.mutation(api.workspaceToUser.transferOwnership, {
         workspaceId,
         newOwnerId: "new_owner",
       });
 
-      // Check roles
       const originalOwnerMembership = await t.run(async (ctx) => {
         return await ctx.db
           .query("workspaceToUser")

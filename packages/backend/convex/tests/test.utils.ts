@@ -4,69 +4,35 @@ import type { Id } from "../_generated/dataModel";
 import schema from "../schema";
 import { createIdentity, TEST_USERS } from "./test.users";
 
-/**
- * Create a test instance with the schema
- */
 export function createTestContext() {
   return convexTest(schema);
 }
 
-/**
- * Type for the test context
- */
 export type TestContext = ReturnType<typeof createTestContext>;
 
-/**
- * Type for an authenticated test context (returned by withIdentity)
- */
 export type AuthenticatedTestContext = ReturnType<TestContext["withIdentity"]>;
 
-/**
- * Setup test users with pre-configured identities
- * Returns authenticated contexts for each test user role
- *
- * @example
- * ```ts
- * const t = convexTest(schema, modules);
- * const users = setupTestUsers(t);
- *
- * // Use pre-configured test users
- * await users.asSiteAdmin.mutation(api.workspaces.create, { ... });
- * await users.asWorkspaceAdmin.query(api.workspaces.get, { ... });
- * ```
- */
 export function setupTestUsers(t: TestContext) {
   return {
-    /** Site admin - has global admin privileges */
     asSiteAdmin: t.withIdentity(createIdentity(TEST_USERS.SITE_ADMIN)),
-    /** Site coach - can be assigned as coach to projects */
     asSiteCoach: t.withIdentity(createIdentity(TEST_USERS.SITE_COACH)),
-    /** Workspace admin - admin of a test workspace */
     asWorkspaceAdmin: t.withIdentity(
       createIdentity(TEST_USERS.WORKSPACE_ADMIN),
     ),
-    /** Project member - regular member assigned to a project */
     asProjectMember: t.withIdentity(createIdentity(TEST_USERS.PROJECT_MEMBER)),
-    /** Unassigned user - authenticated but no workspace/project access */
     asUnassignedUser: t.withIdentity(
       createIdentity(TEST_USERS.UNASSIGNED_USER),
     ),
   };
 }
 
-/**
- * Seed site-level roles for test users
- * Call this to set up siteUser records for SITE_ADMIN and SITE_COACH
- */
 export async function seedSiteRoles(t: TestContext) {
   await t.run(async (ctx) => {
-    // Create site admin
     await ctx.db.insert("siteUser", {
       userId: TEST_USERS.SITE_ADMIN.id,
       role: "admin",
     });
 
-    // Create site coach
     await ctx.db.insert("siteUser", {
       userId: TEST_USERS.SITE_COACH.id,
       role: "coach",
@@ -74,10 +40,6 @@ export async function seedSiteRoles(t: TestContext) {
   });
 }
 
-/**
- * Seed a test workspace with WORKSPACE_ADMIN as owner
- * Returns the workspace ID
- */
 export async function seedTestWorkspace(t: TestContext) {
   const workspaceId = await t.run(async (ctx) => {
     const id = await ctx.db.insert("workspaces", {
@@ -87,7 +49,6 @@ export async function seedTestWorkspace(t: TestContext) {
       createdAt: Date.now(),
     });
 
-    // Add workspace admin as owner
     await ctx.db.insert("workspaceToUser", {
       workspaceId: id,
       userId: TEST_USERS.WORKSPACE_ADMIN.id,
@@ -100,18 +61,11 @@ export async function seedTestWorkspace(t: TestContext) {
   return workspaceId;
 }
 
-/**
- * Complete test environment setup
- * Seeds site roles, test workspace, and returns authenticated contexts
- */
 export async function setupTestEnvironment(t: TestContext) {
-  // Seed site-level roles
   await seedSiteRoles(t);
 
-  // Seed test workspace
   const workspaceId = await seedTestWorkspace(t);
 
-  // Get authenticated contexts
   const users = setupTestUsers(t);
 
   return {
@@ -121,18 +75,12 @@ export async function setupTestEnvironment(t: TestContext) {
   };
 }
 
-/**
- * Mock user identity for testing authenticated functions
- */
 export interface MockUser {
   subject: string;
   email?: string;
   name?: string;
 }
 
-/**
- * Create a mock user identity
- */
 export function createMockUser(overrides: Partial<MockUser> = {}): MockUser {
   const id = Math.random().toString(36).substring(7);
   return {
@@ -143,9 +91,6 @@ export function createMockUser(overrides: Partial<MockUser> = {}): MockUser {
   };
 }
 
-/**
- * Factory for creating workspace test data
- */
 export interface WorkspaceFactoryInput {
   name?: string;
   slug?: string;
@@ -181,9 +126,6 @@ export async function createTestWorkspace(
   };
 }
 
-/**
- * Factory for creating workspace membership
- */
 export interface WorkspaceMembershipInput {
   workspaceId: Id<"workspaces">;
   userId: string;
@@ -210,9 +152,6 @@ export async function createTestWorkspaceMembership(
   };
 }
 
-/**
- * Factory for creating project test data
- */
 export interface ProjectFactoryInput {
   name?: string;
   description?: string;
@@ -244,9 +183,6 @@ export async function createTestProject(
   };
 }
 
-/**
- * Factory for creating site admin user
- */
 export async function createTestSiteAdmin(t: TestContext, userId?: string) {
   const id = userId ?? `user_${Math.random().toString(36).substring(7)}`;
 
@@ -264,9 +200,6 @@ export async function createTestSiteAdmin(t: TestContext, userId?: string) {
   };
 }
 
-/**
- * Factory for creating site coach user
- */
 export async function createTestSiteCoach(t: TestContext, userId?: string) {
   const id = userId ?? `user_${Math.random().toString(36).substring(7)}`;
 
@@ -284,9 +217,6 @@ export async function createTestSiteCoach(t: TestContext, userId?: string) {
   };
 }
 
-/**
- * Helper to create a full workspace with owner
- */
 export async function createTestWorkspaceWithOwner(
   t: TestContext,
   input: WorkspaceFactoryInput = {},
@@ -314,9 +244,6 @@ export async function createTestWorkspaceWithOwner(
   };
 }
 
-/**
- * Helper to add a member to a workspace
- */
 export async function addMemberToWorkspace(
   t: TestContext,
   workspaceId: Id<"workspaces">,

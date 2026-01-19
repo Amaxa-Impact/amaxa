@@ -7,7 +7,6 @@ export default defineSchema({
     role: v.union(v.literal("admin"), v.literal("coach")),
   }).index("by_userId", ["userId"]),
 
-  // Multi-tenant workspace tables
   workspaces: defineTable({
     name: v.string(),
     slug: v.string(),

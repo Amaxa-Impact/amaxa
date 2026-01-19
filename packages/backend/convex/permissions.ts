@@ -7,10 +7,6 @@ import { api } from "./_generated/api";
 export type UserRole = "coach" | "member";
 type HttpActionCtx = GenericActionCtx<GenericDataModel>;
 
-/**
- * Get the authenticated user's ID from the context
- * Throws an error if the user is not authenticated
- */
 export async function requireAuth(
   ctx: QueryCtx | MutationCtx,
 ): Promise<string> {
@@ -21,10 +17,6 @@ export async function requireAuth(
   return identity.subject;
 }
 
-/**
- * Get a user's role in a project
- * Returns null if the user is not in the project
- */
 export async function getUserRole(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -44,10 +36,6 @@ export async function getUserRole(
   return assignment.role as UserRole;
 }
 
-/**
- * Assert that a user has access to a project
- * Throws an error if the user is not in the project
- */
 export async function assertUserInProject(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -59,10 +47,6 @@ export async function assertUserInProject(
   }
 }
 
-/**
- * Assert that a user is a coach in a project
- * Throws an error if the user is not a coach
- */
 export async function assertUserIsCoach(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -74,9 +58,6 @@ export async function assertUserIsCoach(
   }
 }
 
-/**
- * Check if a user has access to a project (non-throwing version)
- */
 export async function hasAccess(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -86,9 +67,6 @@ export async function hasAccess(
   return role !== null;
 }
 
-/**
- * Check if a user is a coach in a project (non-throwing version)
- */
 export async function isCoach(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -100,10 +78,8 @@ export async function isCoach(
 
 export type SiteUserRole = "admin" | "coach";
 
-// Workspace role types
 export type WorkspaceRole = "owner" | "admin" | "member";
 
-// Role hierarchy for permission checks
 const WORKSPACE_ROLE_HIERARCHY: Record<WorkspaceRole, number> = {
   owner: 3,
   admin: 2,
@@ -156,14 +132,6 @@ export async function requireSiteAdminAction(
   return status.isAdmin === true;
 }
 
-// ============================================
-// Workspace Permission Helpers
-// ============================================
-
-/**
- * Get a user's role in a workspace
- * Returns null if the user is not in the workspace
- */
 export async function getWorkspaceRole(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -179,16 +147,11 @@ export async function getWorkspaceRole(
   return membership?.role ?? null;
 }
 
-/**
- * Check if user has access to a workspace (member or higher)
- * Site admins bypass this check
- */
 export async function hasWorkspaceAccess(
   ctx: QueryCtx | MutationCtx,
   userId: string,
   workspaceId: Id<"workspaces">,
 ): Promise<boolean> {
-  // Site admins have access to all workspaces
   if (await isSiteAdmin(ctx, userId)) {
     return true;
   }
@@ -197,17 +160,11 @@ export async function hasWorkspaceAccess(
   return role !== null;
 }
 
-/**
- * Assert that a user has access to a workspace
- * Throws an error if the user is not a member
- * Site admins bypass this check
- */
 export async function assertUserInWorkspace(
   ctx: QueryCtx | MutationCtx,
   userId: string,
   workspaceId: Id<"workspaces">,
 ): Promise<void> {
-  // Site admins bypass all permission checks
   if (await isSiteAdmin(ctx, userId)) {
     return;
   }
@@ -218,17 +175,11 @@ export async function assertUserInWorkspace(
   }
 }
 
-/**
- * Assert that a user is an admin (or owner) in a workspace
- * Throws an error if the user doesn't have admin+ role
- * Site admins bypass this check
- */
 export async function assertWorkspaceAdmin(
   ctx: QueryCtx | MutationCtx,
   userId: string,
   workspaceId: Id<"workspaces">,
 ): Promise<void> {
-  // Site admins bypass all permission checks
   if (await isSiteAdmin(ctx, userId)) {
     return;
   }
@@ -239,17 +190,11 @@ export async function assertWorkspaceAdmin(
   }
 }
 
-/**
- * Assert that a user is an owner of a workspace
- * Throws an error if the user is not an owner
- * Site admins bypass this check
- */
 export async function assertWorkspaceOwner(
   ctx: QueryCtx | MutationCtx,
   userId: string,
   workspaceId: Id<"workspaces">,
 ): Promise<void> {
-  // Site admins bypass all permission checks
   if (await isSiteAdmin(ctx, userId)) {
     return;
   }
@@ -260,10 +205,6 @@ export async function assertWorkspaceOwner(
   }
 }
 
-/**
- * Check if user is workspace admin (non-throwing version)
- * Site admins return true
- */
 export async function isWorkspaceAdmin(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -277,10 +218,6 @@ export async function isWorkspaceAdmin(
   return role !== null && WORKSPACE_ROLE_HIERARCHY[role] >= WORKSPACE_ROLE_HIERARCHY.admin;
 }
 
-/**
- * Check if user is workspace owner (non-throwing version)
- * Site admins return true
- */
 export async function isWorkspaceOwner(
   ctx: QueryCtx | MutationCtx,
   userId: string,
@@ -294,17 +231,13 @@ export async function isWorkspaceOwner(
   return role === "owner";
 }
 
-/**
- * Get the effective workspace role for a user
- * Site admins get "owner" role implicitly
- */
 export async function getEffectiveWorkspaceRole(
   ctx: QueryCtx | MutationCtx,
   userId: string,
   workspaceId: Id<"workspaces">,
 ): Promise<WorkspaceRole | null> {
   if (await isSiteAdmin(ctx, userId)) {
-    return "owner"; // Site admins have implicit owner access
+    return "owner";
   }
 
   return await getWorkspaceRole(ctx, userId, workspaceId);

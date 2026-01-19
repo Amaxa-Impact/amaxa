@@ -76,7 +76,6 @@ export function createFieldValidator(field: ApplicationFormField) {
     }
 
     case "file": {
-      // File validation: check if files array exists and has items if required
       const fileSchema = type({
         type: "'file'",
         files: type({
@@ -89,10 +88,8 @@ export function createFieldValidator(field: ApplicationFormField) {
       });
 
       if (field.required) {
-        // Required: must have at least one file
         validator = fileSchema.narrow((val) => val.files.length > 0);
       } else {
-        // Optional: can be undefined or have files
         validator = fileSchema.or("undefined");
       }
       break;

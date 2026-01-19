@@ -157,7 +157,6 @@ export function FilePreview({ file }: FilePreviewProps) {
   return (
     <>
       <div className="bg-muted/50 overflow-hidden rounded-lg border">
-        {/* Preview thumbnail for images */}
         {isImageFile(file.contentType) && previewUrl && !imageError && (
           <button
             className="group relative block w-full cursor-pointer"
@@ -181,7 +180,6 @@ export function FilePreview({ file }: FilePreviewProps) {
           </button>
         )}
 
-        {/* Preview thumbnail for PDFs */}
         {isPdfFile(file.contentType) && previewUrl && (
           <button
             className="group relative block w-full cursor-pointer"
@@ -197,7 +195,6 @@ export function FilePreview({ file }: FilePreviewProps) {
           </button>
         )}
 
-        {/* File info bar */}
         <div className="flex items-center justify-between gap-2 p-3">
           <div className="flex min-w-0 items-center gap-2">
             <GetFileIcon
@@ -231,7 +228,6 @@ export function FilePreview({ file }: FilePreviewProps) {
         </div>
       </div>
 
-      {/* Full-screen preview modal */}
       {isPreviewOpen && previewUrl && (
         <FilePreviewModal
           contentType={file.contentType}
@@ -262,7 +258,6 @@ function FilePreviewModal({
       className="fixed inset-0 z-100 flex items-center justify-center bg-black/90"
       onClick={onClose}
     >
-      {/* Header */}
       <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent p-4">
         <span className="truncate text-sm font-medium text-white">
           {filename}
@@ -279,7 +274,6 @@ function FilePreviewModal({
         </div>
       </div>
 
-      {/* Content */}
       <div
         className={cn(
           "flex h-full w-full items-center justify-center p-16",

@@ -142,7 +142,6 @@ export function SectionCard({
     }
   }, [section._id, fields.length, deleteSection]);
 
-  // Get fields from earlier sections that can be used as condition sources
   const availableSourceFields = allFields.filter(
     (f) =>
       (f.type === "select" || f.type === "multiselect") &&
