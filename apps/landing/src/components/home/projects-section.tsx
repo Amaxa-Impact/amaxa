@@ -5,7 +5,7 @@
  * Uses the AppleCards carousel component.
  */
 
-import { Carousel, Card } from "@/components/custom-animations/apple-cards";
+import { Card, Carousel } from "@/components/custom-animations/apple-cards";
 import { projectCards } from "@/lib/project-cards";
 
 export function ProjectsSection() {

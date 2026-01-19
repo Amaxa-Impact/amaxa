@@ -8,7 +8,8 @@ import { Image } from "astro:assets";
 import { Card, CardContent } from "@amaxa/ui/card";
 
 const seoTitle = "Blog";
-const seoDescription = "Read the latest stories, insights, and updates from ámaxa. Discover how our community is making a positive impact around the world.";
+const seoDescription =
+  "Read the latest stories, insights, and updates from ámaxa. Discover how our community is making a positive impact around the world.";
 
 type PostPreview = {
   _id: string;
@@ -68,7 +69,8 @@ const formatDate = (date: string) =>
   seo={{
     title: seoTitle,
     description: seoDescription,
-    image: "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
+    image:
+      "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1",
     type: "website",
     canonicalURL: "https://www.amaxaimpact.org/blog",
     keywords: ["amaxa", "blog", "stories", "news", "updates"],
@@ -114,12 +116,10 @@ const formatDate = (date: string) =>
         )
       }
 
-      <!-- Search Bar -->
       <div class="mb-12">
         <BlogSearch client:load posts={posts} />
       </div>
 
-      <!-- Other Posts Grid -->
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {
           otherPosts.map((post) => (
@@ -134,7 +134,7 @@ const formatDate = (date: string) =>
                     />
                   </div>
                 ) : (
-                  <div class="from-muted to-background relative flex h-64 w-full items-center justify-center bg-gradient-to-br">
+                  <div class="from-muted to-background relative flex h-64 w-full items-center justify-center bg-linear-to-br">
                     <Image
                       src="/icon.png"
                       alt="Ámaxa logo"

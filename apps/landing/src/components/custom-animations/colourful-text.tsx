@@ -19,18 +19,18 @@ export function ColourfulText({ text }: ColourfulTextProps) {
   // Rainbow color palette
   const colors = useMemo(
     () => [
-      "rgb(131, 179, 32)",   // Green
-      "rgb(47, 195, 106)",   // Emerald
-      "rgb(42, 169, 210)",   // Cyan
-      "rgb(4, 112, 202)",    // Blue
-      "rgb(107, 10, 255)",   // Purple
-      "rgb(183, 0, 218)",    // Magenta
-      "rgb(218, 0, 171)",    // Pink
-      "rgb(230, 64, 92)",    // Red
-      "rgb(232, 98, 63)",    // Orange
-      "rgb(249, 129, 47)",   // Amber
+      "rgb(131, 179, 32)", // Green
+      "rgb(47, 195, 106)", // Emerald
+      "rgb(42, 169, 210)", // Cyan
+      "rgb(4, 112, 202)", // Blue
+      "rgb(107, 10, 255)", // Purple
+      "rgb(183, 0, 218)", // Magenta
+      "rgb(218, 0, 171)", // Pink
+      "rgb(230, 64, 92)", // Red
+      "rgb(232, 98, 63)", // Orange
+      "rgb(249, 129, 47)", // Amber
     ],
-    []
+    [],
   );
 
   const [currentColors, setCurrentColors] = useState(colors);

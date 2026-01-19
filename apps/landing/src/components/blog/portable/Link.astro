@@ -1,5 +1,5 @@
 ---
-import type { Mark, Props as $ } from "astro-portabletext/types";
+import type { Props as $, Mark } from "astro-portabletext/types";
 
 type Props = $<Mark & { href?: string }>;
 
@@ -7,6 +7,9 @@ const { node } = Astro.props;
 const href = node.href ?? "#";
 ---
 
-<a href={href} class="text-primary underline transition-colors hover:text-primary/80">
+<a
+  href={href}
+  class="text-primary hover:text-primary/80 underline transition-colors"
+>
   <slot />
 </a>

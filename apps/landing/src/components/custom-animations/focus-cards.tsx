@@ -9,7 +9,8 @@
  * - columns: Number of columns (default: 3 for md+, 1 for mobile)
  */
 
-import { useState, memo } from "react";
+import { memo, useState } from "react";
+
 import { cn } from "@amaxa/ui";
 
 interface CardData {
@@ -56,7 +57,11 @@ const Card = memo(function Card({
         <div
           className={cn(
             "absolute inset-0 flex items-end bg-black/50 px-4 py-8 transition-opacity duration-300",
-            showDescription ? "opacity-100" : hovered === index ? "opacity-100" : "opacity-0",
+            showDescription
+              ? "opacity-100"
+              : hovered === index
+                ? "opacity-100"
+                : "opacity-0",
           )}
         >
           <div
@@ -91,9 +96,8 @@ export function FocusCards({
 }: FocusCardsProps) {
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const gridClass = columns === 4
-    ? "grid-cols-1 md:grid-cols-4"
-    : "grid-cols-1 md:grid-cols-3";
+  const gridClass =
+    columns === 4 ? "grid-cols-1 md:grid-cols-4" : "grid-cols-1 md:grid-cols-3";
 
   return (
     <div className={cn("grid w-full max-w-6xl gap-10 py-5", gridClass)}>

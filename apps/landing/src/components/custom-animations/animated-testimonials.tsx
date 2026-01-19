@@ -14,8 +14,8 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface Testimonial {
   quote: string;
@@ -60,7 +60,7 @@ export function AnimatedTestimonials({
     Array.from(
       { length: testimonials.length },
       () => Math.floor(Math.random() * 21) - 10,
-    )
+    ),
   );
 
   const getRotation = (index: number) => rotations[index] ?? 0;

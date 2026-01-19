@@ -11,6 +11,7 @@
 import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MoveLeft, MoveRight } from "lucide-react";
+
 import { cn } from "@amaxa/ui";
 
 // Types

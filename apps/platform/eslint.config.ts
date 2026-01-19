@@ -6,7 +6,7 @@ import { reactConfig } from "@amaxa/eslint-config/react";
 
 export default defineConfig(
   {
-    ignores: [".next/**", ".content-collections/**"],
+    ignores: [".next/**", ".content-collections/**", "./tests/**"],
   },
   baseConfig,
   reactConfig,

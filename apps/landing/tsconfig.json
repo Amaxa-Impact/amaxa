@@ -9,8 +9,8 @@
     "exactOptionalPropertyTypes": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
-    "jsxImportSource": "react",
-  },
+    "jsxImportSource": "react"
+  }
 }

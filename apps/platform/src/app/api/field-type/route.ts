@@ -30,7 +30,7 @@ export async function POST(request: Request) {
             .array(z.string())
             .optional()
             .describe(
-              "If fieldType is select or multiselect, suggest 4-8 relevant options"
+              "If fieldType is select or multiselect, suggest 4-8 relevant options",
             ),
         }),
       }),
@@ -71,7 +71,7 @@ IMPORTANT: If you determine the field type should be "select" or "multiselect", 
         error: "Failed to predict field type",
         fieldType: "text",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

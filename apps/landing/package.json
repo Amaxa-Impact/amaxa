@@ -7,6 +7,8 @@
     "build": "pnpm with-env astro build",
     "preview": "pnpm with-env astro preview",
     "astro": "astro",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {

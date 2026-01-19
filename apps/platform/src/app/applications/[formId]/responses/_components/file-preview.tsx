@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   IconFile,
   IconFileTypePdf,
@@ -40,53 +41,79 @@ function isPdfFile(contentType: string): boolean {
   return contentType === "application/pdf";
 }
 
-function getFileIcon(contentType: string) {
+interface GetFileIconProps {
+  contentType: string;
+  className?: string;
+}
+function GetFileIcon({ contentType, className }: GetFileIconProps) {
   if (isImageFile(contentType)) {
-    return IconPhoto;
+    return (
+      <>
+        <IconPhoto className={className} />
+      </>
+    );
   }
   if (isPdfFile(contentType)) {
-    return IconFileTypePdf;
+    return (
+      <>
+        <IconFileTypePdf className={className} />;
+      </>
+    );
   }
-  return IconFile;
+  return (
+    <>
+      <IconFile />
+    </>
+  );
 }
 
 export function FilePreview({ file }: FilePreviewProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [hasError, setHasError] = useState(false);
 
   const getPreview = useAction(api.files.getApplicationFilePreview);
 
   const isPreviewableType =
     isImageFile(file.contentType) || isPdfFile(file.contentType);
   const isTooLarge = file.sizeBytes > 12 * 1024 * 1024;
+  const shouldLoadPreview = isPreviewableType && !isTooLarge;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     let isActive = true;
     let objectUrl: string | null = null;
 
-    if (!isPreviewableType || isTooLarge) {
-      setPreviewUrl(null);
-      setHasError(false);
-      setIsLoading(false);
-      return () => {
-        if (objectUrl) {
-          URL.revokeObjectURL(objectUrl);
+    if (!shouldLoadPreview) {
+      // Use queueMicrotask to defer state updates after effect body completes
+      queueMicrotask(() => {
+        if (isActive) {
+          setIsLoading(false);
+          setHasError(false);
+          setPreviewUrl(null);
         }
-      };
+      });
+      return;
     }
 
-    setIsLoading(true);
-    setHasError(false);
+    // Queue state updates in microtask to avoid synchronous setState
+    queueMicrotask(() => {
+      if (isActive) {
+        setIsLoading(true);
+        setHasError(false);
+      }
+    });
 
     void getPreview({ blobId: file.blobId, path: file.path })
       .then((result) => {
         if (!isActive) return;
+
         if (!result) {
           setHasError(true);
           setPreviewUrl(null);
+          setIsLoading(false);
           return;
         }
 
@@ -94,14 +121,12 @@ export function FilePreview({ file }: FilePreviewProps) {
           new Blob([result.data], { type: result.contentType }),
         );
         setPreviewUrl(objectUrl);
+        setIsLoading(false);
       })
       .catch(() => {
         if (!isActive) return;
         setHasError(true);
         setPreviewUrl(null);
-      })
-      .finally(() => {
-        if (!isActive) return;
         setIsLoading(false);
       });
 
@@ -111,7 +136,7 @@ export function FilePreview({ file }: FilePreviewProps) {
         URL.revokeObjectURL(objectUrl);
       }
     };
-  }, [file.blobId, file.path, getPreview, isPreviewableType, isTooLarge]);
+  }, [file.blobId, file.path, getPreview, shouldLoadPreview]);
 
   const canPreview =
     !!previewUrl &&
@@ -128,7 +153,6 @@ export function FilePreview({ file }: FilePreviewProps) {
         : !isPreviewableType
           ? "No preview available"
           : null;
-  const FileIcon = getFileIcon(file.contentType);
 
   return (
     <>
@@ -141,11 +165,14 @@ export function FilePreview({ file }: FilePreviewProps) {
             type="button"
           >
             <div className="relative aspect-video w-full overflow-hidden bg-black/5">
-              <img
+              <Image
                 alt={file.filename}
-                className="h-full w-full object-contain"
+                className="object-contain"
+                fill
                 onError={() => setImageError(true)}
+                sizes="(max-width: 640px) 100vw, 50vw"
                 src={previewUrl}
+                unoptimized
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all group-hover:bg-black/40 group-hover:opacity-100">
                 <IconMaximize className="h-8 w-8 text-white" />
@@ -173,7 +200,10 @@ export function FilePreview({ file }: FilePreviewProps) {
         {/* File info bar */}
         <div className="flex items-center justify-between gap-2 p-3">
           <div className="flex min-w-0 items-center gap-2">
-            <FileIcon className="text-muted-foreground h-4 w-4 shrink-0" />
+            <GetFileIcon
+              contentType={file.contentType}
+              className="text-muted-foreground h-4 w-4 shrink-0"
+            />
             <span className="truncate text-sm font-medium">
               {file.filename}
             </span>
@@ -229,11 +259,11 @@ function FilePreviewModal({
 }: FilePreviewModalProps) {
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/90"
       onClick={onClose}
     >
       {/* Header */}
-      <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-gradient-to-b from-black/60 to-transparent p-4">
+      <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent p-4">
         <span className="truncate text-sm font-medium text-white">
           {filename}
         </span>
@@ -258,11 +288,17 @@ function FilePreviewModal({
         onClick={(e) => e.stopPropagation()}
       >
         {isImageFile(contentType) && (
-          <img
-            alt={filename}
-            className="max-h-full max-w-full object-contain"
-            src={url}
-          />
+          <div className="relative h-full w-full">
+            <Image
+              alt={filename}
+              className="object-contain"
+              fill
+              priority
+              sizes="100vw"
+              src={url}
+              unoptimized
+            />
+          </div>
         )}
         {isPdfFile(contentType) && (
           <iframe

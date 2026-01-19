@@ -50,12 +50,12 @@ export function PathwayCard({
   );
 }
 interface PathwayGridProps {
-  pathways: Array<{
+  pathways: {
     title: string;
     description: string;
     src: string;
     link: string;
-  }>;
+  }[];
 }
 
 /**

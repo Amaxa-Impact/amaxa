@@ -34,7 +34,9 @@ function FormFieldRendererComponent({
     case "multiselect":
       return <MultiselectField field={field} formField={formField} />;
     case "file":
-      return <FileField field={field} formField={formField} formSlug={formSlug} />;
+      return (
+        <FileField field={field} formField={formField} formSlug={formSlug} />
+      );
     default:
       return <TextField field={field} formField={formField} />;
   }

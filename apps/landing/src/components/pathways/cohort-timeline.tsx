@@ -65,7 +65,7 @@ export function CohortTimeline() {
                   STEP {step.number}
                 </p>
 
-                <h3 className="text-foreground mt-2 text-lg font-semibold leading-snug">
+                <h3 className="text-foreground mt-2 text-lg leading-snug font-semibold">
                   {step.heading}
                 </h3>
 

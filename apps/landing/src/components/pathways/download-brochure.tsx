@@ -56,7 +56,7 @@ export function DownloadBrochure() {
       <section className="bg-background">
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-12 lg:py-28">
           <div className="mb-12 md:mb-16">
-            <p className="text-brand-green mb-2 text-sm font-semibold uppercase tracking-widest">
+            <p className="text-brand-green mb-2 text-sm font-semibold tracking-widest uppercase">
               For Schools
             </p>
             <h2 className="text-foreground text-2xl font-semibold tracking-tight md:text-3xl">
