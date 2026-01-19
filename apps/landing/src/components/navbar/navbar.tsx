@@ -8,8 +8,6 @@ const navItems = [
   { href: "/pathways", label: "Our Pathways" },
   { href: "/project", label: "Projects" },
   { href: "/project-stories", label: "Read Àmaxa Stories" },
-  { href: "/team", label: "Team" },
-  { href: "/careers", label: "Careers" },
   { href: "/blog", label: "Blog" },
   { href: "/contact-us", label: "Contact" },
 ];
