@@ -33,6 +33,8 @@ import type * as schedulingInternal from "../schedulingInternal.js";
 import type * as schedulingTokens from "../schedulingTokens.js";
 import type * as tasks from "../tasks.js";
 import type * as userToProjects from "../userToProjects.js";
+import type * as workspaceToUser from "../workspaceToUser.js";
+import type * as workspaces from "../workspaces.js";
 
 import type {
   ApiFromModules,
@@ -66,6 +68,8 @@ declare const fullApi: ApiFromModules<{
   schedulingTokens: typeof schedulingTokens;
   tasks: typeof tasks;
   userToProjects: typeof userToProjects;
+  workspaceToUser: typeof workspaceToUser;
+  workspaces: typeof workspaces;
 }>;
 
 /**

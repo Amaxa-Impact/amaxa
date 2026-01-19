@@ -7,10 +7,51 @@ export default defineSchema({
     role: v.union(v.literal("admin"), v.literal("coach")),
   }).index("by_userId", ["userId"]),
 
+  // Multi-tenant workspace tables
+  workspaces: defineTable({
+    name: v.string(),
+    slug: v.string(),
+    domain: v.optional(v.string()),
+    createdBy: v.string(),
+    createdAt: v.number(),
+    deletedAt: v.optional(v.number()), // Soft delete with 30-day retention
+  })
+    .index("by_slug", ["slug"])
+    .index("by_domain", ["domain"])
+    .index("by_createdBy", ["createdBy"]),
+
+  workspaceToUser: defineTable({
+    workspaceId: v.id("workspaces"),
+    userId: v.string(),
+    role: v.union(v.literal("owner"), v.literal("admin"), v.literal("member")),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_workspaceId", ["workspaceId"])
+    .index("by_userId_and_workspaceId", ["userId", "workspaceId"]),
+
+  workspaceInvitations: defineTable({
+    workspaceId: v.id("workspaces"),
+    email: v.string(),
+    role: v.union(v.literal("admin"), v.literal("member")),
+    invitedBy: v.string(),
+    createdAt: v.number(),
+    expiresAt: v.number(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("accepted"),
+      v.literal("expired"),
+      v.literal("revoked"),
+    ),
+  })
+    .index("by_email", ["email"])
+    .index("by_workspaceId", ["workspaceId"])
+    .index("by_email_and_workspaceId", ["email", "workspaceId"]),
+
   projects: defineTable({
     name: v.string(),
     description: v.string(),
-  }),
+    workspaceId: v.optional(v.id("workspaces")), // Optional during migration
+  }).index("by_workspaceId", ["workspaceId"]),
 
   tasks: defineTable({
     projectId: v.id("projects"),
@@ -21,13 +62,13 @@ export default defineSchema({
         v.literal("todo"),
         v.literal("in_progress"),
         v.literal("completed"),
-        v.literal("blocked")
-      )
+        v.literal("blocked"),
+      ),
     ),
     assignedTo: v.optional(v.string()),
     dueDate: v.optional(v.number()),
     priority: v.optional(
-      v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
+      v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
     ),
     data: v.optional(v.any()),
     position: v.optional(v.any()),
@@ -57,7 +98,7 @@ export default defineSchema({
         backgroundColor: v.optional(v.string()),
         borderColor: v.optional(v.string()),
         color: v.optional(v.string()),
-      })
+      }),
     ),
   })
     .index("by_task", ["taskId"])
@@ -75,7 +116,7 @@ export default defineSchema({
       v.object({
         stroke: v.optional(v.string()),
         strokeWidth: v.optional(v.number()),
-      })
+      }),
     ),
     animated: v.optional(v.boolean()),
   })
@@ -115,10 +156,10 @@ export default defineSchema({
         operator: v.union(
           v.literal("equals"),
           v.literal("notEquals"),
-          v.literal("contains")
+          v.literal("contains"),
         ),
         value: v.union(v.string(), v.array(v.string())),
-      })
+      }),
     ),
   })
     .index("by_form", ["formId"])
@@ -135,7 +176,7 @@ export default defineSchema({
       v.literal("number"),
       v.literal("select"),
       v.literal("multiselect"),
-      v.literal("file")
+      v.literal("file"),
     ),
     required: v.boolean(),
     order: v.number(),
@@ -147,7 +188,7 @@ export default defineSchema({
         maxSizeBytes: v.number(),
         allowedMimeTypes: v.array(v.string()),
         maxFiles: v.optional(v.number()),
-      })
+      }),
     ),
     condition: v.optional(
       v.object({
@@ -155,10 +196,10 @@ export default defineSchema({
         operator: v.union(
           v.literal("equals"),
           v.literal("notEquals"),
-          v.literal("contains")
+          v.literal("contains"),
         ),
         value: v.union(v.string(), v.array(v.string())),
-      })
+      }),
     ),
   })
     .index("by_form", ["formId"])
@@ -174,7 +215,7 @@ export default defineSchema({
       v.literal("pending"),
       v.literal("reviewed"),
       v.literal("accepted"),
-      v.literal("rejected")
+      v.literal("rejected"),
     ),
   })
     .index("by_form", ["formId"])
@@ -196,9 +237,9 @@ export default defineSchema({
             filename: v.string(),
             contentType: v.string(),
             sizeBytes: v.number(),
-          })
+          }),
         ),
-      })
+      }),
     ),
   }).index("by_response", ["responseId"]),
 
@@ -237,4 +278,11 @@ export default defineSchema({
   })
     .index("by_room", ["room"])
     .index("by_room_and_user", ["room", "user"]),
+
+  rateLimits: defineTable({
+    userId: v.string(),
+    action: v.string(),
+    count: v.number(),
+    windowStart: v.number(),
+  }).index("by_userId_and_action", ["userId", "action"]),
 });

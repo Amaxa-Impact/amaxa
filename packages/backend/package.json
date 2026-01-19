@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "convex dev",
-    "dev:setup": "convex dev --configure --until-success"
+    "dev:setup": "convex dev --configure --until-success",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "exports": {
     "./*": {
@@ -20,9 +22,12 @@
   "description": "",
   "devDependencies": {
     "@amaxa/eslint-config": "workspace:*",
+    "@edge-runtime/vm": "^4.0.4",
     "@types/node": "catalog:",
+    "convex-test": "^0.0.35",
     "patch-package": "^8.0.1",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "^4.0.17"
   },
   "dependencies": {
     "@convex-dev/migrations": "^0.2.9",
