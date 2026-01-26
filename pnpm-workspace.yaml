@@ -50,3 +50,5 @@ onlyBuiltDependencies:
 publicHoistPattern:
   - '@ianvs/prettier-plugin-sort-imports'
   - prettier-plugin-tailwindcss
+  - '@jridgewell/sourcemap-codec'
+  - 'magic-string'

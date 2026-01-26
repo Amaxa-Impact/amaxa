@@ -11,6 +11,7 @@
 
 import { AnimatedTitle } from "@/components/custom-animations/animated-title";
 import { PathwayGrid } from "@/components/pathway-card";
+import { PathwayQuestionnaireTrigger } from "@/components/pathway-questionnaire-trigger";
 import AppLayout from "@/layouts/app-layout.astro";
 
 const seoTitle = "Pathways";
@@ -73,11 +74,20 @@ const cards = [
             Our community provides ways for people of all ages and interests to
             effect real change.
           </h2>
-          <p class="mb-10 max-w-3xl text-lg text-neutral-600">
+          <p class="mb-6 max-w-3xl text-lg text-neutral-600">
             Select a pathway below to learn more about how you can get involved.
+            Or let us help you find the perfect match!
           </p>
 
-          <PathwayGrid pathways={cards} />
+          <!-- Questionnaire Trigger (Inline for all devices) -->
+          <PathwayQuestionnaireTrigger variant="inline" client:load />
+
+          <!-- Floating Button (Desktop only) -->
+          <PathwayQuestionnaireTrigger variant="floating" client:load />
+
+          <div class="mt-6">
+            <PathwayGrid pathways={cards} />
+          </div>
         </div>
       </div>
     </section>
