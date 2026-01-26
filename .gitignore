@@ -97,3 +97,4 @@ dist/
 **/playwright/.cache/
 **/playwright/.auth/
 **/opensrc/
+.env.bak

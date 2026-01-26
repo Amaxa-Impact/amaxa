@@ -1,0 +1,188 @@
+---
+import AppLayout from "@/layouts/app-layout.astro";
+import { ContactForm } from "@/components/contact/contact-form";
+import { AnimatedTitle } from "@/components/custom-animations/animated-title";
+
+const seo = {
+  title: "Contact Us | Ámaxa",
+  description: "Get in touch with ámaxa. Send us a message, schedule a demo, or reach out directly via email.",
+  canonicalURL: "https://www.amaxaimpact.org/contact-us",
+};
+---
+
+<AppLayout seo={seo}>
+  <main>
+    <!-- Header Section with Underlined Animation -->
+    <section class="bg-background w-full px-6 pt-5 md:py-12">
+      <div class="container mx-auto max-w-7xl px-6 md:px-16 lg:px-20">
+        <div class="flex flex-col items-center justify-center">
+          <div class="mb-12 max-w-full">
+            <AnimatedTitle
+              underlinedText="Contact Us"
+              color="#BCD96C"
+              client:only="react"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="w-full bg-gray-50 px-6 py-12 md:px-16 md:py-16 lg:px-20 lg:py-20">
+      <div class="mx-auto max-w-7xl space-y-16">
+        <!-- Introduction Section -->
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-[#3B3B3B] md:text-4xl lg:text-5xl">
+            Get in touch with ámaxa.
+          </h2>
+          <p class="mt-4 text-lg text-[#3B3B3B]/80 md:text-xl">
+            We're here to help. Choose the form that best fits your inquiry, or reach out directly.
+          </p>
+        </div>
+
+        <!-- Direct Contact Information -->
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div class="border-2 border-[#3B3B3B]/20 flex flex-col h-full rounded-lg bg-white p-6 shadow-sm">
+            <div class="flex-1">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#BCD96C]/20">
+                <span class="text-2xl">✉️</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#3B3B3B]">Email Us</h3>
+              <p class="mt-2 text-sm text-[#3B3B3B]/80">
+                Reach out directly via email for any inquiries or questions.
+              </p>
+            </div>
+            <div class="flex flex-col justify-end space-y-3 mt-6">
+              <div>
+                <p class="text-sm text-[#3B3B3B]/60 mb-2">General Inquiries</p>
+                <a
+                  href="mailto:lauren@amaxaimpact.org"
+                  class="text-[#3B3B3B] hover:text-[#BCD96C] transition-colors font-medium break-all"
+                >
+                  lauren@amaxaimpact.org
+                </a>
+              </div>
+              <div class="h-px bg-[#3B3B3B]/20 my-2"></div>
+              <div>
+                <p class="text-sm text-[#3B3B3B]/60 mb-2">Collaboration</p>
+                <a
+                  href="mailto:lexi@amaxaimpact.org"
+                  class="text-[#3B3B3B] hover:text-[#BCD96C] transition-colors font-medium break-all"
+                >
+                  lexi@amaxaimpact.org
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-2 border-[#3B3B3B]/20 flex flex-col h-full rounded-lg bg-white p-6 shadow-sm">
+            <div class="flex-1">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#BCD96C]/20">
+                <span class="text-2xl">📅</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#3B3B3B]">Schedule a Call</h3>
+              <p class="mt-2 text-sm text-[#3B3B3B]/80">
+                Interested in learning more? Use the demo request form below to schedule an introduction call.
+              </p>
+            </div>
+            <div class="flex flex-col justify-end mt-6">
+              <button
+                class="w-full rounded-lg border-2 border-[#3B3B3B] bg-white px-4 py-2 text-[#3B3B3B] hover:bg-[#BCD96C]/20 hover:border-[#BCD96C] transition-colors flex items-center justify-center gap-2"
+                onclick="document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' })"
+              >
+                Request Demo
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Forms Section -->
+        <div class="space-y-12">
+          <div class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-3 mb-2">
+              <span class="text-2xl">✉️</span>
+            </div>
+            <h3 class="text-2xl font-semibold text-[#3B3B3B] md:text-3xl">
+              Send Us a Message
+            </h3>
+            <p class="text-[#3B3B3B]/80 max-w-2xl mx-auto">
+              Fill out the form below that matches your inquiry type. A team member will reply to your email address, or for demo requests with a preferred date and time, you'll receive a Google Calendar invite.
+            </p>
+          </div>
+
+          <div class="max-w-3xl mx-auto">
+            <ContactForm
+              client:load
+              formType="general"
+              title="Send Us a Message"
+              description="Fill out the form below and select your inquiry type. All messages are sent directly to our team."
+              showInquiryTypeSelector={true}
+            />
+          </div>
+        </div>
+
+        <!-- Demo/Intro Call Section -->
+        <div class="my-16">
+          <div class="h-px bg-[#3B3B3B]/20"></div>
+        </div>
+        
+        <div id="demo-section" class="space-y-8 scroll-mt-20">
+          <div class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center rounded-full bg-[#BCD96C]/20 p-4 mb-4">
+              <span class="text-3xl">📅</span>
+            </div>
+            <h3 class="text-3xl font-semibold text-[#3B3B3B] md:text-4xl">
+              Schedule a Demo or Call
+            </h3>
+            <p class="text-lg text-[#3B3B3B]/80 max-w-2xl mx-auto">
+              Are you an organization interested in learning more about ámaxa? 
+              Request an introduction call with our team.
+            </p>
+            
+            <!-- Information Card -->
+            <div class="mt-6 max-w-2xl mx-auto rounded-xl bg-gradient-to-br from-[#BCD96C]/10 to-[#BCD96C]/5 border border-[#BCD96C]/30 p-6">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <div class="rounded-full bg-[#BCD96C]/20 p-2">
+                    <span class="text-xl">✓</span>
+                  </div>
+                </div>
+                <div class="text-left space-y-2">
+                  <h4 class="font-semibold text-[#3B3B3B] text-lg">What happens next?</h4>
+                  <ul class="space-y-2 text-sm text-[#3B3B3B]/80">
+                    <li class="flex items-start gap-2">
+                      <span class="text-[#BCD96C] mt-1">•</span>
+                      <span>Your request is sent to an ámaxa team member</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-[#BCD96C] mt-1">•</span>
+                      <span>We review your information and preferred time (including timezone)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-[#BCD96C] mt-1">•</span>
+                      <span>The team member will reply to your email address, or if you've provided a preferred date and time, you'll receive a Google Calendar invite</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-[#BCD96C] mt-1">•</span>
+                      <span>We typically respond within 1-2 business days</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="max-w-3xl mx-auto">
+            <ContactForm
+              client:load
+              formType="demo"
+              title="Request a Demo or Intro Call"
+              description="Tell us about your organization and we'll schedule a time to connect."
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</AppLayout>

@@ -7,8 +7,25 @@ import {
   sendContactEmail,
 } from "@amaxa/resend";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // Check if RESEND_API_KEY is available
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not set in environment variables");
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Email service is not configured. Please contact support.",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
     const body: unknown = await request.json();
     const data = contactFormSchema(body);
 
@@ -30,10 +47,15 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (!resultEmail.success) {
+      console.error("Resend email failed:", {
+        error: resultEmail.error,
+        referenceId: resultEmail.referenceId,
+        formType: validatedData.formType,
+      });
       return new Response(
         JSON.stringify({
           success: false,
-          message: "Failed to send message. Please try again.",
+          message: resultEmail.error || "Failed to send message. Please try again.",
           error: resultEmail.error,
           referenceId: resultEmail.referenceId,
         }),
@@ -58,10 +80,15 @@ export const POST: APIRoute = async ({ request }) => {
     );
   } catch (error) {
     console.error("Error processing contact form:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error details:", {
+      message: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Failed to send message. Please try again.",
+        error: errorMessage || "Failed to send message. Please try again.",
       }),
       {
         status: 500,
