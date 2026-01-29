@@ -116,17 +116,38 @@ export function ContactForm({ formType, title, description, schema, showInquiryT
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
-    // Use appropriate schema based on form type
-    const validationSchema = formType === "demo" ? demoFormSchema : unifiedInquiryFormSchema;
-    const result = validationSchema.safeParse(formData);
 
-    if (!result.success) {
-      result.error.errors.forEach((error) => {
-        if (error.path.length > 0) {
-          newErrors[error.path[0] as string] = error.message;
-        }
-      });
+    // Simple, defensive runtime validation to avoid any crashes
+    const name = (formData as any).name?.trim() ?? "";
+    const email = (formData as any).email?.trim() ?? "";
+    const message = (formData as any).message?.trim() ?? "";
+
+    if (!name) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!message || message.length < 10) {
+      newErrors.message = "Please provide more details (at least 10 characters)";
+    }
+
+    if (showInquiryTypeSelector) {
+      const inquiryType = (formData as any).inquiryType;
+      if (!inquiryType) {
+        newErrors.inquiryType = "Please select an inquiry type";
+      }
+    }
+
+    if (formType === "demo") {
+      const organization = (formData as any).organization?.trim() ?? "";
+      if (!organization) {
+        newErrors.organization = "Organization name is required";
+      }
     }
 
     setErrors(newErrors);
@@ -171,15 +192,14 @@ export function ContactForm({ formType, title, description, schema, showInquiryT
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Professional success message with reference ID - form stays visible
+        // Success message with access code for Lauren - form stays visible
         const referenceId = data.referenceId;
-        
+
         setSubmitStatus({
           type: "success",
-          message: referenceId 
-            ? `Your message has been received. Reference ID: ${referenceId}`
-            : "Your message has been received and will be reviewed by our team.",
-          referenceId: referenceId,
+          message:
+            "Your message has been received. An ámaxa team member will get in touch with you soon via email.",
+          referenceId,
           calendarLink: data.calendarLink,
         });
         
@@ -187,13 +207,20 @@ export function ContactForm({ formType, title, description, schema, showInquiryT
         setErrors({});
         // Note: Form does NOT reset - stays visible per scrum12 behavior
       } else {
-        // Handle case where success is false but status was 200
-        const errorMessage = data.error || "Failed to send message";
-        const errorDescription = data.message || "Please try again later.";
+        // Handle validation / server errors (including 400s from the API)
+        let errorMessage = "Failed to send message. Please try again later.";
+
+        if (typeof data?.error === "string" && data.error.trim().length > 0) {
+          errorMessage = data.error;
+        } else if (typeof data?.message === "string" && data.message.trim().length > 0) {
+          errorMessage = data.message;
+        }
 
         setSubmitStatus({
           type: "error",
           message: errorMessage,
+          // If the backend included a referenceId even on failure, surface it for Lauren
+          referenceId: typeof data?.referenceId === "string" ? data.referenceId : undefined,
         });
         // Don't reset form on error - keep user's input
       }

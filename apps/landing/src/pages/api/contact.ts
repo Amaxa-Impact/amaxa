@@ -1,11 +1,6 @@
 import type { APIRoute } from "astro";
-import { type } from "arktype";
 
-import {
-  contactFormSchema,
-  RESEND_FROM_EMAIL,
-  sendContactEmail,
-} from "@amaxa/resend";
+import { RESEND_FROM_EMAIL, sendContactEmail } from "@amaxa/resend";
 
 export const prerender = false;
 
@@ -27,17 +22,65 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const body: unknown = await request.json();
-    const data = contactFormSchema(body);
 
-    // Arktype error handling
-    if (data instanceof type.errors) {
-      return new Response(JSON.stringify({ error: data }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+    // Basic runtime validation instead of Arktype to avoid brittle errors
+    const {
+      name,
+      email,
+      message,
+      formType,
+      organization,
+      phone,
+      preferredDate,
+      preferredTime,
+      timezone,
+    } = (body ?? {}) as Record<string, unknown>;
+
+    const errors: string[] = [];
+
+    if (typeof name !== "string" || name.trim().length === 0) {
+      errors.push("Name is required.");
     }
 
-    const validatedData = data;
+    if (typeof email !== "string" || email.trim().length === 0) {
+      errors.push("Email is required.");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.push("Email address is invalid.");
+    }
+
+    if (typeof message !== "string" || message.trim().length < 10) {
+      errors.push("Message must be at least 10 characters.");
+    }
+
+    const allowedFormTypes = ["internship", "high-school", "general", "demo"] as const;
+    if (typeof formType !== "string" || !allowedFormTypes.includes(formType as any)) {
+      errors.push("Invalid inquiry type.");
+    }
+
+    if (errors.length > 0) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: errors.join(" "),
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    const validatedData = {
+      name: name as string,
+      email: email as string,
+      message: message as string,
+      formType: formType as string,
+      organization: typeof organization === "string" ? organization : undefined,
+      phone: typeof phone === "string" ? phone : undefined,
+      preferredDate: typeof preferredDate === "string" ? preferredDate : undefined,
+      preferredTime: typeof preferredTime === "string" ? preferredTime : undefined,
+      timezone: typeof timezone === "string" ? timezone : undefined,
+    };
     const recipientEmail = "lauren@amaxaimpact.org";
 
     const resultEmail = await sendContactEmail({

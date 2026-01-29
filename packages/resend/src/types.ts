@@ -5,7 +5,8 @@ export const contactFormSchema = type({
   email: "string.email",
   message: "string",
   formType: type.enumerated("internship", "high-school", "general", "demo"),
-  organization: "string",
+  // Organization is required for demo requests, but optional for general inquiries
+  organization: "string | undefined",
   phone: "string | undefined",
   preferredDate: "string | undefined",
   preferredTime: "string | undefined",
