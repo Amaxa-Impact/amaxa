@@ -3,13 +3,8 @@ import { mutation, query } from "./_generated/server";
 import { requireSiteAdmin } from "./permissions";
 
 function generateToken(): string {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let token = "";
-  for (let i = 0; i < 32; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return token;
+  // Use crypto.randomUUID() for cryptographically secure token generation
+  return crypto.randomUUID().replace(/-/g, "");
 }
 
 export const getByToken = query({

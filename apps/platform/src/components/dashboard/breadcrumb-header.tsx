@@ -13,6 +13,7 @@ import {
 } from "@amaxa/ui/breadcrumb";
 import { SidebarTrigger } from "@amaxa/ui/sidebar";
 
+import { useWorkspace } from "../workspace/context";
 import { useDashboardContext } from "./context";
 
 const PAGE_NAMES: Record<string, string> = {
@@ -24,11 +25,12 @@ const PAGE_NAMES: Record<string, string> = {
 
 export function BreadcrumbHeader() {
   const { project } = useDashboardContext();
+  const { workspace } = useWorkspace();
   const projectId = project.id;
   const pathname = usePathname();
 
   const pathParts = pathname.split("/").filter(Boolean);
-  const currentPageFromPath = pathParts[2];
+  const currentPageFromPath = pathParts[3];
 
   const currentPage = currentPageFromPath ?? "";
   const pageName = PAGE_NAMES[currentPage] ?? currentPage;
@@ -42,14 +44,23 @@ export function BreadcrumbHeader() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/" render={<Link href="/" />}>
-                Platform
+                Àmaxa
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink render={<Link href={`/${workspace.slug}`} />}>
+                {workspace.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                href={`/project/${projectId}`}
-                render={<Link href={`/project/${projectId}`} />}
+                render={
+                  <Link
+                    href={`/workspace/${workspace.slug}/project/${projectId}`}
+                  />
+                }
               >
                 {project.name || "No Project Found"}
               </BreadcrumbLink>

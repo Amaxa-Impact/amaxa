@@ -151,7 +151,7 @@ export const remove = mutation({
 
     const fieldResponses = await ctx.db
       .query("applicationFieldResponses")
-      .filter((q) => q.eq(q.field("fieldId"), args.fieldId))
+      .withIndex("by_fieldId", (q) => q.eq("fieldId", args.fieldId))
       .collect();
 
     for (const response of fieldResponses) {

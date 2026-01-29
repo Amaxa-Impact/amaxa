@@ -4,6 +4,7 @@ import type { Doc } from "./_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
 import { internalQuery, mutation, query } from "./_generated/server";
 import { isSiteAdmin, requireAuth } from "./permissions";
+import { siteAdminMutation, siteAdminQuery, workspaceMutation, workspaceQuery } from "./custom";
 
 // Slug validation: lowercase, alphanumeric + hyphens, 3-50 chars
 const SLUG_REGEX = /^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$/;
@@ -109,18 +110,20 @@ const workspaceValidator = v.object({
   _creationTime: v.number(),
   name: v.string(),
   slug: v.string(),
-  domain: v.optional(v.string()),
   createdBy: v.string(),
   createdAt: v.number(),
   deletedAt: v.optional(v.number()),
 });
 
-export const create = mutation({
+export const create = siteAdminMutation({
   args: {
     name: v.string(),
     slug: v.string(),
   },
-  returns: v.id("workspaces"),
+  returns: v.object({
+    workspaceId: v.id("workspaces"),
+    slug: v.string(),
+  }),
   handler: async (ctx, args) => {
     const userId = await requireAuth(ctx);
 
@@ -162,43 +165,23 @@ export const create = mutation({
       role: "owner",
     });
 
-    return workspaceId;
+    return {workspaceId, slug: args.slug};
   },
 });
 
-export const get = query({
+export const get = workspaceQuery({
   args: {
-    workspaceId: v.id("workspaces"),
+    workspaceSlug: v.string(),
   },
   returns: v.union(workspaceValidator, v.null()),
-  handler: async (ctx, args) => {
-    const userId = await requireAuth(ctx);
-
-    const workspace = await ctx.db.get(args.workspaceId);
-    if (!workspace || workspace.deletedAt) {
-      return null;
-    }
-
-    if (await isSiteAdmin(ctx, userId)) {
-      return workspace;
-    }
-
-    const membership = await ctx.db
-      .query("workspaceToUser")
-      .withIndex("by_userId_and_workspaceId", (q) =>
-        q.eq("userId", userId).eq("workspaceId", args.workspaceId),
-      )
-      .unique();
-
-    if (!membership) {
-      throw new Error("You do not have access to this workspace");
-    }
+  role: "member",
+  handler: (ctx) => {
+    const {workspace} = ctx;
 
     return workspace;
   },
 });
 
-/** Requires membership or site admin */
 export const getBySlug = query({
   args: {
     slug: v.string(),
@@ -234,27 +217,6 @@ export const getBySlug = query({
     return workspace;
   },
 });
-
-/** Internal: for middleware, no auth */
-export const getByDomain = internalQuery({
-  args: {
-    domain: v.string(),
-  },
-  returns: v.union(workspaceValidator, v.null()),
-  handler: async (ctx, args) => {
-    const workspace = await ctx.db
-      .query("workspaces")
-      .withIndex("by_domain", (q) => q.eq("domain", args.domain))
-      .unique();
-
-    if (!workspace || workspace.deletedAt) {
-      return null;
-    }
-
-    return workspace;
-  },
-});
-
 /** Internal: for middleware, no auth */
 export const getBySlugInternal = internalQuery({
   args: {
@@ -275,56 +237,23 @@ export const getBySlugInternal = internalQuery({
   },
 });
 
-/** Name/domain only; slug is immutable. Requires admin+ or site admin */
-export const update = mutation({
+export const update = workspaceMutation({
   args: {
-    workspaceId: v.id("workspaces"),
+    workspaceSlug: v.string(),
     name: v.optional(v.string()),
-    domain: v.optional(v.string()),
   },
   returns: v.null(),
+  role: "admin",
   handler: async (ctx, args) => {
-    const userId = await requireAuth(ctx);
-
-    const workspace = await ctx.db.get(args.workspaceId);
-    if (!workspace || workspace.deletedAt) {
-      throw new Error("Workspace not found");
-    }
-
-    const isAdmin = await isSiteAdmin(ctx, userId);
-    if (!isAdmin) {
-      const membership = await ctx.db
-        .query("workspaceToUser")
-        .withIndex("by_userId_and_workspaceId", (q) =>
-          q.eq("userId", userId).eq("workspaceId", args.workspaceId),
-        )
-        .unique();
-
-      if (!membership || membership.role === "member") {
-        throw new Error("You must be a workspace admin to update settings");
-      }
-    }
+    const workspace = ctx.workspace;
 
     const updates: Partial<Doc<"workspaces">> = {};
     if (args.name !== undefined) {
       updates.name = args.name;
     }
-    if (args.domain !== undefined) {
-      if (args.domain) {
-        const existingDomain = await ctx.db
-          .query("workspaces")
-          .withIndex("by_domain", (q) => q.eq("domain", args.domain))
-          .unique();
-
-        if (existingDomain && existingDomain._id !== args.workspaceId) {
-          throw new Error(`Domain "${args.domain}" is already in use`);
-        }
-      }
-      updates.domain = args.domain || undefined;
-    }
 
     if (Object.keys(updates).length > 0) {
-      await ctx.db.patch(args.workspaceId, updates);
+      await ctx.db.patch(workspace._id, updates);
     }
 
     return null;
@@ -333,23 +262,27 @@ export const update = mutation({
 
 export const remove = mutation({
   args: {
-    workspaceId: v.id("workspaces"),
+    slug: v.string(),
   },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const userId = await requireAuth(ctx);
+    const workspace = await ctx.db
+      .query("workspaces")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .unique();
 
-    const workspace = await ctx.db.get(args.workspaceId);
     if (!workspace || workspace.deletedAt) {
       throw new Error("Workspace not found");
     }
 
+    // Use workspaceMutation for permission check
+    const userId = await requireAuth(ctx);
     const isAdmin = await isSiteAdmin(ctx, userId);
     if (!isAdmin) {
       const membership = await ctx.db
         .query("workspaceToUser")
         .withIndex("by_userId_and_workspaceId", (q) =>
-          q.eq("userId", userId).eq("workspaceId", args.workspaceId),
+          q.eq("userId", userId).eq("workspaceId", workspace._id),
         )
         .unique();
 
@@ -358,7 +291,7 @@ export const remove = mutation({
       }
     }
 
-    await ctx.db.patch(args.workspaceId, {
+    await ctx.db.patch(workspace._id, {
       deletedAt: Date.now(),
     });
 
@@ -366,13 +299,53 @@ export const remove = mutation({
   },
 });
 
-/** Site admin only */
+/** Site admin only - internal */
 export const list = internalQuery({
   args: {},
   returns: v.array(workspaceValidator),
   handler: async (ctx) => {
     const workspaces = await ctx.db.query("workspaces").order("desc").collect();
     return workspaces.filter((w) => !w.deletedAt);
+  },
+});
+
+/** Site admin only - public query */
+export const listAll = siteAdminQuery({
+  args: {},
+  returns: v.array(
+    v.object({
+      _id: v.id("workspaces"),
+      _creationTime: v.number(),
+      name: v.string(),
+      slug: v.string(),
+      createdBy: v.string(),
+      createdAt: v.number(),
+      userCount: v.number(),
+    }),
+  ),
+  handler: async (ctx) => {
+    const workspaces = await ctx.db.query("workspaces").order("desc").collect();
+    const activeWorkspaces = workspaces.filter((w) => !w.deletedAt);
+
+    // Batch load all memberships to avoid N+1 queries
+    const allMemberships = await ctx.db.query("workspaceToUser").collect();
+
+    // Group memberships by workspace
+    const membershipsByWorkspace = new Map<string, number>();
+    for (const membership of allMemberships) {
+      const wsId = membership.workspaceId.toString();
+      membershipsByWorkspace.set(wsId, (membershipsByWorkspace.get(wsId) ?? 0) + 1);
+    }
+
+    return activeWorkspaces.map((workspace) => ({
+      _id: workspace._id,
+      _creationTime: workspace._creationTime,
+      name: workspace.name,
+      slug: workspace.slug,
+      createdBy: workspace.createdBy,
+      createdAt: workspace.createdAt,
+      userCount: membershipsByWorkspace.get(workspace._id.toString()) ?? 0,
+    }));
   },
 });
 
@@ -424,6 +397,9 @@ export const checkSlugAvailable = query({
     error: v.optional(v.string()),
   }),
   handler: async (ctx, args) => {
+    // Require authentication to prevent unauthenticated slug enumeration
+    await requireAuth(ctx);
+
     const validation = validateSlug(args.slug);
     if (!validation.valid) {
       return { available: false, error: validation.error };

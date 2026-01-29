@@ -20,6 +20,7 @@ import { Cursor } from "@/components/dashboard/cursor";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import usePresence from "@/hooks/use-presence";
 import { omitUndefined } from "@/lib/omit-undefined";
+import { useQueryWithStatus } from "@/lib/rich-query";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
   addEdge,
@@ -58,11 +59,18 @@ export function TasksFlowContent({
       y: number;
     };
   } | null>(null);
-  const convexNodes = useQuery(api.tasks.listForProject, { projectId });
-  const convexEdges = useQuery(api.edges.listForProject, { projectId });
-  const projectMembers = useQuery(api.userToProjects.listUsersForProject, {
+  const { data: convexNodes } = useQueryWithStatus(api.tasks.listForProject, {
     projectId,
   });
+  const { data: convexEdges } = useQueryWithStatus(api.edges.listForProject, {
+    projectId,
+  });
+  const { data: projectMembers } = useQueryWithStatus(
+    api.userToProjects.listUsersForProject,
+    {
+      projectId,
+    },
+  );
 
   const createTask = useMutation(api.tasks.create);
   const updatePosition = useMutation(api.tasks.updatePosition);

@@ -33,6 +33,6 @@
     "@convex-dev/migrations": "^0.2.9",
     "convex": "catalog:",
     "convex-fs": "^0.2.0",
-    "convex-helpers": "^0.1.106"
+    "convex-helpers": "catalog:"
   }
 }

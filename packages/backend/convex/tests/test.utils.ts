@@ -94,7 +94,6 @@ export function createMockUser(overrides: Partial<MockUser> = {}): MockUser {
 export interface WorkspaceFactoryInput {
   name?: string;
   slug?: string;
-  domain?: string;
   createdBy?: string;
 }
 
@@ -113,7 +112,6 @@ export async function createTestWorkspace(
   const workspaceData = {
     ...defaults,
     ...input,
-    ...(input.domain ? { domain: input.domain } : {}),
   };
 
   const workspaceId = await t.run(async (ctx) => {

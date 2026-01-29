@@ -1,10 +1,16 @@
+import type { ReactNode } from "react";
+
 import { TopNavbar } from "@/components/navbar/top-navbar";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+interface AppLayoutProps {
+  children: ReactNode;
+}
+
+export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div>
+    <>
       <TopNavbar />
       {children}
-    </div>
+    </>
   );
 }

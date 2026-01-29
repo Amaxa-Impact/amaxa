@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
+import { projectMutation, projectQuery } from "./custom";
 import { assertUserInProject, requireAuth } from "./permissions";
 
 const taskDataValidator = v.object({
@@ -21,7 +22,7 @@ const taskDataValidator = v.object({
   ),
 });
 
-export const create = mutation({
+export const create = projectMutation({
   args: {
     projectId: v.id("projects"),
     type: v.string(),
@@ -50,10 +51,8 @@ export const create = mutation({
     height: v.optional(v.number()),
   },
   returns: v.id("tasks"),
+  role: "member",
   handler: async (ctx, args) => {
-    const userId = await requireAuth(ctx);
-    await assertUserInProject(ctx, userId, args.projectId);
-
     const type = args.type.trim() === "" ? "task" : args.type;
     const label = args.data.label ?? "New Task";
 
@@ -81,7 +80,7 @@ export const create = mutation({
 });
 
 /** Returns React Flow nodes format */
-export const listForProject = query({
+export const listForProject = projectQuery({
   args: {
     projectId: v.id("projects"),
   },
@@ -105,6 +104,7 @@ export const listForProject = query({
       ),
     }),
   ),
+  role: "member",
   handler: async (ctx, args) => {
     const taskNodes = await ctx.db
       .query("taskNodes")
@@ -146,10 +146,13 @@ export const get = query({
     taskId: v.id("tasks"),
   },
   handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
     const task = await ctx.db.get(args.taskId);
     if (!task) {
       return null;
     }
+
+    await assertUserInProject(ctx, userId, task.projectId);
 
     const node = await ctx.db
       .query("taskNodes")

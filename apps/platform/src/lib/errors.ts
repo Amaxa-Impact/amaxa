@@ -62,3 +62,7 @@ export class QueryError extends TaggedError("QueryError")<{
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export class QueryLoading extends TaggedError("QueryLoading")<{}>() {}
+
+export class NoSubdomainError extends TaggedError("NoSubdomainError")<{
+  message: string;
+}>() {}

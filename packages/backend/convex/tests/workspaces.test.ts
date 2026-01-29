@@ -158,21 +158,21 @@ describe("workspaces", () => {
       const t = convexTest(schema, modules);
       const asOwner = t.withIdentity({ subject: "owner_user" });
 
-      const workspaceId = await asOwner.mutation(api.workspaces.create, {
+      const {slug} = await asOwner.mutation(api.workspaces.create, {
         name: "Original",
         slug: "update-test",
       });
 
       await asOwner.mutation(api.workspaces.update, {
-        workspaceId,
+        workspaceSlug: slug,
         name: "Updated",
       });
 
       const workspace = await asOwner.query(api.workspaces.get, {
-        workspaceId,
+        workspaceSlug: slug,
       });
 
-      expect(workspace?.name).toBe("Updated");
+      expect(workspace.name).toBe("Updated");
     });
 
     it("should deny members from updating", async () => {
@@ -180,14 +180,14 @@ describe("workspaces", () => {
       const asOwner = t.withIdentity({ subject: "owner_user" });
       const asMember = t.withIdentity({ subject: "member_user" });
 
-      const workspaceId = await asOwner.mutation(api.workspaces.create, {
+      const {slug, workspaceId} = await asOwner.mutation(api.workspaces.create, {
         name: "Test",
         slug: "member-update",
       });
 
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
-          workspaceId,
+          workspaceId: workspaceId,
           userId: "member_user",
           role: "member",
         });
@@ -195,7 +195,7 @@ describe("workspaces", () => {
 
       await expect(
         asMember.mutation(api.workspaces.update, {
-          workspaceId,
+          workspaceSlug: slug,
           name: "Hacked",
         }),
       ).rejects.toThrow(/admin/i);
@@ -207,12 +207,12 @@ describe("workspaces", () => {
       const t = convexTest(schema, modules);
       const asOwner = t.withIdentity({ subject: "owner_user" });
 
-      const workspaceId = await asOwner.mutation(api.workspaces.create, {
+      const { slug, workspaceId }= await asOwner.mutation(api.workspaces.create, {
         name: "To Delete",
         slug: "delete-test",
       });
 
-      await asOwner.mutation(api.workspaces.remove, { workspaceId });
+      await asOwner.mutation(api.workspaces.remove, { slug });
 
       const workspace = await t.run(async (ctx) => {
         return await ctx.db.get(workspaceId);
@@ -221,7 +221,7 @@ describe("workspaces", () => {
       expect(workspace).not.toBeNull();
       expect(workspace?.deletedAt).toBeDefined();
 
-      const result = await asOwner.query(api.workspaces.get, { workspaceId });
+      const result = await asOwner.query(api.workspaces.get, { workspaceSlug: slug });
 
       expect(result).toBeNull();
     });
@@ -238,7 +238,7 @@ describe("workspaces", () => {
 
       await t.run(async (ctx) => {
         await ctx.db.insert("workspaceToUser", {
-          workspaceId,
+          workspaceId: workspaceId,
           userId: "admin_user",
           role: "admin",
         });

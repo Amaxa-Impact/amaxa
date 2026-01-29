@@ -5,5 +5,6 @@ test("authenticate as site admin", async ({ signIn }) => {
     user: TEST_USERS.ADMIN,
     storageStatePath: ADMIN_AUTH_STATE,
     followUpUrl: "/applications",
+    role: "admin",
   });
 });

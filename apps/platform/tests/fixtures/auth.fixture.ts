@@ -65,6 +65,7 @@ interface SignInOptions {
   user: TestUser;
   storageStatePath?: string;
   followUpUrl?: string;
+  role?: "admin" | "coach";
 }
 
 const AUTH_HELPER_URL = "/api/test/auth";
@@ -82,13 +83,26 @@ export const test = base.extend<{
       user,
       storageStatePath,
       followUpUrl,
+      role,
     }: SignInOptions) => {
-      await page.request.post(AUTH_HELPER_URL, {
+      const response = await page.request.post(AUTH_HELPER_URL, {
         data: {
           email: user.email,
           password: user.password,
+          role,
         },
       });
+
+      if (!response.ok()) {
+        throw new Error(
+          `Failed to sign in test user (${response.status()} ${response.statusText()})`,
+        );
+      }
+
+      const { cookies } = await page.request.storageState();
+      if (cookies.length > 0) {
+        await page.context().addCookies(cookies);
+      }
 
       await waitForSessionReady(page, followUpUrl);
 
@@ -118,8 +132,14 @@ export async function signInUser(
     data: {
       email: options.user.email,
       password: options.user.password,
+      role: options.role,
     },
   });
+
+  const { cookies } = await page.request.storageState();
+  if (cookies.length > 0) {
+    await page.context().addCookies(cookies);
+  }
 
   await waitForSessionReady(page, options.followUpUrl);
 

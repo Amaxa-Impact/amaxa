@@ -34,8 +34,10 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: type("string.url | undefined"),
     NEXT_PUBLIC_WORKOS_REDIRECT_URI: type("string.url"),
     NEXT_PUBLIC_WORKOS_CLIENT_ID: type("string > 1"),
+    NEXT_PUBLIC_ROOT_DOMAIN: type("string.url | undefined"),
   },
   runtimeEnv: {
+    NEXT_PUBLIC_ROOT_DOMAIN: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
     ADMIN_USER_EMAIL: process.env.ADMIN_USER_EMAIL,
     ADMIN_USER_PASSWORD: process.env.ADMIN_USER_PASSWORD,
     COACH_USER_EMAIL: process.env.COACH_USER_EMAIL,

@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 
 import { query } from "./_generated/server";
-import { isSiteAdmin } from "./permissions";
+import { isSiteAdmin, requireAuth } from "./permissions";
 
 export const getCurrentUserStatus = query({
   args: {},
@@ -28,5 +28,16 @@ export const getCurrentUserId = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     return identity?.subject ?? null;
+  },
+});
+
+export const getIsSiteAdmin = query({
+  args: {},
+  returns: v.boolean(),
+  handler: async (ctx) => {
+    const userId = await requireAuth(ctx);
+    const isAdmin = await isSiteAdmin(ctx, userId);
+
+    return isAdmin;
   },
 });

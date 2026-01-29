@@ -1,26 +1,40 @@
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
+
 import { mutation, query } from "./_generated/server";
+import { projectMutation } from "./custom";
 import { assertUserIsCoach, requireAuth } from "./permissions";
 
 /**
  * Assign a user to a project with a role
  * Requires coach permissions
  */
-export const assign = mutation({
+export const assign = projectMutation({
   args: {
     userId: v.string(),
     projectId: v.id("projects"),
+    workspaceSlug: v.string(),
     role: v.union(v.literal("coach"), v.literal("member")),
   },
   returns: v.id("userToProject"),
+  role: "coach",
   handler: async (ctx, args) => {
-    const currentUserId = await requireAuth(ctx);
-    await assertUserIsCoach(ctx, currentUserId, args.projectId);
+    const { userId, projectId, workspaceSlug, role } = args;
+
+    const workspace = await ctx.db
+      .query("workspaces")
+      .withIndex("by_slug", (q) => q.eq("slug", workspaceSlug))
+      .unique();
+
+    const workspaceId = workspace?._id;
+
+    if (!workspaceId) {
+      throw new ConvexError("Workspace not found");
+    }
 
     const existing = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", args.userId).eq("projectId", args.projectId)
+        q.eq("userId", userId).eq("projectId", projectId),
       )
       .unique();
 
@@ -29,9 +43,10 @@ export const assign = mutation({
     }
 
     return await ctx.db.insert("userToProject", {
-      userId: args.userId,
-      projectId: args.projectId,
-      role: args.role,
+      userId,
+      projectId,
+      workspaceId,
+      role,
     });
   },
 });
@@ -43,15 +58,6 @@ export const listUsersForProject = query({
   args: {
     projectId: v.id("projects"),
   },
-  returns: v.array(
-    v.object({
-      _id: v.id("userToProject"),
-      _creationTime: v.number(),
-      userId: v.string(),
-      projectId: v.id("projects"),
-      role: v.union(v.literal("coach"), v.literal("member")),
-    })
-  ),
   handler: async (ctx, args) => {
     return await ctx.db
       .query("userToProject")
@@ -73,13 +79,13 @@ export const listCoachesForProject = query({
       userId: v.string(),
       projectId: v.id("projects"),
       role: v.union(v.literal("coach"), v.literal("member")),
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     return await ctx.db
       .query("userToProject")
       .withIndex("by_projectId_and_role", (q) =>
-        q.eq("projectId", args.projectId).eq("role", "coach")
+        q.eq("projectId", args.projectId).eq("role", "coach"),
       )
       .collect();
   },
@@ -103,7 +109,7 @@ export const updateRole = mutation({
     const assignment = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", args.userId).eq("projectId", args.projectId)
+        q.eq("userId", args.userId).eq("projectId", args.projectId),
       )
       .unique();
 
@@ -135,7 +141,7 @@ export const remove = mutation({
     const assignment = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", args.userId).eq("projectId", args.projectId)
+        q.eq("userId", args.userId).eq("projectId", args.projectId),
       )
       .unique();
 
@@ -161,7 +167,7 @@ export const hasAccess = query({
     const assignment = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", args.userId).eq("projectId", args.projectId)
+        q.eq("userId", args.userId).eq("projectId", args.projectId),
       )
       .unique();
 
@@ -182,7 +188,7 @@ export const isCoach = query({
     const assignment = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", args.userId).eq("projectId", args.projectId)
+        q.eq("userId", args.userId).eq("projectId", args.projectId),
       )
       .unique();
 
@@ -208,7 +214,7 @@ export const getUserRole = query({
     const assignment = await ctx.db
       .query("userToProject")
       .withIndex("by_userId_and_projectId", (q) =>
-        q.eq("userId", identity.subject).eq("projectId", args.projectId)
+        q.eq("userId", identity.subject).eq("projectId", args.projectId),
       )
       .unique();
 
@@ -216,11 +222,13 @@ export const getUserRole = query({
       return null;
     }
 
-    return assignment.role as "coach" | "member";
+    return assignment.role;
   },
 });
 
 export const getUserTokenIdentifier = query({
+  args: {},
+  returns: v.union(v.string(), v.null()),
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     return identity?.subject ?? null;

@@ -10,13 +10,11 @@ export default defineSchema({
   workspaces: defineTable({
     name: v.string(),
     slug: v.string(),
-    domain: v.optional(v.string()),
     createdBy: v.string(),
     createdAt: v.number(),
-    deletedAt: v.optional(v.number()), // Soft delete with 30-day retention
+    deletedAt: v.optional(v.number()),
   })
     .index("by_slug", ["slug"])
-    .index("by_domain", ["domain"])
     .index("by_createdBy", ["createdBy"]),
 
   workspaceToUser: defineTable({
@@ -26,7 +24,8 @@ export default defineSchema({
   })
     .index("by_userId", ["userId"])
     .index("by_workspaceId", ["workspaceId"])
-    .index("by_userId_and_workspaceId", ["userId", "workspaceId"]),
+    .index("by_userId_and_workspaceId", ["userId", "workspaceId"])
+    .index("by_workspaceId_and_role", ["workspaceId", "role"]),
 
   workspaceInvitations: defineTable({
     workspaceId: v.id("workspaces"),
@@ -35,6 +34,7 @@ export default defineSchema({
     invitedBy: v.string(),
     createdAt: v.number(),
     expiresAt: v.number(),
+    token: v.string(),
     status: v.union(
       v.literal("pending"),
       v.literal("accepted"),
@@ -44,17 +44,20 @@ export default defineSchema({
   })
     .index("by_email", ["email"])
     .index("by_workspaceId", ["workspaceId"])
-    .index("by_email_and_workspaceId", ["email", "workspaceId"]),
+    .index("by_email_and_workspaceId", ["email", "workspaceId"])
+    .index("by_token", ["token"])
+    .index("by_status", ["status"]),
 
   projects: defineTable({
     name: v.string(),
     description: v.string(),
-    workspaceId: v.optional(v.id("workspaces")), // Optional during migration
+    // TODO: Migrate to v.id("workspaces") - requires data migration for existing records
+    workspaceId: v.string(),
   }).index("by_workspaceId", ["workspaceId"]),
 
   tasks: defineTable({
     projectId: v.id("projects"),
-    label: v.optional(v.string()), // Optional during migration
+    label: v.optional(v.string()),
     description: v.optional(v.string()),
     status: v.optional(
       v.union(
@@ -69,12 +72,33 @@ export default defineSchema({
     priority: v.optional(
       v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
     ),
-    data: v.optional(v.any()),
-    position: v.optional(v.any()),
+    // Legacy fields - task data now stored in separate fields above
+    data: v.optional(
+      v.object({
+        label: v.optional(v.string()),
+        description: v.optional(v.string()),
+        status: v.optional(v.string()),
+        assignedTo: v.optional(v.string()),
+        dueDate: v.optional(v.number()),
+        priority: v.optional(v.string()),
+      }),
+    ),
+    position: v.optional(
+      v.object({
+        x: v.number(),
+        y: v.number(),
+      }),
+    ),
     type: v.optional(v.string()),
     width: v.optional(v.number()),
     height: v.optional(v.number()),
-    style: v.optional(v.any()),
+    style: v.optional(
+      v.object({
+        backgroundColor: v.optional(v.string()),
+        borderColor: v.optional(v.string()),
+        color: v.optional(v.string()),
+      }),
+    ),
     selected: v.optional(v.boolean()),
     dragging: v.optional(v.boolean()),
   })
@@ -125,6 +149,7 @@ export default defineSchema({
     .index("by_project_and_source", ["projectId", "source"]),
 
   userToProject: defineTable({
+    workspaceId: v.id("workspaces"),
     userId: v.string(),
     projectId: v.id("projects"),
     role: v.union(v.literal("coach"), v.literal("member")),
@@ -240,7 +265,9 @@ export default defineSchema({
         ),
       }),
     ),
-  }).index("by_response", ["responseId"]),
+  })
+    .index("by_response", ["responseId"])
+    .index("by_fieldId", ["fieldId"]),
 
   interviewTimeSlots: defineTable({
     formId: v.id("applicationForms"),
@@ -270,7 +297,20 @@ export default defineSchema({
   presence: defineTable({
     room: v.string(),
     user: v.string(),
-    data: v.any(),
+    data: v.object({
+      x: v.optional(v.number()),
+      y: v.optional(v.number()),
+      cursor: v.optional(
+        v.object({
+          x: v.number(),
+          y: v.number(),
+        }),
+      ),
+      selection: v.optional(v.array(v.string())),
+      name: v.optional(v.string()),
+      color: v.optional(v.string()),
+      emoji: v.optional(v.string()),
+    }),
     created: v.number(),
     latestJoin: v.number(),
     updated: v.number(),

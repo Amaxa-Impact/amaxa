@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { env } from "@/env";
+import { AuthProvider } from "@/lib/auth/auth-context";
 import {
   AuthKitProvider,
   useAccessToken,
@@ -21,7 +22,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (
     <AuthKitProvider>
       <ConvexProviderWithAuth client={convex} useAuth={useAuthFromAuthKit}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </ConvexProviderWithAuth>
     </AuthKitProvider>
   );

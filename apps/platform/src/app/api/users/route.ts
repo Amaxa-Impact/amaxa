@@ -1,6 +1,10 @@
+import { verifySession } from "@/lib/auth";
 import { listUsers } from "@/lib/workos";
 
 export async function GET() {
+  // Require authentication - any logged in user can access
+  await verifySession();
+
   const result = await listUsers();
 
   if (result.status === "ok") {

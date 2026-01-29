@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { env } from "@/env";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "@xyflow/react/dist/style.css";
 import "./globals.css";
@@ -74,7 +75,7 @@ export default function RootLayout({
             <ConvexClientProvider>
               <ConfirmDialogProvider />
               <AlertDialogProvider />
-              {children}
+              <NuqsAdapter>{children}</NuqsAdapter>
             </ConvexClientProvider>
           </ReactFlowProvider>
         </ThemeProvider>

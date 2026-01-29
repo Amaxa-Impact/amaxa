@@ -1,3 +1,5 @@
+NOTE: We are no longer using subdomain for workspace routing due to issues. All workspace specfici stuff will now just be under the [workspace]/
+
 # Multi-Tenant Platform Sprint Plan
 
 **Deliverable**: This plan will be written to `apps/platform/docs/multi-tenant-sprint-plan.md` upon approval.
@@ -9,18 +11,21 @@
 Transform project-centric platform to multi-tenant workspace architecture:
 
 **Domain Structure**:
+
 - `www.amaxaimpact.org` / `amaxaimpact.org` → Landing site (apps/landing - separate)
 - `app.amaxaimpact.org` → Main platform entry point (default home for authenticated users)
 - `internal.amaxaimpact.org` → Internal tooling (site admins only)
 - `{workspace-slug}.amaxaimpact.org` → Workspace subdomains (client-facing)
 
 **Key Features**:
+
 - Workspace-scoped projects at `{workspace}.amaxaimpact.org/project/[id]`
 - Internal tooling (applications, scheduling, workspace management) at `internal.amaxaimpact.org`
 - Template system for critical chain MVP
 - Email-based invitation flow via WorkOS
 
 **Resolved Decisions**:
+
 - Site admins bypass ALL permission checks (full read/write everywhere)
 - Workspace admins only can create projects (not members)
 - Workspace slugs are immutable (tied to subdomain)
@@ -839,12 +844,14 @@ Transform project-centric platform to multi-tenant workspace architecture:
 ## Design Decisions (Resolved)
 
 ### Architecture
+
 - Site admins: Full read/write access, bypass ALL permission checks
 - applicationForms: Internal only (not workspace-scoped)
 - presence room format: `ws:{workspaceId}:project:{projectId}:tasks`
 - Workspace role is ceiling for project roles
 
 ### Business Logic
+
 - Project creation: Workspace admins only
 - Max projects: Unlimited (add limits later if needed)
 - User with no workspaces: Show pending email invitations only (security)
@@ -852,11 +859,13 @@ Transform project-centric platform to multi-tenant workspace architecture:
 - Workspace slugs: Immutable (tied to subdomain)
 
 ### Security
+
 - SSL: Vercel handles automatically
 - Invitations: Email via WorkOS → accept route
 - Workspace deletion: Soft delete with 30-day retention
 
 ### Scale
+
 - Max workspaces per user: Unlimited
 - Billing: Not in scope
 
@@ -865,6 +874,7 @@ Transform project-centric platform to multi-tenant workspace architecture:
 ## Critical Files Reference
 
 **Backend**:
+
 - `packages/backend/convex/schema.ts` - All table definitions
 - `packages/backend/convex/permissions.ts` - Permission helpers with site admin bypass
 - `packages/backend/convex/workspaces.ts` - Workspace CRUD
@@ -873,6 +883,7 @@ Transform project-centric platform to multi-tenant workspace architecture:
 - `packages/backend/convex/projects.ts` - Project mutations
 
 **Frontend**:
+
 - `apps/platform/middleware.ts` - Subdomain routing
 - `apps/platform/src/lib/subdomain.ts` - Hostname parsing
 - `apps/platform/src/components/workspace/context.tsx` - Workspace context
