@@ -10,12 +10,14 @@ const barriers = [
   {
     icon: "💭",
     title: "I feel like I'm not making a real impact.",
-    quote: "The last time I volunteered I felt like I didn't actually make an impact.",
+    quote:
+      "The last time I volunteered I felt like I didn't actually make an impact.",
   },
   {
     icon: "🎒",
     title: "I'm in high school.",
-    quote: "Nonprofits ghost me—they don't take me seriously because of my age.",
+    quote:
+      "Nonprofits ghost me—they don't take me seriously because of my age.",
   },
   {
     icon: "🤝",
@@ -36,16 +38,24 @@ const barriers = [
 ---
 
 <PitchSlide id="problem" title="The Problem">
-  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-12 max-w-3xl text-center mx-auto">
+  <h2
+    class="text-foreground mx-auto mb-12 max-w-3xl text-center text-2xl leading-tight font-bold sm:text-3xl md:text-4xl lg:text-5xl"
+  >
     "I wish I could help, but what can I do?"
   </h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-    {barriers.map((barrier) => (
-      <div class="group relative bg-gradient-to-br from-muted/50 to-muted/20 border border-border/50 rounded-2xl p-6 hover:border-brand-green/50 transition-all duration-300">
-        <span class="text-3xl mb-4 block">{barrier.icon}</span>
-        <h3 class="text-lg font-semibold text-foreground mb-2">{barrier.title}</h3>
-        <p class="text-sm text-muted-foreground leading-relaxed italic">"{barrier.quote}"</p>
-      </div>
-    ))}
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {
+      barriers.map((barrier) => (
+        <div class="group from-muted/50 to-muted/20 border-border/50 hover:border-brand-green/50 relative rounded-2xl border bg-gradient-to-br p-6 transition-all duration-300">
+          <span class="mb-4 block text-3xl">{barrier.icon}</span>
+          <h3 class="text-foreground mb-2 text-lg font-semibold">
+            {barrier.title}
+          </h3>
+          <p class="text-muted-foreground text-sm leading-relaxed italic">
+            "{barrier.quote}"
+          </p>
+        </div>
+      ))
+    }
   </div>
 </PitchSlide>

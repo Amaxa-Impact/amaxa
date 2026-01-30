@@ -1,7 +1,8 @@
 ---
 import PitchSlide from "../pitch-slide.astro";
 
-const placeholderImage = "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3";
+const placeholderImage =
+  "https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOQI4SoEOsmkEelahd1WSuvzRG6jICN9HqcOF3";
 
 const stories = [
   {
@@ -28,29 +29,49 @@ const stories = [
 ---
 
 <PitchSlide id="stories" title="Student Stories" centered>
-  <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-foreground mb-4">
+  <h2
+    class="text-foreground mb-4 text-2xl leading-tight font-bold sm:text-3xl md:text-4xl"
+  >
     Real students. Real impact.
   </h2>
-  <p class="text-lg text-muted-foreground mb-10">Hear their stories.</p>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-5xl">
-    {stories.map((story) => (
-      <figure class="group cursor-pointer">
-        <div class="relative aspect-[4/5] rounded-2xl overflow-hidden mb-3 ring-1 ring-border/20 hover:ring-2 hover:ring-brand-green/50 transition-all">
-          <img src={placeholderImage} alt={`${story.name}'s story`} class="size-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div class="absolute inset-0 grid place-items-center">
-            <div class="size-14 rounded-full bg-black/30 backdrop-blur-sm border border-white/30 grid place-items-center group-hover:bg-brand-green group-hover:border-brand-green group-hover:scale-110 transition-all">
-              <svg class="size-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <p class="text-muted-foreground mb-10 text-lg">Hear their stories.</p>
+
+  <div
+    class="grid w-full max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+  >
+    {
+      stories.map((story) => (
+        <figure class="group cursor-pointer">
+          <div class="ring-border/20 hover:ring-brand-green/50 relative mb-3 aspect-[4/5] overflow-hidden rounded-2xl ring-1 transition-all hover:ring-2">
+            <img
+              src={placeholderImage}
+              alt={`${story.name}'s story`}
+              class="size-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div class="absolute inset-0 grid place-items-center">
+              <div class="group-hover:bg-brand-green group-hover:border-brand-green grid size-14 place-items-center rounded-full border border-white/30 bg-black/30 backdrop-blur-sm transition-all group-hover:scale-110">
+                <svg
+                  class="ml-1 size-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
             </div>
+            <figcaption class="absolute inset-x-4 bottom-4">
+              <span class="text-xs tracking-wider text-white/80 uppercase">
+                {story.location}
+              </span>
+              <h3 class="text-xl font-bold text-white">{story.name}</h3>
+            </figcaption>
           </div>
-          <figcaption class="absolute bottom-4 inset-x-4">
-            <span class="text-xs text-white/80 uppercase tracking-wider">{story.location}</span>
-            <h3 class="text-xl font-bold text-white">{story.name}</h3>
-          </figcaption>
-        </div>
-        <p class="text-sm text-muted-foreground text-center">{story.description}</p>
-      </figure>
-    ))}
+          <p class="text-muted-foreground text-center text-sm">
+            {story.description}
+          </p>
+        </figure>
+      ))
+    }
   </div>
 </PitchSlide>

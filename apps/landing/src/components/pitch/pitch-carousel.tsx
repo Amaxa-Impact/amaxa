@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Button } from "@amaxa/ui/button";
+import { useEffect, useRef, useState } from "react";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+
+import { Button } from "@amaxa/ui/button";
 
 interface PitchCarouselProps {
   children: React.ReactNode;
@@ -40,7 +41,8 @@ export function PitchCarousel({ children, totalSlides }: PitchCarouselProps) {
       const visibleSlideIndex = Math.round(scrollPosition / slideWidth);
 
       const isNewSlide = visibleSlideIndex !== currentSlideIndex;
-      const isValidIndex = visibleSlideIndex >= 0 && visibleSlideIndex < totalSlides;
+      const isValidIndex =
+        visibleSlideIndex >= 0 && visibleSlideIndex < totalSlides;
 
       if (isNewSlide && isValidIndex) {
         setCurrentSlideIndex(visibleSlideIndex);
@@ -67,21 +69,21 @@ export function PitchCarousel({ children, totalSlides }: PitchCarouselProps) {
   const totalSlidesNumber = String(totalSlides).padStart(2, "0");
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-background">
+    <div className="bg-background relative h-screen w-screen overflow-hidden">
       <div
         ref={scrollContainerRef}
-        className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scrollbar-hidden"
+        className="scrollbar-hidden flex h-full w-full snap-x snap-mandatory overflow-x-auto"
       >
         {children}
       </div>
 
-      <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
+      <nav className="fixed bottom-8 left-1/2 z-50 flex -translate-x-1/2 items-center gap-4">
         <Button
           variant="outline"
           size="icon"
           onClick={handlePrevSlide}
           disabled={isFirstSlide}
-          className="h-12 w-12 rounded-full border-border bg-card/80 backdrop-blur-sm"
+          className="border-border bg-card/80 h-12 w-12 rounded-full backdrop-blur-sm"
           aria-label="Previous slide"
         >
           <IconChevronLeft className="h-5 w-5" />
@@ -97,8 +99,8 @@ export function PitchCarousel({ children, totalSlides }: PitchCarouselProps) {
                 aria-label={`Go to slide ${index + 1}`}
                 className={`h-2 rounded-full transition-all ${
                   isActive
-                    ? "w-8 bg-brand-green"
-                    : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                    ? "bg-brand-green w-8"
+                    : "bg-muted-foreground/40 hover:bg-muted-foreground/60 w-2"
                 }`}
               />
             );
@@ -110,14 +112,14 @@ export function PitchCarousel({ children, totalSlides }: PitchCarouselProps) {
           size="icon"
           onClick={handleNextSlide}
           disabled={isLastSlide}
-          className="h-12 w-12 rounded-full border-border bg-card/80 backdrop-blur-sm"
+          className="border-border bg-card/80 h-12 w-12 rounded-full backdrop-blur-sm"
           aria-label="Next slide"
         >
           <IconChevronRight className="h-5 w-5" />
         </Button>
       </nav>
 
-      <div className="fixed bottom-8 right-8 z-50 text-sm text-muted-foreground font-mono">
+      <div className="text-muted-foreground fixed right-8 bottom-8 z-50 font-mono text-sm">
         {currentSlideNumber} / {totalSlidesNumber}
       </div>
     </div>

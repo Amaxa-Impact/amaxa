@@ -9,42 +9,54 @@ const roadmap = [
 ---
 
 <PitchSlide id="vision" title="2026 & Beyond" centered>
-  <p class="text-sm uppercase tracking-widest text-brand-green mb-4">The Future</p>
-  <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-6 max-w-3xl">
+  <p class="text-brand-green mb-4 text-sm tracking-widest uppercase">
+    The Future
+  </p>
+  <h2
+    class="text-foreground mb-6 max-w-3xl text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl"
+  >
     How can we plant more seeds?
   </h2>
-  <p class="text-lg sm:text-xl text-muted-foreground mb-12 max-w-xl">
+  <p class="text-muted-foreground mb-12 max-w-xl text-lg sm:text-xl">
     We're just getting started. Here's what's next.
   </p>
 
-  <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mb-16">
-    {roadmap.map((item, i) => (
-      <div class="flex items-center gap-4 sm:gap-8">
-        <div class="text-center">
-          <span class="block text-xs text-brand-green font-medium mb-1">{item.status}</span>
-          <span class="text-base sm:text-lg font-semibold text-foreground">{item.label}</span>
+  <div class="mb-16 flex flex-col items-center gap-4 sm:flex-row sm:gap-8">
+    {
+      roadmap.map((item, i) => (
+        <div class="flex items-center gap-4 sm:gap-8">
+          <div class="text-center">
+            <span class="text-brand-green mb-1 block text-xs font-medium">
+              {item.status}
+            </span>
+            <span class="text-foreground text-base font-semibold sm:text-lg">
+              {item.label}
+            </span>
+          </div>
         </div>
-       
-      </div>
-    ))}
+      ))
+    }
   </div>
 
-  <div class="flex flex-col sm:flex-row items-center gap-4">
+  <div class="flex flex-col items-center gap-4 sm:flex-row">
     <a
       href="/pathways"
-      class="inline-flex items-center justify-center bg-brand-green text-black font-semibold text-base px-8 py-4 rounded-full transition-all hover:bg-brand-green/90 hover:scale-105"
+      class="bg-brand-green hover:bg-brand-green/90 inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold text-black transition-all hover:scale-105"
     >
       Explore Pathways
     </a>
     <a
       href="/apply"
-      class="inline-flex items-center justify-center border border-border text-foreground font-medium text-base px-8 py-4 rounded-full transition-all hover:bg-muted"
+      class="border-border text-foreground hover:bg-muted inline-flex items-center justify-center rounded-full border px-8 py-4 text-base font-medium transition-all"
     >
       Apply Now →
     </a>
   </div>
 
-  <p class="mt-16 text-sm text-muted-foreground">
-    Questions? <a href="mailto:lauren@amaxaimpact.org" class="text-brand-green hover:underline">lauren@amaxaimpact.org</a>
+  <p class="text-muted-foreground mt-16 text-sm">
+    Questions? <a
+      href="mailto:lauren@amaxaimpact.org"
+      class="text-brand-green hover:underline">lauren@amaxaimpact.org</a
+    >
   </p>
 </PitchSlide>

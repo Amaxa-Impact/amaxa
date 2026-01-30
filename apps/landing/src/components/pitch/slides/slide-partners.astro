@@ -18,31 +18,41 @@ const initiatives = [
 ---
 
 <PitchSlide id="partners" title="Our Partners" centered>
-  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-4 max-w-3xl">
+  <h2
+    class="text-foreground mb-4 max-w-3xl text-2xl leading-tight font-bold sm:text-3xl md:text-4xl lg:text-5xl"
+  >
     9 nonprofit partners across 5 regions.
   </h2>
-  <p class="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl">
+  <p class="text-muted-foreground mb-12 max-w-2xl text-lg sm:text-xl">
     Real impact in communities that need it most.
   </p>
-  
-  <div class="flex flex-wrap justify-center gap-3 mb-12 max-w-3xl">
-    {partners.map((partner) => (
-      <div class="flex items-center gap-2 bg-muted/30 border border-border/50 rounded-full px-4 py-2">
-        <span class="w-2 h-2 rounded-full bg-brand-green"></span>
-        <span class="text-sm font-medium text-foreground">{partner.region}</span>
-        <span class="text-xs text-muted-foreground">· {partner.focus}</span>
-      </div>
-    ))}
+
+  <div class="mb-12 flex max-w-3xl flex-wrap justify-center gap-3">
+    {
+      partners.map((partner) => (
+        <div class="bg-muted/30 border-border/50 flex items-center gap-2 rounded-full border px-4 py-2">
+          <span class="bg-brand-green h-2 w-2 rounded-full" />
+          <span class="text-foreground text-sm font-medium">
+            {partner.region}
+          </span>
+          <span class="text-muted-foreground text-xs">· {partner.focus}</span>
+        </div>
+      ))
+    }
   </div>
 
-  <div class="border-t border-border/50 pt-8 max-w-2xl">
-    <p class="text-sm text-muted-foreground uppercase tracking-wider mb-4">Original Ámaxa Initiatives</p>
+  <div class="border-border/50 max-w-2xl border-t pt-8">
+    <p class="text-muted-foreground mb-4 text-sm tracking-wider uppercase">
+      Original Ámaxa Initiatives
+    </p>
     <div class="flex flex-wrap justify-center gap-2">
-      {initiatives.map((initiative) => (
-        <span class="text-sm font-medium text-foreground bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5">
-          {initiative}
-        </span>
-      ))}
+      {
+        initiatives.map((initiative) => (
+          <span class="text-foreground bg-brand-green/10 border-brand-green/20 rounded-full border px-4 py-1.5 text-sm font-medium">
+            {initiative}
+          </span>
+        ))
+      }
     </div>
   </div>
 </PitchSlide>

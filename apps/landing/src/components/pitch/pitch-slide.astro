@@ -9,16 +9,18 @@ const { id, title, centered = false } = Astro.props;
 ---
 
 <section
-  class="min-h-screen min-w-full w-screen flex-shrink-0 snap-start snap-always relative flex flex-col p-6 md:p-8 lg:px-12 z-[2]"
+  class="relative z-[2] flex min-h-screen w-screen min-w-full flex-shrink-0 snap-start snap-always flex-col p-6 md:p-8 lg:px-12"
   id={id}
 >
-  <div class="flex justify-between items-center text-sm text-muted-foreground mb-8">
+  <div
+    class="text-muted-foreground mb-8 flex items-center justify-between text-sm"
+  >
     <span>{title}</span>
-    <span class="font-medium text-brand-green">ámaxa</span>
+    <span class="text-brand-green font-medium">ámaxa</span>
   </div>
   <div
     class:list={[
-      "flex-1 flex flex-col justify-center max-w-[1400px] mx-auto w-full pb-24",
+      "mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center pb-24",
       { "items-center text-center": centered },
     ]}
   >

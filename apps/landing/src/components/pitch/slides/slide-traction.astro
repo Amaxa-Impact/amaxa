@@ -38,37 +38,43 @@ const achievements = [
 
 <PitchSlide id="traction" title="2023 - 2025: Our Impact" centered>
   <div class="flex flex-wrap justify-center gap-12 md:gap-16">
-    {stats.map((stat) => (
-      <div class="text-center">
-        <span class="block font-mono text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-none">
-          {stat.number}
-        </span>
-        <span class="text-sm text-muted-foreground uppercase tracking-wider">
-          {stat.label}
-        </span>
-      </div>
-    ))}
+    {
+      stats.map((stat) => (
+        <div class="text-center">
+          <span class="text-foreground block font-mono text-5xl leading-none font-bold sm:text-6xl md:text-7xl lg:text-8xl">
+            {stat.number}
+          </span>
+          <span class="text-muted-foreground text-sm tracking-wider uppercase">
+            {stat.label}
+          </span>
+        </div>
+      ))
+    }
   </div>
 
   <!-- Scattered achievements -->
-  {achievements.map((achievement) => (
-    <div
-      class:list={[
-        "hidden md:block absolute max-w-[280px] bg-muted/40 backdrop-blur-sm border border-border/50 rounded-xl px-4 py-3 text-sm text-muted-foreground [&_strong]:text-brand-green [&_strong]:font-semibold shadow-sm",
-        achievement.position,
-      ]}
-      style={`transform: rotate(${achievement.rotate})`}
-      set:html={achievement.text}
-    />
-  ))}
-
-  <!-- Mobile: stacked achievements -->
-  <div class="md:hidden flex flex-col gap-3 mt-12 w-full max-w-md">
-    {achievements.map((achievement) => (
+  {
+    achievements.map((achievement) => (
       <div
-        class="bg-muted/40 border border-border/50 rounded-xl px-4 py-3 text-sm text-muted-foreground [&_strong]:text-brand-green [&_strong]:font-semibold"
+        class:list={[
+          "bg-muted/40 border-border/50 text-muted-foreground [&_strong]:text-brand-green absolute hidden max-w-[280px] rounded-xl border px-4 py-3 text-sm shadow-sm backdrop-blur-sm md:block [&_strong]:font-semibold",
+          achievement.position,
+        ]}
+        style={`transform: rotate(${achievement.rotate})`}
         set:html={achievement.text}
       />
-    ))}
+    ))
+  }
+
+  <!-- Mobile: stacked achievements -->
+  <div class="mt-12 flex w-full max-w-md flex-col gap-3 md:hidden">
+    {
+      achievements.map((achievement) => (
+        <div
+          class="bg-muted/40 border-border/50 text-muted-foreground [&_strong]:text-brand-green rounded-xl border px-4 py-3 text-sm [&_strong]:font-semibold"
+          set:html={achievement.text}
+        />
+      ))
+    }
   </div>
 </PitchSlide>
