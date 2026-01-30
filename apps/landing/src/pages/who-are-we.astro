@@ -1,0 +1,33 @@
+---
+
+import PitchLayout from "@/layouts/pitch-layout.astro";
+import { PitchCarousel } from "@/components/pitch/pitch-carousel";
+import SlideStart from "@/components/pitch/slides/slide-start.astro";
+import SlideWhatWeDo from "@/components/pitch/slides/slide-what-we-do.astro";
+import SlideProblem from "@/components/pitch/slides/slide-problem.astro";
+import SlideSolution from "@/components/pitch/slides/slide-solution.astro";
+import SlidePartners from "@/components/pitch/slides/slide-partners.astro";
+import SlideTraction from "@/components/pitch/slides/slide-traction.astro";
+import SlideStories from "@/components/pitch/slides/slide-stories.astro";
+import SlideVision from "@/components/pitch/slides/slide-vision.astro";
+
+const TOTAL_SLIDES = 8;
+---
+
+<PitchLayout
+  title="Who Are We | Ámaxa"
+  description="We connect people to grassroots organizations doing community-based work in human rights, education, equity, and more."
+  image="https://b47pkz22xs.ufs.sh/f/OxFTTzjZGToOexh9L5yvrS3NH5LD0fGBOXwFydpiVbYzJMa1"
+  canonicalURL="https://www.amaxaimpact.org/who-are-we"
+>
+  <PitchCarousel client:load totalSlides={TOTAL_SLIDES}>
+    <SlideStart />
+    <SlideWhatWeDo />
+    <SlideProblem />
+    <SlideSolution />
+    <SlidePartners />
+    <SlideTraction />
+    <SlideStories />
+    <SlideVision />
+  </PitchCarousel>
+</PitchLayout>

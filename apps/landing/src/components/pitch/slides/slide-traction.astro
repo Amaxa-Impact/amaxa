@@ -1,0 +1,74 @@
+---
+import PitchSlide from "../pitch-slide.astro";
+
+const stats = [
+  { number: "300+", label: "Applications" },
+  { number: "52+", label: "Countries" },
+  { number: "120+", label: "Students completed" },
+];
+
+const achievements = [
+  {
+    text: "Created <strong>Accessifyed</strong> platform for ISNAD Center in Palestine",
+    position: "top-[15%] left-[5%]",
+    rotate: "-2deg",
+  },
+  {
+    text: "Planted trees across <strong>Turkey, US, and UAE</strong>",
+    position: "top-[20%] right-[8%]",
+    rotate: "1deg",
+  },
+  {
+    text: "Raised <strong>$700</strong> for Gazans through student concerts",
+    position: "bottom-[28%] left-[3%]",
+    rotate: "1deg",
+  },
+  {
+    text: "Paid <strong>full year tuition for 7 students</strong> in Liberia",
+    position: "bottom-[35%] right-[5%]",
+    rotate: "-1deg",
+  },
+  {
+    text: "Raised <strong>$500</strong> for medical supplies in Ukraine",
+    position: "bottom-[15%] left-[25%]",
+    rotate: "2deg",
+  },
+];
+---
+
+<PitchSlide id="traction" title="2023 - 2025: Our Impact" centered>
+  <div class="flex flex-wrap justify-center gap-12 md:gap-16">
+    {stats.map((stat) => (
+      <div class="text-center">
+        <span class="block font-mono text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-none">
+          {stat.number}
+        </span>
+        <span class="text-sm text-muted-foreground uppercase tracking-wider">
+          {stat.label}
+        </span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Scattered achievements -->
+  {achievements.map((achievement) => (
+    <div
+      class:list={[
+        "hidden md:block absolute max-w-[280px] bg-muted/40 backdrop-blur-sm border border-border/50 rounded-xl px-4 py-3 text-sm text-muted-foreground [&_strong]:text-brand-green [&_strong]:font-semibold shadow-sm",
+        achievement.position,
+      ]}
+      style={`transform: rotate(${achievement.rotate})`}
+      set:html={achievement.text}
+    />
+  ))}
+
+  <!-- Mobile: stacked achievements -->
+  <div class="md:hidden flex flex-col gap-3 mt-12 w-full max-w-md">
+    {achievements.map((achievement) => (
+      <div
+        class="bg-muted/40 border border-border/50 rounded-xl px-4 py-3 text-sm text-muted-foreground [&_strong]:text-brand-green [&_strong]:font-semibold"
+        set:html={achievement.text}
+      />
+    ))}
+  </div>
+</PitchSlide>

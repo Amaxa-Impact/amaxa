@@ -1,0 +1,48 @@
+---
+import PitchSlide from "../pitch-slide.astro";
+
+const features = [
+  {
+    icon: "🌍",
+    title: "Peers around the globe",
+    description: "Connect with passionate changemakers worldwide",
+  },
+  {
+    icon: "🎓",
+    title: "Trained undergraduate coach",
+    description: "Guidance from experienced mentors",
+  },
+  {
+    icon: "📊",
+    title: "Project management training",
+    description: "Real skills for real-world impact",
+  },
+  {
+    icon: "💻",
+    title: "Custom online platform",
+    description: "Tools to bring projects to life",
+  },
+];
+---
+
+<PitchSlide id="solution" title="Our Solution" centered>
+  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-4 max-w-3xl">
+    A free, fully remote program for high school students.
+  </h2>
+  <p class="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl">
+    Everything you need to make a real difference.
+  </p>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-4xl mb-12">
+    {features.map((feature) => (
+      <div class="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center hover:border-brand-green/50 transition-colors">
+        <span class="text-3xl md:text-4xl block mb-3">{feature.icon}</span>
+        <h3 class="text-sm md:text-base font-semibold text-foreground mb-1">{feature.title}</h3>
+        <p class="text-xs md:text-sm text-muted-foreground">{feature.description}</p>
+      </div>
+    ))}
+  </div>
+  <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/30 rounded-full px-6 py-3">
+    <span class="text-brand-green font-semibold">Coming 2026:</span>
+    <span class="text-muted-foreground">Pathways for university students & professionals</span>
+  </div>
+</PitchSlide>
