@@ -1,0 +1,29 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  centered?: boolean;
+}
+
+const { id, title, centered = false } = Astro.props;
+---
+
+<section
+  class="relative z-[2] flex min-h-screen w-screen min-w-full flex-shrink-0 snap-start snap-always flex-col p-6 md:p-8 lg:px-12"
+  id={id}
+>
+  <div
+    class="text-muted-foreground mb-8 flex items-center justify-between text-sm"
+  >
+    <span>{title}</span>
+    <span class="text-brand-green font-medium">ámaxa</span>
+  </div>
+  <div
+    class:list={[
+      "mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center pb-24",
+      { "items-center text-center": centered },
+    ]}
+  >
+    <slot />
+  </div>
+</section>

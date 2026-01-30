@@ -1,0 +1,61 @@
+---
+import PitchSlide from "../pitch-slide.astro";
+
+const barriers = [
+  {
+    icon: "🧭",
+    title: "I don't know how to start.",
+    quote: "There's so many problems—how do I know who to volunteer with?",
+  },
+  {
+    icon: "💭",
+    title: "I feel like I'm not making a real impact.",
+    quote:
+      "The last time I volunteered I felt like I didn't actually make an impact.",
+  },
+  {
+    icon: "🎒",
+    title: "I'm in high school.",
+    quote:
+      "Nonprofits ghost me—they don't take me seriously because of my age.",
+  },
+  {
+    icon: "🤝",
+    title: "I feel alone.",
+    quote: "I would love to do something, but who is going to help me?",
+  },
+  {
+    icon: "📍",
+    title: "No passionate groups in my area.",
+    quote: "There are no groups I'm truly passionate about in my area.",
+  },
+  {
+    icon: "⏰",
+    title: "Doesn't fit my schedule.",
+    quote: "The only nonprofit I like has meetings only during the workday.",
+  },
+];
+---
+
+<PitchSlide id="problem" title="The Problem">
+  <h2
+    class="text-foreground mx-auto mb-12 max-w-3xl text-center text-2xl leading-tight font-bold sm:text-3xl md:text-4xl lg:text-5xl"
+  >
+    "I wish I could help, but what can I do?"
+  </h2>
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {
+      barriers.map((barrier) => (
+        <div class="group from-muted/50 to-muted/20 border-border/50 hover:border-brand-green/50 relative rounded-2xl border bg-gradient-to-br p-6 transition-all duration-300">
+          <span class="mb-4 block text-3xl">{barrier.icon}</span>
+          <h3 class="text-foreground mb-2 text-lg font-semibold">
+            {barrier.title}
+          </h3>
+          <p class="text-muted-foreground text-sm leading-relaxed italic">
+            "{barrier.quote}"
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</PitchSlide>
