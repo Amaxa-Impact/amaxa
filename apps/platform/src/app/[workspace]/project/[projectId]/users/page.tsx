@@ -47,5 +47,11 @@ export async function generateMetadata({
 export default async function UsersPage() {
   const allUsersResult = await listUsers();
 
-  return <UsersPageContent allUsers={allUsersResult} />;
+  // Extract plain data from Result for client component serialization
+  const allUsers =
+    allUsersResult.status === "ok"
+      ? { status: "ok" as const, value: allUsersResult.value }
+      : { status: "err" as const, error: allUsersResult.error.message };
+
+  return <UsersPageContent allUsers={allUsers} />;
 }

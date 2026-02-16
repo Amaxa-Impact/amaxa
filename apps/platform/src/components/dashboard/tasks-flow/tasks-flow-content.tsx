@@ -205,35 +205,39 @@ export function TasksFlowContent({
 
   const addNewTask = useCallback(
     async (position?: { x: number; y: number }) => {
-      let pos: { x: number; y: number };
+      try {
+        let pos: { x: number; y: number };
 
-      if (position) {
-        if (reactFlowWrapper.current && flowInstance) {
-          const rect = reactFlowWrapper.current.getBoundingClientRect();
-          pos = flowInstance.screenToFlowPosition({
-            x: rect.left + position.x,
-            y: rect.top + position.y,
-          });
+        if (position) {
+          if (reactFlowWrapper.current && flowInstance) {
+            const rect = reactFlowWrapper.current.getBoundingClientRect();
+            pos = flowInstance.screenToFlowPosition({
+              x: rect.left + position.x,
+              y: rect.top + position.y,
+            });
+          } else {
+            pos = position;
+          }
         } else {
-          pos = position;
+          pos = {
+            x: Math.random() * 400 + 100,
+            y: Math.random() * 300 + 100,
+          };
         }
-      } else {
-        pos = {
-          x: Math.random() * 400 + 100,
-          y: Math.random() * 300 + 100,
-        };
-      }
 
-      await createTask({
-        projectId,
-        type: "task",
-        position: pos,
-        data: {
-          label: "New Task",
-          status: "todo",
-          priority: "medium",
-        },
-      });
+        await createTask({
+          projectId,
+          type: "task",
+          position: pos,
+          data: {
+            label: "New Task",
+            status: "todo",
+            priority: "medium",
+          },
+        });
+      } catch (error) {
+        console.error("Failed to create task:", error);
+      }
     },
     [createTask, projectId, flowInstance],
   );
@@ -360,7 +364,7 @@ export function TasksFlowContent({
   return (
     <div style={layoutStyle}>
       <TasksHeader
-        onAddTask={() => addNewTask()}
+        onAddTask={() => void addNewTask()}
         othersPresence={othersPresence ?? []}
         projectName={project.name || "Project"}
         userRole={userRole}

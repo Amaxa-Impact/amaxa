@@ -57,7 +57,7 @@ export const create = projectMutation({
     const label = args.data.label ?? "New Task";
 
     const taskId = await ctx.db.insert("tasks", {
-      projectId: args.projectId,
+      projectId: ctx.projectId,
       label,
       description: args.data.description,
       status: args.data.status,
@@ -68,7 +68,7 @@ export const create = projectMutation({
 
     await ctx.db.insert("taskNodes", {
       taskId,
-      projectId: args.projectId,
+      projectId: ctx.projectId,
       type,
       position: args.position,
       width: args.width,
@@ -105,10 +105,10 @@ export const listForProject = projectQuery({
     }),
   ),
   role: "member",
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const taskNodes = await ctx.db
       .query("taskNodes")
-      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .withIndex("by_project", (q) => q.eq("projectId", ctx.project._id))
       .collect();
 
     const results = await Promise.all(

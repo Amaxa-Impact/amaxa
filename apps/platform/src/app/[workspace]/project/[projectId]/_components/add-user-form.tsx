@@ -2,7 +2,6 @@
 
 import type { WorkOsError } from "@/lib/errors";
 import type { User } from "@workos-inc/node";
-import type { Result } from "better-result";
 import { useEffect } from "react";
 import {
   Combobox,
@@ -49,15 +48,21 @@ const roleOptions = [
   { label: "Coach", value: "coach" },
 ];
 
+type AllUsersResult =
+  | { status: "ok"; value: User[] }
+  | { status: "err"; error: string };
+
 export function AddUserForm({
   allUsers,
   projectId,
+  workspaceSlug,
   open,
   onOpenChange,
   existingUserIds,
 }: {
-  allUsers: Result<User[], WorkOsError>;
+  allUsers: AllUsersResult;
   projectId: Id<"projects">;
+  workspaceSlug: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   existingUserIds?: string[];
@@ -77,6 +82,7 @@ export function AddUserForm({
         await assignUser({
           userId: value.userId,
           projectId,
+          workspaceSlug,
           role: value.role,
         });
         toast.success("User added successfully", {

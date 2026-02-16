@@ -1,9 +1,7 @@
 "use client";
 
 import type { UserOption } from "@/components/user-dropdown";
-import type { WorkOsError } from "@/lib/errors";
 import type { User } from "@workos-inc/node";
-import type { Result } from "better-result";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
@@ -25,12 +23,15 @@ import { confirmDialog } from "@amaxa/ui/confirm-dialog";
 
 import { AddUserForm } from "../_components/add-user-form";
 
-export function UsersPageContent({
-  allUsers,
-}: {
-  allUsers: Result<User[], WorkOsError>;
-}) {
-  const { projectId } = useParams<{ projectId: Id<"projects"> }>();
+type AllUsersResult =
+  | { status: "ok"; value: User[] }
+  | { status: "err"; error: string };
+
+export function UsersPageContent({ allUsers }: { allUsers: AllUsersResult }) {
+  const { projectId, workspace } = useParams<{
+    projectId: Id<"projects">;
+    workspace: string;
+  }>();
   const { userRole } = useDashboardContext();
   const isCoach = userRole === "coach";
 
@@ -98,6 +99,7 @@ export function UsersPageContent({
               onOpenChange={setIsAddUserDialogOpen}
               open={isAddUserDialogOpen}
               projectId={projectId}
+              workspaceSlug={workspace}
             />
           </>
         )}
@@ -128,12 +130,16 @@ export function UsersPageContent({
                           const workosUser = allUsers.value.find(
                             (u) => u.id === user.userId,
                           );
-                          return workosUser
-                            ? getUserDisplayName(workosUser as UserOption)
-                            : user.userId;
+                          if (workosUser) {
+                            return getUserDisplayName(workosUser as UserOption);
+                          }
+                          return user.userId;
                         }
                         return user.userId;
                       })()}
+                    </p>
+                    <p className="text-muted-foreground text-xs">
+                      {user.userId}
                     </p>
                     <p className="text-muted-foreground text-sm">
                       Role: <span className="capitalize">{user.role}</span>

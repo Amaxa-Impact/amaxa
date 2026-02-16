@@ -1,12 +1,13 @@
 import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
+
 import { projectQuery } from "./custom";
 
 const statusValidator = v.union(
   v.literal("todo"),
   v.literal("in_progress"),
   v.literal("completed"),
-  v.literal("blocked")
+  v.literal("blocked"),
 );
 
 /**
@@ -33,10 +34,10 @@ export const getTaskStatusCounts = projectQuery({
     totalUser: v.number(),
   }),
   role: "member",
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const tasks = await ctx.db
       .query("tasks")
-      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .withIndex("by_project", (q) => q.eq("projectId", ctx.project._id))
       .collect();
 
     const allCounts = { todo: 0, in_progress: 0, completed: 0, blocked: 0 };
@@ -76,12 +77,12 @@ export const listTasksPaginated = projectQuery({
   handler: async (ctx, args) => {
     let tasksQuery = ctx.db
       .query("tasks")
-      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .withIndex("by_project", (q) => q.eq("projectId", ctx.project._id))
       .order("desc");
 
     if (args.status || args.assignedTo) {
       tasksQuery = tasksQuery.filter((q) => {
-        let condition = q.eq(q.field("projectId"), args.projectId);
+        let condition = q.eq(q.field("projectId"), ctx.project._id);
 
         if (args.status) {
           condition = q.and(condition, q.eq(q.field("status"), args.status));
@@ -89,7 +90,7 @@ export const listTasksPaginated = projectQuery({
         if (args.assignedTo) {
           condition = q.and(
             condition,
-            q.eq(q.field("assignedTo"), args.assignedTo)
+            q.eq(q.field("assignedTo"), args.assignedTo),
           );
         }
 
@@ -104,7 +105,7 @@ export const listTasksPaginated = projectQuery({
       page = page.filter((task) =>
         task.label
           ?.toLowerCase()
-          .includes(args.searchLabel?.toLowerCase() ?? "")
+          .includes(args.searchLabel?.toLowerCase() ?? ""),
       );
     }
 
@@ -133,13 +134,13 @@ export const getProjectUsers = projectQuery({
     v.object({
       userId: v.string(),
       role: v.union(v.literal("coach"), v.literal("member")),
-    })
+    }),
   ),
   role: "member",
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const assignments = await ctx.db
       .query("userToProject")
-      .withIndex("by_projectId", (q) => q.eq("projectId", args.projectId))
+      .withIndex("by_projectId", (q) => q.eq("projectId", ctx.project._id))
       .collect();
 
     return assignments.map((a) => ({

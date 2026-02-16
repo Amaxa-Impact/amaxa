@@ -24,7 +24,7 @@ export function WorkspaceCard({ workspace, role }: WorkspaceCardProps) {
   return (
     <Link
       href={workspaceUrl}
-      className="bg-card hover:bg-accent border-border group flex flex-col rounded-lg border p-4 transition-colors"
+      className="bg-card hover:border-primary border-border group flex flex-col rounded-lg border p-4 transition-colors"
     >
       <div className="mb-2 flex items-start justify-between">
         <h3 className="group-hover:text-primary truncate font-medium transition-colors">

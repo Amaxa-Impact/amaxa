@@ -7,7 +7,7 @@ import { api } from "@amaxa/backend/_generated/api";
 import { InvitationCard } from "./invitation-card";
 import { WorkspaceCard } from "./workspace-card";
 
-export function HomeClient({ token }: { token: string }) {
+export function HomeClient() {
   const workspaces = useQuery(api.workspaces.listForUser, {});
   const invitations = useQuery(api.workspaceInvitations.listPendingForUser, {});
 
