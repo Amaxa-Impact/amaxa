@@ -103,8 +103,11 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
   if (!slots) {
     return (
       <div className="space-y-2">
-        {[1, 2, 3].map((i) => (
-          <div className="bg-muted h-12 animate-pulse rounded-md" key={i} />
+        {["slot-1", "slot-2", "slot-3"].map((slotSkeletonId) => (
+          <div
+            className="bg-muted h-12 animate-pulse rounded-md"
+            key={slotSkeletonId}
+          />
         ))}
       </div>
     );

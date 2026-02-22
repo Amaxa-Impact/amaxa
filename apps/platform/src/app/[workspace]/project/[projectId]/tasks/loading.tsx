@@ -9,8 +9,11 @@ export default function Loading() {
           <div className="flex items-center gap-2">
             <Skeleton className="h-4 w-20" />
             <div className="flex -space-x-2">
-              {[1, 2, 3].map((i) => (
-                <Skeleton className="h-8 w-8 rounded-full" key={i} />
+              {["cursor-a", "cursor-b", "cursor-c"].map((cursorSkeletonId) => (
+                <Skeleton
+                  className="h-8 w-8 rounded-full"
+                  key={cursorSkeletonId}
+                />
               ))}
             </div>
           </div>

@@ -281,7 +281,12 @@ export const batchUpdatePositions = mutation({
       throw new ConvexError("One or more template tasks were not found");
     }
 
-    const templateId = validTasks[0].templateId;
+    const firstTask = validTasks[0];
+    if (!firstTask) {
+      throw new ConvexError("One or more template tasks were not found");
+    }
+
+    const templateId = firstTask.templateId;
     const allSameTemplate = validTasks.every(
       (task) => task.templateId === templateId,
     );

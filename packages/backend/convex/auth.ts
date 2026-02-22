@@ -1,5 +1,6 @@
 import type { AuthFunctions } from "@convex-dev/workos-authkit";
 import { AuthKit } from "@convex-dev/workos-authkit";
+import type { ComponentApi as WorkOSAuthKitComponentApi } from "@convex-dev/workos-authkit/_generated/component.js";
 import { v } from "convex/values";
 
 import type { DataModel } from "./_generated/dataModel";
@@ -9,8 +10,13 @@ import { isSiteAdmin, requireAuth } from "./permissions";
 import { upsertUserRecord } from "./users";
 
 const authFunctions: AuthFunctions = internal.auth;
+const workOSAuthKitComponent = (
+  components as typeof components & {
+    workOSAuthKit: WorkOSAuthKitComponentApi;
+  }
+).workOSAuthKit;
 
-export const authKit = new AuthKit<DataModel>(components.workOSAuthKit, {
+export const authKit = new AuthKit<DataModel>(workOSAuthKitComponent, {
   authFunctions,
 });
 

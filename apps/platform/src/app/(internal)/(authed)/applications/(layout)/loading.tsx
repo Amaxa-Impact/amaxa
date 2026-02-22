@@ -27,8 +27,14 @@ export default function Loading() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {[1, 2, 3, 4, 5].map((i) => (
-              <TableRow key={i}>
+            {[
+              "form-row-1",
+              "form-row-2",
+              "form-row-3",
+              "form-row-4",
+              "form-row-5",
+            ].map((formRowSkeletonId) => (
+              <TableRow key={formRowSkeletonId}>
                 <TableCell>
                   <Skeleton className="h-5 w-48" />
                 </TableCell>

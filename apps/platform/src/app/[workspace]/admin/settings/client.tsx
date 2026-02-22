@@ -84,14 +84,7 @@ function WorkspaceNameForm({ workspace }: { workspace: WorkspaceData }) {
         <CardTitle>Workspace Settings</CardTitle>
       </CardHeader>
       <CardContent>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            void form.handleSubmit();
-          }}
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           <form.Field name="name">
             {(field) => (
               <Field>
@@ -134,13 +127,14 @@ function WorkspaceNameForm({ workspace }: { workspace: WorkspaceData }) {
               <Button
                 disabled={!canSubmit}
                 isLoading={form.state.isSubmitting}
-                type="submit"
+                onClick={() => void form.handleSubmit()}
+                type="button"
               >
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </Button>
             )}
           </form.Subscribe>
-        </form>
+        </div>
       </CardContent>
     </Card>
   );

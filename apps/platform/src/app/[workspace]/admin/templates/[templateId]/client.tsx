@@ -31,24 +31,30 @@ export function WorkspaceTemplateEditorClient({
   const updateTemplate = useMutation(api.projectTemplates.update);
   const deleteTemplate = useMutation(api.projectTemplates.remove);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [state, setState] = useState({
+    name: "",
+    description: "",
+    isPublic: true,
+    isSaving: false,
+    isDeleting: false,
+  });
+  const { description, isDeleting, isPublic, isSaving, name } = state;
 
   useEffect(() => {
     if (!templateResponse) {
       return;
     }
 
-    setName(templateResponse.template.name);
-    setDescription(templateResponse.template.description ?? "");
-    setIsPublic(templateResponse.template.isPublic);
+    setState((current) => ({
+      ...current,
+      name: templateResponse.template.name,
+      description: templateResponse.template.description ?? "",
+      isPublic: templateResponse.template.isPublic,
+    }));
   }, [templateResponse]);
 
   const handleSaveTemplate = async () => {
-    setIsSaving(true);
+    setState((current) => ({ ...current, isSaving: true }));
     try {
       const payload: {
         templateId: Id<"projectTemplates">;
@@ -73,12 +79,12 @@ export function WorkspaceTemplateEditorClient({
         error instanceof Error ? error.message : "Failed to update template",
       );
     } finally {
-      setIsSaving(false);
+      setState((current) => ({ ...current, isSaving: false }));
     }
   };
 
   const handleDeleteTemplate = async () => {
-    setIsDeleting(true);
+    setState((current) => ({ ...current, isDeleting: true }));
     try {
       await deleteTemplate({ templateId });
       toast.success("Template deleted");
@@ -88,7 +94,7 @@ export function WorkspaceTemplateEditorClient({
         error instanceof Error ? error.message : "Failed to delete template",
       );
     } finally {
-      setIsDeleting(false);
+      setState((current) => ({ ...current, isDeleting: false }));
     }
   };
 
@@ -148,7 +154,9 @@ export function WorkspaceTemplateEditorClient({
             </label>
             <Input
               id="workspace-template-name"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({ ...current, name: event.target.value }))
+              }
               value={name}
             />
           </div>
@@ -162,7 +170,12 @@ export function WorkspaceTemplateEditorClient({
             </label>
             <Textarea
               id="workspace-template-description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({
+                  ...current,
+                  description: event.target.value,
+                }))
+              }
               rows={3}
               value={description}
             />
@@ -175,7 +188,12 @@ export function WorkspaceTemplateEditorClient({
                 Public templates can be used when creating new projects.
               </p>
             </div>
-            <Switch checked={isPublic} onCheckedChange={setIsPublic} />
+            <Switch
+              checked={isPublic}
+              onCheckedChange={(nextIsPublic) =>
+                setState((current) => ({ ...current, isPublic: nextIsPublic }))
+              }
+            />
           </div>
 
           <Button

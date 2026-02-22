@@ -17,7 +17,6 @@ interface Invitation {
   workspaceId: Id<"workspaces">;
   email: string;
   role: InvitationRole;
-  token: string;
   workspaceName: string;
   workspaceSlug: string;
 }

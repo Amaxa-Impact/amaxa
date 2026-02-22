@@ -201,9 +201,8 @@ export function SectionCard({
           </CollapsibleTrigger>
 
           <div className="flex-1">
-            <form.Field
-              name="title"
-              children={(fieldApi) => (
+            <form.Field name="title">
+              {(fieldApi) => (
                 <Input
                   className={cn(
                     "focus-visible:border-primary rounded-none border-0 border-b px-0 font-semibold focus-visible:ring-0",
@@ -219,7 +218,7 @@ export function SectionCard({
                   placeholder="Section Title"
                 />
               )}
-            />
+            </form.Field>
           </div>
 
           {isSaving && (
@@ -267,9 +266,8 @@ export function SectionCard({
 
         <CollapsibleContent>
           <div className="space-y-4 px-4 pb-4">
-            <form.Field
-              name="description"
-              children={(fieldApi) => (
+            <form.Field name="description">
+              {(fieldApi) => (
                 <Field>
                   <Input
                     className="text-muted-foreground text-sm"
@@ -285,7 +283,7 @@ export function SectionCard({
                   />
                 </Field>
               )}
-            />
+            </form.Field>
 
             {fields.length === 0 ? (
               <div className="text-muted-foreground rounded-md border border-dashed py-8 text-center">

@@ -395,13 +395,7 @@ function InviteUserDialog({
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        void form.handleSubmit();
-      }}
-    >
+    <div>
       <DialogHeader>
         <DialogTitle>Invite User</DialogTitle>
         <DialogDescription>
@@ -476,13 +470,14 @@ function InviteUserDialog({
             <Button
               disabled={!canSubmit}
               isLoading={!!isSubmitting}
-              type="submit"
+              onClick={() => void form.handleSubmit()}
+              type="button"
             >
               {isSubmitting ? "Sending..." : "Send Invitation"}
             </Button>
           )}
         </form.Subscribe>
       </DialogFooter>
-    </form>
+    </div>
   );
 }

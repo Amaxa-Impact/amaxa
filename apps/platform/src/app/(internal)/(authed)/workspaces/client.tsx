@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { IconBuilding } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
-import { regex, type } from "arktype";
+import { type } from "arktype";
 import { useMutation, usePreloadedQuery } from "convex/react";
 import { Plus, Users } from "lucide-react";
 import { toast } from "sonner";
@@ -121,9 +121,11 @@ export function WorkspacesPageClient({
   );
 }
 
+const WORKSPACE_SLUG_REGEX = /^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$/;
+
 const createWorkspaceSchema = type({
   name: "string > 1",
-  slug: regex(/^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$/),
+  slug: "string > 2",
 });
 
 type CreateWorkspaceSchema = typeof createWorkspaceSchema.infer;
@@ -141,9 +143,17 @@ function CreateWorkspaceDialog({ onSuccess }: { onSuccess: () => void }) {
     },
     onSubmit: async ({ value }) => {
       try {
+        const slug = value.slug.trim();
+        if (!WORKSPACE_SLUG_REGEX.test(slug)) {
+          toast.error(
+            "Slug must be 3-50 characters with lowercase letters, numbers, and hyphens",
+          );
+          return;
+        }
+
         await createWorkspace({
           name: value.name.trim(),
-          slug: value.slug.trim(),
+          slug,
         });
         toast.success("Workspace created successfully");
         form.reset();
@@ -168,13 +178,7 @@ function CreateWorkspaceDialog({ onSuccess }: { onSuccess: () => void }) {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        void form.handleSubmit();
-      }}
-    >
+    <div>
       <DialogHeader>
         <DialogTitle>Create Workspace</DialogTitle>
         <DialogDescription>
@@ -257,12 +261,16 @@ function CreateWorkspaceDialog({ onSuccess }: { onSuccess: () => void }) {
           selector={(state) => [state.canSubmit, state.isSubmitting]}
         >
           {([canSubmit, isSubmitting]) => (
-            <Button disabled={!canSubmit || isSubmitting} type="submit">
+            <Button
+              disabled={!canSubmit || isSubmitting}
+              onClick={() => void form.handleSubmit()}
+              type="button"
+            >
               {isSubmitting ? "Creating..." : "Create Workspace"}
             </Button>
           )}
         </form.Subscribe>
       </DialogFooter>
-    </form>
+    </div>
   );
 }

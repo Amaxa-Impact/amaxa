@@ -7,7 +7,7 @@ import type {
   NodeMouseHandler,
   NodeTypes,
 } from "@xyflow/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
 import {
   Background,
@@ -16,8 +16,6 @@ import {
   MiniMap,
   ReactFlow,
   ReactFlowProvider,
-  useEdgesState,
-  useNodesState,
 } from "@xyflow/react";
 import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
@@ -80,11 +78,81 @@ export function TemplateEditor({
 
   const [selectedTaskId, setSelectedTaskId] =
     useState<Id<"templateTasks"> | null>(null);
-  const [label, setLabel] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState<TemplateTaskStatus>("todo");
-  const [priority, setPriority] = useState<TemplateTaskPriority>("medium");
+  const [taskDrafts, setTaskDrafts] = useState<
+    Record<
+      string,
+      {
+        label: string;
+        description: string;
+        status: TemplateTaskStatus;
+        priority: TemplateTaskPriority;
+      }
+    >
+  >({});
   const [isSaving, setIsSaving] = useState(false);
+
+  const selectedTask = useMemo(
+    () =>
+      (templateTasks ?? []).find((task) => task._id === selectedTaskId) ?? null,
+    [templateTasks, selectedTaskId],
+  );
+
+  const selectedTaskDraft = useMemo(() => {
+    if (!selectedTask) {
+      return null;
+    }
+
+    return (
+      taskDrafts[selectedTask._id] ?? {
+        label: selectedTask.label,
+        description: selectedTask.description ?? "",
+        status: selectedTask.status,
+        priority: selectedTask.priority,
+      }
+    );
+  }, [selectedTask, taskDrafts]);
+
+  const updateSelectedTaskDraft = useCallback(
+    (
+      updates: Partial<{
+        label: string;
+        description: string;
+        status: TemplateTaskStatus;
+        priority: TemplateTaskPriority;
+      }>,
+    ) => {
+      if (!selectedTaskId) {
+        return;
+      }
+
+      setTaskDrafts((current) => {
+        const currentTaskDraft =
+          current[selectedTaskId] ??
+          (selectedTask?._id === selectedTaskId
+            ? {
+                label: selectedTask.label,
+                description: selectedTask.description ?? "",
+                status: selectedTask.status,
+                priority: selectedTask.priority,
+              }
+            : {
+                label: "",
+                description: "",
+                status: "todo" as TemplateTaskStatus,
+                priority: "medium" as TemplateTaskPriority,
+              });
+
+        return {
+          ...current,
+          [selectedTaskId]: {
+            ...currentTaskDraft,
+            ...updates,
+          },
+        };
+      });
+    },
+    [selectedTask, selectedTaskId],
+  );
 
   const nodesFromTasks = useMemo<Node[]>(
     () =>
@@ -128,38 +196,6 @@ export function TemplateEditor({
 
     return edges;
   }, [templateTasks]);
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(nodesFromTasks);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(edgesFromTasks);
-
-  useEffect(() => {
-    setNodes(nodesFromTasks);
-  }, [nodesFromTasks, setNodes]);
-
-  useEffect(() => {
-    setEdges(edgesFromTasks);
-  }, [edgesFromTasks, setEdges]);
-
-  const selectedTask = useMemo(
-    () =>
-      (templateTasks ?? []).find((task) => task._id === selectedTaskId) ?? null,
-    [templateTasks, selectedTaskId],
-  );
-
-  useEffect(() => {
-    if (!selectedTask) {
-      setLabel("");
-      setDescription("");
-      setStatus("todo");
-      setPriority("medium");
-      return;
-    }
-
-    setLabel(selectedTask.label);
-    setDescription(selectedTask.description ?? "");
-    setStatus(selectedTask.status);
-    setPriority(selectedTask.priority);
-  }, [selectedTask]);
 
   const handleNodeClick: NodeMouseHandler = useCallback((_event, node) => {
     setSelectedTaskId(node.id as Id<"templateTasks">);
@@ -240,7 +276,7 @@ export function TemplateEditor({
   }, [updateTaskPosition]);
 
   const handleSaveTask = useCallback(async () => {
-    if (!selectedTaskId) {
+    if (!selectedTaskId || !selectedTaskDraft) {
       return;
     }
 
@@ -254,12 +290,12 @@ export function TemplateEditor({
         description?: string;
       } = {
         templateTaskId: selectedTaskId,
-        label: label.trim(),
-        status,
-        priority,
+        label: selectedTaskDraft.label.trim(),
+        status: selectedTaskDraft.status,
+        priority: selectedTaskDraft.priority,
       };
 
-      const normalizedDescription = description.trim();
+      const normalizedDescription = selectedTaskDraft.description.trim();
       if (normalizedDescription !== "") {
         payload.description = normalizedDescription;
       }
@@ -273,7 +309,7 @@ export function TemplateEditor({
     } finally {
       setIsSaving(false);
     }
-  }, [description, label, priority, selectedTaskId, status, updateTask]);
+  }, [selectedTaskDraft, selectedTaskId, updateTask]);
 
   const handleDeleteTask = useCallback(async () => {
     if (!selectedTaskId) {
@@ -283,6 +319,10 @@ export function TemplateEditor({
     try {
       await removeTask({
         templateTaskId: selectedTaskId,
+      });
+      setTaskDrafts((current) => {
+        const { [selectedTaskId]: _removed, ...rest } = current;
+        return rest;
       });
       setSelectedTaskId(null);
       toast.success("Template task deleted");
@@ -316,12 +356,11 @@ export function TemplateEditor({
         <CardContent className="h-[70vh] p-0">
           <ReactFlowProvider>
             <ReactFlow
-              edges={edges}
+              edges={edgesFromTasks}
               fitView
-              nodes={nodes}
+              nodes={nodesFromTasks}
               nodeTypes={nodeTypes}
               onConnect={(connection) => void handleConnect(connection)}
-              onEdgesChange={onEdgesChange}
               onEdgesDelete={(edgesToDelete) =>
                 void handleEdgeDelete(edgesToDelete)
               }
@@ -329,7 +368,6 @@ export function TemplateEditor({
               onNodeDragStop={(event, node) =>
                 void handleNodeDragStop(event, node)
               }
-              onNodesChange={onNodesChange}
             >
               <Background />
               <MiniMap />
@@ -359,8 +397,10 @@ export function TemplateEditor({
                 </label>
                 <Input
                   id="template-task-label"
-                  onChange={(event) => setLabel(event.target.value)}
-                  value={label}
+                  onChange={(event) =>
+                    updateSelectedTaskDraft({ label: event.target.value })
+                  }
+                  value={selectedTaskDraft?.label ?? ""}
                 />
               </div>
 
@@ -373,23 +413,32 @@ export function TemplateEditor({
                 </label>
                 <Textarea
                   id="template-task-description"
-                  onChange={(event) => setDescription(event.target.value)}
+                  onChange={(event) =>
+                    updateSelectedTaskDraft({
+                      description: event.target.value,
+                    })
+                  }
                   rows={4}
-                  value={description}
+                  value={selectedTaskDraft?.description ?? ""}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Status</label>
+                <label
+                  className="text-sm font-medium"
+                  htmlFor="template-task-status"
+                >
+                  Status
+                </label>
                 <Select
                   onValueChange={(value: TemplateTaskStatus | null) => {
                     if (value) {
-                      setStatus(value);
+                      updateSelectedTaskDraft({ status: value });
                     }
                   }}
-                  value={status}
+                  value={selectedTaskDraft?.status ?? "todo"}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="template-task-status">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -403,16 +452,21 @@ export function TemplateEditor({
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Priority</label>
+                <label
+                  className="text-sm font-medium"
+                  htmlFor="template-task-priority"
+                >
+                  Priority
+                </label>
                 <Select
                   onValueChange={(value: TemplateTaskPriority | null) => {
                     if (value) {
-                      setPriority(value);
+                      updateSelectedTaskDraft({ priority: value });
                     }
                   }}
-                  value={priority}
+                  value={selectedTaskDraft?.priority ?? "medium"}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="template-task-priority">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

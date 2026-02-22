@@ -305,12 +305,12 @@ export function ResponseDetailPage({
                         <FileList files={fr.value.files} />
                       ) : Array.isArray(fr.value) ? (
                         <div className="flex flex-wrap gap-1">
-                          {fr.value.map((v, i) => (
+                          {fr.value.map((value) => (
                             <Badge
-                              key={`${fr.fieldId}-${i}`}
+                              key={`${fr.fieldId}-${String(value)}`}
                               variant="secondary"
                             >
-                              {v}
+                              {value}
                             </Badge>
                           ))}
                         </div>

@@ -218,19 +218,20 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
 
     return (
       <tanstackForm.Field
-        children={(field) => (
+        key={formField._id}
+        name={`fieldResponses.${formField._id}` as const}
+        validators={{
+          onChange: buildFieldSchema(formField),
+        }}
+      >
+        {(field) => (
           <FormFieldRenderer
             field={field}
             formField={formField}
             formSlug={slug}
           />
         )}
-        key={formField._id}
-        name={`fieldResponses.${formField._id}` as const}
-        validators={{
-          onChange: buildFieldSchema(formField),
-        }}
-      />
+      </tanstackForm.Field>
     );
   };
 
@@ -266,21 +267,20 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
         )}
       </CardHeader>
       <CardContent className="pt-6">
-        <form
-          className="space-y-6"
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            void tanstackForm.handleSubmit();
-          }}
-        >
+        <div className="space-y-6">
           <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
             <h3 className="text-muted-foreground text-sm font-medium">
               Your Information
             </h3>
 
             <tanstackForm.Field
-              children={(field) => {
+              name="applicantName"
+              validators={{
+                onChange: ({ value }) =>
+                  value ? undefined : "Name is required",
+              }}
+            >
+              {(field) => {
                 const hasError =
                   field.state.meta.isTouched &&
                   field.state.meta.errors.length > 0;
@@ -307,15 +307,22 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
                   </div>
                 );
               }}
-              name="applicantName"
-              validators={{
-                onChange: ({ value }) =>
-                  value ? undefined : "Name is required",
-              }}
-            />
+            </tanstackForm.Field>
 
             <tanstackForm.Field
-              children={(field) => {
+              name="applicantEmail"
+              validators={{
+                onChange: ({ value }) => {
+                  if (!value) return "Email is required";
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!emailRegex.test(value)) {
+                    return "Please enter a valid email address";
+                  }
+                  return undefined;
+                },
+              }}
+            >
+              {(field) => {
                 const hasError =
                   field.state.meta.isTouched &&
                   field.state.meta.errors.length > 0;
@@ -343,18 +350,7 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
                   </div>
                 );
               }}
-              name="applicantEmail"
-              validators={{
-                onChange: ({ value }) => {
-                  if (!value) return "Email is required";
-                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                  if (!emailRegex.test(value)) {
-                    return "Please enter a valid email address";
-                  }
-                  return undefined;
-                },
-              }}
-            />
+            </tanstackForm.Field>
           </div>
 
           {fields.length > 0 && (
@@ -387,15 +383,17 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
 
           <tanstackForm.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting] as const}
-            children={(values) => {
+          >
+            {(values) => {
               const [canSubmit, isSubmitting] = values;
               return (
                 <div className="flex justify-end border-t pt-6">
                   <Button
                     className="min-w-32"
                     disabled={!canSubmit || isSubmitting}
+                    onClick={() => void tanstackForm.handleSubmit()}
                     size="lg"
-                    type="submit"
+                    type="button"
                   >
                     {isSubmitting ? (
                       <>
@@ -412,8 +410,8 @@ export function ApplyForm({ form, fields, sections, slug }: ApplyFormProps) {
                 </div>
               );
             }}
-          />
-        </form>
+          </tanstackForm.Subscribe>
+        </div>
       </CardContent>
     </Card>
   );

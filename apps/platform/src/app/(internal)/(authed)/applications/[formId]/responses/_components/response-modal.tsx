@@ -284,9 +284,12 @@ export function ResponseModal({ responseId }: ResponseModalProps) {
                       <FileList files={fr.value.files} />
                     ) : Array.isArray(fr.value) ? (
                       <div className="flex flex-wrap gap-1">
-                        {fr.value.map((v, i) => (
-                          <Badge key={`${fr.fieldId}-${i}`} variant="secondary">
-                            {v}
+                        {fr.value.map((value) => (
+                          <Badge
+                            key={`${fr.fieldId}-${String(value)}`}
+                            variant="secondary"
+                          >
+                            {value}
                           </Badge>
                         ))}
                       </div>

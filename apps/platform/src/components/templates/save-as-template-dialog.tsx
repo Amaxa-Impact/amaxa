@@ -31,11 +31,14 @@ export function SaveAsTemplateDialog({
 }) {
   const createFromProject = useMutation(api.projectTemplates.createFromProject);
 
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, setState] = useState({
+    open: false,
+    name: "",
+    description: "",
+    isPublic: true,
+    isSubmitting: false,
+  });
+  const { description, isPublic, isSubmitting, name, open } = state;
 
   const handleSaveAsTemplate = async () => {
     if (name.trim() === "") {
@@ -43,7 +46,7 @@ export function SaveAsTemplateDialog({
       return;
     }
 
-    setIsSubmitting(true);
+    setState((current) => ({ ...current, isSubmitting: true }));
     try {
       const payload: {
         projectId: Id<"projects">;
@@ -63,10 +66,13 @@ export function SaveAsTemplateDialog({
 
       await createFromProject(payload);
       toast.success("Project saved as template");
-      setOpen(false);
-      setName("");
-      setDescription("");
-      setIsPublic(true);
+      setState({
+        open: false,
+        name: "",
+        description: "",
+        isPublic: true,
+        isSubmitting: false,
+      });
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -74,12 +80,17 @@ export function SaveAsTemplateDialog({
           : "Failed to save project as template",
       );
     } finally {
-      setIsSubmitting(false);
+      setState((current) => ({ ...current, isSubmitting: false }));
     }
   };
 
   return (
-    <Dialog onOpenChange={setOpen} open={open}>
+    <Dialog
+      onOpenChange={(nextOpen) =>
+        setState((current) => ({ ...current, open: nextOpen }))
+      }
+      open={open}
+    >
       <DialogTrigger
         render={
           trigger ?? (
@@ -106,7 +117,9 @@ export function SaveAsTemplateDialog({
             </label>
             <Input
               id="save-template-name"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({ ...current, name: event.target.value }))
+              }
               placeholder="Program kickoff template"
               value={name}
             />
@@ -121,7 +134,12 @@ export function SaveAsTemplateDialog({
             </label>
             <Textarea
               id="save-template-description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({
+                  ...current,
+                  description: event.target.value,
+                }))
+              }
               placeholder="Tasks and dependencies for program kickoff"
               rows={4}
               value={description}
@@ -135,13 +153,20 @@ export function SaveAsTemplateDialog({
                 Enable this template for new project setup.
               </p>
             </div>
-            <Switch checked={isPublic} onCheckedChange={setIsPublic} />
+            <Switch
+              checked={isPublic}
+              onCheckedChange={(nextIsPublic) =>
+                setState((current) => ({ ...current, isPublic: nextIsPublic }))
+              }
+            />
           </div>
         </div>
 
         <DialogFooter>
           <Button
-            onClick={() => setOpen(false)}
+            onClick={() =>
+              setState((current) => ({ ...current, open: false }))
+            }
             type="button"
             variant="outline"
           >

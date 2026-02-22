@@ -40,7 +40,7 @@ export const WorkspaceNavbar = memo(function WorkspaceNavbar() {
     return getAdminLinks(workspace.slug);
   }, [workspace]);
 
-  const links = isAdmin ? adminLinks : null;
+  const links = isAdmin ? adminLinks : [];
 
   return (
     <nav className="h-16 border-b">

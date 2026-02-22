@@ -82,8 +82,14 @@ function useDebounce<T>(value: T, delay: number): T {
 function TableSkeleton() {
   return (
     <>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <TableRow key={i}>
+      {[
+        "task-row-1",
+        "task-row-2",
+        "task-row-3",
+        "task-row-4",
+        "task-row-5",
+      ].map((taskRowSkeletonId) => (
+        <TableRow key={taskRowSkeletonId}>
           <TableCell>
             <Skeleton className="h-4 w-50" />
           </TableCell>

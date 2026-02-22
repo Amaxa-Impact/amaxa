@@ -53,16 +53,10 @@ export default function SettingsPageClient() {
 
   return (
     <main className="container mx-auto flex h-full flex-col p-4">
-      <form
-        id="application-form-settings"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void form.handleSubmit();
-        }}
-      >
+      <div id="application-form-settings">
         <FieldGroup>
-          <form.Field
-            children={(field) => (
+          <form.Field name="slug">
+            {(field) => (
               <Field>
                 <FieldLabel htmlFor={field.name}>URL Slug</FieldLabel>
                 <Input
@@ -77,11 +71,9 @@ export default function SettingsPageClient() {
                 </FieldDescription>
               </Field>
             )}
-            name="slug"
-          />
-          <form.Field
-            name="isPublished"
-            children={(field) => {
+          </form.Field>
+          <form.Field name="isPublished">
+            {(field) => {
               const isInvalid =
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
@@ -105,18 +97,18 @@ export default function SettingsPageClient() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
         </FieldGroup>
         <Field orientation="horizontal">
           <Button
-            type="submit"
+            onClick={() => void form.handleSubmit()}
+            type="button"
             isLoading={isSubmitting}
-            form="application-form-settings"
           >
             {isSubmitting ? "Saving…" : "Submit"}
           </Button>
         </Field>
-      </form>
+      </div>
     </main>
   );
 }

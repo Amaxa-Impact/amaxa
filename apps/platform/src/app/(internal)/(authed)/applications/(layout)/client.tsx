@@ -201,13 +201,7 @@ function CreateFormDialog({ onCreated }: { onCreated?: () => void }) {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        void form.handleSubmit();
-      }}
-    >
+    <div>
       <DialogHeader>
         <DialogTitle>Create Application Form</DialogTitle>
         <DialogDescription>
@@ -311,12 +305,16 @@ function CreateFormDialog({ onCreated }: { onCreated?: () => void }) {
           selector={(state) => [state.canSubmit, state.isSubmitting]}
         >
           {([canSubmit, isSubmitting]) => (
-            <Button disabled={!canSubmit || isSubmitting} type="submit">
+            <Button
+              disabled={!canSubmit || isSubmitting}
+              onClick={() => void form.handleSubmit()}
+              type="button"
+            >
               {isSubmitting ? "Creating..." : "Create Form"}
             </Button>
           )}
         </form.Subscribe>
       </DialogFooter>
-    </form>
+    </div>
   );
 }

@@ -14,8 +14,14 @@ export default function Loading() {
       <main className="flex-1 overflow-auto p-6">
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex gap-2">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Skeleton className="h-9 w-24" key={i} />
+            {[
+              "status-filter-1",
+              "status-filter-2",
+              "status-filter-3",
+              "status-filter-4",
+              "status-filter-5",
+            ].map((statusFilterSkeletonId) => (
+              <Skeleton className="h-9 w-24" key={statusFilterSkeletonId} />
             ))}
           </div>
 
@@ -30,8 +36,14 @@ export default function Loading() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <TableRow key={i}>
+              {[
+                "response-row-1",
+                "response-row-2",
+                "response-row-3",
+                "response-row-4",
+                "response-row-5",
+              ].map((responseRowSkeletonId) => (
+                <TableRow key={responseRowSkeletonId}>
                   <TableCell>
                     <Skeleton className="h-5 w-32" />
                   </TableCell>

@@ -111,13 +111,7 @@ export function AddUserForm({
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          id="add-user-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit();
-          }}
-        >
+        <div id="add-user-form">
           <FieldGroup>
             <form.Field name="userId">
               {(field) => {
@@ -198,7 +192,7 @@ export function AddUserForm({
               }}
             </form.Field>
           </FieldGroup>
-        </form>
+        </div>
 
         <DialogFooter>
           <Button
@@ -211,7 +205,7 @@ export function AddUserForm({
           >
             Cancel
           </Button>
-          <Button form="add-user-form" type="submit">
+          <Button onClick={() => void form.handleSubmit()} type="button">
             Add User
           </Button>
         </DialogFooter>

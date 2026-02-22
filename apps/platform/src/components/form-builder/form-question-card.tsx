@@ -157,6 +157,14 @@ export function FormQuestionCard({
           : "border-border hover:border-muted-foreground/30",
       )}
       onClick={onActivate}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onActivate();
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
       <div
         {...dragHandleProps}
@@ -174,8 +182,8 @@ export function FormQuestionCard({
       <div className="space-y-4 p-4">
         <div className="flex gap-4">
           <div className="flex-1">
-            <form.Field
-              children={(fieldApi) => (
+            <form.Field name="label">
+              {(fieldApi) => (
                 <Field>
                   <Input
                     className={cn(
@@ -204,11 +212,10 @@ export function FormQuestionCard({
                     )}
                 </Field>
               )}
-              name="label"
-            />
+            </form.Field>
           </div>
-          <form.Field
-            children={(fieldApi) => (
+          <form.Field name="type">
+            {(fieldApi) => (
               <FormFieldTypeSelector
                 disabled={isInferring}
                 onChange={(value) => {
@@ -225,13 +232,12 @@ export function FormQuestionCard({
                 value={fieldApi.state.value}
               />
             )}
-            name="type"
-          />
+          </form.Field>
         </div>
 
         {isActive && (
-          <form.Field
-            children={(fieldApi) => (
+          <form.Field name="description">
+            {(fieldApi) => (
               <Field>
                 <Input
                   className="text-muted-foreground text-sm"
@@ -252,13 +258,12 @@ export function FormQuestionCard({
                 />
               </Field>
             )}
-            name="description"
-          />
+          </form.Field>
         )}
 
         {showOptions && (
-          <form.Field
-            children={(fieldApi) => (
+          <form.Field mode="array" name="options">
+            {(fieldApi) => (
               <FormQuestionOptions
                 onOptionsChange={(options) => {
                   fieldApi.setValue(options);
@@ -275,15 +280,13 @@ export function FormQuestionCard({
                 onDismissSuggestions={() => setSuggestedOptions(undefined)}
               />
             )}
-            mode="array"
-            name="options"
-          />
+          </form.Field>
         )}
 
         {showNumberConfig && isActive && (
           <div className="flex gap-4">
-            <form.Field
-              children={(fieldApi) => (
+            <form.Field name="min">
+              {(fieldApi) => (
                 <Field className="flex-1">
                   <FieldLabel htmlFor={`field-${field._id}-min`}>
                     Minimum
@@ -308,10 +311,9 @@ export function FormQuestionCard({
                   />
                 </Field>
               )}
-              name="min"
-            />
-            <form.Field
-              children={(fieldApi) => (
+            </form.Field>
+            <form.Field name="max">
+              {(fieldApi) => (
                 <Field className="flex-1">
                   <FieldLabel htmlFor={`field-${field._id}-max`}>
                     Maximum
@@ -336,14 +338,13 @@ export function FormQuestionCard({
                   />
                 </Field>
               )}
-              name="max"
-            />
+            </form.Field>
           </div>
         )}
 
         {showFileConfig && isActive && (
-          <form.Field
-            children={(fieldApi) => (
+          <form.Field name="fileConfig">
+            {(fieldApi) => (
               <FileConfigEditor
                 value={fieldApi.state.value}
                 onChange={(config) => {
@@ -357,13 +358,12 @@ export function FormQuestionCard({
                 }}
               />
             )}
-            name="fileConfig"
-          />
+          </form.Field>
         )}
 
         <div className="flex items-center justify-between border-t pt-2">
-          <form.Field
-            children={(fieldApi) => (
+          <form.Field name="required">
+            {(fieldApi) => (
               <Field orientation="horizontal">
                 <FieldLabel
                   className="text-sm font-normal"
@@ -386,8 +386,7 @@ export function FormQuestionCard({
                 />
               </Field>
             )}
-            name="required"
-          />
+          </form.Field>
 
           <div className="flex gap-1">
             <Button

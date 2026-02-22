@@ -5,9 +5,9 @@ import type {
   ControllerProps,
   FieldPath,
   FieldValues,
+  Resolver,
   UseFormProps,
 } from "react-hook-form";
-import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
@@ -22,14 +22,26 @@ import {
 import { cn } from ".";
 import { Label } from "./label";
 
-const useForm = <TOut, TDef extends ZodTypeDef, TIn extends FieldValues>(
-  props: Omit<UseFormProps<TIn>, "resolver"> & {
-    schema: ZodType<TOut, TDef, TIn>;
+const useForm = <
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = unknown,
+  TTransformedValues extends FieldValues = TFieldValues,
+>(
+  props: Omit<
+    UseFormProps<TFieldValues, TContext, TTransformedValues>,
+    "resolver"
+  > & {
+    schema: Parameters<typeof zodResolver>[0];
   },
 ) => {
-  const form = __useForm<TIn>({
-    ...props,
-    resolver: zodResolver(props.schema, undefined),
+  const { schema, ...formProps } = props;
+  const form = __useForm<TFieldValues, TContext, TTransformedValues>({
+    ...formProps,
+    resolver: zodResolver(schema) as Resolver<
+      TFieldValues,
+      TContext,
+      TTransformedValues
+    >,
   });
 
   return form;

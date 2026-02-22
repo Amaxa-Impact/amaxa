@@ -33,11 +33,14 @@ export function CreateTemplateDialog({
 }) {
   const createTemplate = useMutation(api.projectTemplates.create);
 
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, setState] = useState({
+    open: false,
+    name: "",
+    description: "",
+    isPublic: true,
+    isSubmitting: false,
+  });
+  const { description, isPublic, isSubmitting, name, open } = state;
 
   const handleCreateTemplate = async () => {
     if (name.trim() === "") {
@@ -45,7 +48,7 @@ export function CreateTemplateDialog({
       return;
     }
 
-    setIsSubmitting(true);
+    setState((current) => ({ ...current, isSubmitting: true }));
     try {
       const payload: {
         name: string;
@@ -71,22 +74,30 @@ export function CreateTemplateDialog({
       });
 
       toast.success("Template created");
-      setOpen(false);
-      setName("");
-      setDescription("");
-      setIsPublic(true);
+      setState({
+        open: false,
+        name: "",
+        description: "",
+        isPublic: true,
+        isSubmitting: false,
+      });
       onCreated?.(templateId);
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Failed to create template",
       );
     } finally {
-      setIsSubmitting(false);
+      setState((current) => ({ ...current, isSubmitting: false }));
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(nextOpen) =>
+        setState((current) => ({ ...current, open: nextOpen }))
+      }
+    >
       <DialogTrigger
         render={
           trigger ?? (
@@ -115,7 +126,9 @@ export function CreateTemplateDialog({
             </label>
             <Input
               id="create-template-name"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({ ...current, name: event.target.value }))
+              }
               placeholder="Customer onboarding"
               value={name}
             />
@@ -130,7 +143,12 @@ export function CreateTemplateDialog({
             </label>
             <Textarea
               id="create-template-description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) =>
+                setState((current) => ({
+                  ...current,
+                  description: event.target.value,
+                }))
+              }
               placeholder="Reusable tasks for onboarding a new client"
               rows={4}
               value={description}
@@ -144,13 +162,20 @@ export function CreateTemplateDialog({
                 Public templates can be selected when creating projects.
               </p>
             </div>
-            <Switch checked={isPublic} onCheckedChange={setIsPublic} />
+            <Switch
+              checked={isPublic}
+              onCheckedChange={(nextIsPublic) =>
+                setState((current) => ({ ...current, isPublic: nextIsPublic }))
+              }
+            />
           </div>
         </div>
 
         <DialogFooter>
           <Button
-            onClick={() => setOpen(false)}
+            onClick={() =>
+              setState((current) => ({ ...current, open: false }))
+            }
             type="button"
             variant="outline"
           >

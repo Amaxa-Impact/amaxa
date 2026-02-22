@@ -150,16 +150,10 @@ export function TimeSlotForm({
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          id="time-slot-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit();
-          }}
-        >
+        <div id="time-slot-form">
           <FieldGroup>
-            <form.Field
-              children={(field) => {
+            <form.Field name="date">
+              {(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.value;
 
@@ -202,11 +196,10 @@ export function TimeSlotForm({
                   </Field>
                 );
               }}
-              name="date"
-            />
+            </form.Field>
 
-            <form.Field
-              children={(field) => {
+            <form.Field name="time">
+              {(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.value;
 
@@ -231,11 +224,10 @@ export function TimeSlotForm({
                   </Field>
                 );
               }}
-              name="time"
-            />
+            </form.Field>
 
-            <form.Field
-              children={(field) => (
+            <form.Field name="timezone">
+              {(field) => (
                 <Field>
                   <FieldLabel>Timezone</FieldLabel>
                   <TimezoneSelect
@@ -248,11 +240,10 @@ export function TimeSlotForm({
                   </FieldDescription>
                 </Field>
               )}
-              name="timezone"
-            />
+            </form.Field>
 
-            <form.Field
-              children={(field) => (
+            <form.Field name="assignedAdminId">
+              {(field) => (
                 <Field>
                   <FieldLabel>Assigned Admin (Optional)</FieldLabel>
                   <AdminSelector
@@ -265,10 +256,9 @@ export function TimeSlotForm({
                   </FieldDescription>
                 </Field>
               )}
-              name="assignedAdminId"
-            />
+            </form.Field>
           </FieldGroup>
-        </form>
+        </div>
 
         <DialogFooter>
           <Button
@@ -281,7 +271,7 @@ export function TimeSlotForm({
           >
             Cancel
           </Button>
-          <Button form="time-slot-form" type="submit">
+          <Button onClick={() => void form.handleSubmit()} type="button">
             {isEditing ? "Update Slot" : "Create Slot"}
           </Button>
         </DialogFooter>

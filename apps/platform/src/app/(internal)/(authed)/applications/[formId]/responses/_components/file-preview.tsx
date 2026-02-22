@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import Image from "next/image";
 import {
   IconFile,
@@ -25,6 +25,63 @@ interface FileInfo {
 
 interface FilePreviewProps {
   file: FileInfo;
+}
+
+interface PreviewState {
+  isPreviewOpen: boolean;
+  imageError: boolean;
+  isLoading: boolean;
+  previewUrl: string | null;
+  hasError: boolean;
+}
+
+type PreviewAction =
+  | { type: "openPreview" }
+  | { type: "closePreview" }
+  | { type: "imageError" }
+  | { type: "resetPreview" }
+  | { type: "loadingPreview" }
+  | { type: "previewSuccess"; url: string }
+  | { type: "previewFailure" };
+
+const initialPreviewState: PreviewState = {
+  isPreviewOpen: false,
+  imageError: false,
+  isLoading: false,
+  previewUrl: null,
+  hasError: false,
+};
+
+function previewReducer(state: PreviewState, action: PreviewAction): PreviewState {
+  switch (action.type) {
+    case "openPreview":
+      return { ...state, isPreviewOpen: true };
+    case "closePreview":
+      return { ...state, isPreviewOpen: false };
+    case "imageError":
+      return { ...state, imageError: true };
+    case "resetPreview":
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        previewUrl: null,
+        imageError: false,
+      };
+    case "loadingPreview":
+      return { ...state, isLoading: true, hasError: false };
+    case "previewSuccess":
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        previewUrl: action.url,
+      };
+    case "previewFailure":
+      return { ...state, isLoading: false, hasError: true, previewUrl: null };
+    default:
+      return state;
+  }
 }
 
 function formatFileSize(bytes: number): string {
@@ -68,8 +125,7 @@ function GetFileIcon({ contentType, className }: GetFileIconProps) {
 }
 
 export function FilePreview({ file }: FilePreviewProps) {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [previewState, dispatch] = useReducer(previewReducer, initialPreviewState);
 
   const getPreview = useAction(api.files.getApplicationFilePreview);
 
@@ -78,56 +134,37 @@ export function FilePreview({ file }: FilePreviewProps) {
   const isTooLarge = file.sizeBytes > 12 * 1024 * 1024;
   const shouldLoadPreview = isPreviewableType && !isTooLarge;
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [hasError, setHasError] = useState(false);
+  const { hasError, imageError, isLoading, isPreviewOpen, previewUrl } =
+    previewState;
 
   useEffect(() => {
     let isActive = true;
     let objectUrl: string | null = null;
 
     if (!shouldLoadPreview) {
-      // Use queueMicrotask to defer state updates after effect body completes
-      queueMicrotask(() => {
-        if (isActive) {
-          setIsLoading(false);
-          setHasError(false);
-          setPreviewUrl(null);
-        }
-      });
+      dispatch({ type: "resetPreview" });
       return;
     }
 
-    // Queue state updates in microtask to avoid synchronous setState
-    queueMicrotask(() => {
-      if (isActive) {
-        setIsLoading(true);
-        setHasError(false);
-      }
-    });
+    dispatch({ type: "loadingPreview" });
 
     void getPreview({ blobId: file.blobId, path: file.path })
       .then((result) => {
         if (!isActive) return;
 
         if (!result) {
-          setHasError(true);
-          setPreviewUrl(null);
-          setIsLoading(false);
+          dispatch({ type: "previewFailure" });
           return;
         }
 
         objectUrl = URL.createObjectURL(
           new Blob([result.data], { type: result.contentType }),
         );
-        setPreviewUrl(objectUrl);
-        setIsLoading(false);
+        dispatch({ type: "previewSuccess", url: objectUrl });
       })
       .catch(() => {
         if (!isActive) return;
-        setHasError(true);
-        setPreviewUrl(null);
-        setIsLoading(false);
+        dispatch({ type: "previewFailure" });
       });
 
     return () => {
@@ -160,7 +197,7 @@ export function FilePreview({ file }: FilePreviewProps) {
         {isImageFile(file.contentType) && previewUrl && !imageError && (
           <button
             className="group relative block w-full cursor-pointer"
-            onClick={() => setIsPreviewOpen(true)}
+            onClick={() => dispatch({ type: "openPreview" })}
             type="button"
           >
             <div className="relative aspect-video w-full overflow-hidden bg-black/5">
@@ -168,7 +205,7 @@ export function FilePreview({ file }: FilePreviewProps) {
                 alt={file.filename}
                 className="object-contain"
                 fill
-                onError={() => setImageError(true)}
+                onError={() => dispatch({ type: "imageError" })}
                 sizes="(max-width: 640px) 100vw, 50vw"
                 src={previewUrl}
                 unoptimized
@@ -183,7 +220,7 @@ export function FilePreview({ file }: FilePreviewProps) {
         {isPdfFile(file.contentType) && previewUrl && (
           <button
             className="group relative block w-full cursor-pointer"
-            onClick={() => setIsPreviewOpen(true)}
+            onClick={() => dispatch({ type: "openPreview" })}
             type="button"
           >
             <div className="relative flex aspect-video w-full items-center justify-center bg-red-50 dark:bg-red-950/20">
@@ -212,7 +249,7 @@ export function FilePreview({ file }: FilePreviewProps) {
             {canPreview ? (
               <Button
                 disabled={isPreviewDisabled}
-                onClick={() => setIsPreviewOpen(true)}
+                onClick={() => dispatch({ type: "openPreview" })}
                 size="sm"
                 variant="ghost"
               >
@@ -232,7 +269,7 @@ export function FilePreview({ file }: FilePreviewProps) {
         <FilePreviewModal
           contentType={file.contentType}
           filename={file.filename}
-          onClose={() => setIsPreviewOpen(false)}
+          onClose={() => dispatch({ type: "closePreview" })}
           url={previewUrl}
         />
       )}
@@ -254,11 +291,14 @@ function FilePreviewModal({
   onClose,
 }: FilePreviewModalProps) {
   return (
-    <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/90"
-      onClick={onClose}
-    >
-      <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent p-4">
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/90">
+      <button
+        aria-label="Close preview"
+        className="absolute inset-0"
+        onClick={onClose}
+        type="button"
+      />
+      <div className="relative z-10 absolute top-0 right-0 left-0 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent p-4">
         <span className="truncate text-sm font-medium text-white">
           {filename}
         </span>
@@ -276,10 +316,9 @@ function FilePreviewModal({
 
       <div
         className={cn(
-          "flex h-full w-full items-center justify-center p-16",
+          "relative z-10 flex h-full w-full items-center justify-center p-16",
           isPdfFile(contentType) && "p-4",
         )}
-        onClick={(e) => e.stopPropagation()}
       >
         {isImageFile(contentType) && (
           <div className="relative h-full w-full">

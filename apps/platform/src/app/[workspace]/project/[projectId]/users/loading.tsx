@@ -28,10 +28,15 @@ export default function Loading() {
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            {[1, 2, 3, 4].map((i) => (
+            {[
+              "user-row-1",
+              "user-row-2",
+              "user-row-3",
+              "user-row-4",
+            ].map((userRowSkeletonId) => (
               <div
                 className="flex items-center justify-between rounded-lg border p-4"
-                key={i}
+                key={userRowSkeletonId}
               >
                 <div className="space-y-2">
                   <Skeleton className="h-5 w-48" />

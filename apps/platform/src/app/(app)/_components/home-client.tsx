@@ -19,9 +19,11 @@ export function HomeClient() {
         <div className="animate-pulse">
           <div className="bg-muted mb-8 h-8 w-48 rounded" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-muted h-24 rounded-lg" />
-            ))}
+            {["workspace-a", "workspace-b", "workspace-c"].map(
+              (workspaceSkeletonId) => (
+                <div key={workspaceSkeletonId} className="bg-muted h-24 rounded-lg" />
+              ),
+            )}
           </div>
         </div>
       </div>

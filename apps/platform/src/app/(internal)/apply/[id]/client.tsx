@@ -102,8 +102,8 @@ function ApplyFormSkeleton() {
 
             <div className="space-y-6">
               <Skeleton className="h-4 w-32" />
-              {[1, 2, 3].map((i) => (
-                <div className="space-y-2" key={i}>
+              {["field-1", "field-2", "field-3"].map((fieldSkeletonId) => (
+                <div className="space-y-2" key={fieldSkeletonId}>
                   <Skeleton className="h-4 w-28" />
                   <Skeleton className="h-9 w-full" />
                 </div>

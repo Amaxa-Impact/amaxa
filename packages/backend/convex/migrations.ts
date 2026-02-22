@@ -136,6 +136,9 @@ export const seedE2EApplyForm = mutation({
     }
 
     const experienceFieldId = fieldIds[3];
+    if (!experienceFieldId) {
+      throw new Error("Failed to create experience field");
+    }
     await ctx.db.insert("applicationFormFields", {
       formId,
       label: "Experience Details",

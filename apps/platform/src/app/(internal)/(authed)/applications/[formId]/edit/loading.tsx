@@ -14,8 +14,9 @@ export default function Loading() {
           </Card>
 
           <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <Card key={i}>
+            {["question-card-1", "question-card-2", "question-card-3"].map(
+              (questionCardSkeletonId) => (
+                <Card key={questionCardSkeletonId}>
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -26,8 +27,9 @@ export default function Loading() {
                     <Skeleton className="h-4 w-32" />
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+                </Card>
+              ),
+            )}
           </div>
 
           <div className="flex justify-center">

@@ -13,8 +13,17 @@ export default function WorkspacesLoading() {
         <Card className="overflow-hidden shadow-sm">
           <CardContent className="p-0">
             <div className="space-y-4 p-4">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="flex items-center justify-between">
+              {[
+                "workspace-row-1",
+                "workspace-row-2",
+                "workspace-row-3",
+                "workspace-row-4",
+                "workspace-row-5",
+              ].map((workspaceRowSkeletonId) => (
+                <div
+                  key={workspaceRowSkeletonId}
+                  className="flex items-center justify-between"
+                >
                   <div className="space-y-2">
                     <Skeleton className="h-5 w-48" />
                     <Skeleton className="h-4 w-32" />

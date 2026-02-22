@@ -81,8 +81,7 @@ export const reorder = mutation({
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
 
-    for (let i = 0; i < args.sectionIds.length; i++) {
-      const sectionId = args.sectionIds[i];
+    for (const [i, sectionId] of args.sectionIds.entries()) {
       const section = await ctx.db.get(sectionId);
 
       if (!section) {
