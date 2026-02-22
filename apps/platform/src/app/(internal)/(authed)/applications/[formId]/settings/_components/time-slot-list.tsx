@@ -1,8 +1,6 @@
 "use client";
 
-import type { UserOption } from "@/components/user-dropdown";
-import type { User } from "@/lib/workos";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import {
   IconCalendarPlus,
@@ -16,6 +14,7 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 import {
   AlertDialog,
@@ -53,29 +52,11 @@ interface TimeSlotListProps {
 }
 
 export const useUsers = () => {
-  const [allUsers, setAllUsers] = useState<User>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/users");
-        if (response.ok) {
-          const data = (await response.json()) as User;
-          setAllUsers(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch users:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    void fetchUsers();
-  }, []);
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
 
   return {
-    allUsers,
-    isLoading,
+    allUsers: allUsers ?? [],
+    isLoading: allUsers === undefined,
   };
 };
 
@@ -86,13 +67,19 @@ export function TimeSlotList({ formId, onEdit }: TimeSlotListProps) {
     useState<Id<"interviewTimeSlots"> | null>(null);
 
   const { allUsers } = useUsers();
+  const userNameById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const user of allUsers) {
+      map.set(user.id, getUserDisplayName(user));
+    }
+    return map;
+  }, [allUsers]);
 
   const getAdminName = (adminId?: string) => {
     if (!adminId) {
       return "—";
     }
-    const user = allUsers.find((u) => u.id === adminId);
-    return user ? getUserDisplayName(user as UserOption) : adminId;
+    return userNameById.get(adminId) ?? adminId;
   };
 
   const handleDelete = async () => {

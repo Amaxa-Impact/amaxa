@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
+import { SaveAsTemplateDialog } from "@/components/templates/save-as-template-dialog";
 import { useMutation } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
@@ -87,12 +88,16 @@ export default function SettingsPageClient() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="mb-6">
-        <h1 className="mb-2 text-3xl font-bold">Project Settings</h1>
-        <p className="text-muted-foreground">
-          Manage project name and description. Only coaches can edit these
-          settings.
-        </p>
+      <div className="mb-6 flex items-start justify-between gap-3">
+        <div>
+          <h1 className="mb-2 text-3xl font-bold">Project Settings</h1>
+          <p className="text-muted-foreground">
+            Manage project name and description. Only coaches can edit these
+            settings.
+          </p>
+        </div>
+
+        <SaveAsTemplateDialog projectId={projectId} />
       </div>
 
       <Card>

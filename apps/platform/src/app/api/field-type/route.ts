@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { FIELD_TYPES, inputSchema } from "@/components/form-builder";
-import { requireSiteAdmin } from "@/lib/auth";
+import { requireSiteAdmin } from "@/lib/auth/dal";
 import { google } from "@ai-sdk/google";
 import { generateText, Output } from "ai";
 import { type } from "arktype";

@@ -14,10 +14,12 @@ export async function generateMetadata({
     formId: Id<"applicationForms">;
   }>;
 }): Promise<Metadata> {
-  const { formId } = await params;
-  const { accessToken } = await withAuth({
-    ensureSignedIn: true,
-  });
+  const [{ formId }, { accessToken }] = await Promise.all([
+    params,
+    withAuth({
+      ensureSignedIn: true,
+    }),
+  ]);
 
   try {
     const form = await fetchQuery(
@@ -50,11 +52,11 @@ export default async function RouteComponent({
   children,
 }: {
   params: Promise<{
-    formId: Id<"applicationForms">;
+    formId: string;
   }>;
   children: React.ReactNode;
 }) {
-  const formId = (await params).formId;
+  const formId = (await params).formId as Id<"applicationForms">;
   return (
     <div>
       <ApplicationFormProvider formId={formId}>

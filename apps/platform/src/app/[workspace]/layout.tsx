@@ -2,8 +2,6 @@ import type { ReactNode } from "react";
 import { WorkspaceProvider } from "@/components/workspace/context";
 import { assertWorkspaceAccess } from "@/lib/permissions/workspaces";
 
-import { WorkspaceNavbar } from "./(app)/_components/workspace-navbar";
-
 interface WorkspaceLayoutProps {
   children: ReactNode;
   params: Promise<{ workspace: string }>;

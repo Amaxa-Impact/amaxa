@@ -1,13 +1,11 @@
 "use client";
 
-import type { WorkOsError } from "@/lib/errors";
-import type { User } from "@workos-inc/node";
-import type { Result } from "better-result";
 import { useEffect, useMemo, useState } from "react";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import { usePaginatedQuery, useQuery } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 import { Badge } from "@amaxa/ui/badge";
 import { Button } from "@amaxa/ui/button";
@@ -32,7 +30,6 @@ import {
 
 interface TasksTableProps {
   projectId: Id<"projects">;
-  allUsers: Result<User[], WorkOsError>;
 }
 
 type TaskStatus = "todo" | "in_progress" | "completed" | "blocked";
@@ -41,6 +38,10 @@ interface Filters {
   status: TaskStatus | undefined;
   assignedTo: string | undefined;
   searchLabel: string;
+}
+
+interface ProjectUser {
+  userId: string;
 }
 
 const PAGE_SIZE = 10;
@@ -101,7 +102,7 @@ function TableSkeleton() {
   );
 }
 
-export function TasksTable({ projectId, allUsers }: TasksTableProps) {
+export function TasksTable({ projectId }: TasksTableProps) {
   const [filters, setFilters] = useState<Filters>({
     status: undefined,
     assignedTo: undefined,
@@ -123,17 +124,17 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
     { initialNumItems: PAGE_SIZE },
   );
 
-  const projectUsers = useQuery(api.dashboard.getProjectUsers, { projectId });
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
+  const projectUsers = useQuery(api.dashboard.getProjectUsers, {
+    projectId,
+  }) as ProjectUser[] | undefined;
 
   const userMap = useMemo(() => {
-    if (allUsers.status === "ok") {
-      const map = new Map<string, string>();
-      for (const user of allUsers.value) {
-        map.set(user.id, getUserDisplayName(user));
-      }
-      return map;
+    const map = new Map<string, string>();
+    for (const user of allUsers ?? []) {
+      map.set(user.id, getUserDisplayName(user));
     }
-    return undefined;
+    return map;
   }, [allUsers]);
 
   const formatDate = (timestamp: number | null) => {
@@ -187,7 +188,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
           <Select
             onValueChange={(value) => {
               const newValue =
-                value === "all" || value === null ? undefined : value;
+                value === null || value === "all" ? undefined : value;
               setFilters((prev) => ({
                 ...prev,
                 assignedTo: newValue,
@@ -202,7 +203,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
               <SelectItem value="all">All Users</SelectItem>
               {projectUsers?.map((user) => (
                 <SelectItem key={user.userId} value={user.userId}>
-                  {userMap?.get(user.userId) ?? user.userId}
+                  {userMap.get(user.userId) ?? user.userId}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -253,7 +254,7 @@ export function TasksTable({ projectId, allUsers }: TasksTableProps) {
                     <TableCell>{formatDate(task.dueDate)}</TableCell>
                     <TableCell>
                       {task.assignedTo
-                        ? (userMap?.get(task.assignedTo) ?? "Unknown")
+                        ? (userMap.get(task.assignedTo) ?? "Unknown")
                         : "-"}
                     </TableCell>
                     <TableCell>

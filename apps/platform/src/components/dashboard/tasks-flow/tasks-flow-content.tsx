@@ -2,9 +2,6 @@
 "use client";
 
 import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
-import type { UserOption } from "@/components/user-dropdown";
-import type { WorkOsError } from "@/lib/errors";
-import type { User } from "@workos-inc/node";
 import type {
   Connection,
   Edge,
@@ -12,7 +9,6 @@ import type {
   NodeMouseHandler,
   Viewport,
 } from "@xyflow/react";
-import type { Result } from "better-result";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
@@ -31,6 +27,7 @@ import {
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 
 import type { ContextMenuState, CursorPresenceData } from "./types";
@@ -39,11 +36,11 @@ import { TasksGraph } from "./tasks-graph";
 import { TasksHeader } from "./tasks-header";
 import { getStableUserId, getUserColor } from "./utils";
 
-export function TasksFlowContent({
-  allUsers,
-}: {
-  allUsers: Result<User[], WorkOsError>;
-}) {
+interface ProjectMember {
+  userId: string;
+}
+
+export function TasksFlowContent() {
   const { projectId } = useParams<{ projectId: Id<"projects"> }>();
   const { project, userRole } = useDashboardContext();
   const { isAuthenticated } = useConvexAuth();
@@ -65,12 +62,14 @@ export function TasksFlowContent({
   const { data: convexEdges } = useQueryWithStatus(api.edges.listForProject, {
     projectId,
   });
-  const { data: projectMembers } = useQueryWithStatus(
+  const { data: projectMembersData } = useQueryWithStatus(
     api.userToProjects.listUsersForProject,
     {
       projectId,
     },
   );
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
+  const projectMembers = projectMembersData as ProjectMember[] | undefined;
 
   const createTask = useMutation(api.tasks.create);
   const updatePosition = useMutation(api.tasks.updatePosition);
@@ -301,6 +300,23 @@ export function TasksFlowContent({
     setContextMenu(null);
   }, []);
 
+  const userNameById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const user of allUsers ?? []) {
+      map.set(user.id, getUserDisplayName(user));
+    }
+    return map;
+  }, [allUsers]);
+
+  const projectMembersForNodes = useMemo(
+    () =>
+      projectMembers?.map((member) => ({
+        userId: member.userId,
+        name: userNameById.get(member.userId) ?? member.userId,
+      })),
+    [projectMembers, userNameById],
+  );
+
   const nodesForRender = useMemo(
     () =>
       nodes.map((n) => ({
@@ -311,26 +327,10 @@ export function TasksFlowContent({
             handleStatusChange(n.id, status),
           onDataChange: (data: Partial<TaskNodeData>) =>
             handleDataChange(n.id, data),
-          projectMembers: projectMembers?.map((member) => {
-            if (allUsers.status === "ok") {
-              const workosUser = allUsers.value.find(
-                (u) => u.id === member.userId,
-              );
-              return {
-                userId: member.userId,
-                name: workosUser
-                  ? getUserDisplayName(workosUser as UserOption)
-                  : member.userId,
-              };
-            }
-            return {
-              userId: member.userId,
-              name: member.userId,
-            };
-          }),
+          projectMembers: projectMembersForNodes,
         },
       })),
-    [nodes, handleStatusChange, handleDataChange, projectMembers, allUsers],
+    [nodes, handleStatusChange, handleDataChange, projectMembersForNodes],
   );
 
   const layoutStyle = useMemo(

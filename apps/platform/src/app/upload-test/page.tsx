@@ -7,6 +7,10 @@ import { Authenticated, Unauthenticated, useAction } from "convex/react";
 
 import { api } from "@amaxa/backend/_generated/api";
 
+interface UploadResponse {
+  blobId: string;
+}
+
 function FileUpload() {
   const [uploading, setUploading] = useState(false);
   const commitFile = useAction(api.files.commitFile);
@@ -30,8 +34,12 @@ function FileUpload() {
         },
         body: file,
       });
+      if (!res.ok) {
+        throw new Error("Upload failed");
+      }
 
-      const { blobId } = await res.json();
+      const payload = (await res.json()) as UploadResponse;
+      const { blobId } = payload;
 
       // 2. Commit the file to a path
       await commitFile({

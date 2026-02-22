@@ -16,6 +16,31 @@ interface ScheduleClientProps {
   token: string;
 }
 
+interface AvailableSlot {
+  _id: Id<"interviewTimeSlots">;
+  startTime: number;
+  endTime: number;
+  timezone: string;
+  assignedAdminId?: string;
+}
+
+interface ScheduleData {
+  slots: AvailableSlot[];
+  applicantName: string;
+  formTitle: string;
+  alreadyBooked: boolean;
+  bookedSlot?: {
+    startTime: number;
+    endTime: number;
+    timezone: string;
+  };
+}
+
+interface BookingResult {
+  success: boolean;
+  message: string;
+}
+
 export default function ScheduleClient({ token }: ScheduleClientProps) {
   const [selectedSlotId, setSelectedSlotId] =
     useState<Id<"interviewTimeSlots"> | null>(null);
@@ -27,16 +52,13 @@ export default function ScheduleClient({ token }: ScheduleClientProps) {
     }
   });
   const [isBooking, setIsBooking] = useState(false);
-  const [bookingResult, setBookingResult] = useState<{
-    success: boolean;
-    message: string;
-    bookedSlot?: {
-      startTime: number;
-      endTime: number;
-    };
-  } | null>(null);
+  const [bookingResult, setBookingResult] = useState<BookingResult | null>(
+    null,
+  );
 
-  const data = useQuery(api.interviewTimeSlots.listAvailableByToken, { token });
+  const data = useQuery(api.interviewTimeSlots.listAvailableByToken, {
+    token,
+  }) as ScheduleData | null | undefined;
   const bookSlot = useMutation(api.interviewTimeSlots.book);
 
   if (data === undefined) {
@@ -93,7 +115,10 @@ export default function ScheduleClient({ token }: ScheduleClientProps) {
 
     setIsBooking(true);
     try {
-      const result = await bookSlot({ token, slotId: selectedSlotId });
+      const result = (await bookSlot({
+        token,
+        slotId: selectedSlotId,
+      })) as BookingResult;
       setBookingResult(result);
     } catch (error) {
       setBookingResult({

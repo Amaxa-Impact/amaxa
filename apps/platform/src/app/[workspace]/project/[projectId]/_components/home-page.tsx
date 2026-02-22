@@ -1,8 +1,5 @@
 "use client";
 
-import type { WorkOsError } from "@/lib/errors";
-import type { User } from "@workos-inc/node";
-import type { Result } from "better-result";
 import type { Preloaded } from "convex/react";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { TaskStatusChart } from "@/components/dashboard/task-status-chart";
@@ -12,10 +9,8 @@ import { usePreloadedQuery } from "convex/react";
 import type { api } from "@amaxa/backend/_generated/api";
 
 export function HomePage({
-  allUsers,
   statusCountsPrefetched,
 }: {
-  allUsers: Result<User[], WorkOsError>;
   statusCountsPrefetched: Preloaded<typeof api.dashboard.getTaskStatusCounts>;
 }) {
   const { project } = useDashboardContext();
@@ -44,7 +39,7 @@ export function HomePage({
         />
       </div>
 
-      <TasksTable allUsers={allUsers} projectId={project.id} />
+      <TasksTable projectId={project.id} />
     </div>
   );
 }

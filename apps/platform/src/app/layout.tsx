@@ -8,7 +8,6 @@ import "./globals.css";
 
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ReactFlowProvider } from "@xyflow/react";
 
 import { AlertDialogProvider } from "@amaxa/ui/alert-dialog-simple";
 import { ConfirmDialogProvider } from "@amaxa/ui/confirm-dialog";
@@ -71,13 +70,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-background h-screen antialiased`}
       >
         <ThemeProvider attribute={"class"} forcedTheme="dark">
-          <ReactFlowProvider>
-            <ConvexClientProvider>
-              <ConfirmDialogProvider />
-              <AlertDialogProvider />
-              <NuqsAdapter>{children}</NuqsAdapter>
-            </ConvexClientProvider>
-          </ReactFlowProvider>
+          <ConvexClientProvider>
+            <ConfirmDialogProvider />
+            <AlertDialogProvider />
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </ConvexClientProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -34,6 +34,11 @@ export const projectCacheKey = (
   role: ProjectRole,
 ): GetProjectCache => `${projectId}:${role}`;
 
+type VerifiedSession = {
+  accessToken?: string;
+  userId: string;
+};
+
 const adminCache = new LRUCache<string, boolean>({
   max: 1000,
   ttl: 1000 * 60 * 5, // 5 minutes
@@ -55,17 +60,16 @@ export const projectCache = new LRUCache<GetProjectCache, boolean>({
  * only hit WorkOS once.
  */
 export const verifySession = cache(async () => {
-  const auth = await withAuth({ ensureSignedIn: true });
+  const auth = await withAuth();
 
-  if (!auth.accessToken) {
-    redirect("/sign-in");
+  if (auth.accessToken && auth.user?.id) {
+    return {
+      accessToken: auth.accessToken,
+      userId: auth.user.id,
+    } satisfies VerifiedSession;
   }
 
-  return {
-    user: auth.user,
-    accessToken: auth.accessToken,
-    userId: auth.user.id,
-  };
+  redirect("/sign-in");
 });
 
 /**
@@ -85,10 +89,16 @@ export const getSiteAdminStatus = cache(async () => {
     }
   }
 
+  if (!session.accessToken) {
+    return { isAdmin: false, ...session };
+  }
+
   const isAdmin = await fetchQuery(
     api.auth.getIsSiteAdmin,
     {},
-    { token: session.accessToken },
+    {
+      token: session.accessToken,
+    },
   );
 
   adminCache.set(session.userId, isAdmin);
@@ -97,6 +107,11 @@ export const getSiteAdminStatus = cache(async () => {
 
 export const canAccessWorkspace = cache(async (slug: GetWorkspaceCache) => {
   const session = await verifySession();
+
+  if (!session.accessToken) {
+    return { isAuthorized: false, ...session };
+  }
+
   const [workspaceSlug, requiredRole] = slug.split(":") as [
     string,
     WorkspaceRole,
@@ -111,7 +126,7 @@ export const canAccessWorkspace = cache(async (slug: GetWorkspaceCache) => {
     api.workspaceToUser.checkIfCanAccess,
     {
       workspaceSlug,
-      accessToken: session.accessToken,
+      accessToken: session.userId,
       role: requiredRole,
     },
     { token: session.accessToken },
@@ -123,6 +138,11 @@ export const canAccessWorkspace = cache(async (slug: GetWorkspaceCache) => {
 
 export const canAccessProject = cache(async (slug: GetProjectCache) => {
   const session = await verifySession();
+
+  if (!session.accessToken) {
+    return { isAuthorized: false, ...session };
+  }
+
   const [projectId, role] = slug.split(":") as [Id<"projects">, ProjectRole];
 
   const cached = projectCache.get(slug);
@@ -135,7 +155,7 @@ export const canAccessProject = cache(async (slug: GetProjectCache) => {
     api.projects.checkProjectAccess,
     {
       projectId,
-      userId: session.accessToken,
+      userId: session.userId,
       role,
     },
     { token: session.accessToken },

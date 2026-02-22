@@ -69,9 +69,15 @@ interface SignInOptions {
 }
 
 const AUTH_HELPER_URL = "/api/test/auth";
+const AUTH_REQUEST_TIMEOUT_MS = 6_000;
+const SESSION_NAVIGATION_TIMEOUT_MS = 10_000;
+const SIGN_OUT_TIMEOUT_MS = 4_000;
 
 async function waitForSessionReady(page: Page, followUpUrl?: string) {
-  await page.goto(followUpUrl ?? "/");
+  await page.goto(followUpUrl ?? "/", {
+    waitUntil: "domcontentloaded",
+    timeout: SESSION_NAVIGATION_TIMEOUT_MS,
+  });
 }
 
 export const test = base.extend<{
@@ -91,6 +97,7 @@ export const test = base.extend<{
           password: user.password,
           role,
         },
+        timeout: AUTH_REQUEST_TIMEOUT_MS,
       });
 
       if (!response.ok()) {
@@ -115,8 +122,14 @@ export const test = base.extend<{
   },
   signOut: async ({ page }, use) => {
     const signOut = async () => {
-      await page.request.post(AUTH_HELPER_URL, { data: { action: "signOut" } });
-      await page.goto("/");
+      await page.request.post(AUTH_HELPER_URL, {
+        data: { action: "signOut" },
+        timeout: SIGN_OUT_TIMEOUT_MS,
+      });
+      await page.goto("/", {
+        waitUntil: "domcontentloaded",
+        timeout: SESSION_NAVIGATION_TIMEOUT_MS,
+      });
     };
     await use(signOut);
   },
@@ -134,6 +147,7 @@ export async function signInUser(
       password: options.user.password,
       role: options.role,
     },
+    timeout: AUTH_REQUEST_TIMEOUT_MS,
   });
 
   const { cookies } = await page.request.storageState();

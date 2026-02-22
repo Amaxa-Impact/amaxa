@@ -7,6 +7,18 @@ export default defineSchema({
     role: v.union(v.literal("admin"), v.literal("coach")),
   }).index("by_userId", ["userId"]),
 
+  users: defineTable({
+    authId: v.string(),
+    email: v.string(),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    profilePictureUrl: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_authId", ["authId"])
+    .index("by_email", ["email"]),
+
   workspaces: defineTable({
     name: v.string(),
     slug: v.string(),
@@ -54,6 +66,36 @@ export default defineSchema({
     // TODO: Migrate to v.id("workspaces") - requires data migration for existing records
     workspaceId: v.string(),
   }).index("by_workspaceId", ["workspaceId"]),
+
+  projectTemplates: defineTable({
+    name: v.string(),
+    description: v.optional(v.string()),
+    createdBy: v.string(),
+    isPublic: v.boolean(),
+    workspaceId: v.union(v.id("workspaces"), v.null()),
+  })
+    .index("by_createdBy", ["createdBy"])
+    .index("by_isPublic", ["isPublic"])
+    .index("by_workspaceId", ["workspaceId"])
+    .index("by_workspaceId_and_isPublic", ["workspaceId", "isPublic"]),
+
+  templateTasks: defineTable({
+    templateId: v.id("projectTemplates"),
+    label: v.string(),
+    description: v.optional(v.string()),
+    status: v.union(
+      v.literal("todo"),
+      v.literal("in_progress"),
+      v.literal("completed"),
+      v.literal("blocked"),
+    ),
+    priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
+    position: v.object({
+      x: v.number(),
+      y: v.number(),
+    }),
+    dependencies: v.array(v.id("templateTasks")),
+  }).index("by_templateId", ["templateId"]),
 
   tasks: defineTable({
     projectId: v.id("projects"),

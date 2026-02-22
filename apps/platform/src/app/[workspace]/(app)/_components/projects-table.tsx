@@ -3,6 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
+  blankTemplateValue,
+  TemplateSelector,
+} from "@/components/templates/template-selector";
+import {
   IconDots,
   IconPencil,
   IconPlus,
@@ -58,24 +62,40 @@ function CreateProjectDialog({
 }: CreateProjectDialogProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedTemplateId, setSelectedTemplateId] =
+    useState<string>(blankTemplateValue);
   const [isLoading, setIsLoading] = useState(false);
 
   const createProject = useMutation(api.projects.create);
+  const createProjectFromTemplate = useMutation(
+    api.projects.createFromTemplate,
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      await createProject({
-        workspaceSlug,
-        name,
-        description,
-      });
+      if (selectedTemplateId === blankTemplateValue) {
+        await createProject({
+          workspaceSlug,
+          name,
+          description,
+        });
+      } else {
+        await createProjectFromTemplate({
+          workspaceSlug,
+          templateId: selectedTemplateId as Id<"projectTemplates">,
+          name,
+          description,
+        });
+      }
+
       toast.success("Project created successfully");
       onOpenChange(false);
       setName("");
       setDescription("");
+      setSelectedTemplateId(blankTemplateValue);
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Failed to create project",
@@ -127,6 +147,12 @@ function CreateProjectDialog({
                 required
               />
             </div>
+
+            <TemplateSelector
+              onValueChange={setSelectedTemplateId}
+              value={selectedTemplateId}
+              workspaceSlug={workspaceSlug}
+            />
           </div>
           <DialogFooter>
             <Button
@@ -149,6 +175,7 @@ function CreateProjectDialog({
 function DeleteProjectDialog({
   projectId,
   projectName,
+  workspaceSlug,
   open,
   onOpenChange,
   onSuccess,
@@ -170,6 +197,7 @@ function DeleteProjectDialog({
     try {
       await deleteProject({
         projectId: projectId as Id<"projects">,
+        workspaceSlug,
       });
       toast.success("Project deleted successfully");
       onOpenChange(false);

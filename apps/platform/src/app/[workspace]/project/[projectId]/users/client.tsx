@@ -1,8 +1,6 @@
 "use client";
 
-import type { UserOption } from "@/components/user-dropdown";
-import type { User } from "@workos-inc/node";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { getUserDisplayName } from "@/components/user-dropdown";
@@ -10,6 +8,7 @@ import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 import { Button } from "@amaxa/ui/button";
 import {
@@ -23,17 +22,14 @@ import { confirmDialog } from "@amaxa/ui/confirm-dialog";
 
 import { AddUserForm } from "../_components/add-user-form";
 
-type AllUsersResult =
-  | { status: "ok"; value: User[] }
-  | { status: "err"; error: string };
-
-export function UsersPageContent({ allUsers }: { allUsers: AllUsersResult }) {
+export function UsersPageContent() {
   const { projectId, workspace } = useParams<{
     projectId: Id<"projects">;
     workspace: string;
   }>();
   const { userRole } = useDashboardContext();
   const isCoach = userRole === "coach";
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
 
   const existingUsers = useQuery(api.userToProjects.listUsersForProject, {
     projectId,
@@ -45,6 +41,13 @@ export function UsersPageContent({ allUsers }: { allUsers: AllUsersResult }) {
   const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
 
   const existingUserIds = existingUsers?.map((user) => user.userId);
+  const userNameById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const user of allUsers ?? []) {
+      map.set(user.id, getUserDisplayName(user));
+    }
+    return map;
+  }, [allUsers]);
 
   const handleRemoveUser = (userId: string) => {
     confirmDialog({
@@ -94,7 +97,6 @@ export function UsersPageContent({ allUsers }: { allUsers: AllUsersResult }) {
               </Button>
             </div>
             <AddUserForm
-              allUsers={allUsers}
               existingUserIds={existingUserIds ?? []}
               onOpenChange={setIsAddUserDialogOpen}
               open={isAddUserDialogOpen}
@@ -125,18 +127,7 @@ export function UsersPageContent({ allUsers }: { allUsers: AllUsersResult }) {
                 >
                   <div>
                     <p className="font-medium">
-                      {(() => {
-                        if (allUsers.status === "ok") {
-                          const workosUser = allUsers.value.find(
-                            (u) => u.id === user.userId,
-                          );
-                          if (workosUser) {
-                            return getUserDisplayName(workosUser as UserOption);
-                          }
-                          return user.userId;
-                        }
-                        return user.userId;
-                      })()}
+                      {userNameById.get(user.userId) ?? user.userId}
                     </p>
                     <p className="text-muted-foreground text-xs">
                       {user.userId}

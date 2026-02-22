@@ -14,8 +14,7 @@ export async function generateMetadata({
     formId: Id<"applicationForms">;
   }>;
 }): Promise<Metadata> {
-  const { formId } = await params;
-  const session = await getOptionalSession();
+  const [{ formId }, session] = await Promise.all([params, getOptionalSession()]);
 
   if (!session) {
     return {

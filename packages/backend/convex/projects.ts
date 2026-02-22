@@ -49,6 +49,123 @@ export const create = workspaceMutation({
 });
 
 /**
+ * Create a new project from a template
+ */
+export const createFromTemplate = workspaceMutation({
+  args: {
+    workspaceSlug: v.string(),
+    templateId: v.id("projectTemplates"),
+    name: v.string(),
+    description: v.string(),
+  },
+  returns: v.id("projects"),
+  role: "admin",
+  handler: async (ctx, args) => {
+    const { workspace, userId } = ctx;
+
+    const template = await ctx.db.get(args.templateId);
+    if (!template) {
+      throw new ConvexError("Template not found");
+    }
+
+    if (template.workspaceId === null) {
+      const canUsePrivateGlobalTemplate =
+        template.isPublic ||
+        template.createdBy === userId ||
+        (await isSiteAdmin(ctx, userId));
+
+      if (!canUsePrivateGlobalTemplate) {
+        throw new ConvexError("You do not have access to this template");
+      }
+    } else if (template.workspaceId !== workspace._id) {
+      throw new ConvexError(
+        "Template belongs to a different workspace and cannot be used here",
+      );
+    }
+
+    const projectId = await ctx.db.insert("projects", {
+      name: args.name,
+      description: args.description,
+      workspaceId: workspace._id,
+    });
+
+    await ctx.db.insert("userToProject", {
+      userId,
+      projectId,
+      workspaceId: workspace._id,
+      role: "coach",
+    });
+
+    const templateTasks = await ctx.db
+      .query("templateTasks")
+      .withIndex("by_templateId", (q) => q.eq("templateId", template._id))
+      .collect();
+
+    const templateTaskToTaskMap: Record<
+      Id<"templateTasks">,
+      Id<"tasks">
+    > = {} as Record<Id<"templateTasks">, Id<"tasks">>;
+
+    for (const templateTask of templateTasks) {
+      const taskData: {
+        projectId: Id<"projects">;
+        label: string;
+        status: "todo" | "in_progress" | "completed" | "blocked";
+        priority: "low" | "medium" | "high";
+        description?: string;
+      } = {
+        projectId,
+        label: templateTask.label,
+        status: templateTask.status,
+        priority: templateTask.priority,
+      };
+
+      if (templateTask.description !== undefined) {
+        taskData.description = templateTask.description;
+      }
+
+      const taskId = await ctx.db.insert("tasks", {
+        ...taskData,
+      });
+
+      await ctx.db.insert("taskNodes", {
+        taskId,
+        projectId,
+        type: "task",
+        position: templateTask.position,
+      });
+
+      templateTaskToTaskMap[templateTask._id] = taskId;
+    }
+
+    for (const templateTask of templateTasks) {
+      const targetTaskId = templateTaskToTaskMap[templateTask._id];
+
+      if (!targetTaskId) {
+        continue;
+      }
+
+      for (const dependencyTemplateTaskId of templateTask.dependencies) {
+        const sourceTaskId = templateTaskToTaskMap[dependencyTemplateTaskId];
+
+        if (!sourceTaskId) {
+          continue;
+        }
+
+        await ctx.db.insert("edges", {
+          projectId,
+          source: sourceTaskId,
+          target: targetTaskId,
+          type: "smoothstep",
+        });
+      }
+    }
+
+    return projectId;
+  },
+});
+
+/**
  * Get a project by ID
  */
 export const get = projectQuery({

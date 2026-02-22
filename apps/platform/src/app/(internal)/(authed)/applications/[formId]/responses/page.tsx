@@ -14,8 +14,17 @@ export async function generateMetadata({
     formId: Id<"applicationForms">;
   }>;
 }): Promise<Metadata> {
-  const { formId } = await params;
-  const { accessToken } = await withAuth();
+  const [{ formId }, { accessToken }] = await Promise.all([
+    params,
+    withAuth(),
+  ]);
+
+  if (!accessToken) {
+    return {
+      title: "Form Responses",
+      description: "View and manage application form responses",
+    };
+  }
 
   try {
     const form = await fetchQuery(

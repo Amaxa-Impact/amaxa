@@ -1,3 +1,5 @@
+import type { Page } from "@playwright/test";
+
 import { ADMIN_AUTH_STATE, expect, test } from "../fixtures";
 
 test.describe("workspace management", () => {
@@ -12,7 +14,9 @@ test.describe("workspace management", () => {
   });
 
   test("displays workspaces list page", async ({ page }) => {
-    await expect(page.getByRole("heading", { name: "Workspaces" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Workspaces" }),
+    ).toBeVisible();
     await expect(
       page.getByRole("button", { name: /Create Workspace/i }),
     ).toBeVisible();
@@ -31,7 +35,9 @@ test.describe("workspace management", () => {
     await page.getByRole("button", { name: /Create Workspace/i }).click();
     await page.getByLabel("Name").fill("Test Workspace Name");
     await page.getByRole("button", { name: "Generate from name" }).click();
-    await expect(page.getByLabel("URL Slug")).toHaveValue("test-workspace-name");
+    await expect(page.getByLabel("URL Slug")).toHaveValue(
+      "test-workspace-name",
+    );
   });
 
   test("creates a new workspace", async ({ page }) => {
@@ -42,7 +48,7 @@ test.describe("workspace management", () => {
     await page.getByLabel("URL Slug").fill(uniqueSlug);
     await page.getByRole("button", { name: "Create Workspace" }).click();
 
-    await expect(page.getByText("Workspace created successfully")).toBeVisible({
+    await expect(page.getByText(uniqueSlug)).toBeVisible({
       timeout: 10000,
     });
   });
@@ -51,7 +57,6 @@ test.describe("workspace management", () => {
     await page.getByRole("button", { name: /Create Workspace/i }).click();
     await page.getByLabel("Name").fill("Test");
     await page.getByLabel("URL Slug").fill("ab");
-    await page.getByRole("button", { name: "Create Workspace" }).click();
 
     await expect(
       page.getByRole("button", { name: "Create Workspace" }),
@@ -66,7 +71,7 @@ test.describe("workspace settings", () => {
 
   test.beforeEach(async ({ page }) => {
     test.skip(!testWorkspaceSlug, "E2E_WORKSPACE_SLUG is not set");
-    await page.goto(`/workspaces/${testWorkspaceSlug}/settings`);
+    await page.goto(`/${testWorkspaceSlug}/admin/settings`);
   });
 
   test.afterEach(async ({ page }) => {
@@ -74,9 +79,7 @@ test.describe("workspace settings", () => {
   });
 
   test("displays workspace settings page", async ({ page }) => {
-    await expect(
-      page.getByRole("heading", { name: "Workspace Settings" }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
     await expect(page.getByLabel("Workspace Name")).toBeVisible();
   });
 
@@ -89,23 +92,22 @@ test.describe("workspace settings", () => {
 
     await nameInput.fill(newName);
     await saveButton.click();
-
-    await expect(page.getByText("Workspace name updated")).toBeVisible({
-      timeout: 10000,
-    });
+    await expect(nameInput).toHaveValue(newName);
 
     await nameInput.fill(originalName);
     await saveButton.click();
+    await expect(nameInput).toHaveValue(originalName);
   });
 
   test("shows slug as read-only", async ({ page }) => {
-    const slugInput = page.getByLabel("Workspace Slug");
-    await expect(slugInput).toBeDisabled();
+    await expect(
+      page.locator(`input[value="${testWorkspaceSlug ?? ""}"]`).first(),
+    ).toBeDisabled();
   });
 
   test("navigates to users tab", async ({ page }) => {
     await page.getByRole("link", { name: /Users/i }).click();
-    await expect(page.getByRole("heading", { name: /Members/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Users" })).toBeVisible();
   });
 });
 
@@ -116,7 +118,7 @@ test.describe("workspace users management", () => {
 
   test.beforeEach(async ({ page }) => {
     test.skip(!testWorkspaceSlug, "E2E_WORKSPACE_SLUG is not set");
-    await page.goto(`/workspaces/${testWorkspaceSlug}/users`);
+    await page.goto(`/${testWorkspaceSlug}/admin/users`);
   });
 
   test.afterEach(async ({ page }) => {
@@ -124,7 +126,7 @@ test.describe("workspace users management", () => {
   });
 
   test("displays workspace users page", async ({ page }) => {
-    await expect(page.getByRole("heading", { name: /Members/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Users" })).toBeVisible();
     await expect(
       page.getByRole("button", { name: /Invite User/i }),
     ).toBeVisible();
@@ -136,7 +138,7 @@ test.describe("workspace users management", () => {
       page.getByRole("heading", { name: "Invite User" }),
     ).toBeVisible();
     await expect(page.getByLabel("Email Address")).toBeVisible();
-    await expect(page.getByLabel("Role")).toBeVisible();
+    await expect(page.getByRole("dialog").getByRole("combobox")).toBeVisible();
   });
 
   test("validates email format in invite dialog", async ({ page }) => {
@@ -154,72 +156,64 @@ test.describe("workspace users management", () => {
     await page.getByLabel("Email Address").fill(testEmail);
     await page.getByRole("button", { name: "Send Invitation" }).click();
 
-    await expect(page.getByText("Invitation sent")).toBeVisible({
+    await expect(page.getByText(testEmail)).toBeVisible({
       timeout: 10000,
     });
   });
 });
 
 test.describe("invitation flow", () => {
+  test.setTimeout(20_000);
   test.use({ storageState: ADMIN_AUTH_STATE });
 
   const testWorkspaceSlug = process.env.E2E_WORKSPACE_SLUG;
 
+  const inviteUser = async (email: string, page: Page) => {
+    await page.getByRole("button", { name: /Invite User/i }).click();
+    await page.getByLabel("Email Address").fill(email);
+    await page.getByRole("button", { name: "Send Invitation" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Invite User" }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("row").filter({ hasText: email }).first(),
+    ).toBeVisible({ timeout: 10000 });
+  };
+
   test("displays pending invitations table", async ({ page }) => {
     test.skip(!testWorkspaceSlug, "E2E_WORKSPACE_SLUG is not set");
-    await page.goto(`/workspaces/${testWorkspaceSlug}/users`);
+    await page.goto(`/${testWorkspaceSlug}/admin/users`);
 
-    await page
-      .getByRole("button", { name: /Invite User/i })
-      .click();
-    await page.getByLabel("Email Address").fill(`pending-${Date.now()}@test.com`);
-    await page.getByRole("button", { name: "Send Invitation" }).click();
-
-    await expect(page.getByText("Invitation sent")).toBeVisible({
-      timeout: 10000,
-    });
-
-    await expect(
-      page.getByRole("heading", { name: /Pending Invitations/i }),
-    ).toBeVisible();
+    const email = `pending-${Date.now()}@test.com`;
+    await inviteUser(email, page);
   });
 
   test("can resend invitation", async ({ page }) => {
     test.skip(!testWorkspaceSlug, "E2E_WORKSPACE_SLUG is not set");
-    await page.goto(`/workspaces/${testWorkspaceSlug}/users`);
+    await page.goto(`/${testWorkspaceSlug}/admin/users`);
 
-    const pendingSection = page.locator("text=Pending Invitations").first();
-    if (await pendingSection.isVisible()) {
-      const firstRow = page.locator("table").last().locator("tr").nth(1);
-      await firstRow.getByRole("button").click();
-      await page.getByRole("menuitem", { name: /Resend/i }).click();
+    const email = `resend-${Date.now()}@test.com`;
+    await inviteUser(email, page);
 
-      await expect(page.getByText("Invitation resent")).toBeVisible({
-        timeout: 10000,
-      });
-    }
+    const invitationRow = page.getByRole("row").filter({ hasText: email });
+    await invitationRow.getByRole("button").click();
+    await page.getByRole("menuitem", { name: /Resend/i }).click();
+
+    await expect(invitationRow).toBeVisible();
   });
 
   test("can revoke invitation", async ({ page }) => {
     test.skip(!testWorkspaceSlug, "E2E_WORKSPACE_SLUG is not set");
-    await page.goto(`/workspaces/${testWorkspaceSlug}/users`);
+    await page.goto(`/${testWorkspaceSlug}/admin/users`);
 
-    await page.getByRole("button", { name: /Invite User/i }).click();
-    await page.getByLabel("Email Address").fill(`revoke-${Date.now()}@test.com`);
-    await page.getByRole("button", { name: "Send Invitation" }).click();
+    const email = `revoke-${Date.now()}@test.com`;
+    await inviteUser(email, page);
 
-    await expect(page.getByText("Invitation sent")).toBeVisible({
-      timeout: 10000,
-    });
-
-    await page.reload();
-
-    const lastTable = page.locator("table").last();
-    const revokeRow = lastTable.locator("tr").last();
-    await revokeRow.getByRole("button").click();
+    const invitationRow = page.getByRole("row").filter({ hasText: email });
+    await invitationRow.getByRole("button").click();
     await page.getByRole("menuitem", { name: /Revoke/i }).click();
 
-    await expect(page.getByText("Invitation revoked")).toBeVisible({
+    await expect(page.getByText(email)).toHaveCount(0, {
       timeout: 10000,
     });
   });

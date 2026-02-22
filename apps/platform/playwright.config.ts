@@ -1,5 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
+const webServerURL =
+  process.env.PLAYWRIGHT_WEB_SERVER_URL ?? `${baseURL}/sign-in`;
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -12,6 +16,10 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 20_000,
+  expect: {
+    timeout: 3_000,
+  },
   // We keep Playwright state (storageState) under `playwright/.auth`,
   // but we want test discovery to include multiple test roots.
   // Playwright only supports a single `testDir`, so we set it to the repo
@@ -43,11 +51,13 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [["line"], ["html", { open: "never" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: "http://localhost:3000",
+    baseURL,
+    actionTimeout: 5_000,
+    navigationTimeout: 10_000,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -60,14 +70,6 @@ export default defineConfig({
       testMatch: /site-admin\.setup\.ts/,
     },
     {
-      name: "setup-coach",
-      testMatch: /project-coach\.setup\.ts/,
-    },
-    {
-      name: "setup-member",
-      testMatch: /project-member\.setup\.ts/,
-    },
-    {
       name: "setup-user",
       testMatch: /user\.setup\.ts/,
     },
@@ -75,30 +77,20 @@ export default defineConfig({
     {
       name: "admin",
       dependencies: ["setup-admin"],
+      testMatch: [
+        /tests\/applications\/.*\.e2e\.ts$/,
+        /tests\/workspaces\/.*\.e2e\.ts$/,
+        /tests\/templates\/.*\.e2e\.ts$/,
+      ],
       use: {
         storageState: "playwright/.auth/siteAdmin.json",
         ...devices["Desktop Chrome"],
       },
     },
     {
-      name: "coach",
-      dependencies: ["setup-coach"],
-      use: {
-        storageState: "playwright/.auth/projectCoach.json",
-        ...devices["Desktop Chrome"],
-      },
-    },
-    {
-      name: "member",
-      dependencies: ["setup-member"],
-      use: {
-        storageState: "playwright/.auth/projectMember.json",
-        ...devices["Desktop Chrome"],
-      },
-    },
-    {
       name: "user",
       dependencies: ["setup-user"],
+      testMatch: [/tests\/apply\/.*\.e2e\.ts$/, /tests\/apply-form\.e2e\.ts$/],
       use: {
         storageState: "playwright/.auth/user.json",
         ...devices["Desktop Chrome"],
@@ -106,10 +98,13 @@ export default defineConfig({
     },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  /* Run the local app server before starting tests */
+  webServer: {
+    command:
+      process.env.PLAYWRIGHT_WEB_SERVER_COMMAND ??
+      "pnpm with-env next dev -p 3000",
+    url: webServerURL,
+    reuseExistingServer: false,
+    timeout: 90_000,
+  },
 });

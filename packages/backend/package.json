@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@convex-dev/migrations": "^0.2.9",
+    "@convex-dev/workos-authkit": "^0.1.6",
     "convex": "catalog:",
     "convex-fs": "^0.2.0",
     "convex-helpers": "catalog:"

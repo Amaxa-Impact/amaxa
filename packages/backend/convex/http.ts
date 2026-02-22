@@ -2,6 +2,7 @@ import { registerRoutes } from "convex-fs";
 import { httpRouter } from "convex/server";
 
 import { components } from "./_generated/api";
+import { authKit } from "./auth";
 import { fs } from "./fs";
 import { requireSiteAdminAction } from "./permissions";
 
@@ -17,5 +18,7 @@ registerRoutes(http, components.fs, fs, {
     return await requireSiteAdminAction(ctx);
   },
 });
+
+authKit.registerRoutes(http);
 
 export default http;

@@ -358,12 +358,17 @@ export const getByToken = query({
       return null;
     }
 
+    const status =
+      invitation.status === "pending" && invitation.expiresAt < Date.now()
+        ? "expired"
+        : invitation.status;
+
     return {
       _id: invitation._id,
       email: invitation.email,
       role: invitation.role,
       expiresAt: invitation.expiresAt,
-      status: invitation.status,
+      status,
       workspaceName: workspace.name,
       workspaceSlug: workspace.slug,
     };

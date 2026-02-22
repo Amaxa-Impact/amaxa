@@ -3,10 +3,7 @@ import { NextResponse } from "next/server";
 import { env } from "@/env";
 import { getWorkOS, saveSession, signOut } from "@workos-inc/authkit-nextjs";
 import { type as defineType, type } from "arktype";
-import { fetchMutation } from "convex/nextjs";
 import { SignJWT } from "jose";
-
-import { api } from "@amaxa/backend/_generated/api";
 
 const inputSchema = defineType({
   action: "string?",
@@ -54,19 +51,6 @@ export async function POST(request: NextRequest) {
     });
 
   await saveSession(authResponse, request);
-
-  const normalizedAdminEmail = env.ADMIN_USER_EMAIL?.toLowerCase();
-  const shouldSeedAdmin =
-    normalizedAdminEmail && normalizedAdminEmail === email.toLowerCase();
-  const roleToSeed = role ?? (shouldSeedAdmin ? "admin" : null);
-
-  if (roleToSeed && authResponse.accessToken) {
-    await fetchMutation(
-      api.e2eTestData.ensureSiteUser,
-      { userId: authResponse.user.id, role: roleToSeed },
-      { token: authResponse.accessToken },
-    );
-  }
 
   return NextResponse.json({ success: true, userId: authResponse.user.id });
 }

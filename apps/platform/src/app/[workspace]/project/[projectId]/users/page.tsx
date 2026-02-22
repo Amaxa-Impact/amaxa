@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { listUsers } from "@/lib/workos";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { fetchQuery } from "convex/nextjs";
 
@@ -15,8 +14,17 @@ export async function generateMetadata({
     projectId: Id<"projects">;
   }>;
 }): Promise<Metadata> {
-  const { projectId } = await params;
-  const { accessToken } = await withAuth();
+  const [{ projectId }, { accessToken }] = await Promise.all([
+    params,
+    withAuth(),
+  ]);
+
+  if (!accessToken) {
+    return {
+      title: "Project Users",
+      description: "Manage project members and their roles",
+    };
+  }
 
   try {
     const project = await fetchQuery(
@@ -24,13 +32,6 @@ export async function generateMetadata({
       { projectId },
       { token: accessToken },
     );
-
-    if (!project) {
-      return {
-        title: "Project Users",
-        description: "Manage project members and their roles",
-      };
-    }
 
     return {
       title: `Users - ${project.name}`,
@@ -44,14 +45,6 @@ export async function generateMetadata({
   }
 }
 
-export default async function UsersPage() {
-  const allUsersResult = await listUsers();
-
-  // Extract plain data from Result for client component serialization
-  const allUsers =
-    allUsersResult.status === "ok"
-      ? { status: "ok" as const, value: allUsersResult.value }
-      : { status: "err" as const, error: allUsersResult.error.message };
-
-  return <UsersPageContent allUsers={allUsers} />;
+export default function UsersPage() {
+  return <UsersPageContent />;
 }

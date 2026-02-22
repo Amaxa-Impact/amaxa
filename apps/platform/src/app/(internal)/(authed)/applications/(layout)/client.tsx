@@ -1,6 +1,7 @@
 "use client";
 
 import type { Preloaded } from "convex/react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { IconForms } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
@@ -44,6 +45,7 @@ export function ApplicationsPageClient({
 }: {
   prefetchForms: Preloaded<typeof api.applicationForms.list>;
 }) {
+  const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
   const forms = usePreloadedQuery(prefetchForms);
   const router = useRouter();
 
@@ -51,7 +53,7 @@ export function ApplicationsPageClient({
     <div className="flex h-full flex-col">
       <div className="bg-background/95 border-border/50 sticky top-0 z-10 flex flex-row items-center justify-between border-b p-6 backdrop-blur-sm">
         <h1 className="text-xl font-bold">Application Forms</h1>
-        <AlertDialog>
+        <AlertDialog onOpenChange={setIsCreateFormOpen} open={isCreateFormOpen}>
           <AlertDialogTrigger
             className={"flex flex-row items-center gap-2 p-1"}
           >
@@ -59,7 +61,7 @@ export function ApplicationsPageClient({
             Create Form
           </AlertDialogTrigger>
           <AlertDialogContent>
-            <CreateFormDialog />
+            <CreateFormDialog onCreated={() => setIsCreateFormOpen(false)} />
           </AlertDialogContent>
         </AlertDialog>
       </div>
@@ -157,7 +159,7 @@ const createFormSchema = type({
 
 type CreateFormSchema = typeof createFormSchema.infer;
 
-function CreateFormDialog() {
+function CreateFormDialog({ onCreated }: { onCreated?: () => void }) {
   const createForm = useMutation(api.applicationForms.create);
 
   const form = useForm({
@@ -178,6 +180,7 @@ function CreateFormDialog() {
         });
         toast.success("Form created successfully");
         form.reset();
+        onCreated?.();
       } catch (error) {
         toast.error(
           error instanceof Error ? error.message : "Failed to create form",

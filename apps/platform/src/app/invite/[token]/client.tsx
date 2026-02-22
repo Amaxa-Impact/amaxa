@@ -27,7 +27,6 @@ interface InviteAcceptClientProps {
     workspaceSlug: string;
   };
   userEmail: string;
-  accessToken: string;
 }
 
 export function InviteAcceptClient({

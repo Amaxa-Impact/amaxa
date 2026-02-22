@@ -15,6 +15,8 @@
   },
   "scripts": {
     "build": "pnpm with-env next build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:e2e": "pnpm with-env node ./scripts/playwright-e2e.mjs",
     "clean": "git clean -xdf .next .turbo node_modules",
     "dev": "pnpm with-env next dev",
@@ -23,7 +25,7 @@
     "lint": "eslint",
     "start": "pnpm with-env next start",
     "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "dotenv -e ../../.env -e .env.local --"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.2",

@@ -1,7 +1,5 @@
 "use client";
 
-import type { WorkOsError } from "@/lib/errors";
-import type { User } from "@workos-inc/node";
 import { useEffect } from "react";
 import {
   Combobox,
@@ -16,10 +14,11 @@ import {
 import { UserDropdown } from "@/components/user-dropdown";
 import { useForm } from "@tanstack/react-form";
 import { type } from "arktype";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 import { Button } from "@amaxa/ui/button";
 import {
@@ -43,24 +42,18 @@ const formSchema = type({
   role: type.enumerated("coach", "member"),
 });
 
-const roleOptions = [
+const roleOptions: { label: string; value: "member" | "coach" }[] = [
   { label: "Member", value: "member" },
   { label: "Coach", value: "coach" },
 ];
 
-type AllUsersResult =
-  | { status: "ok"; value: User[] }
-  | { status: "err"; error: string };
-
 export function AddUserForm({
-  allUsers,
   projectId,
   workspaceSlug,
   open,
   onOpenChange,
   existingUserIds,
 }: {
-  allUsers: AllUsersResult;
   projectId: Id<"projects">;
   workspaceSlug: string;
   open: boolean;
@@ -68,6 +61,7 @@ export function AddUserForm({
   existingUserIds?: string[];
 }) {
   const assignUser = useMutation(api.userToProjects.assign);
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
 
   const form = useForm({
     defaultValues: {
@@ -139,9 +133,10 @@ export function AddUserForm({
                       emptyMessage="No users found."
                       excludeUserIds={existingUserIds ?? []}
                       id="add-user-form-userId"
+                      isLoading={!allUsers}
                       onValueChange={field.handleChange}
                       placeholder="Search users..."
-                      users={allUsers.status === "ok" ? allUsers.value : []}
+                      users={allUsers ?? []}
                       value={field.state.value}
                     />
                     <FieldDescription>
@@ -165,9 +160,11 @@ export function AddUserForm({
                     <FieldLabel htmlFor="add-user-form-role">Role</FieldLabel>
                     <Combobox
                       data={roleOptions}
-                      onValueChange={(value) =>
-                        field.handleChange(value as "coach" | "member")
-                      }
+                      onValueChange={(value) => {
+                        if (value === "coach" || value === "member") {
+                          field.handleChange(value);
+                        }
+                      }}
                       type="role"
                       value={field.state.value}
                     >

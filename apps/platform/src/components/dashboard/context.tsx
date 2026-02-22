@@ -122,10 +122,6 @@ export const DashboardProvider = ({
     );
   }
 
-  if (project === null) {
-    return <div>Project not found</div>;
-  }
-
   return (
     <DashboardContext.Provider value={contextValue}>
       {children}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { TasksFlowContent } from "@/components/dashboard/tasks-flow/tasks-flow-content";
-import { listUsers } from "@/lib/workos";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { fetchQuery } from "convex/nextjs";
 
@@ -14,10 +13,12 @@ export async function generateMetadata({
     projectId: Id<"projects">;
   }>;
 }): Promise<Metadata> {
-  const { projectId } = await params;
-  const { accessToken } = await withAuth({
-    ensureSignedIn: true,
-  });
+  const [{ projectId }, { accessToken }] = await Promise.all([
+    params,
+    withAuth({
+      ensureSignedIn: true,
+    }),
+  ]);
 
   try {
     const project = await fetchQuery(
@@ -38,8 +39,6 @@ export async function generateMetadata({
   }
 }
 
-export default async function RouteComponent() {
-  const allUsersResult = await listUsers();
-
-  return <TasksFlowContent allUsers={allUsersResult} />;
+export default function RouteComponent() {
+  return <TasksFlowContent />;
 }

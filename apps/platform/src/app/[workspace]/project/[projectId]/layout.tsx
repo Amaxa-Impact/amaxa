@@ -16,8 +16,10 @@ export async function generateMetadata({
     projectId: Id<"projects">;
   }>;
 }): Promise<Metadata> {
-  const { projectId } = await params;
-  const { accessToken } = await withAuth();
+  const [{ projectId }, { accessToken }] = await Promise.all([
+    params,
+    withAuth(),
+  ]);
   if (!accessToken) {
     return {
       title: "Project",
@@ -32,16 +34,9 @@ export async function generateMetadata({
       { token: accessToken },
     );
 
-    if (!project) {
-      return {
-        title: "Project",
-        description: "View and manage project details",
-      };
-    }
-
     return {
       title: project.name,
-      description: project.description || `Project: ${project.name}`,
+      description: project.description,
     };
   } catch {
     return {
@@ -57,11 +52,11 @@ export default async function RouteComponent({
 }: {
   params: Promise<{
     workspace: string;
-    projectId: Id<"projects">;
+    projectId: string;
   }>;
   children: React.ReactNode;
 }) {
-  const projectId = (await params).projectId;
+  const projectId = (await params).projectId as Id<"projects">;
 
   return (
     <DashboardProvider projectId={projectId}>

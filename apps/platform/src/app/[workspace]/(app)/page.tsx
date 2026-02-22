@@ -10,7 +10,6 @@ import { Skeleton } from "@amaxa/ui/skeleton";
 
 import { useAuthContext } from "~/lib/auth/auth-context";
 import { ProjectCard } from "./_components/project-card";
-import { WorkspaceNavbar } from "./_components/workspace-navbar";
 
 export default function Page() {
   const { user, isAdmin: isSiteAdmin } = useAuthContext();
@@ -143,10 +142,7 @@ function MemberView({
   workspaceSlug: string;
 }) {
   const projects = useQuery(api.projects.listForUser, {});
-
-  const userProjects = projects?.filter(
-    (project) => project.role === "coach" || project.role === "member",
-  );
+  const userProjects = projects ?? [];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -157,7 +153,7 @@ function MemberView({
               {workspace.name}
             </h1>
             <p className="text-muted-foreground">
-              Welcome back, {user?.email || "User"}
+              Welcome back, {user?.email ?? "User"}
             </p>
           </div>
 
@@ -165,7 +161,7 @@ function MemberView({
             <h2 className="text-xl font-medium">Your Projects</h2>
             {!projects ? (
               <Skeleton className="h-64" />
-            ) : userProjects && userProjects.length > 0 ? (
+            ) : userProjects.length > 0 ? (
               <div className="space-y-6">
                 {userProjects.map((project) => (
                   <ProjectCard

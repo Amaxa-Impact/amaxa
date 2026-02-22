@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { UserDropdown } from "@/components/user-dropdown";
 import { useQuery } from "convex/react";
 
@@ -20,9 +21,13 @@ export function AdminSelector({
 }: AdminSelectorProps) {
   const siteAdmins = useQuery(api.interviewTimeSlots.listSiteAdmins);
   const { allUsers, isLoading } = useUsers();
+  const adminIds = useMemo(() => {
+    return new Set((siteAdmins ?? []).map((admin) => admin.userId));
+  }, [siteAdmins]);
 
-  const adminUsers = allUsers.filter((user) =>
-    siteAdmins?.some((admin) => admin.userId === user.id),
+  const adminUsers = useMemo(
+    () => allUsers.filter((user) => adminIds.has(user.id)),
+    [allUsers, adminIds],
   );
 
   if (isLoading || !siteAdmins) {
