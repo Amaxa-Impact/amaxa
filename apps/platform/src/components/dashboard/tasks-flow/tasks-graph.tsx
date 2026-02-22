@@ -8,6 +8,7 @@ import type {
   NodeTypes,
   OnEdgesChange,
   OnNodesChange,
+  Viewport,
 } from "@xyflow/react";
 import { memo, useEffect, useMemo } from "react";
 import { TaskNode } from "@/components/dashboard/sidebar/TaskNode";
@@ -18,6 +19,7 @@ import {
   MiniMap,
   ReactFlow,
   ReactFlowProvider,
+  useOnViewportChange,
   useReactFlow,
 } from "@xyflow/react";
 
@@ -46,6 +48,7 @@ export interface TasksGraphProps {
   onNodeContextMenu: NodeMouseHandler;
   onEdgeContextMenu: (event: MouseEvent | React.MouseEvent, edge: Edge) => void;
   onFlowInstanceReady?: (instance: ReturnType<typeof useReactFlow>) => void;
+  onViewportChange?: (viewport: Viewport) => void;
 }
 
 const TasksGraphInner = memo(function TasksGraphInner({
@@ -59,8 +62,16 @@ const TasksGraphInner = memo(function TasksGraphInner({
   onNodeContextMenu,
   onEdgeContextMenu,
   onFlowInstanceReady,
+  onViewportChange,
 }: TasksGraphProps) {
   const reactFlowInstance = useReactFlow();
+  useOnViewportChange(
+    onViewportChange
+      ? {
+          onChange: onViewportChange,
+        }
+      : {},
+  );
 
   useEffect(() => {
     if (onFlowInstanceReady) {

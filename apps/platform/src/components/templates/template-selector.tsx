@@ -25,6 +25,11 @@ export function TemplateSelector({
   const templates = useQuery(api.projectTemplates.list, {
     workspaceSlug,
   });
+  const selectedTemplateLabel =
+    value === blankTemplateValue
+      ? "Blank project"
+      : templates?.find((template) => template._id === value)?.name ??
+        (templates === undefined ? "Loading template..." : "Template");
 
   return (
     <div className="space-y-2">
@@ -40,7 +45,7 @@ export function TemplateSelector({
         value={value}
       >
         <SelectTrigger id="create-project-template">
-          <SelectValue />
+          <SelectValue>{selectedTemplateLabel}</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={blankTemplateValue}>Blank project</SelectItem>

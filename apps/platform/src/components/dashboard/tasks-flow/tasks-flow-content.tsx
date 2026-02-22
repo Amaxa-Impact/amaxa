@@ -22,7 +22,6 @@ import {
   addEdge,
   useEdgesState,
   useNodesState,
-  useOnViewportChange,
 } from "@xyflow/react";
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 
@@ -108,9 +107,6 @@ export function TasksFlowContent() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
 
   const [_viewport, setViewport] = useState<Viewport>({ x: 0, y: 0, zoom: 1 });
-  useOnViewportChange({
-    onChange: setViewport,
-  });
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent) => {
@@ -391,6 +387,7 @@ export function TasksFlowContent() {
                 instance.flowToScreenPosition.bind(instance),
             });
           }}
+          onViewportChange={setViewport}
           onNodeContextMenu={handleNodeContextMenu}
           onNodeDragStop={onNodeDragStop}
           onNodesChange={onNodesChange}
