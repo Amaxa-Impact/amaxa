@@ -4,15 +4,16 @@ packages:
   - tooling/*
 
 catalog:
-  '@eslint/js': ^9.38.0
-  '@hookform/resolvers': ^5.2.2
-  '@tailwindcss/postcss': ^4.1.16
-  '@tailwindcss/vite': ^4.1.16
-  '@tanstack/react-form': ^1.27.1
-  '@types/node': ^22.13.11
+  "@eslint/js": ^9.38.0
+  "@hookform/resolvers": ^5.2.2
+  "@tailwindcss/postcss": ^4.1.16
+  "@tailwindcss/vite": ^4.1.16
+  "@tanstack/react-form": ^1.27.1
+  "@types/node": ^22.13.11
+  convex-helpers: "^0.1.111"
   arktype: ^2.1.29
   class-variance-authority: ^0.7.1
-  convex: ^1.27.0
+  convex: ^1.31.5
   date-fns: ^4.1.0
   date-fns-tz: ^3.2.0
   embla-carousel-react: ^8.6.0
@@ -35,8 +36,8 @@ catalog:
 
 catalogs:
   react19:
-    '@types/react': 19.2.3
-    '@types/react-dom': 19.2.3
+    "@types/react": 19.2.3
+    "@types/react-dom": 19.2.3
     react: 19.2.3
     react-dom: 19.2.3
     react-is: 19.2.3
@@ -44,9 +45,9 @@ catalogs:
 linkWorkspacePackages: true
 
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - esbuild
 
 publicHoistPattern:
-  - '@ianvs/prettier-plugin-sort-imports'
+  - "@ianvs/prettier-plugin-sort-imports"
   - prettier-plugin-tailwindcss

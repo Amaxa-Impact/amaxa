@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { FIELD_TYPES, inputSchema } from "@/components/form-builder";
+import { requireSiteAdmin } from "@/lib/auth/dal";
 import { google } from "@ai-sdk/google";
 import { generateText, Output } from "ai";
 import { type } from "arktype";
@@ -9,6 +10,9 @@ import { z } from "zod";
 const fieldTypeZodSchema = z.enum(FIELD_TYPES);
 
 export async function POST(request: Request) {
+  // Only site admins can use AI features (protects AI credits)
+  await requireSiteAdmin();
+
   try {
     const body = (await request.json()) as { input?: unknown };
     const data = inputSchema(body);

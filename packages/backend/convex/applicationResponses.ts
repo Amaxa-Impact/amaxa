@@ -1,13 +1,63 @@
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
+
+import type { MutationCtx } from "./_generated/server";
 import { api } from "./_generated/api";
 import { mutation, query } from "./_generated/server";
 import { requireSiteAdmin } from "./permissions";
+
+// Rate limiting for form submissions: 10 submissions per hour per email
+const SUBMIT_RATE_LIMIT = 10;
+const SUBMIT_RATE_WINDOW_MS = 3600000; // 1 hour
+
+async function checkSubmitRateLimit(
+  ctx: MutationCtx,
+  email: string,
+): Promise<void> {
+  const action = `formSubmit:${email.toLowerCase()}`;
+  const now = Date.now();
+
+  const existing = await ctx.db
+    .query("rateLimits")
+    .withIndex("by_userId_and_action", (q) =>
+      q.eq("userId", email.toLowerCase()).eq("action", action),
+    )
+    .unique();
+
+  if (!existing) {
+    await ctx.db.insert("rateLimits", {
+      userId: email.toLowerCase(),
+      action,
+      count: 1,
+      windowStart: now,
+    });
+    return;
+  }
+
+  if (now - existing.windowStart > SUBMIT_RATE_WINDOW_MS) {
+    await ctx.db.patch(existing._id, {
+      count: 1,
+      windowStart: now,
+    });
+    return;
+  }
+
+  if (existing.count >= SUBMIT_RATE_LIMIT) {
+    throw new ConvexError({
+      code: "RATE_LIMIT_EXCEEDED",
+      message: "Too many submissions. Please try again later.",
+    });
+  }
+
+  await ctx.db.patch(existing._id, {
+    count: existing.count + 1,
+  });
+}
 
 const statusValidator = v.union(
   v.literal("pending"),
   v.literal("reviewed"),
   v.literal("accepted"),
-  v.literal("rejected")
+  v.literal("rejected"),
 );
 
 const fileValueValidator = v.object({
@@ -19,14 +69,14 @@ const fileValueValidator = v.object({
       filename: v.string(),
       contentType: v.string(),
       sizeBytes: v.number(),
-    })
+    }),
   ),
 });
 
 const fieldResponseValueValidator = v.union(
   v.string(),
   v.array(v.string()),
-  fileValueValidator
+  fileValueValidator,
 );
 
 export const submit = mutation({
@@ -38,11 +88,14 @@ export const submit = mutation({
       v.object({
         fieldId: v.id("applicationFormFields"),
         value: fieldResponseValueValidator,
-      })
+      }),
     ),
   },
   returns: v.id("applicationResponses"),
   handler: async (ctx, args) => {
+    // Rate limit by email address to prevent spam
+    await checkSubmitRateLimit(ctx, args.applicantEmail);
+
     const form = await ctx.db.get(args.formId);
     if (!form) {
       throw new Error("Form not found");
@@ -57,7 +110,7 @@ export const submit = mutation({
       .collect();
 
     const providedFieldIds = new Set(
-      args.fieldResponses.map((r) => r.fieldId.toString())
+      args.fieldResponses.map((r) => r.fieldId.toString()),
     );
 
     for (const field of fields) {
@@ -76,7 +129,7 @@ export const submit = mutation({
 
     for (const fieldResponse of args.fieldResponses) {
       const field = await ctx.db.get(fieldResponse.fieldId);
-      if (!field || field.formId !== args.formId) {
+      if (field?.formId !== args.formId) {
         throw new Error("Invalid field");
       }
 
@@ -105,7 +158,7 @@ export const list = query({
       applicantName: v.string(),
       applicantEmail: v.string(),
       status: statusValidator,
-    })
+    }),
   ),
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
@@ -116,7 +169,7 @@ export const list = query({
       responses = await ctx.db
         .query("applicationResponses")
         .withIndex("by_form_and_status", (q) =>
-          q.eq("formId", args.formId).eq("status", args.status!)
+          q.eq("formId", args.formId).eq("status", args.status!),
         )
         .collect();
     } else {
@@ -149,10 +202,10 @@ export const get = query({
           fieldLabel: v.string(),
           fieldType: v.string(),
           value: fieldResponseValueValidator,
-        })
+        }),
       ),
     }),
-    v.null()
+    v.null(),
   ),
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
@@ -167,17 +220,26 @@ export const get = query({
       .withIndex("by_response", (q) => q.eq("responseId", args.responseId))
       .collect();
 
-    const enrichedResponses = await Promise.all(
-      fieldResponses.map(async (fr) => {
-        const field = await ctx.db.get(fr.fieldId);
-        return {
-          fieldId: fr.fieldId,
-          fieldLabel: field?.label ?? "Unknown",
-          fieldType: field?.type ?? "text",
-          value: fr.value,
-        };
-      })
+    // Batch load all fields to avoid N+1 queries
+    const fieldIds = [...new Set(fieldResponses.map((fr) => fr.fieldId))];
+    const fields = await Promise.all(fieldIds.map((id) => ctx.db.get(id)));
+
+    // Create a map for O(1) lookup
+    const fieldMap = new Map(
+      fields
+        .filter((f): f is NonNullable<typeof f> => f !== null)
+        .map((f) => [f._id.toString(), f]),
     );
+
+    const enrichedResponses = fieldResponses.map((fr) => {
+      const field = fieldMap.get(fr.fieldId.toString());
+      return {
+        fieldId: fr.fieldId,
+        fieldLabel: field?.label ?? "Unknown",
+        fieldType: field?.type ?? "text",
+        value: fr.value,
+      };
+    });
 
     return {
       ...response,
@@ -187,13 +249,8 @@ export const get = query({
 });
 
 function generateToken(): string {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let token = "";
-  for (let i = 0; i < 32; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return token;
+  // Use crypto.randomUUID() for cryptographically secure token generation
+  return crypto.randomUUID().replace(/-/g, "");
 }
 
 export const updateStatus = mutation({
@@ -244,8 +301,11 @@ export const updateStatus = mutation({
 
       if (args.sendSchedulingEmail !== false) {
         const form = await ctx.db.get(response.formId);
+        // Use CONVEX_SITE_URL for backend, fallback to NEXT_PUBLIC_APP_URL for compatibility
         const baseUrl =
-          process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+          process.env.CONVEX_SITE_URL ||
+          process.env.NEXT_PUBLIC_APP_URL ||
+          "http://localhost:3000";
         const schedulingUrl = `${baseUrl}/schedule/${token}`;
 
         await ctx.scheduler.runAfter(
@@ -257,7 +317,7 @@ export const updateStatus = mutation({
             formTitle: form?.title ?? "Application",
             schedulingUrl,
             tokenId,
-          }
+          },
         );
       }
 

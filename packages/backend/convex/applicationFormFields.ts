@@ -117,8 +117,7 @@ export const reorder = mutation({
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
 
-    for (let i = 0; i < args.fieldIds.length; i++) {
-      const fieldId = args.fieldIds[i];
+    for (const [i, fieldId] of args.fieldIds.entries()) {
       const field = await ctx.db.get(fieldId);
 
       if (!field) {
@@ -151,7 +150,7 @@ export const remove = mutation({
 
     const fieldResponses = await ctx.db
       .query("applicationFieldResponses")
-      .filter((q) => q.eq(q.field("fieldId"), args.fieldId))
+      .withIndex("by_fieldId", (q) => q.eq("fieldId", args.fieldId))
       .collect();
 
     for (const response of fieldResponses) {

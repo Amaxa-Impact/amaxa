@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "convex dev",
-    "dev:setup": "convex dev --configure --until-success"
+    "dev:setup": "convex dev --configure --until-success",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "exports": {
     "./*": {
@@ -20,14 +22,18 @@
   "description": "",
   "devDependencies": {
     "@amaxa/eslint-config": "workspace:*",
+    "@edge-runtime/vm": "^4.0.4",
     "@types/node": "catalog:",
+    "convex-test": "^0.0.35",
     "patch-package": "^8.0.1",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "^4.0.17"
   },
   "dependencies": {
     "@convex-dev/migrations": "^0.2.9",
+    "@convex-dev/workos-authkit": "^0.1.6",
     "convex": "catalog:",
     "convex-fs": "^0.2.0",
-    "convex-helpers": "^0.1.106"
+    "convex-helpers": "catalog:"
   }
 }

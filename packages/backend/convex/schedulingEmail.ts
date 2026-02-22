@@ -80,7 +80,7 @@ export const sendRejectionEmail = action({
 
       await resend.sendEmail(ctx, {
         from:
-          process.env.RESEND_FROM_EMAIL ||
+          process.env.RESEND_FROM_EMAIL ??
           "Amaxa <noreply@updates.amaxaimpact.org>",
         to: args.to,
         subject: `Update on your application for ${args.formTitle}`,

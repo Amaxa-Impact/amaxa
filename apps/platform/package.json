@@ -15,14 +15,17 @@
   },
   "scripts": {
     "build": "pnpm with-env next build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:e2e": "pnpm with-env node ./scripts/playwright-e2e.mjs",
     "clean": "git clean -xdf .next .turbo node_modules",
     "dev": "pnpm with-env next dev",
+    "dev:ssl": "pnpm with-env next dev -H local.lhst",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
     "start": "pnpm with-env next start",
     "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "dotenv -e ../../.env -e .env.local --"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.2",
@@ -50,8 +53,12 @@
     "arktype": "catalog:",
     "better-result": "^2.1.0",
     "convex": "catalog:",
+    "convex-helpers": "catalog:",
+    "effect": "^3.19.14",
+    "lru-cache": "^11.2.4",
     "next": "catalog:",
     "next-themes": "catalog:",
+    "nuqs": "^2.8.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "shadcn": "^3.6.2",

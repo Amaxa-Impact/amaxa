@@ -1,35 +1,35 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import type { TaskNodeData } from "@/components/dashboard/sidebar/TaskNode";
-import type { UserOption } from "@/components/user-dropdown";
-import type { WorkOsError } from "@/lib/errors";
-import type { User } from "@workos-inc/node";
 import type {
   Connection,
   Edge,
   Node,
   NodeMouseHandler,
-  Viewport,
 } from "@xyflow/react";
-import type { Result } from "better-result";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "next/navigation";
 import { useDashboardContext } from "@/components/dashboard/context";
 import { Cursor } from "@/components/dashboard/cursor";
 import { getUserDisplayName } from "@/components/user-dropdown";
 import usePresence from "@/hooks/use-presence";
 import { omitUndefined } from "@/lib/omit-undefined";
+import { useQueryWithStatus } from "@/lib/rich-query";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import {
   addEdge,
   useEdgesState,
   useNodesState,
-  useOnViewportChange,
 } from "@xyflow/react";
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
+import type { UserOption } from "@/components/user-dropdown";
 import { api } from "@amaxa/backend/_generated/api";
 
 import type { ContextMenuState, CursorPresenceData } from "./types";
@@ -38,31 +38,126 @@ import { TasksGraph } from "./tasks-graph";
 import { TasksHeader } from "./tasks-header";
 import { getStableUserId, getUserColor } from "./utils";
 
-export function TasksFlowContent({
-  allUsers,
-}: {
-  allUsers: Result<User[], WorkOsError>;
-}) {
+interface ProjectMember {
+  userId: string;
+}
+
+interface FlowInstanceBridge {
+  screenToFlowPosition: (position: { x: number; y: number }) => {
+    x: number;
+    y: number;
+  };
+  flowToScreenPosition: (position: { x: number; y: number }) => {
+    x: number;
+    y: number;
+  };
+}
+
+interface TasksCanvasProps {
+  initialEdges: Edge[];
+  initialNodes: Node[];
+  onCreateEdge: (connection: Connection) => Promise<void>;
+  onDataChange: (taskId: string, data: Partial<TaskNodeData>) => Promise<void>;
+  onEdgeContextMenu: (event: MouseEvent | React.MouseEvent, edge: Edge) => void;
+  onFlowInstanceReady: (instance: FlowInstanceBridge) => void;
+  onNodeContextMenu: NodeMouseHandler;
+  onNodeDragStop: NodeMouseHandler;
+  onPaneContextMenu: (event: MouseEvent | React.MouseEvent) => void;
+  onStatusChange: (
+    taskId: string,
+    status: TaskNodeData["status"],
+  ) => Promise<void>;
+  projectMembers?: { userId: string; name: string }[];
+}
+
+function TasksCanvas({
+  initialEdges,
+  initialNodes,
+  onCreateEdge,
+  onDataChange,
+  onEdgeContextMenu,
+  onFlowInstanceReady,
+  onNodeContextMenu,
+  onNodeDragStop,
+  onPaneContextMenu,
+  onStatusChange,
+  projectMembers,
+}: TasksCanvasProps) {
+  const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const nodesForRender = useMemo(
+    () =>
+      nodes.map((node) => ({
+        ...node,
+        data: {
+          ...(node.data as unknown as TaskNodeData),
+          onStatusChange: (status: TaskNodeData["status"]) =>
+            void onStatusChange(node.id, status),
+          onDataChange: (data: Partial<TaskNodeData>) =>
+            void onDataChange(node.id, data),
+          projectMembers,
+        },
+      })),
+    [nodes, onDataChange, onStatusChange, projectMembers],
+  );
+
+  const handleConnect = useCallback(
+    (connection: Connection) => {
+      if (!connection.source || !connection.target) {
+        return;
+      }
+
+      setEdges((existingEdges) => addEdge(connection, existingEdges));
+      void onCreateEdge(connection);
+    },
+    [onCreateEdge, setEdges],
+  );
+
+  return (
+    <TasksGraph
+      edges={edges}
+      nodes={nodesForRender}
+      onConnect={handleConnect}
+      onEdgeContextMenu={onEdgeContextMenu}
+      onEdgesChange={onEdgesChange}
+      onFlowInstanceReady={(instance) => {
+        onFlowInstanceReady({
+          screenToFlowPosition: instance.screenToFlowPosition.bind(instance),
+          flowToScreenPosition: instance.flowToScreenPosition.bind(instance),
+        });
+      }}
+      onNodeContextMenu={onNodeContextMenu}
+      onNodeDragStop={onNodeDragStop}
+      onNodesChange={onNodesChange}
+      onPaneContextMenu={onPaneContextMenu}
+    />
+  );
+}
+
+export function TasksFlowContent() {
   const { projectId } = useParams<{ projectId: Id<"projects"> }>();
   const { project, userRole } = useDashboardContext();
   const { isAuthenticated } = useConvexAuth();
   const { user } = useAuth();
 
-  const [flowInstance, setFlowInstance] = useState<{
-    screenToFlowPosition: (position: { x: number; y: number }) => {
-      x: number;
-      y: number;
-    };
-    flowToScreenPosition: (position: { x: number; y: number }) => {
-      x: number;
-      y: number;
-    };
-  } | null>(null);
-  const convexNodes = useQuery(api.tasks.listForProject, { projectId });
-  const convexEdges = useQuery(api.edges.listForProject, { projectId });
-  const projectMembers = useQuery(api.userToProjects.listUsersForProject, {
+  const [flowInstance, setFlowInstance] = useState<FlowInstanceBridge | null>(
+    null,
+  );
+  const { data: convexNodes } = useQueryWithStatus(api.tasks.listForProject, {
     projectId,
   });
+  const { data: convexEdges } = useQueryWithStatus(api.edges.listForProject, {
+    projectId,
+  });
+  const { data: projectMembersData } = useQueryWithStatus(
+    api.userToProjects.listUsersForProject,
+    {
+      projectId,
+    },
+  );
+  const allUsers = useQuery(api.users.listAll, {}) as UserOption[] | undefined;
+  const projectMembers = projectMembersData as ProjectMember[] | undefined;
 
   const createTask = useMutation(api.tasks.create);
   const updatePosition = useMutation(api.tasks.updatePosition);
@@ -100,11 +195,6 @@ export function TasksFlowContent({
 
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
 
-  const [_viewport, setViewport] = useState<Viewport>({ x: 0, y: 0, zoom: 1 });
-  useOnViewportChange({
-    onChange: setViewport,
-  });
-
   const handleMouseMove = useCallback(
     (event: React.MouseEvent) => {
       if (reactFlowWrapper.current && isAuthenticated && flowInstance) {
@@ -118,35 +208,21 @@ export function TasksFlowContent({
     [updatePresence, isAuthenticated, flowInstance],
   );
 
-  const initialNodes = useMemo(
-    () => (convexNodes ?? []) as Node[],
-    [convexNodes],
+  const initialNodes = useMemo(() => (convexNodes ?? []) as Node[], [convexNodes]);
+  const initialEdges = useMemo(() => (convexEdges ?? []) as Edge[], [convexEdges]);
+
+  const graphStateKey = useMemo(
+    () =>
+      JSON.stringify({
+        edges: initialEdges.map((edge) => [edge.id, edge.source, edge.target]),
+        nodes: initialNodes.map((node) => [node.id, node.position.x, node.position.y]),
+      }),
+    [initialEdges, initialNodes],
   );
-  const initialEdges = useMemo(
-    () => (convexEdges ?? []) as Edge[],
-    [convexEdges],
-  );
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  useEffect(() => {
-    if (convexNodes) {
-      setNodes(convexNodes as Node[]);
-    }
-  }, [convexNodes, setNodes]);
-
-  useEffect(() => {
-    if (convexEdges) {
-      setEdges(convexEdges as Edge[]);
-    }
-  }, [convexEdges, setEdges]);
-
-  const onConnect = useCallback(
+  const handleCreateEdge = useCallback(
     async (connection: Connection) => {
       if (connection.source && connection.target) {
-        setEdges((eds) => addEdge(connection, eds));
-
         await createEdge(
           omitUndefined({
             projectId,
@@ -159,7 +235,7 @@ export function TasksFlowContent({
         );
       }
     },
-    [setEdges, createEdge, projectId],
+    [createEdge, projectId],
   );
 
   const onNodeDragStop = useCallback(
@@ -197,35 +273,39 @@ export function TasksFlowContent({
 
   const addNewTask = useCallback(
     async (position?: { x: number; y: number }) => {
-      let pos: { x: number; y: number };
+      try {
+        let pos: { x: number; y: number };
 
-      if (position) {
-        if (reactFlowWrapper.current && flowInstance) {
-          const rect = reactFlowWrapper.current.getBoundingClientRect();
-          pos = flowInstance.screenToFlowPosition({
-            x: rect.left + position.x,
-            y: rect.top + position.y,
-          });
+        if (position) {
+          if (reactFlowWrapper.current && flowInstance) {
+            const rect = reactFlowWrapper.current.getBoundingClientRect();
+            pos = flowInstance.screenToFlowPosition({
+              x: rect.left + position.x,
+              y: rect.top + position.y,
+            });
+          } else {
+            pos = position;
+          }
         } else {
-          pos = position;
+          pos = {
+            x: Math.random() * 400 + 100,
+            y: Math.random() * 300 + 100,
+          };
         }
-      } else {
-        pos = {
-          x: Math.random() * 400 + 100,
-          y: Math.random() * 300 + 100,
-        };
-      }
 
-      await createTask({
-        projectId,
-        type: "task",
-        position: pos,
-        data: {
-          label: "New Task",
-          status: "todo",
-          priority: "medium",
-        },
-      });
+        await createTask({
+          projectId,
+          type: "task",
+          position: pos,
+          data: {
+            label: "New Task",
+            status: "todo",
+            priority: "medium",
+          },
+        });
+      } catch (error) {
+        console.error("Failed to create task:", error);
+      }
     },
     [createTask, projectId, flowInstance],
   );
@@ -289,36 +369,21 @@ export function TasksFlowContent({
     setContextMenu(null);
   }, []);
 
-  const nodesForRender = useMemo(
+  const userNameById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const user of allUsers ?? []) {
+      map.set(user.id, getUserDisplayName(user));
+    }
+    return map;
+  }, [allUsers]);
+
+  const projectMembersForNodes = useMemo(
     () =>
-      nodes.map((n) => ({
-        ...n,
-        data: {
-          ...(n.data as unknown as TaskNodeData),
-          onStatusChange: (status: TaskNodeData["status"]) =>
-            handleStatusChange(n.id, status),
-          onDataChange: (data: Partial<TaskNodeData>) =>
-            handleDataChange(n.id, data),
-          projectMembers: projectMembers?.map((member) => {
-            if (allUsers.status === "ok") {
-              const workosUser = allUsers.value.find(
-                (u) => u.id === member.userId,
-              );
-              return {
-                userId: member.userId,
-                name: workosUser
-                  ? getUserDisplayName(workosUser as UserOption)
-                  : member.userId,
-              };
-            }
-            return {
-              userId: member.userId,
-              name: member.userId,
-            };
-          }),
-        },
+      projectMembers?.map((member) => ({
+        userId: member.userId,
+        name: userNameById.get(member.userId) ?? member.userId,
       })),
-    [nodes, handleStatusChange, handleDataChange, projectMembers, allUsers],
+    [projectMembers, userNameById],
   );
 
   const layoutStyle = useMemo(
@@ -352,7 +417,7 @@ export function TasksFlowContent({
   return (
     <div style={layoutStyle}>
       <TasksHeader
-        onAddTask={() => addNewTask()}
+        onAddTask={() => void addNewTask()}
         othersPresence={othersPresence ?? []}
         projectName={project.name || "Project"}
         userRole={userRole}
@@ -365,24 +430,19 @@ export function TasksFlowContent({
         ref={reactFlowWrapper}
         role="application"
       >
-        <TasksGraph
-          edges={edges}
-          nodes={nodesForRender}
-          onConnect={onConnect}
+        <TasksCanvas
+          key={graphStateKey}
+          initialEdges={initialEdges}
+          initialNodes={initialNodes}
+          onCreateEdge={handleCreateEdge}
+          onDataChange={handleDataChange}
           onEdgeContextMenu={handleEdgeContextMenu}
-          onEdgesChange={onEdgesChange}
-          onFlowInstanceReady={(instance) => {
-            setFlowInstance({
-              screenToFlowPosition:
-                instance.screenToFlowPosition.bind(instance),
-              flowToScreenPosition:
-                instance.flowToScreenPosition.bind(instance),
-            });
-          }}
+          onFlowInstanceReady={setFlowInstance}
           onNodeContextMenu={handleNodeContextMenu}
           onNodeDragStop={onNodeDragStop}
-          onNodesChange={onNodesChange}
           onPaneContextMenu={handlePaneContextMenu}
+          onStatusChange={handleStatusChange}
+          projectMembers={projectMembersForNodes}
         />
 
         {othersPresence

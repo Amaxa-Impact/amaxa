@@ -81,8 +81,7 @@ export const reorder = mutation({
   handler: async (ctx, args) => {
     await requireSiteAdmin(ctx);
 
-    for (let i = 0; i < args.sectionIds.length; i++) {
-      const sectionId = args.sectionIds[i];
+    for (const [i, sectionId] of args.sectionIds.entries()) {
       const section = await ctx.db.get(sectionId);
 
       if (!section) {
@@ -113,7 +112,6 @@ export const remove = mutation({
       throw new Error("Section not found");
     }
 
-    // Check if section has fields
     const fields = await ctx.db
       .query("applicationFormFields")
       .withIndex("by_section", (q) => q.eq("sectionId", args.sectionId))

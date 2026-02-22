@@ -15,12 +15,6 @@ export interface PresenceData<D> {
 const HEARTBEAT_PERIOD = 3000; // 3 seconds for faster presence detection
 const CURSOR_UPDATE_THROTTLE = 50; // 50ms = 20 updates per second max
 
-/**
- * usePresence is a React hook for reading & writing presence data.
- *
- * Uses Convex's real-time subscriptions for live updates.
- * Throttles cursor updates to prevent overwhelming the server.
- */
 export const usePresence = (
   room: string,
   user: string,

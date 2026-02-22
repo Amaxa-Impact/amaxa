@@ -2,7 +2,7 @@
 "use client";
 
 import type { NodeProps } from "@xyflow/react";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { Handle, Position } from "@xyflow/react";
@@ -68,6 +68,7 @@ const priorityOptions = [
 export const TaskNode = memo(({ data, id }: NodeProps) => {
   const taskData = data as unknown as TaskNodeData;
   const [isEditing, setIsEditing] = useState(false);
+  const labelInputRef = useRef<HTMLInputElement>(null);
 
   const status = taskData.status ?? "todo";
   const priority = taskData.priority ?? "medium";
@@ -92,15 +93,6 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
     },
   });
 
-  useEffect(() => {
-    if (isEditing) {
-      form.setFieldValue("label", taskData.label);
-      form.setFieldValue("description", taskData.description ?? "");
-      form.setFieldValue("assignedTo", taskData.assignedTo ?? "");
-      form.setFieldValue("priority", taskData.priority ?? "medium");
-    }
-  }, [isEditing, taskData, form]);
-
   const handleStatusChange = useCallback(
     (newStatus: string | null) => {
       if (newStatus && taskData.onStatusChange) {
@@ -112,8 +104,15 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
 
   const handleEditClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
+    form.setFieldValue("label", taskData.label);
+    form.setFieldValue("description", taskData.description ?? "");
+    form.setFieldValue("assignedTo", taskData.assignedTo ?? "");
+    form.setFieldValue("priority", taskData.priority ?? "medium");
     setIsEditing(true);
-  }, []);
+    requestAnimationFrame(() => {
+      labelInputRef.current?.focus();
+    });
+  }, [form, taskData]);
 
   const handleSave = useCallback(
     (e: React.MouseEvent) => {
@@ -140,21 +139,10 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
 
   if (isEditing) {
     return (
-      <div
-        className={
-          "nodrag nopan bg-card text-card-foreground min-w-70 rounded-lg border-2 px-3 py-3 shadow-md"
-        }
-        onKeyDown={handleKeyDown}
-      >
+      <div className="nodrag nopan bg-card text-card-foreground min-w-70 rounded-lg border-2 px-3 py-3 shadow-md">
         <Handle className="h-3 w-3" position={Position.Left} type="target" />
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            void form.handleSubmit();
-          }}
-        >
+        <form onKeyDown={handleKeyDown}>
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-2">
               <span className="text-muted-foreground text-xs font-medium">
@@ -165,7 +153,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                   className="h-6 w-6 p-0"
                   onClick={handleSave}
                   size="sm"
-                  type="submit"
+                  type="button"
                   variant="ghost"
                 >
                   <IconCheck className="h-3.5 w-3.5 text-green-600" />
@@ -183,32 +171,31 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
             </div>
 
             <FieldGroup>
-              <form.Field
-                children={(field) => (
+              <form.Field name="label">
+                {(field) => (
                   <Field>
                     <FieldLabel htmlFor={`task-${id}-label`}>
                       Task Name
                     </FieldLabel>
                     <FieldContent>
                       <Input
-                        autoFocus
                         id={`task-${id}-label`}
                         name={field.name}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         onClick={(e) => e.stopPropagation()}
                         placeholder="Task name"
+                        ref={labelInputRef}
                         value={field.state.value}
                       />
                       <FieldError errors={field.state.meta.errors} />
                     </FieldContent>
                   </Field>
                 )}
-                name="label"
-              />
+              </form.Field>
 
-              <form.Field
-                children={(field) => (
+              <form.Field name="description">
+                {(field) => (
                   <Field>
                     <FieldLabel htmlFor={`task-${id}-description`}>
                       Description
@@ -228,12 +215,11 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                     </FieldContent>
                   </Field>
                 )}
-                name="description"
-              />
+              </form.Field>
 
               <div className="nodrag nopan flex gap-2">
-                <form.Field
-                  children={(field) => (
+                <form.Field name="priority">
+                  {(field) => (
                     <Field className="flex-1">
                       <FieldLabel htmlFor={`task-${id}-priority`}>
                         Priority
@@ -265,11 +251,10 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                       </FieldContent>
                     </Field>
                   )}
-                  name="priority"
-                />
+                </form.Field>
 
-                <form.Field
-                  children={(field) => {
+                <form.Field name="assignedTo">
+                  {(field) => {
                     const selectedMember = taskData.projectMembers?.find(
                       (m) => m.userId === field.state.value,
                     );
@@ -312,8 +297,7 @@ export const TaskNode = memo(({ data, id }: NodeProps) => {
                       </Field>
                     );
                   }}
-                  name="assignedTo"
-                />
+                </form.Field>
               </div>
             </FieldGroup>
           </div>

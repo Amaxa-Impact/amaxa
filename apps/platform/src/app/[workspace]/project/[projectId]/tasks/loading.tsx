@@ -1,0 +1,29 @@
+import { Skeleton } from "@amaxa/ui/skeleton";
+
+export default function Loading() {
+  return (
+    <div className="flex h-screen flex-col">
+      <div className="bg-background flex items-center justify-between border-b px-6 py-4">
+        <Skeleton className="h-8 w-48" />
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-4 w-20" />
+            <div className="flex -space-x-2">
+              {["cursor-a", "cursor-b", "cursor-c"].map((cursorSkeletonId) => (
+                <Skeleton
+                  className="h-8 w-8 rounded-full"
+                  key={cursorSkeletonId}
+                />
+              ))}
+            </div>
+          </div>
+          <Skeleton className="h-9 w-28" />
+        </div>
+      </div>
+
+      <div className="bg-muted/20 relative flex-1">
+        <Skeleton className="h-full w-full" />
+      </div>
+    </div>
+  );
+}

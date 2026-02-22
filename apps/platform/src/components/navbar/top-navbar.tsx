@@ -2,49 +2,59 @@
 
 import { memo, useMemo } from "react";
 import Link from "next/link";
-import { useQuery } from "convex/react";
 
-import { api } from "@amaxa/backend/_generated/api";
-import { Button } from "@amaxa/ui/button";
-import { Skeleton } from "@amaxa/ui/skeleton";
+import { buttonVariants } from "@amaxa/ui/button";
+
+import { useAuthContext } from "~/lib/auth/auth-context";
+import { ProfileDropdown } from "./profile-dropdown";
+
+interface NavLink {
+  href: string;
+  label: string;
+  adminOnly?: boolean;
+}
+
+const baseLinks: NavLink[] = [{ href: "/", label: "Home" }];
+
+const adminLinks: NavLink[] = [
+  { href: "/workspaces", label: "Workspaces", adminOnly: true },
+  { href: "/applications", label: "Applications", adminOnly: true },
+];
 
 export const TopNavbar = memo(function TopNavbar() {
-  const userStatus = useQuery(api.auth.getCurrentUserStatus);
+  const { isAdmin } = useAuthContext();
 
   const links = useMemo(() => {
-    const baseLinks = [{ href: "/", label: "Home" }];
-
-    if (userStatus?.isAdmin) {
-      baseLinks.push({ href: "/applications", label: "Applications" });
+    if (isAdmin) {
+      return [...baseLinks, ...adminLinks];
     }
-
     return baseLinks;
-  }, [userStatus?.isAdmin]);
-
-  if (userStatus === undefined) {
-    return (
-      <nav className="border-border bg-card h-14 border-b">
-        <div className="flex h-full items-center gap-4 px-6">
-          <Skeleton className="h-8 w-20" />
-          <Skeleton className="h-8 w-32" />
-        </div>
-      </nav>
-    );
-  }
+  }, [isAdmin]);
 
   return (
     <nav className="border-border bg-card h-14 border-b">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold">Amaxa</span>
+          <Link href="/" className="text-lg font-semibold">
+            Amaxa
+          </Link>
         </div>
 
-        <div className="flex items-center gap-2">
-          {links.map((link) => (
-            <Button key={link.href} variant="ghost">
-              <Link href={link.href}>{link.label}</Link>
-            </Button>
-          ))}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {links.map((link) => (
+              <Link
+                href={link.href}
+                key={link.href}
+                className={buttonVariants({
+                  variant: "ghost",
+                })}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <ProfileDropdown />
         </div>
       </div>
     </nav>

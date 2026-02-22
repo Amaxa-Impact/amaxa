@@ -71,8 +71,8 @@ export const DashboardProvider = ({
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {[1, 2].map((i) => (
-            <Card className="flex flex-col" key={i}>
+          {["stats-card-1", "stats-card-2"].map((statsCardSkeletonId) => (
+            <Card className="flex flex-col" key={statsCardSkeletonId}>
               <CardHeader className="items-center pb-0">
                 <CardTitle>
                   <Skeleton className="h-6 w-32" />
@@ -104,10 +104,16 @@ export const DashboardProvider = ({
                 <Skeleton className="h-10 w-32" />
               </div>
               <div className="space-y-2">
-                {[1, 2, 3, 4, 5].map((i) => (
+                {[
+                  "project-row-1",
+                  "project-row-2",
+                  "project-row-3",
+                  "project-row-4",
+                  "project-row-5",
+                ].map((projectRowSkeletonId) => (
                   <div
                     className="flex items-center justify-between border-b pb-2"
-                    key={i}
+                    key={projectRowSkeletonId}
                   >
                     <Skeleton className="h-5 w-48" />
                     <Skeleton className="h-5 w-24" />
@@ -120,10 +126,6 @@ export const DashboardProvider = ({
         </Card>
       </div>
     );
-  }
-
-  if (project === null) {
-    return <div>Project not found</div>;
   }
 
   return (

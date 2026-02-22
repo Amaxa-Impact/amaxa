@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
+import { projectMutation, projectQuery } from "./custom";
 import { assertUserInProject, requireAuth } from "./permissions";
 
 const taskDataValidator = v.object({
@@ -21,10 +22,7 @@ const taskDataValidator = v.object({
   ),
 });
 
-/**
- * Create a new task with its node data
- */
-export const create = mutation({
+export const create = projectMutation({
   args: {
     projectId: v.id("projects"),
     type: v.string(),
@@ -53,15 +51,13 @@ export const create = mutation({
     height: v.optional(v.number()),
   },
   returns: v.id("tasks"),
+  role: "member",
   handler: async (ctx, args) => {
-    const userId = await requireAuth(ctx);
-    await assertUserInProject(ctx, userId, args.projectId);
-
     const type = args.type.trim() === "" ? "task" : args.type;
     const label = args.data.label ?? "New Task";
 
     const taskId = await ctx.db.insert("tasks", {
-      projectId: args.projectId,
+      projectId: ctx.projectId,
       label,
       description: args.data.description,
       status: args.data.status,
@@ -72,7 +68,7 @@ export const create = mutation({
 
     await ctx.db.insert("taskNodes", {
       taskId,
-      projectId: args.projectId,
+      projectId: ctx.projectId,
       type,
       position: args.position,
       width: args.width,
@@ -83,10 +79,8 @@ export const create = mutation({
   },
 });
 
-/**
- * Get all tasks for a project with their node data (returns React Flow nodes format)
- */
-export const listForProject = query({
+/** Returns React Flow nodes format */
+export const listForProject = projectQuery({
   args: {
     projectId: v.id("projects"),
   },
@@ -110,10 +104,11 @@ export const listForProject = query({
       ),
     }),
   ),
-  handler: async (ctx, args) => {
+  role: "member",
+  handler: async (ctx) => {
     const taskNodes = await ctx.db
       .query("taskNodes")
-      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .withIndex("by_project", (q) => q.eq("projectId", ctx.project._id))
       .collect();
 
     const results = await Promise.all(
@@ -146,18 +141,18 @@ export const listForProject = query({
   },
 });
 
-/**
- * Get a single task by ID
- */
 export const get = query({
   args: {
     taskId: v.id("tasks"),
   },
   handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
     const task = await ctx.db.get(args.taskId);
     if (!task) {
       return null;
     }
+
+    await assertUserInProject(ctx, userId, task.projectId);
 
     const node = await ctx.db
       .query("taskNodes")
@@ -171,9 +166,6 @@ export const get = query({
   },
 });
 
-/**
- * Update task position (for drag operations) - real-time
- */
 export const updatePosition = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -205,9 +197,6 @@ export const updatePosition = mutation({
   },
 });
 
-/**
- * Update task data (label, description, status, etc.)
- */
 export const updateData = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -265,9 +254,6 @@ export const updateData = mutation({
   },
 });
 
-/**
- * Update task style
- */
 export const updateStyle = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -300,9 +286,6 @@ export const updateStyle = mutation({
   },
 });
 
-/**
- * Delete a task and its node
- */
 export const remove = mutation({
   args: {
     taskId: v.id("tasks"),
@@ -344,9 +327,6 @@ export const remove = mutation({
   },
 });
 
-/**
- * Batch update task positions (for better performance when dragging multiple nodes)
- */
 export const batchUpdatePositions = mutation({
   args: {
     updates: v.array(

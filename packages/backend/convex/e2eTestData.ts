@@ -122,6 +122,9 @@ export const seedApplyForm = mutation({
     }
 
     const experienceFieldId = fieldIds[3];
+    if (!experienceFieldId) {
+      throw new Error("Failed to create experience field");
+    }
     await ctx.db.insert("applicationFormFields", {
       formId,
       label: "Experience Details",
@@ -137,5 +140,45 @@ export const seedApplyForm = mutation({
     });
 
     return { formId, slug: applyFormSlug };
+  },
+});
+
+export const ensureSiteUser = mutation({
+  args: {
+    userId: v.string(),
+    role: v.union(v.literal("admin"), v.literal("coach")),
+  },
+  returns: v.object({
+    userId: v.string(),
+    role: v.union(v.literal("admin"), v.literal("coach")),
+  }),
+  handler: async (ctx, args) => {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Not available in production");
+    }
+
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.subject || identity.subject !== args.userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const existing = await ctx.db
+      .query("siteUser")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .unique();
+
+    if (existing) {
+      if (existing.role !== args.role) {
+        await ctx.db.patch(existing._id, { role: args.role });
+      }
+      return { userId: args.userId, role: args.role };
+    }
+
+    await ctx.db.insert("siteUser", {
+      userId: args.userId,
+      role: args.role,
+    });
+
+    return { userId: args.userId, role: args.role };
   },
 });

@@ -65,12 +65,19 @@ interface SignInOptions {
   user: TestUser;
   storageStatePath?: string;
   followUpUrl?: string;
+  role?: "admin" | "coach";
 }
 
 const AUTH_HELPER_URL = "/api/test/auth";
+const AUTH_REQUEST_TIMEOUT_MS = 6_000;
+const SESSION_NAVIGATION_TIMEOUT_MS = 10_000;
+const SIGN_OUT_TIMEOUT_MS = 4_000;
 
 async function waitForSessionReady(page: Page, followUpUrl?: string) {
-  await page.goto(followUpUrl ?? "/");
+  await page.goto(followUpUrl ?? "/", {
+    waitUntil: "domcontentloaded",
+    timeout: SESSION_NAVIGATION_TIMEOUT_MS,
+  });
 }
 
 export const test = base.extend<{
@@ -82,13 +89,27 @@ export const test = base.extend<{
       user,
       storageStatePath,
       followUpUrl,
+      role,
     }: SignInOptions) => {
-      await page.request.post(AUTH_HELPER_URL, {
+      const response = await page.request.post(AUTH_HELPER_URL, {
         data: {
           email: user.email,
           password: user.password,
+          role,
         },
+        timeout: AUTH_REQUEST_TIMEOUT_MS,
       });
+
+      if (!response.ok()) {
+        throw new Error(
+          `Failed to sign in test user (${response.status()} ${response.statusText()})`,
+        );
+      }
+
+      const { cookies } = await page.request.storageState();
+      if (cookies.length > 0) {
+        await page.context().addCookies(cookies);
+      }
 
       await waitForSessionReady(page, followUpUrl);
 
@@ -101,8 +122,14 @@ export const test = base.extend<{
   },
   signOut: async ({ page }, use) => {
     const signOut = async () => {
-      await page.request.post(AUTH_HELPER_URL, { data: { action: "signOut" } });
-      await page.goto("/");
+      await page.request.post(AUTH_HELPER_URL, {
+        data: { action: "signOut" },
+        timeout: SIGN_OUT_TIMEOUT_MS,
+      });
+      await page.goto("/", {
+        waitUntil: "domcontentloaded",
+        timeout: SESSION_NAVIGATION_TIMEOUT_MS,
+      });
     };
     await use(signOut);
   },
@@ -118,8 +145,15 @@ export async function signInUser(
     data: {
       email: options.user.email,
       password: options.user.password,
+      role: options.role,
     },
+    timeout: AUTH_REQUEST_TIMEOUT_MS,
   });
+
+  const { cookies } = await page.request.storageState();
+  if (cookies.length > 0) {
+    await page.context().addCookies(cookies);
+  }
 
   await waitForSessionReady(page, options.followUpUrl);
 

@@ -32,27 +32,18 @@ export class WorkOsError extends TaggedError("WorkOsError")<{
   cause?: unknown;
 }>() {}
 
-/**
- * Error thrown when a resource is not found.
- */
 export class NotFoundError extends TaggedError("NotFoundError")<{
   message: string;
   resource: string;
   id?: string;
 }>() {}
 
-/**
- * Error thrown for unhandled exceptions that don't fit other categories.
- */
 export class UnhandledException extends TaggedError("UnhandledException")<{
   message: string;
   cause: unknown;
   context?: string;
 }>() {}
 
-/**
- * Error thrown when file upload operations fail.
- */
 export class FileUploadError extends TaggedError("FileUploadError")<{
   message: string;
   reason: string;
@@ -60,9 +51,6 @@ export class FileUploadError extends TaggedError("FileUploadError")<{
   cause?: unknown;
 }>() {}
 
-/**
- * Error thrown when API request validation fails.
- */
 export class ApiValidationError extends TaggedError("ApiValidationError")<{
   message: string;
   errors: string;
@@ -74,3 +62,7 @@ export class QueryError extends TaggedError("QueryError")<{
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export class QueryLoading extends TaggedError("QueryLoading")<{}>() {}
+
+export class NoSubdomainError extends TaggedError("NoSubdomainError")<{
+  message: string;
+}>() {}

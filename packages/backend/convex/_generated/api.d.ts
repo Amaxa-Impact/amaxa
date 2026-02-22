@@ -13,11 +13,14 @@ import type * as applicationFormSections from "../applicationFormSections.js";
 import type * as applicationForms from "../applicationForms.js";
 import type * as applicationResponses from "../applicationResponses.js";
 import type * as auth from "../auth.js";
+import type * as crons from "../crons.js";
+import type * as custom from "../custom.js";
 import type * as dashboard from "../dashboard.js";
 import type * as e2eTestData from "../e2eTestData.js";
 import type * as edges from "../edges.js";
 import type * as emails_RejectionEmail from "../emails/RejectionEmail.js";
 import type * as emails_SchedulingEmail from "../emails/SchedulingEmail.js";
+import type * as emails_WorkspaceInvitationEmail from "../emails/WorkspaceInvitationEmail.js";
 import type * as files from "../files.js";
 import type * as fs from "../fs.js";
 import type * as graph from "../graph.js";
@@ -26,13 +29,20 @@ import type * as interviewTimeSlots from "../interviewTimeSlots.js";
 import type * as migrations from "../migrations.js";
 import type * as permissions from "../permissions.js";
 import type * as presence from "../presence.js";
+import type * as projectTemplates from "../projectTemplates.js";
 import type * as projects from "../projects.js";
 import type * as reactFlowExample from "../reactFlowExample.js";
 import type * as schedulingEmail from "../schedulingEmail.js";
 import type * as schedulingInternal from "../schedulingInternal.js";
 import type * as schedulingTokens from "../schedulingTokens.js";
 import type * as tasks from "../tasks.js";
+import type * as templateTasks from "../templateTasks.js";
 import type * as userToProjects from "../userToProjects.js";
+import type * as users from "../users.js";
+import type * as workspaceInvitationEmail from "../workspaceInvitationEmail.js";
+import type * as workspaceInvitations from "../workspaceInvitations.js";
+import type * as workspaceToUser from "../workspaceToUser.js";
+import type * as workspaces from "../workspaces.js";
 
 import type {
   ApiFromModules,
@@ -46,11 +56,14 @@ declare const fullApi: ApiFromModules<{
   applicationForms: typeof applicationForms;
   applicationResponses: typeof applicationResponses;
   auth: typeof auth;
+  crons: typeof crons;
+  custom: typeof custom;
   dashboard: typeof dashboard;
   e2eTestData: typeof e2eTestData;
   edges: typeof edges;
   "emails/RejectionEmail": typeof emails_RejectionEmail;
   "emails/SchedulingEmail": typeof emails_SchedulingEmail;
+  "emails/WorkspaceInvitationEmail": typeof emails_WorkspaceInvitationEmail;
   files: typeof files;
   fs: typeof fs;
   graph: typeof graph;
@@ -59,13 +72,20 @@ declare const fullApi: ApiFromModules<{
   migrations: typeof migrations;
   permissions: typeof permissions;
   presence: typeof presence;
+  projectTemplates: typeof projectTemplates;
   projects: typeof projects;
   reactFlowExample: typeof reactFlowExample;
   schedulingEmail: typeof schedulingEmail;
   schedulingInternal: typeof schedulingInternal;
   schedulingTokens: typeof schedulingTokens;
   tasks: typeof tasks;
+  templateTasks: typeof templateTasks;
   userToProjects: typeof userToProjects;
+  users: typeof users;
+  workspaceInvitationEmail: typeof workspaceInvitationEmail;
+  workspaceInvitations: typeof workspaceInvitations;
+  workspaceToUser: typeof workspaceToUser;
+  workspaces: typeof workspaces;
 }>;
 
 /**

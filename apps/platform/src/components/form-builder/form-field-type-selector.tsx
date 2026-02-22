@@ -6,6 +6,7 @@ import {
   IconCircleDot,
   IconHash,
   IconTextSize,
+  IconUpload,
 } from "@tabler/icons-react";
 
 import {
@@ -25,6 +26,7 @@ const fieldTypeIcons: Record<FieldType, React.ReactNode> = {
   number: <IconHash className="h-4 w-4" />,
   select: <IconCircleDot className="h-4 w-4" />,
   multiselect: <IconCheck className="h-4 w-4" />,
+  file: <IconUpload className="h-4 w-4" />,
 };
 
 interface FormFieldTypeSelectorProps {

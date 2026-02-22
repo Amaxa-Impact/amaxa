@@ -1,5 +1,6 @@
 "use client";
 
+import { useWorkspace } from "@/components/workspace/context";
 import { Layout, MapIcon, PieChart, Settings } from "lucide-react";
 
 import type { Id } from "@amaxa/backend/_generated/dataModel";
@@ -21,29 +22,30 @@ export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar> & { projectId: Id<"projects"> }) {
   const { userRole } = useDashboardContext();
+  const { workspace } = useWorkspace();
   const isCoach = userRole === "coach";
 
   const links = [
     {
       name: "Home",
-      url: `/project/${projectId}`,
+      url: `/${workspace.slug}/project/${projectId}`,
       icon: Layout,
     },
     {
       name: "Tasks",
-      url: `/project/${projectId}/tasks`,
+      url: `/${workspace.slug}/project/${projectId}/tasks`,
       icon: PieChart,
     },
     {
       name: "Users",
-      url: `/project/${projectId}/users`,
+      url: `/${workspace.slug}/project/${projectId}/users`,
       icon: MapIcon,
     },
     ...(isCoach
       ? [
           {
             name: "Settings",
-            url: `/project/${projectId}/settings`,
+            url: `/${workspace.slug}/project/${projectId}/settings`,
             icon: Settings,
           },
         ]

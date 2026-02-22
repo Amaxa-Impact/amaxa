@@ -99,8 +99,8 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
           </div>
         )}
 
-        <formState.Field
-          children={(field) => (
+        <formState.Field name="title">
+          {(field) => (
             <Input
               className={cn(
                 "focus-visible:border-primary rounded-none border-0 border-b px-0 text-2xl font-bold focus-visible:ring-0",
@@ -121,11 +121,10 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
               value={field.state.value}
             />
           )}
-          name="title"
-        />
+        </formState.Field>
 
-        <formState.Field
-          children={(field) => (
+        <formState.Field name="description">
+          {(field) => (
             <Textarea
               className={cn(
                 "focus-visible:border-primary resize-none rounded-none border-0 border-b px-0 focus-visible:ring-0",
@@ -146,8 +145,7 @@ export function FormHeader({ form, formId }: FormHeaderProps) {
               value={field.state.value}
             />
           )}
-          name="description"
-        />
+        </formState.Field>
       </CardContent>
     </Card>
   );

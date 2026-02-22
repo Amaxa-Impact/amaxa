@@ -10,10 +10,6 @@ export type FormValues = {
   fieldResponses?: Record<string, unknown>;
 } & Record<string, unknown>;
 
-/**
- * Evaluates a condition against current form values.
- * Returns true if the condition is met (field/section should be visible).
- */
 export function evaluateCondition(
   condition: Condition | undefined,
   formValues: FormValues,
@@ -122,9 +118,6 @@ function containsValue(
   return false;
 }
 
-/**
- * Creates a field ID to form key mapping from fields array.
- */
 export function createFieldIdMap(
   fields: { _id: Id<"applicationFormFields">; order: number }[],
 ): Record<Id<"applicationFormFields">, string> {
