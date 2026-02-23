@@ -140,7 +140,10 @@ export function HeroCarousel() {
             <ApplyButton variant="color">
               Join Us <span className="ml-2">→</span>
             </ApplyButton>
-            <LinkButton href="/projects" variant="outline">
+            <LinkButton
+              href="https://www.amaxaimpact.org/project"
+              variant="outline"
+            >
               Explore All Projects <span className="ml-2">→</span>
             </LinkButton>
           </div>
