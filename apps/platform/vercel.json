@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd ../../packages/backend && pnpx convex deploy --cmd cd ../../apps/platform && pnpm with-env turbo run build --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL"
+}
