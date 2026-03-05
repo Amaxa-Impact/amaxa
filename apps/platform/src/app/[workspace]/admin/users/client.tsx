@@ -56,6 +56,7 @@ import {
   TableHeader,
   TableRow,
 } from "@amaxa/ui/table";
+import { Textarea } from "@amaxa/ui/textarea";
 
 import { AdminContainer } from "../_components/admin-container";
 
@@ -66,6 +67,111 @@ const roleBadgeStyles: Record<WorkspaceRole, string> = {
   admin: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
   member: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
 };
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_HEADER_CANDIDATES = new Set([
+  "email",
+  "e-mail",
+  "email address",
+  "e-mail address",
+]);
+
+function splitDelimitedRow(row: string): string[] {
+  if (!row.includes(",") && row.includes("\t")) {
+    return row.split("\t").map((cell) => cell.trim());
+  }
+
+  const cells: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < row.length; index += 1) {
+    const char = row[index];
+
+    if (char === '"') {
+      if (inQuotes && row[index + 1] === '"') {
+        current += '"';
+        index += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      cells.push(current.trim());
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  cells.push(current.trim());
+  return cells;
+}
+
+function parseInvitationCsv(csvInput: string): {
+  emails: string[];
+  invalidRows: number[];
+  duplicateCount: number;
+} {
+  const rows = csvInput.split(/\r?\n/);
+  const firstContentRow = rows.findIndex((row) => row.trim().length > 0);
+
+  if (firstContentRow === -1) {
+    return { emails: [], invalidRows: [], duplicateCount: 0 };
+  }
+
+  const headerRow = rows[firstContentRow] ?? "";
+  const firstCells = splitDelimitedRow(headerRow).map((cell) =>
+    cell.toLowerCase().replace(/\s+/g, " ").trim(),
+  );
+  const emailColumnIndex = firstCells.findIndex((cell) =>
+    EMAIL_HEADER_CANDIDATES.has(cell),
+  );
+
+  const sourceColumnIndex = emailColumnIndex >= 0 ? emailColumnIndex : 0;
+  const startRow =
+    emailColumnIndex >= 0 ? firstContentRow + 1 : firstContentRow;
+
+  const seen = new Set<string>();
+  const emails: string[] = [];
+  const invalidRows: number[] = [];
+  let duplicateCount = 0;
+
+  for (let rowIndex = startRow; rowIndex < rows.length; rowIndex += 1) {
+    const row = rows[rowIndex];
+    if (!row || row.trim().length === 0) {
+      continue;
+    }
+
+    const cells = splitDelimitedRow(row);
+    const candidate = (cells[sourceColumnIndex] ?? cells[0] ?? "")
+      .replace(/^['"]|['"]$/g, "")
+      .trim()
+      .toLowerCase();
+
+    if (!EMAIL_REGEX.test(candidate)) {
+      invalidRows.push(rowIndex + 1);
+      continue;
+    }
+
+    if (seen.has(candidate)) {
+      duplicateCount += 1;
+      continue;
+    }
+
+    seen.add(candidate);
+    emails.push(candidate);
+  }
+
+  return {
+    emails,
+    invalidRows,
+    duplicateCount,
+  };
+}
 
 export function WorkspaceUsersClient() {
   const { workspace } = useWorkspace();
@@ -88,9 +194,9 @@ export function WorkspaceUsersClient() {
           <DialogContent>
             <InviteUserDialog
               workspaceSlug={workspace.slug}
-              onSuccess={() => {
+              onSuccess={(message) => {
                 setInviteDialogOpen(false);
-                toast.success("Invitation sent successfully");
+                toast.success(message ?? "Invitation sent successfully");
               }}
             />
           </DialogContent>
@@ -158,72 +264,70 @@ function MembersTable({ workspaceSlug }: { workspaceSlug: string }) {
           Members ({members.length})
         </CardTitle>
       </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>User ID</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead className="w-[50px]" />
+      <CardContent className="p-0">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>User ID</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead className="w-[50px]" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {members.map((member) => (
+              <TableRow key={member._id}>
+                <TableCell className="font-mono text-sm">
+                  {member.userId}
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant="secondary"
+                    className={cn(roleBadgeStyles[member.role])}
+                  >
+                    {member.role}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger
+                      render={() => (
+                        <Button variant="ghost" size="icon">
+                          <IconDotsVertical className="h-4 w-4" />
+                        </Button>
+                      )}
+                    />
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() => handleRoleChange(member.userId, "admin")}
+                        disabled={member.role === "admin"}
+                      >
+                        Make Admin
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          handleRoleChange(member.userId, "member")
+                        }
+                        disabled={member.role === "member"}
+                      >
+                        Make Member
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onClick={() => handleRemove(member.userId)}
+                        className="text-destructive focus:text-destructive"
+                        disabled={member.role === "owner"}
+                      >
+                        <IconTrash className="mr-2 h-4 w-4" />
+                        Remove
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {members.map((member) => (
-                <TableRow key={member._id}>
-                  <TableCell className="font-mono text-sm">
-                    {member.userId}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="secondary"
-                      className={cn(roleBadgeStyles[member.role])}
-                    >
-                      {member.role}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger
-                        render={() => (
-                          <Button variant="ghost" size="icon">
-                            <IconDotsVertical className="h-4 w-4" />
-                          </Button>
-                        )}
-                      />
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() =>
-                            handleRoleChange(member.userId, "admin")
-                          }
-                          disabled={member.role === "admin"}
-                        >
-                          Make Admin
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() =>
-                            handleRoleChange(member.userId, "member")
-                          }
-                          disabled={member.role === "member"}
-                        >
-                          Make Member
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onClick={() => handleRemove(member.userId)}
-                          className="text-destructive focus:text-destructive"
-                          disabled={member.role === "owner"}
-                        >
-                          <IconTrash className="mr-2 h-4 w-4" />
-                          Remove
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
     </Card>
   );
 }
@@ -365,11 +469,14 @@ function InviteUserDialog({
   onSuccess,
 }: {
   workspaceSlug: string;
-  onSuccess: () => void;
+  onSuccess: (message?: string) => void;
 }) {
   const createInvitation = useMutation(
     api.workspaceInvitations.createInvitation,
   );
+  const [csvInput, setCsvInput] = useState("");
+  const [csvRole, setCsvRole] = useState<"admin" | "member">("member");
+  const [isBulkInviting, setIsBulkInviting] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -394,6 +501,83 @@ function InviteUserDialog({
     },
   });
 
+  const handleBulkInvite = async () => {
+    const parsed = parseInvitationCsv(csvInput);
+
+    if (parsed.emails.length === 0) {
+      const invalidNote =
+        parsed.invalidRows.length > 0
+          ? ` Found ${parsed.invalidRows.length} invalid row${parsed.invalidRows.length === 1 ? "" : "s"}.`
+          : "";
+      toast.error(`No valid emails found in CSV.${invalidNote}`);
+      return;
+    }
+
+    setIsBulkInviting(true);
+    let sentCount = 0;
+    const failures: string[] = [];
+
+    try {
+      for (const email of parsed.emails) {
+        try {
+          await createInvitation({
+            workspaceSlug,
+            email,
+            role: csvRole,
+          });
+          sentCount += 1;
+        } catch (error) {
+          failures.push(
+            `${email}: ${error instanceof Error ? error.message : "Failed to send invitation"}`,
+          );
+        }
+      }
+
+      const skippedParts: string[] = [];
+      if (parsed.duplicateCount > 0) {
+        skippedParts.push(
+          `${parsed.duplicateCount} duplicate email${parsed.duplicateCount === 1 ? "" : "s"} skipped`,
+        );
+      }
+      if (parsed.invalidRows.length > 0) {
+        skippedParts.push(
+          `${parsed.invalidRows.length} invalid row${parsed.invalidRows.length === 1 ? "" : "s"} ignored`,
+        );
+      }
+      const skippedText =
+        skippedParts.length > 0 ? ` (${skippedParts.join(", ")})` : "";
+
+      if (sentCount > 0 && failures.length === 0) {
+        setCsvInput("");
+        onSuccess(
+          `Sent ${sentCount} invitation${sentCount === 1 ? "" : "s"}${skippedText}`,
+        );
+        return;
+      }
+
+      if (sentCount > 0) {
+        toast.success(
+          `Sent ${sentCount} invitation${sentCount === 1 ? "" : "s"}${skippedText}`,
+        );
+      }
+
+      if (failures.length > 0) {
+        const preview = failures.slice(0, 2).join(" | ");
+        const overflow =
+          failures.length > 2 ? ` (+${failures.length - 2} more)` : "";
+        toast.error(
+          `${failures.length} invitation${failures.length === 1 ? "" : "s"} failed: ${preview}${overflow}`,
+        );
+      }
+
+      if (sentCount === 0 && failures.length === 0) {
+        toast.error("No invitations were sent.");
+      }
+    } finally {
+      setIsBulkInviting(false);
+    }
+  };
+
   return (
     <div>
       <DialogHeader>
@@ -403,7 +587,7 @@ function InviteUserDialog({
         </DialogDescription>
       </DialogHeader>
 
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-6 py-4">
         <form.Field name="email">
           {(field) => (
             <Field>
@@ -459,6 +643,56 @@ function InviteUserDialog({
             </Field>
           )}
         </form.Field>
+
+        <div className="border-border space-y-3 border-t pt-4">
+          <div>
+            <p className="text-sm font-medium">Bulk Invite via CSV</p>
+            <p className="text-muted-foreground mt-1 text-xs">
+              Paste CSV rows with an email column, or one email per line.
+            </p>
+          </div>
+
+          <Textarea
+            value={csvInput}
+            onChange={(event) => setCsvInput(event.target.value)}
+            placeholder={"email\nalex@example.com\njamie@example.com"}
+            rows={6}
+          />
+
+          <div className="grid gap-2">
+            <Field>
+              <FieldLabel htmlFor="csv-role">Role for CSV invites</FieldLabel>
+              <FieldContent>
+                <Select
+                  value={csvRole}
+                  onValueChange={(value: "admin" | "member" | null) => {
+                    if (value) {
+                      setCsvRole(value);
+                    }
+                  }}
+                >
+                  <SelectTrigger id="csv-role">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="member">Member</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FieldContent>
+            </Field>
+
+            <Button
+              type="button"
+              variant="secondary"
+              isLoading={isBulkInviting}
+              disabled={csvInput.trim().length === 0}
+              onClick={() => void handleBulkInvite()}
+            >
+              {isBulkInviting ? "Sending..." : "Send CSV Invitations"}
+            </Button>
+          </div>
+        </div>
       </div>
 
       <DialogFooter>
@@ -468,7 +702,7 @@ function InviteUserDialog({
         >
           {([canSubmit, isSubmitting]) => (
             <Button
-              disabled={!canSubmit}
+              disabled={!canSubmit || isBulkInviting}
               isLoading={!!isSubmitting}
               onClick={() => void form.handleSubmit()}
               type="button"

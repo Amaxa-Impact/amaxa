@@ -48,6 +48,11 @@ export function WorkspaceInvitationEmail({
               workspace.
             </Text>
 
+            <Text style={paragraph}>
+              If you do not have an Amaxa account yet, you can create one with
+              this same email address before joining.
+            </Text>
+
             <Section style={buttonContainer}>
               <Button href={inviteUrl} style={button}>
                 Accept Invitation
