@@ -1,0 +1,43 @@
+---
+import JsonLd from "@/components/json-ld.astro";
+import Posthog from "@/components/posthog.astro";
+import SEO from "@/components/seo.astro";
+
+import "@/styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  canonicalURL: string;
+}
+
+const { title, description, image, canonicalURL } = Astro.props;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "amaxa",
+  url: "https://www.amaxaimpact.org",
+  logo: "https://www.amaxaimpact.org/icon.png",
+  description:
+    "An organization dedicated to removing barriers for anyone who wants to effect positive change in the world.",
+};
+---
+
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      type="website"
+      canonicalURL={canonicalURL}
+    />
+    <JsonLd data={organizationSchema} />
+    <Posthog />
+  </head>
+  <body class="bg-background text-foreground m-0 min-h-screen">
+    <slot />
+  </body>
+</html>

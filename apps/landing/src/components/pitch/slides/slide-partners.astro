@@ -1,0 +1,61 @@
+---
+import PitchSlide from "../pitch-slide.astro";
+
+const partners = [
+  { region: "West Bank", focus: "Education" },
+  { region: "Uganda", focus: "Education" },
+  { region: "Liberia", focus: "Education" },
+  { region: "Gaza", focus: "Humanitarian Aid" },
+  { region: "Ukraine", focus: "Humanitarian Aid" },
+];
+
+const initiatives = [
+  "Mental Health First Aid",
+  "Fighting Book Bans",
+  "Climate Action",
+  "Grassroots Art",
+];
+
+const totalPartners = 9;
+const regionCount = partners.length;
+---
+
+<PitchSlide id="partners" title="Our Partners" centered>
+  <h2
+    class="text-foreground mb-4 max-w-3xl text-2xl leading-tight font-bold sm:text-3xl md:text-4xl lg:text-5xl"
+  >
+    {totalPartners} nonprofit partners across {regionCount} regions.
+  </h2>
+  <p class="text-muted-foreground mb-12 max-w-2xl text-lg sm:text-xl">
+    Real impact in communities that need it most.
+  </p>
+
+  <div class="mb-12 flex max-w-3xl flex-wrap justify-center gap-3">
+    {
+      partners.map((partner) => (
+        <div class="bg-muted/30 border-border/50 flex items-center gap-2 rounded-full border px-4 py-2">
+          <span class="bg-brand-green h-2 w-2 rounded-full" />
+          <span class="text-foreground text-sm font-medium">
+            {partner.region}
+          </span>
+          <span class="text-muted-foreground text-xs">· {partner.focus}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="border-border/50 max-w-2xl border-t pt-8">
+    <p class="text-muted-foreground mb-4 text-sm tracking-wider uppercase">
+      Original Ámaxa Initiatives
+    </p>
+    <div class="flex flex-wrap justify-center gap-2">
+      {
+        initiatives.map((initiative) => (
+          <span class="text-foreground bg-brand-green/10 border-brand-green/20 rounded-full border px-4 py-1.5 text-sm font-medium">
+            {initiative}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</PitchSlide>
